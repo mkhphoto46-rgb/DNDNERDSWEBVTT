@@ -1,4 +1,5 @@
 import fs from 'node:fs'
+import { randomInt } from 'node:crypto'
 import http from 'node:http'
 import os from 'node:os'
 import path from 'node:path'
@@ -42,11 +43,25 @@ import {
   getAssetAbsolutePath,
   listAssets,
   saveMapAsset,
+  saveTokenAsset,
 } from './assets'
 
 import {
   DEV_CONNECTION_PAGE,
 } from './devPage'
+
+import {
+  ensureAudioDirectories,
+  listAudioLibrary,
+  listAudioCueStatus,
+  resolveAudioAsset,
+} from './audio'
+
+import {
+  ensureMusicDirectories,
+  listMusicLibrary,
+  resolveMusicAsset,
+} from './music'
 
 const PORT =
   Number(
@@ -55,6 +70,9 @@ const PORT =
 
 const HOST =
   '0.0.0.0'
+
+ensureAudioDirectories()
+ensureMusicDirectories()
 
 interface PresenceEntry {
   socketId: string
@@ -130,6 +148,40 @@ const mapUpload =
       callback(
         null,
         true,
+      )
+    },
+  })
+
+const tokenUpload =
+  multer({
+    storage:
+      multer.memoryStorage(),
+
+    limits: {
+      files: 1,
+      fileSize:
+        15 *
+        1024 *
+        1024,
+    },
+
+    fileFilter: (
+      _request,
+      file,
+      callback,
+    ) => {
+      const allowed =
+        new Set([
+          'image/png',
+          'image/jpeg',
+          'image/webp',
+        ])
+
+      callback(
+        allowed.has(file.mimetype)
+          ? null
+          : new Error('Only PNG, JPG and WEBP tokens are allowed.'),
+        allowed.has(file.mimetype),
       )
     },
   })
@@ -228,6 +280,8 @@ function playerSafeState(
   state: unknown,
 ): {
   activeMap: unknown
+  tokens: unknown
+  allowPlayerMovement: boolean
 } {
   if (
     !state ||
@@ -236,18 +290,28 @@ function playerSafeState(
     return {
       activeMap:
         null,
+      tokens: [],
+      allowPlayerMovement: false,
     }
   }
 
   const typedState =
     state as {
       activeMap?: unknown
+      tokens?: unknown
+      allowPlayerMovement?: unknown
     }
 
   return {
     activeMap:
       typedState.activeMap ??
       null,
+    tokens:
+      Array.isArray(typedState.tokens)
+        ? typedState.tokens
+        : [],
+    allowPlayerMovement:
+      typedState.allowPlayerMovement === true,
   }
 }
 
@@ -961,6 +1025,73 @@ app.post(
 )
 
 app.get(
+  '/api/campaigns/:campaignId/token-assets',
+  requireLocalRequest,
+  (request, response) => {
+    try {
+      response.json(
+        listAssets(
+          request.params.campaignId,
+          'token',
+        ),
+      )
+    } catch (error) {
+      response
+        .status(404)
+        .json({
+          error:
+            error instanceof Error
+              ? error.message
+              : 'Could not load token assets.',
+        })
+    }
+  },
+)
+
+app.post(
+  '/api/campaigns/:campaignId/token-assets',
+  requireLocalRequest,
+  tokenUpload.single('token'),
+  (request, response) => {
+    try {
+      if (!request.file) {
+        response
+          .status(400)
+          .json({
+            error: 'No token image was uploaded.',
+          })
+
+        return
+      }
+
+      const asset =
+        saveTokenAsset(
+          request.params.campaignId,
+          request.file.originalname,
+          request.file.mimetype,
+          request.file.buffer,
+        )
+
+      response
+        .status(201)
+        .json({
+          ok: true,
+          asset,
+        })
+    } catch (error) {
+      response
+        .status(400)
+        .json({
+          error:
+            error instanceof Error
+              ? error.message
+              : 'Could not upload token image.',
+        })
+    }
+  },
+)
+
+app.get(
   '/campaign-assets/:campaignId/:assetId',
   (request, response) => {
     try {
@@ -1320,6 +1451,218 @@ io.on(
     )
 
     socket.on(
+      'dice:roll',
+      (
+        rawPayload: unknown,
+        acknowledge?: (result: unknown) => void,
+      ) => {
+        try {
+          const campaignId = String(socket.data.campaignId ?? '')
+          const role = socket.data.role === 'dm' ? 'dm' : 'player'
+          const userId = String(socket.data.userId ?? '')
+
+          if (!campaignId || !userId) {
+            throw new Error('Join a campaign before rolling dice.')
+          }
+
+          const payload = (rawPayload ?? {}) as {
+            sides?: unknown
+            count?: unknown
+            modifier?: unknown
+            mode?: unknown
+            visibility?: unknown
+          }
+
+          const sides = Math.trunc(Number(payload.sides))
+          const count = Math.trunc(Number(payload.count ?? 1))
+          const modifier = Math.trunc(Number(payload.modifier ?? 0))
+          const mode =
+            payload.mode === 'advantage' || payload.mode === 'disadvantage'
+              ? payload.mode
+              : 'normal'
+
+          if (
+            ![4, 6, 8, 10, 12, 20, 100].includes(sides) ||
+            count < 1 || count > 20 ||
+            modifier < -100 || modifier > 100
+          ) {
+            throw new Error('Invalid dice formula.')
+          }
+
+          const rollSet = () =>
+            Array.from({ length: count }, () => randomInt(1, sides + 1))
+
+          const first = rollSet()
+          const second = mode === 'normal' ? null : rollSet()
+          const firstTotal = first.reduce((sum, value) => sum + value, 0)
+          const secondTotal = second?.reduce((sum, value) => sum + value, 0) ?? null
+          const diceTotal =
+            secondTotal === null
+              ? firstTotal
+              : mode === 'advantage'
+                ? Math.max(firstTotal, secondTotal)
+                : Math.min(firstTotal, secondTotal)
+
+          const room = presenceByCampaign.get(campaignId)
+          const roller = room?.get(socket.id)
+          const record = {
+            id: `roll_${Date.now()}_${randomInt(1000, 9999)}`,
+            rollerId: userId,
+            rollerName: roller?.name ?? (role === 'dm' ? 'Dungeon Master' : 'Player'),
+            role,
+            sides,
+            count,
+            modifier,
+            mode,
+            rolls: second ? [first, second] : [first],
+            total: diceTotal + modifier,
+            natural: count === 1 && sides === 20 ? diceTotal : null,
+            visibility:
+              role === 'dm' && payload.visibility === 'public'
+                ? 'public'
+                : role === 'dm'
+                  ? 'dm-private'
+                  : 'player-and-dm',
+            createdAt: new Date().toISOString(),
+          }
+
+          if (record.visibility === 'public') {
+            io.to(roomName(campaignId)).emit('dice:result', record)
+          } else if (record.visibility === 'dm-private') {
+            socket.emit('dice:result', record)
+          } else {
+            socket.emit('dice:result', record)
+            if (room) {
+              for (const entry of room.values()) {
+                if (entry.role === 'dm' && entry.socketId !== socket.id) {
+                  io.sockets.sockets.get(entry.socketId)?.emit('dice:result', record)
+                }
+              }
+            }
+          }
+
+          acknowledge?.({ ok: true })
+        } catch (error) {
+          acknowledge?.({
+            ok: false,
+            error: error instanceof Error ? error.message : 'Dice roll failed.',
+          })
+        }
+      },
+    )
+
+    socket.on(
+      'token:move',
+      (
+        rawPayload: unknown,
+        acknowledge?: (result: unknown) => void,
+      ) => {
+        try {
+          const campaignId =
+            String(socket.data.campaignId ?? '')
+
+          const role =
+            socket.data.role === 'dm'
+              ? 'dm'
+              : 'player'
+
+          const userId =
+            String(socket.data.userId ?? '')
+
+          if (!campaignId || !userId) {
+            throw new Error('Join a campaign before moving tokens.')
+          }
+
+          const payload =
+            (rawPayload ?? {}) as {
+              tokenId?: unknown
+              gridX?: unknown
+              gridY?: unknown
+            }
+
+          const tokenId =
+            String(payload.tokenId ?? '')
+
+          const gridX =
+            Math.max(0, Math.min(10000, Math.round(Number(payload.gridX))))
+
+          const gridY =
+            Math.max(0, Math.min(10000, Math.round(Number(payload.gridY))))
+
+          if (
+            !tokenId ||
+            !Number.isFinite(gridX) ||
+            !Number.isFinite(gridY)
+          ) {
+            throw new Error('Invalid token movement.')
+          }
+
+          const state =
+            (loadCampaignState(campaignId) ?? {}) as {
+              tokens?: Array<{
+                id?: string
+                ownerId?: string | null
+                gridX?: number
+                gridY?: number
+                [key: string]: unknown
+              }>
+              allowPlayerMovement?: boolean
+              [key: string]: unknown
+            }
+
+          const tokens =
+            Array.isArray(state.tokens)
+              ? state.tokens
+              : []
+
+          const tokenIndex =
+            tokens.findIndex((token) => token.id === tokenId)
+
+          if (tokenIndex < 0) {
+            throw new Error('Token not found.')
+          }
+
+          const token = tokens[tokenIndex]
+          const allowed =
+            role === 'dm' ||
+            (
+              state.allowPlayerMovement === true &&
+              token.ownerId === userId
+            )
+
+          if (!allowed) {
+            throw new Error('You do not control this token.')
+          }
+
+          tokens[tokenIndex] = {
+            ...token,
+            gridX,
+            gridY,
+          }
+
+          saveCampaignState(
+            campaignId,
+            {
+              ...state,
+              tokens,
+            },
+          )
+
+          broadcastState(campaignId)
+          acknowledge?.({ ok: true })
+        } catch (error) {
+          acknowledge?.({
+            ok: false,
+            error:
+              error instanceof Error
+                ? error.message
+                : 'Token movement failed.',
+          })
+        }
+      },
+    )
+
+    socket.on(
       'disconnect',
       () => {
         removePresence(
@@ -1387,7 +1730,7 @@ if (
   )
 
   app.get(
-    /^\/(?!api\/|dev\/|socket\.io\/|campaign-assets\/).*/,
+    /^\/(?!api\/|dev\/|socket\.io\/|campaign-assets\/|audio-assets\/|music-assets\/).*/,
     (_request, response) => {
       response.sendFile(
         path.join(
@@ -1484,5 +1827,117 @@ httpServer.listen(
     )
 
     console.log('')
+  },
+)
+
+app.get(
+  '/api/audio/manifest',
+  (_request, response) => {
+    const cues =
+      listAudioCueStatus()
+
+    response.json({
+      cues,
+      library:
+        listAudioLibrary(),
+      available:
+        cues.filter(
+          (cue) => cue.available,
+        ).length,
+      missing:
+        cues.filter(
+          (cue) => !cue.available,
+        ).length,
+    })
+  },
+)
+
+app.get(
+  '/api/music/library',
+  (_request, response) => {
+    const tracks =
+      listMusicLibrary()
+
+    response.json({
+      tracks,
+      collections:
+        [...new Set(
+          tracks.map(
+            (track) => track.collection,
+          ),
+        )],
+    })
+  },
+)
+
+app.get(
+  '/music-assets/*musicPath',
+  (request, response) => {
+    const rawPath =
+      request.params.musicPath
+
+    const relativePath =
+      Array.isArray(rawPath)
+        ? rawPath.join('/')
+        : String(rawPath ?? '')
+
+    const asset =
+      resolveMusicAsset(relativePath)
+
+    if (!asset) {
+      response
+        .status(404)
+        .json({ error: 'Music track not found.' })
+
+      return
+    }
+
+    response.type(asset.mimeType)
+    response.sendFile(
+      asset.absolutePath,
+      {
+        headers: {
+          'Cache-Control': 'public, max-age=3600',
+        },
+      },
+    )
+  },
+)
+
+app.get(
+  '/audio-assets/*audioPath',
+  (request, response) => {
+    const rawPath =
+      request.params.audioPath
+
+    const relativePath =
+      Array.isArray(rawPath)
+        ? rawPath.join('/')
+        : String(rawPath ?? '')
+
+    const absolutePath =
+      resolveAudioAsset(
+        relativePath,
+      )
+
+    if (!absolutePath) {
+      response
+        .status(404)
+        .json({
+          error: 'Audio asset not found.',
+        })
+
+      return
+    }
+
+    response.sendFile(
+      absolutePath,
+      {
+        headers: {
+          'Cache-Control':
+            'public, max-age=3600',
+        },
+      },
+    )
   },
 )

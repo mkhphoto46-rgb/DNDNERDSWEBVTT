@@ -238,11 +238,12 @@ function rowToAsset(
   }
 }
 
-export function saveMapAsset(
+function saveImageAsset(
   campaignId: string,
   originalName: string,
   mimeType: string,
   buffer: Buffer,
+  assetType: 'map' | 'token',
 ): AssetRecord {
   const extension =
     MIME_EXTENSION_MAP[
@@ -251,7 +252,7 @@ export function saveMapAsset(
 
   if (!extension) {
     throw new Error(
-      'Only PNG, JPG and WEBP maps are allowed.',
+      'Only PNG, JPG and WEBP images are allowed.',
     )
   }
 
@@ -259,7 +260,7 @@ export function saveMapAsset(
     buffer.length < 1
   ) {
     throw new Error(
-      'Uploaded map is empty.',
+      'Uploaded image is empty.',
     )
   }
 
@@ -297,7 +298,7 @@ export function saveMapAsset(
     )
 
   const assetId =
-    'map_' +
+    `${assetType}_` +
     shortHash
 
   const displayName =
@@ -307,7 +308,11 @@ export function saveMapAsset(
         0,
         150,
       ) ||
-    'Map'
+    (
+      assetType === 'map'
+        ? 'Map'
+        : 'Token'
+    )
 
   const filename =
     safeBaseName(
@@ -317,16 +322,21 @@ export function saveMapAsset(
     shortHash +
     extension
 
-  const mapsDirectory =
+  const assetDirectoryName =
+    assetType === 'map'
+      ? 'maps'
+      : 'tokens'
+
+  const assetDirectory =
     path.join(
       campaignRoot(
         campaignId,
       ),
-      'maps',
+      assetDirectoryName,
     )
 
   fs.mkdirSync(
-    mapsDirectory,
+    assetDirectory,
     {
       recursive: true,
     },
@@ -334,7 +344,7 @@ export function saveMapAsset(
 
   const absolutePath =
     path.join(
-      mapsDirectory,
+      assetDirectory,
       filename,
     )
 
@@ -351,7 +361,7 @@ export function saveMapAsset(
 
   const relativePath =
     (
-      'maps/' +
+      `${assetDirectoryName}/` +
       filename
     )
 
@@ -400,7 +410,7 @@ export function saveMapAsset(
         excluded.updated_at
   `).run(
     assetId,
-    'map',
+    assetType,
     displayName,
     relativePath,
     contentHash,
@@ -416,7 +426,7 @@ export function saveMapAsset(
       assetId,
 
     assetType:
-      'map',
+      assetType,
 
     displayName,
 
@@ -437,6 +447,36 @@ export function saveMapAsset(
         assetId,
       ),
   }
+}
+
+export function saveMapAsset(
+  campaignId: string,
+  originalName: string,
+  mimeType: string,
+  buffer: Buffer,
+): AssetRecord {
+  return saveImageAsset(
+    campaignId,
+    originalName,
+    mimeType,
+    buffer,
+    'map',
+  )
+}
+
+export function saveTokenAsset(
+  campaignId: string,
+  originalName: string,
+  mimeType: string,
+  buffer: Buffer,
+): AssetRecord {
+  return saveImageAsset(
+    campaignId,
+    originalName,
+    mimeType,
+    buffer,
+    'token',
+  )
 }
 
 export function listAssets(

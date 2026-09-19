@@ -21,11 +21,16 @@ pnpm-debug.log*
 !.env.example
 
 # Local VTT runtime data
-data/
+/data/
 
-# Campaign runtime / backups
-campaigns/
-backups/
+# Legacy/root runtime folders
+/campaigns/
+/backups/
+
+# Local source audio/music libraries
+# These are user-managed runtime media libraries and should not be committed.
+/assets-source/audio/
+/assets-source/music/
 
 # SQLite
 *.sqlite
@@ -34,6 +39,9 @@ backups/
 *.db
 *.db-shm
 *.db-wal
+
+# Generated / temporary archives
+*.zip
 
 # Operating system
 .DS_Store

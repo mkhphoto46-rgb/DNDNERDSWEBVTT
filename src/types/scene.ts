@@ -18,6 +18,31 @@ export interface MapAsset {
   url: string
 }
 
+export interface TokenAsset {
+  id: string
+  assetType: 'token'
+  displayName: string
+  relativePath: string
+  contentHash: string
+  byteSize: number
+  mimeType: string
+  updatedAt: string
+  url: string
+}
+
+export interface SceneToken {
+  id: string
+  name: string
+  assetId: string
+  imageUrl: string
+  mapId: string
+  gridX: number
+  gridY: number
+  size: number
+  ownerId: string | null
+  visible: boolean
+}
+
 export interface SceneMapAsset extends MapAsset {
   grid?: GridSettings
 }

@@ -4,6 +4,7 @@ import {
   Graphics,
   Sprite,
   Texture,
+  type FederatedPointerEvent,
 } from 'pixi.js'
 
 import {
@@ -28,6 +29,7 @@ import {
 import type {
   GridSettings,
   SceneMapAsset,
+  SceneToken,
 } from '../types/scene'
 
 export interface MapViewportHandle {
@@ -44,6 +46,19 @@ interface MapViewportProps {
 
   grid:
     GridSettings
+
+  tokens:
+    SceneToken[]
+
+  movableTokenIds:
+    string[]
+
+  onTokenMove?:
+    (
+      tokenId: string,
+      gridX: number,
+      gridY: number,
+    ) => void
 
   panEnabled:
     boolean
@@ -194,6 +209,9 @@ export const MapViewport =
       {
         activeMap,
         grid,
+        tokens,
+        movableTokenIds,
+        onTokenMove,
         panEnabled,
         onCameraChange,
       },
@@ -221,6 +239,11 @@ export const MapViewport =
 
       const gridGraphicsRef =
         useRef<Graphics | null>(
+          null,
+        )
+
+      const tokenLayerRef =
+        useRef<Container | null>(
           null,
         )
 
@@ -538,6 +561,9 @@ export const MapViewport =
             gridGraphicsRef.current =
               null
 
+            tokenLayerRef.current =
+              null
+
             worldRef.current =
               null
 
@@ -590,6 +616,9 @@ export const MapViewport =
               gridGraphicsRef.current =
                 null
 
+              tokenLayerRef.current =
+                null
+
               mapSizeRef.current = {
                 width: 0,
                 height: 0,
@@ -640,6 +669,12 @@ export const MapViewport =
                 gridGraphics.zIndex =
                   10
 
+                const tokenLayer =
+                  new Container()
+
+                tokenLayer.zIndex =
+                  20
+
                 world.addChild(
                   sprite,
                 )
@@ -648,11 +683,18 @@ export const MapViewport =
                   gridGraphics,
                 )
 
+                world.addChild(
+                  tokenLayer,
+                )
+
                 mapSpriteRef.current =
                   sprite
 
                 gridGraphicsRef.current =
                   gridGraphics
+
+                tokenLayerRef.current =
+                  tokenLayer
 
                 mapSizeRef.current = {
                   width:
@@ -691,6 +733,151 @@ export const MapViewport =
           ready,
           activeMap?.id,
           activeMap?.url,
+        ],
+      )
+
+      useEffect(
+        () => {
+          const layer =
+            tokenLayerRef.current
+
+          if (!layer || !activeMap) return
+
+          let cancelled = false
+
+          const renderTokens = async () => {
+            const previous = layer.removeChildren()
+            for (const child of previous) child.destroy({ children: true })
+
+            for (const token of tokens) {
+              try {
+                const loaded = await loadTextureFromMapUrl(token.imageUrl)
+                if (cancelled) {
+                  loaded.texture.destroy()
+                  return
+                }
+
+                const diameter =
+                  Math.max(0.5, token.size) * grid.cellSize
+
+                const holder = new Container()
+                holder.position.set(
+                  grid.offsetX + token.gridX * grid.cellSize,
+                  grid.offsetY + token.gridY * grid.cellSize,
+                )
+                holder.zIndex = 20
+                const canMoveToken = movableTokenIds.includes(token.id)
+                holder.eventMode = canMoveToken ? 'static' : 'none'
+                holder.cursor = canMoveToken ? 'grab' : 'default'
+
+                if (canMoveToken) {
+                  let dragging = false
+                  let pointerOffsetX = 0
+                  let pointerOffsetY = 0
+
+                  const worldPoint =
+                    (event: FederatedPointerEvent) => ({
+                      x: (event.global.x - cameraRef.current.x) / cameraRef.current.zoom,
+                      y: (event.global.y - cameraRef.current.y) / cameraRef.current.zoom,
+                    })
+
+                  const startDrag =
+                    (event: FederatedPointerEvent) => {
+                      event.stopPropagation()
+                      const point = worldPoint(event)
+                      dragging = true
+                      pointerOffsetX = point.x - holder.x
+                      pointerOffsetY = point.y - holder.y
+                      holder.cursor = 'grabbing'
+                      holder.alpha = 0.88
+                    }
+
+                  const moveDrag =
+                    (event: FederatedPointerEvent) => {
+                      if (!dragging) return
+                      event.stopPropagation()
+                      const point = worldPoint(event)
+                      holder.position.set(
+                        point.x - pointerOffsetX,
+                        point.y - pointerOffsetY,
+                      )
+                    }
+
+                  const endDrag =
+                    (event: FederatedPointerEvent) => {
+                      if (!dragging) return
+                      event.stopPropagation()
+                      dragging = false
+                      holder.cursor = 'grab'
+                      holder.alpha = 1
+
+                      const snappedGridX = Math.max(
+                        0,
+                        Math.round((holder.x - grid.offsetX) / grid.cellSize),
+                      )
+                      const snappedGridY = Math.max(
+                        0,
+                        Math.round((holder.y - grid.offsetY) / grid.cellSize),
+                      )
+
+                      holder.position.set(
+                        grid.offsetX + snappedGridX * grid.cellSize,
+                        grid.offsetY + snappedGridY * grid.cellSize,
+                      )
+
+                      onTokenMove?.(token.id, snappedGridX, snappedGridY)
+                    }
+
+                  holder.on('pointerdown', startDrag)
+                  holder.on('globalpointermove', moveDrag)
+                  holder.on('pointerup', endDrag)
+                  holder.on('pointerupoutside', endDrag)
+                }
+
+                const shadow = new Graphics()
+                shadow
+                  .circle(diameter / 2 + 3, diameter / 2 + 5, diameter / 2 + 5)
+                  .fill({ color: 0x000000, alpha: 0.58 })
+
+                const portrait = new Sprite(loaded.texture)
+                portrait.width = diameter - 8
+                portrait.height = diameter - 8
+                portrait.position.set(4, 4)
+
+                const mask = new Graphics()
+                mask.circle(diameter / 2, diameter / 2, diameter / 2 - 5).fill(0xffffff)
+                portrait.mask = mask
+
+                const ring = new Graphics()
+                ring
+                  .circle(diameter / 2, diameter / 2, diameter / 2 - 2)
+                  .stroke({ width: 4, color: 0xd1a252, alpha: 1 })
+                  .circle(diameter / 2, diameter / 2, diameter / 2 - 6)
+                  .stroke({ width: 1.5, color: 0x3b1c0c, alpha: 1 })
+
+                holder.addChild(shadow, portrait, mask, ring)
+                layer.addChild(holder)
+              } catch {
+                // A missing portrait must not prevent the map from rendering.
+              }
+            }
+          }
+
+          renderTokens()
+
+          return () => {
+            cancelled = true
+          }
+        },
+        [
+          ready,
+          activeMap?.id,
+          tokens,
+          grid.cellSize,
+          grid.offsetX,
+          grid.offsetY,
+          movableTokenIds,
+          onTokenMove,
         ],
       )
 

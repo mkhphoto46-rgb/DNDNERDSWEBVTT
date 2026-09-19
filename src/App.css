@@ -32,6 +32,7 @@
   --title: 'Ghost Theory', Georgia, serif;
   --label: 'Van Helsing', Georgia, serif;
   --number: 'Pieces of Eight', Georgia, serif;
+  --tabletop-surface: url('/assets/ui/tabletop-surface-v1.png');
 }
 
 button,
@@ -50,7 +51,9 @@ input {
   color: var(--parchment);
   background:
     radial-gradient(circle at 50% 14%, rgba(193, 139, 63, 0.18), transparent 30%),
-    linear-gradient(105deg, #100805, #28160b 50%, #0d0704);
+    linear-gradient(rgba(9, 5, 3, 0.58), rgba(9, 5, 3, 0.78)),
+    var(--tabletop-surface) center / cover no-repeat,
+    #100805;
 }
 
 .startup-seal {
@@ -159,6 +162,158 @@ input {
   color: var(--brass-light);
 }
 
+.token-asset-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.token-asset {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 58px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  padding: 8px 10px;
+  text-align: left;
+  color: var(--parchment);
+  border: 1px solid #694522;
+  border-radius: 9px;
+  background:
+    linear-gradient(135deg, rgba(72, 40, 21, 0.94), rgba(20, 10, 6, 0.98)),
+    var(--tabletop-surface) center / cover;
+  cursor: pointer;
+}
+
+.token-asset:hover:not(:disabled) {
+  border-color: var(--brass-light);
+  box-shadow: inset 0 0 18px rgba(213, 158, 77, 0.13);
+  transform: translateY(-1px);
+}
+
+.token-asset:disabled {
+  opacity: 0.52;
+  cursor: not-allowed;
+}
+
+.token-asset-ring {
+  width: 52px;
+  height: 52px;
+  padding: 4px;
+  border: 2px solid #c99548;
+  border-radius: 50%;
+  background: radial-gradient(circle, #5b3219, #150a05 72%);
+  box-shadow:
+    inset 0 0 0 2px #2a1308,
+    0 4px 12px rgba(0, 0, 0, 0.62);
+}
+
+.token-asset-ring img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.token-asset > span:last-child {
+  min-width: 0;
+  display: grid;
+  gap: 4px;
+}
+
+.token-asset strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.token-asset small {
+  color: var(--muted);
+}
+
+.placed-token-list {
+  display: grid;
+  gap: 8px;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(199, 149, 75, 0.35);
+}
+
+.placed-token {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr) minmax(98px, auto) minmax(92px, auto) 30px;
+  align-items: center;
+  gap: 8px;
+  padding: 7px;
+  border: 1px solid #5f3d20;
+  border-radius: 7px;
+  background: rgba(13, 7, 4, 0.62);
+}
+
+.movement-toggle {
+  margin: 12px 0 4px;
+}
+
+.movement-toggle > span {
+  display: grid;
+  gap: 2px;
+}
+
+.movement-toggle small {
+  color: var(--muted);
+  font-weight: 400;
+}
+
+@media (max-width: 1360px) {
+  .placed-token {
+    grid-template-columns: 38px minmax(0, 1fr) 30px;
+  }
+
+  .placed-token select {
+    grid-column: 2 / -1;
+  }
+}
+
+.placed-token > img {
+  width: 38px;
+  height: 38px;
+  object-fit: cover;
+  border: 2px solid #b9853f;
+  border-radius: 50%;
+}
+
+.placed-token > div {
+  min-width: 0;
+  display: grid;
+}
+
+.placed-token strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.placed-token small {
+  color: var(--muted);
+}
+
+.placed-token select,
+.placed-token button {
+  color: var(--parchment);
+  border: 1px solid #77502a;
+  border-radius: 5px;
+  background: #1b0e07;
+}
+
+.placed-token button {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  color: #dc9a79;
+  font-size: 1.2rem;
+}
+
 .create-campaign,
 .join-form {
   display: grid;
@@ -234,7 +389,10 @@ input {
   overflow: hidden;
   display: grid;
   color: var(--parchment);
-  background: var(--bg);
+  background:
+    linear-gradient(rgba(5, 3, 2, 0.42), rgba(5, 3, 2, 0.62)),
+    var(--tabletop-surface) center / cover fixed no-repeat,
+    var(--bg);
 }
 
 .dm-shell {
@@ -262,8 +420,12 @@ input {
   gap: 18px;
   padding: 10px 18px;
   border-bottom: 2px solid #81572d;
-  background: linear-gradient(#472917, #28150b);
-  box-shadow: 0 9px 28px rgba(0,0,0,0.5);
+  background:
+    linear-gradient(180deg, rgba(62, 34, 19, 0.94), rgba(19, 10, 6, 0.97)),
+    var(--tabletop-surface) top center / cover;
+  box-shadow:
+    inset 0 -1px 0 rgba(239, 200, 115, 0.2),
+    0 9px 28px rgba(0,0,0,0.62);
 }
 
 .campaign-heading > span {
@@ -348,7 +510,9 @@ input {
   gap: 9px;
   padding: 11px 10px;
   border-right: 2px solid #58391e;
-  background: linear-gradient(90deg, #180d07, #382014);
+  background:
+    linear-gradient(90deg, rgba(17, 9, 5, 0.97), rgba(49, 27, 15, 0.94)),
+    var(--tabletop-surface) left center / auto 100%;
 }
 
 .rail-title {
@@ -396,7 +560,9 @@ input {
   min-width: 0;
   min-height: 0;
   padding: 10px;
-  background: #090604;
+  background:
+    radial-gradient(circle at center, rgba(86, 52, 27, 0.14), rgba(4, 2, 1, 0.76)),
+    var(--tabletop-surface) center / cover;
 }
 
 .battlefield-frame {
@@ -407,8 +573,14 @@ input {
   padding: 14px;
   border: 3px solid #9a6b38;
   border-radius: 11px;
-  background: linear-gradient(90deg, #321b0f, #50301b 50%, #2b170c);
-  box-shadow: inset 0 0 0 3px #160b06, inset 0 0 0 6px #624020, 0 18px 44px rgba(0,0,0,0.5);
+  background:
+    linear-gradient(90deg, rgba(35, 17, 9, 0.92), rgba(79, 45, 24, 0.86) 50%, rgba(29, 14, 8, 0.94)),
+    var(--tabletop-surface) center / cover;
+  box-shadow:
+    inset 0 0 0 3px #120905,
+    inset 0 0 0 6px #624020,
+    inset 0 0 32px rgba(231, 173, 83, 0.13),
+    0 18px 44px rgba(0,0,0,0.65);
 }
 
 .battlefield-frame::before,

@@ -23,10 +23,12 @@ import {
   type MapSettingsByAssetId,
   normalizeGridSettings,
   type SceneMapAsset,
+  type SceneToken,
+  type TokenAsset,
 } from './types/scene'
 
 type Role = 'dm' | 'player'
-type InspectorTab = 'party' | 'grid' | 'maps' | 'session'
+type InspectorTab = 'party' | 'grid' | 'maps' | 'tokens' | 'session'
 type ToolMode = 'select' | 'pan'
 
 interface Campaign {
@@ -66,6 +68,8 @@ interface CampaignState {
   activeMap?: SceneMapAsset | null
   mapSettings?: MapSettingsByAssetId
   activeSceneId?: string | null
+  tokens?: SceneToken[]
+  allowPlayerMovement?: boolean
   combat?: unknown
   devNote?: string
   [key: string]: unknown
@@ -164,7 +168,9 @@ function App() {
   const [gameState, setGameState] = useState<CampaignState>({})
   const [activeSession, setActiveSession] = useState<SessionRecord | null>(null)
   const [presence, setPresence] = useState<PresenceUser[]>([])
+  const [currentPlayerId, setCurrentPlayerId] = useState<string | null>(null)
   const [maps, setMaps] = useState<MapAsset[]>([])
+  const [tokenAssets, setTokenAssets] = useState<TokenAsset[]>([])
   const [snapshots, setSnapshots] = useState<SnapshotRecord[]>([])
   const [inspectorTab, setInspectorTab] = useState<InspectorTab>('grid')
   const [toolMode, setToolMode] = useState<ToolMode>('pan')
@@ -178,11 +184,13 @@ function App() {
   const [joinCode, setJoinCode] = useState(
     () => localStorage.getItem(JOIN_CODE_STORAGE) ?? '',
   )
+  const [cellSizeDraft, setCellSizeDraft] = useState('')
 
   const gameStateRef = useRef<CampaignState>({})
   const gridSaveTimerRef = useRef<number | null>(null)
   const mapViewportRef = useRef<MapViewportHandle>(null)
   const mapFileInput = useRef<HTMLInputElement>(null)
+  const tokenFileInput = useRef<HTMLInputElement>(null)
 
   const isDm = role === 'dm'
   const activeMap = gameState.activeMap ?? null
@@ -196,6 +204,10 @@ function App() {
   useEffect(() => {
     gameStateRef.current = gameState
   }, [gameState])
+
+  useEffect(() => {
+    setCellSizeDraft(String(Math.round(grid.cellSize)))
+  }, [activeMap?.id, grid.cellSize])
 
   useEffect(() => {
     const initialise = async () => {
@@ -277,10 +289,14 @@ function App() {
         }
 
         setRole('dm')
+        setCurrentPlayerId(null)
         setCurrentCampaign(result.campaign ?? campaign)
         commitState(hydrateActiveMapGrid(result.state ?? {}))
         setActiveSession(result.activeSession ?? null)
         setMaps(result.maps ?? [])
+        requestJson<TokenAsset[]>(
+          `/api/campaigns/${encodeURIComponent(campaign.id)}/token-assets`,
+        ).then(setTokenAssets).catch(() => setTokenAssets([]))
         setSnapshots(result.snapshots ?? [])
         setToolMode('pan')
         setStatusMessage('Campaign loaded from the DM host.')
@@ -338,6 +354,7 @@ function App() {
         }
 
         setRole('player')
+        setCurrentPlayerId(result.player?.id ?? null)
         setCurrentCampaign(result.campaign ?? null)
         commitState(hydrateActiveMapGrid(result.state ?? {}))
         setActiveSession(result.activeSession ?? null)
@@ -387,6 +404,27 @@ function App() {
 
   const updateGrid = (patch: Partial<GridSettings>) => {
     persistGrid({ ...grid, ...patch })
+  }
+
+  const commitCellSizeDraft = () => {
+    const trimmed = cellSizeDraft.trim()
+
+    if (!trimmed) {
+      setCellSizeDraft(String(Math.round(grid.cellSize)))
+      return
+    }
+
+    const parsed = Number(trimmed)
+
+    if (!Number.isFinite(parsed) || parsed < 10 || parsed > 500) {
+      setCellSizeDraft(String(Math.round(grid.cellSize)))
+      setStatusMessage('Cell Size must be between 10 and 500 pixels.')
+      return
+    }
+
+    const rounded = Math.round(parsed)
+    setCellSizeDraft(String(rounded))
+    updateGrid({ cellSize: rounded })
   }
 
   const activateMapState = async (
@@ -460,6 +498,143 @@ function App() {
     } catch (error) {
       setStatusMessage(error instanceof Error ? error.message : 'Could not activate map.')
     }
+  }
+
+  const uploadTokenAsset = async () => {
+    if (!isDm || !currentCampaign) return
+
+    const file = tokenFileInput.current?.files?.[0]
+    if (!file) {
+      setStatusMessage('Choose a PNG, JPG or WEBP token first.')
+      return
+    }
+
+    const formData = new FormData()
+    formData.append('token', file)
+
+    try {
+      const result = await requestJson<{ asset: TokenAsset }>(
+        `/api/campaigns/${encodeURIComponent(currentCampaign.id)}/token-assets`,
+        { method: 'POST', body: formData },
+      )
+
+      setTokenAssets((previous) => [
+        result.asset,
+        ...previous.filter((asset) => asset.id !== result.asset.id),
+      ])
+
+      if (tokenFileInput.current) tokenFileInput.current.value = ''
+      setStatusMessage('Token portrait added to the campaign chest.')
+    } catch (error) {
+      setStatusMessage(error instanceof Error ? error.message : 'Token upload failed.')
+    }
+  }
+
+  const placeToken = async (asset: TokenAsset) => {
+    if (!isDm || !currentCampaign || !activeMap) return
+
+    const existing = gameStateRef.current.tokens ?? []
+    const onCurrentMap = existing.filter((token) => token.mapId === activeMap.id)
+    const token: SceneToken = {
+      id: window.crypto.randomUUID(),
+      name: asset.displayName.replace(/\.[^.]+$/, ''),
+      assetId: asset.id,
+      imageUrl: asset.url,
+      mapId: activeMap.id,
+      gridX: 2 + (onCurrentMap.length % 6),
+      gridY: 2 + Math.floor(onCurrentMap.length / 6),
+      size: 1,
+      ownerId: null,
+      visible: true,
+    }
+
+    const nextState: CampaignState = {
+      ...gameStateRef.current,
+      tokens: [...existing, token],
+    }
+
+    commitState(nextState)
+    await saveWholeState(currentCampaign.id, nextState)
+    setStatusMessage(`${token.name} placed on the active map.`)
+  }
+
+  const moveToken = (
+    tokenId: string,
+    gridX: number,
+    gridY: number,
+  ) => {
+    const current = gameStateRef.current
+    const tokens = current.tokens ?? []
+    const nextState: CampaignState = {
+      ...current,
+      tokens: tokens.map((token) =>
+        token.id === tokenId
+          ? { ...token, gridX, gridY }
+          : token,
+      ),
+    }
+
+    commitState(nextState)
+    socket.emit(
+      'token:move',
+      { tokenId, gridX, gridY },
+      (result: { ok?: boolean; error?: string }) => {
+        if (!result?.ok) {
+          setStatusMessage(result?.error ?? 'Token movement was rejected.')
+        }
+      },
+    )
+  }
+
+  const updateToken = async (
+    tokenId: string,
+    patch: Partial<SceneToken>,
+  ) => {
+    if (!isDm || !currentCampaign) return
+
+    const current = gameStateRef.current
+    const nextState: CampaignState = {
+      ...current,
+      tokens: (current.tokens ?? []).map((token) =>
+        token.id === tokenId
+          ? { ...token, ...patch }
+          : token,
+      ),
+    }
+
+    commitState(nextState)
+    await saveWholeState(currentCampaign.id, nextState)
+  }
+
+  const setPlayerMovement = async (enabled: boolean) => {
+    if (!isDm || !currentCampaign) return
+
+    const nextState: CampaignState = {
+      ...gameStateRef.current,
+      allowPlayerMovement: enabled,
+    }
+
+    commitState(nextState)
+    await saveWholeState(currentCampaign.id, nextState)
+    setStatusMessage(
+      enabled
+        ? 'Player self-movement enabled.'
+        : 'Player self-movement locked.',
+    )
+  }
+
+  const removeToken = async (tokenId: string) => {
+    if (!isDm || !currentCampaign) return
+
+    const current = gameStateRef.current
+    const nextState: CampaignState = {
+      ...current,
+      tokens: (current.tokens ?? []).filter((token) => token.id !== tokenId),
+    }
+
+    commitState(nextState)
+    await saveWholeState(currentCampaign.id, nextState)
+    setStatusMessage('Token removed from the scene.')
   }
 
   const startSession = async () => {
@@ -669,6 +844,22 @@ function App() {
             ref={mapViewportRef}
             activeMap={activeMap}
             grid={grid}
+            tokens={(gameState.tokens ?? []).filter(
+              (token) => token.mapId === activeMap?.id && token.visible,
+            )}
+            movableTokenIds={(gameState.tokens ?? [])
+              .filter((token) =>
+                toolMode === 'select' &&
+                (
+                  isDm ||
+                  (
+                    gameState.allowPlayerMovement === true &&
+                    token.ownerId === currentPlayerId
+                  )
+                ),
+              )
+              .map((token) => token.id)}
+            onTokenMove={moveToken}
             panEnabled={toolMode === 'pan'}
             onCameraChange={(camera) => setCameraZoom(camera.zoom)}
           />
@@ -699,7 +890,7 @@ function App() {
       {isDm ? (
         <aside className="inspector">
           <nav className="inspector-tabs">
-            {(['party', 'grid', 'maps', 'session'] as InspectorTab[]).map((tab) => (
+            {(['party', 'grid', 'maps', 'tokens', 'session'] as InspectorTab[]).map((tab) => (
               <button
                 key={tab}
                 type="button"
@@ -758,12 +949,28 @@ function App() {
                     <label>
                       Cell Size (px)
                       <input
-                        type="number"
-                        min="10"
-                        max="500"
-                        step="1"
-                        value={Math.round(grid.cellSize)}
-                        onChange={(event) => updateGrid({ cellSize: Number(event.target.value) })}
+                        type="text"
+                        inputMode="numeric"
+                        value={cellSizeDraft}
+                        onChange={(event) => {
+                          const nextValue = event.target.value
+
+                          if (/^\d{0,3}$/.test(nextValue)) {
+                            setCellSizeDraft(nextValue)
+                          }
+                        }}
+                        onBlur={commitCellSizeDraft}
+                        onKeyDown={(event) => {
+                          if (event.key === 'Enter') {
+                            event.currentTarget.blur()
+                          }
+
+                          if (event.key === 'Escape') {
+                            setCellSizeDraft(String(Math.round(grid.cellSize)))
+                            event.currentTarget.blur()
+                          }
+                        }}
+                        aria-label="Grid cell size in pixels"
                       />
                     </label>
 
@@ -846,6 +1053,103 @@ function App() {
                       </span>
                     </button>
                   ))}
+                </div>
+              </section>
+            ) : null}
+
+            {inspectorTab === 'tokens' ? (
+              <section>
+                <div className="panel-heading">
+                  <span>MINIATURE CHEST</span>
+                  <h2>Tokens</h2>
+                </div>
+
+                <label className="toggle-row movement-toggle">
+                  <span>
+                    <strong>Player Self-Movement</strong>
+                    <small>Owned tokens only</small>
+                  </span>
+                  <input
+                    type="checkbox"
+                    checked={gameState.allowPlayerMovement === true}
+                    onChange={(event) => setPlayerMovement(event.target.checked)}
+                  />
+                </label>
+
+                <label className="file-drop">
+                  <strong>Choose Portrait</strong>
+                  <small>PNG • JPG • WEBP</small>
+                  <input
+                    ref={tokenFileInput}
+                    type="file"
+                    accept="image/png,image/jpeg,image/webp"
+                  />
+                </label>
+
+                <button type="button" className="primary-button" onClick={uploadTokenAsset}>
+                  Add to Token Chest
+                </button>
+
+                <div className="token-asset-list">
+                  {tokenAssets.map((asset) => (
+                    <button
+                      type="button"
+                      className="token-asset"
+                      key={asset.id}
+                      onClick={() => placeToken(asset)}
+                      disabled={!activeMap}
+                    >
+                      <span className="token-asset-ring">
+                        <img src={asset.url} alt="" />
+                      </span>
+                      <span>
+                        <strong>{asset.displayName}</strong>
+                        <small>{activeMap ? 'Place on map' : 'Activate a map first'}</small>
+                      </span>
+                    </button>
+                  ))}
+                </div>
+
+                <div className="placed-token-list">
+                  {(gameState.tokens ?? [])
+                    .filter((token) => token.mapId === activeMap?.id)
+                    .map((token) => (
+                      <article className="placed-token" key={token.id}>
+                        <img src={token.imageUrl} alt="" />
+                        <div>
+                          <strong>{token.name}</strong>
+                          <small>Grid {token.gridX}, {token.gridY}</small>
+                        </div>
+                        <select
+                          aria-label={`${token.name} size`}
+                          value={token.size}
+                          onChange={(event) => updateToken(token.id, { size: Number(event.target.value) })}
+                        >
+                          <option value="0.5">Tiny</option>
+                          <option value="1">Small / Medium</option>
+                          <option value="2">Large</option>
+                          <option value="3">Huge</option>
+                          <option value="4">Gargantuan</option>
+                        </select>
+                        <select
+                          aria-label={`${token.name} owner`}
+                          value={token.ownerId ?? ''}
+                          onChange={(event) => updateToken(token.id, {
+                            ownerId: event.target.value || null,
+                          })}
+                        >
+                          <option value="">DM only</option>
+                          {presence
+                            .filter((user) => user.role === 'player')
+                            .map((player) => (
+                              <option value={player.id} key={player.id}>{player.name}</option>
+                            ))}
+                        </select>
+                        <button type="button" onClick={() => removeToken(token.id)} aria-label={`Remove ${token.name}`}>
+                          ×
+                        </button>
+                      </article>
+                    ))}
                 </div>
               </section>
             ) : null}
