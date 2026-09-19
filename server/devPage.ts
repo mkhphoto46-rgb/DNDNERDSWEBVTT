@@ -11,7 +11,7 @@ export const DEV_CONNECTION_PAGE = `
   >
 
   <title>
-    D&D VTT Persistence Test
+    D&D VTT Map Test
   </title>
 
   <style>
@@ -34,7 +34,7 @@ export const DEV_CONNECTION_PAGE = `
 
     .wrap {
       width: min(
-        1100px,
+        1200px,
         100%
       );
 
@@ -112,6 +112,7 @@ export const DEV_CONNECTION_PAGE = `
       width: 100%;
 
       margin-top: 8px;
+
       padding: 9px 11px;
 
       font: inherit;
@@ -123,11 +124,13 @@ export const DEV_CONNECTION_PAGE = `
         1px solid #4a3927;
 
       background: #090706;
+
       color: white;
     }
 
     textarea {
-      min-height: 110px;
+      min-height: 100px;
+
       resize: vertical;
     }
 
@@ -140,6 +143,7 @@ export const DEV_CONNECTION_PAGE = `
         1px solid #8b6838;
 
       background: #b68a49;
+
       color: #171007;
 
       font-weight: 800;
@@ -147,22 +151,29 @@ export const DEV_CONNECTION_PAGE = `
 
     button.secondary {
       background: #2b2117;
+
       color: #e7d4ae;
     }
 
     button.danger {
       border-color: #81453c;
+
       background: #6b3028;
+
       color: white;
     }
 
     button:disabled {
       cursor: not-allowed;
+
       opacity: 0.4;
     }
 
-    .campaign {
+    .campaign,
+    .snapshot,
+    .map-item {
       margin-top: 10px;
+
       padding: 12px;
 
       border:
@@ -171,23 +182,12 @@ export const DEV_CONNECTION_PAGE = `
       background: #0e0b08;
     }
 
-    .campaign button {
+    .campaign button,
+    .snapshot button,
+    .map-item button {
       width: auto;
+
       margin-right: 8px;
-    }
-
-    .snapshot {
-      margin-top: 8px;
-      padding: 10px;
-
-      border:
-        1px solid #35291e;
-
-      background: #0c0907;
-    }
-
-    .snapshot button {
-      width: auto;
     }
 
     code {
@@ -196,6 +196,7 @@ export const DEV_CONNECTION_PAGE = `
 
     .status {
       margin-top: 10px;
+
       min-height: 22px;
 
       color: #a5c48e;
@@ -217,19 +218,55 @@ export const DEV_CONNECTION_PAGE = `
       padding-left: 20px;
     }
 
-    .session-active {
-      color: #9dcc8b;
+    .active-map-frame {
+      width: 100%;
+
+      min-height: 180px;
+
+      margin-top: 14px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      overflow: hidden;
+
+      border:
+        2px solid #71542f;
+
+      background:
+        #080604;
     }
 
-    .session-inactive {
-      color: #c0a889;
+    .active-map-frame img {
+      display: block;
+
+      width: 100%;
+
+      max-height: 600px;
+
+      object-fit: contain;
+    }
+
+    .active-map-empty {
+      padding: 35px;
+
+      color: #897b68;
+    }
+
+    .progress {
+      margin-top: 8px;
+
+      color: #d0b378;
     }
 
     @media (
       max-width: 760px
     ) {
       body {
-        padding: 15px;
+        padding: 14px;
       }
 
       .grid {
@@ -249,12 +286,12 @@ export const DEV_CONNECTION_PAGE = `
   <div class="wrap">
 
     <h1>
-      D&D VTT — Persistence Test
+      D&D VTT — Map & Cache Test
     </h1>
 
     <div class="notice">
       Temporary development page.
-      The final fantasy UI will replace this.
+      Final old-fantasy UI comes later.
     </div>
 
     <div
@@ -303,10 +340,10 @@ export const DEV_CONNECTION_PAGE = `
 
       <section
         id="dmControlCard"
-        class="card wide hidden"
+        class="card hidden"
       >
         <h2>
-          Current DM Campaign
+          Current Campaign
         </h2>
 
         <div
@@ -324,7 +361,7 @@ export const DEV_CONNECTION_PAGE = `
 
         <div
           id="sessionStatus"
-          class="session-inactive"
+          class="muted"
         >
           No active session.
         </div>
@@ -345,12 +382,8 @@ export const DEV_CONNECTION_PAGE = `
         <hr>
 
         <h3>
-          Autosave Test
+          Persistence Note
         </h3>
-
-        <p class="muted">
-          Type here. It should survive a server restart.
-        </p>
 
         <textarea
           id="devNote"
@@ -361,33 +394,65 @@ export const DEV_CONNECTION_PAGE = `
           id="saveStatus"
           class="status"
         ></div>
+      </section>
 
-        <hr>
+      <section
+        id="mapUploadCard"
+        class="card hidden"
+      >
+        <h2>
+          Maps
+        </h2>
 
-        <h3>
-          Snapshots
-        </h3>
+        <p class="muted">
+          PNG, JPG or WEBP.
+          Maximum 100 MB.
+        </p>
 
         <input
-          id="snapshotName"
-          placeholder="Snapshot name"
+          id="mapFile"
+          type="file"
+          accept="image/png,image/jpeg,image/webp"
         >
 
         <button
-          id="createSnapshot"
-          class="secondary"
+          id="uploadMap"
         >
-          Create Manual Snapshot
+          Upload & Activate Map
         </button>
 
         <div
-          id="snapshotStatus"
+          id="mapUploadStatus"
           class="status"
         ></div>
 
         <div
-          id="snapshotList"
+          id="mapList"
         ></div>
+      </section>
+
+      <section class="card wide">
+        <h2>
+          Active Map
+        </h2>
+
+        <div
+          id="activeMapInfo"
+          class="muted"
+        >
+          No active map.
+        </div>
+
+        <div
+          id="activeMapFrame"
+          class="active-map-frame"
+        >
+          <div
+            class="active-map-empty"
+          >
+            No map selected.
+          </div>
+        </div>
       </section>
 
       <section class="card">
@@ -436,6 +501,36 @@ export const DEV_CONNECTION_PAGE = `
         </ul>
       </section>
 
+      <section
+        id="snapshotCard"
+        class="card wide hidden"
+      >
+        <h2>
+          Snapshots
+        </h2>
+
+        <input
+          id="snapshotName"
+          placeholder="Snapshot name"
+        >
+
+        <button
+          id="createSnapshot"
+          class="secondary"
+        >
+          Create Manual Snapshot
+        </button>
+
+        <div
+          id="snapshotStatus"
+          class="status"
+        ></div>
+
+        <div
+          id="snapshotList"
+        ></div>
+      </section>
+
     </div>
   </div>
 
@@ -445,8 +540,11 @@ export const DEV_CONNECTION_PAGE = `
     const socket = io()
 
     let isLocalHost = false
+
     let currentCampaignId = ''
+
     let currentCampaignState = {}
+
     let saveTimer = null
 
     const PLAYER_KEY_STORAGE =
@@ -552,6 +650,124 @@ export const DEV_CONNECTION_PAGE = `
       }
 
       return body
+    }
+
+    function humanBytes(
+      bytes
+    ) {
+      const value =
+        Number(
+          bytes || 0
+        )
+
+      if (
+        value < 1024
+      ) {
+        return (
+          value +
+          ' B'
+        )
+      }
+
+      if (
+        value <
+        1024 * 1024
+      ) {
+        return (
+          (
+            value /
+            1024
+          ).toFixed(
+            1
+          ) +
+          ' KB'
+        )
+      }
+
+      return (
+        (
+          value /
+          1024 /
+          1024
+        ).toFixed(
+          1
+        ) +
+        ' MB'
+      )
+    }
+
+    function renderActiveMap(
+      state
+    ) {
+      const frame =
+        document.getElementById(
+          'activeMapFrame'
+        )
+
+      const info =
+        document.getElementById(
+          'activeMapInfo'
+        )
+
+      const activeMap =
+        state &&
+        state.activeMap
+          ? state.activeMap
+          : null
+
+      if (!activeMap) {
+        info.textContent =
+          'No active map.'
+
+        frame.innerHTML =
+          '<div class="active-map-empty">' +
+          'No map selected.' +
+          '</div>'
+
+        return
+      }
+
+      info.innerHTML =
+        '<strong>' +
+        escapeHtml(
+          activeMap.displayName
+        ) +
+        '</strong>' +
+        ' — ' +
+        escapeHtml(
+          humanBytes(
+            activeMap.byteSize
+          )
+        ) +
+        '<br>' +
+        '<small>Hash: <code>' +
+        escapeHtml(
+          String(
+            activeMap.contentHash
+          ).slice(
+            0,
+            20
+          )
+        ) +
+        '</code></small>'
+
+      const image =
+        document.createElement(
+          'img'
+        )
+
+      image.src =
+        activeMap.url
+
+      image.alt =
+        activeMap.displayName ||
+        'Campaign map'
+
+      frame.innerHTML = ''
+
+      frame.appendChild(
+        image
+      )
     }
 
     async function detectAccessMode() {
@@ -760,7 +976,8 @@ export const DEV_CONNECTION_PAGE = `
             campaign.id
 
           currentCampaignState =
-            result.state || {}
+            result.state ||
+            {}
 
           document
             .getElementById(
@@ -789,6 +1006,24 @@ export const DEV_CONNECTION_PAGE = `
 
           document
             .getElementById(
+              'mapUploadCard'
+            )
+            .classList
+            .remove(
+              'hidden'
+            )
+
+          document
+            .getElementById(
+              'snapshotCard'
+            )
+            .classList
+            .remove(
+              'hidden'
+            )
+
+          document
+            .getElementById(
               'devNote'
             )
             .value =
@@ -805,6 +1040,15 @@ export const DEV_CONNECTION_PAGE = `
 
           updateSessionDisplay(
             result.activeSession
+          )
+
+          renderActiveMap(
+            currentCampaignState
+          )
+
+          renderMapList(
+            result.maps ||
+            []
           )
 
           await refreshSnapshots()
@@ -837,13 +1081,10 @@ export const DEV_CONNECTION_PAGE = `
         )
 
       if (session) {
-        element.className =
-          'session-active'
-
         element.textContent =
           'Session ' +
           session.number +
-          ' ACTIVE — started ' +
+          ' ACTIVE — ' +
           new Date(
             session.startedAt
           ).toLocaleString()
@@ -854,9 +1095,6 @@ export const DEV_CONNECTION_PAGE = `
         endButton.disabled =
           false
       } else {
-        element.className =
-          'session-inactive'
-
         element.textContent =
           'No active session.'
 
@@ -957,6 +1195,236 @@ export const DEV_CONNECTION_PAGE = `
         }
       )
 
+    function renderMapList(
+      maps
+    ) {
+      const list =
+        document.getElementById(
+          'mapList'
+        )
+
+      list.innerHTML = ''
+
+      if (
+        !maps ||
+        maps.length === 0
+      ) {
+        list.innerHTML =
+          '<p class="muted">No maps uploaded yet.</p>'
+
+        return
+      }
+
+      for (
+        const map
+        of maps
+      ) {
+        const wrapper =
+          document.createElement(
+            'div'
+          )
+
+        wrapper.className =
+          'map-item'
+
+        wrapper.innerHTML =
+          '<strong>' +
+          escapeHtml(
+            map.displayName
+          ) +
+          '</strong>' +
+          '<br>' +
+          '<small>' +
+          escapeHtml(
+            humanBytes(
+              map.byteSize
+            )
+          ) +
+          '</small>' +
+          '<br>' +
+          '<button type="button">' +
+          'Activate' +
+          '</button>'
+
+        wrapper
+          .querySelector(
+            'button'
+          )
+          .addEventListener(
+            'click',
+            async () => {
+              try {
+                const result =
+                  await jsonRequest(
+                    '/api/campaigns/' +
+                    encodeURIComponent(
+                      currentCampaignId
+                    ) +
+                    '/maps/' +
+                    encodeURIComponent(
+                      map.id
+                    ) +
+                    '/activate',
+                    {
+                      method:
+                        'POST'
+                    }
+                  )
+
+                currentCampaignState =
+                  result.state ||
+                  {}
+
+                renderActiveMap(
+                  currentCampaignState
+                )
+              } catch (error) {
+                setStatus(
+                  'mapUploadStatus',
+                  error.message,
+                  true
+                )
+              }
+            }
+          )
+
+        list.appendChild(
+          wrapper
+        )
+      }
+    }
+
+    async function refreshMaps() {
+      if (
+        !currentCampaignId
+      ) {
+        return
+      }
+
+      const maps =
+        await jsonRequest(
+          '/api/campaigns/' +
+          encodeURIComponent(
+            currentCampaignId
+          ) +
+          '/maps'
+        )
+
+      renderMapList(
+        maps
+      )
+    }
+
+    document
+      .getElementById(
+        'uploadMap'
+      )
+      .addEventListener(
+        'click',
+        async () => {
+          if (
+            !currentCampaignId
+          ) {
+            setStatus(
+              'mapUploadStatus',
+              'Open a campaign first.',
+              true
+            )
+
+            return
+          }
+
+          const input =
+            document.getElementById(
+              'mapFile'
+            )
+
+          const file =
+            input.files &&
+            input.files[0]
+
+          if (!file) {
+            setStatus(
+              'mapUploadStatus',
+              'Choose a map file first.',
+              true
+            )
+
+            return
+          }
+
+          const formData =
+            new FormData()
+
+          formData.append(
+            'map',
+            file
+          )
+
+          setStatus(
+            'mapUploadStatus',
+            'Uploading ' +
+            file.name +
+            '...',
+            false
+          )
+
+          try {
+            const response =
+              await fetch(
+                '/api/campaigns/' +
+                encodeURIComponent(
+                  currentCampaignId
+                ) +
+                '/maps',
+                {
+                  method:
+                    'POST',
+
+                  body:
+                    formData
+                }
+              )
+
+            const result =
+              await response.json()
+
+            if (
+              !response.ok
+            ) {
+              throw new Error(
+                result.error ||
+                'Upload failed.'
+              )
+            }
+
+            currentCampaignState =
+              result.state ||
+              {}
+
+            renderActiveMap(
+              currentCampaignState
+            )
+
+            await refreshMaps()
+
+            input.value = ''
+
+            setStatus(
+              'mapUploadStatus',
+              'Map uploaded, stored and activated.',
+              false
+            )
+          } catch (error) {
+            setStatus(
+              'mapUploadStatus',
+              error.message,
+              true
+            )
+          }
+        }
+      )
+
     async function refreshSnapshots() {
       if (
         !currentCampaignId
@@ -1029,7 +1497,7 @@ export const DEV_CONNECTION_PAGE = `
             async () => {
               const confirmed =
                 window.confirm(
-                  'Restore this snapshot? A backup of the current state will be created automatically first.'
+                  'Restore this snapshot? Current state will be backed up first.'
                 )
 
               if (!confirmed) {
@@ -1066,6 +1534,10 @@ export const DEV_CONNECTION_PAGE = `
                   currentCampaignState
                     .devNote ||
                   ''
+
+                renderActiveMap(
+                  currentCampaignState
+                )
 
                 setStatus(
                   'snapshotStatus',
@@ -1128,8 +1600,7 @@ export const DEV_CONNECTION_PAGE = `
 
                   body:
                     JSON.stringify({
-                      name:
-                        name
+                      name
                     })
                 }
               )
@@ -1253,10 +1724,10 @@ export const DEV_CONNECTION_PAGE = `
 
             await jsonRequest(
               '/api/campaigns/' +
-                encodeURIComponent(
-                  currentCampaignId
-                ) +
-                '/snapshots',
+              encodeURIComponent(
+                currentCampaignId
+              ) +
+              '/snapshots',
               {
                 method:
                   'POST',
@@ -1391,6 +1862,11 @@ export const DEV_CONNECTION_PAGE = `
               updateSessionDisplay(
                 result.activeSession
               )
+
+              renderActiveMap(
+                result.state ||
+                {}
+              )
             }
           )
         }
@@ -1439,26 +1915,31 @@ export const DEV_CONNECTION_PAGE = `
     socket.on(
       'campaign:state-changed',
       (state) => {
-        if (!isLocalHost) {
-          return
-        }
-
         currentCampaignState =
-          state || {}
+          state ||
+          {}
 
-        const note =
-          document.getElementById(
-            'devNote'
-          )
+        renderActiveMap(
+          currentCampaignState
+        )
 
         if (
-          document.activeElement !==
-          note
+          isLocalHost
         ) {
-          note.value =
-            currentCampaignState
-              .devNote ||
-            ''
+          const note =
+            document.getElementById(
+              'devNote'
+            )
+
+          if (
+            document.activeElement !==
+            note
+          ) {
+            note.value =
+              currentCampaignState
+                .devNote ||
+              ''
+          }
         }
       }
     )
@@ -1501,6 +1982,7 @@ export const DEV_CONNECTION_PAGE = `
     }
 
     loadHostInfo()
+
     detectAccessMode()
   </script>
 </body>

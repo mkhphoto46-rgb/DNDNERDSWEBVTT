@@ -9,6 +9,8 @@ import express, {
   type Response,
 } from 'express'
 
+import multer from 'multer'
+
 import {
   Server,
   type Socket,
@@ -34,6 +36,13 @@ import {
   startSession,
   touchCampaign,
 } from './store'
+
+import {
+  getAsset,
+  getAssetAbsolutePath,
+  listAssets,
+  saveMapAsset,
+} from './assets'
 
 import {
   DEV_CONNECTION_PAGE,
@@ -77,6 +86,53 @@ const io =
         1_000_000,
     },
   )
+
+const mapUpload =
+  multer({
+    storage:
+      multer.memoryStorage(),
+
+    limits: {
+      files: 1,
+
+      fileSize:
+        100 *
+        1024 *
+        1024,
+    },
+
+    fileFilter: (
+      _request,
+      file,
+      callback,
+    ) => {
+      const allowed =
+        new Set([
+          'image/png',
+          'image/jpeg',
+          'image/webp',
+        ])
+
+      if (
+        !allowed.has(
+          file.mimetype,
+        )
+      ) {
+        callback(
+          new Error(
+            'Only PNG, JPG and WEBP maps are allowed.',
+          ),
+        )
+
+        return
+      }
+
+      callback(
+        null,
+        true,
+      )
+    },
+  })
 
 const presenceByCampaign =
   new Map<
@@ -168,6 +224,33 @@ function roomName(
   )
 }
 
+function playerSafeState(
+  state: unknown,
+): {
+  activeMap: unknown
+} {
+  if (
+    !state ||
+    typeof state !== 'object'
+  ) {
+    return {
+      activeMap:
+        null,
+    }
+  }
+
+  const typedState =
+    state as {
+      activeMap?: unknown
+    }
+
+  return {
+    activeMap:
+      typedState.activeMap ??
+      null,
+  }
+}
+
 function emitPresence(
   campaignId: string,
 ): void {
@@ -199,6 +282,72 @@ function emitPresence(
   ).emit(
     'session:presence',
     users,
+  )
+}
+
+function broadcastState(
+  campaignId: string,
+): void {
+  const state =
+    loadCampaignState(
+      campaignId,
+    )
+
+  const presence =
+    presenceByCampaign.get(
+      campaignId,
+    )
+
+  if (!presence) {
+    return
+  }
+
+  for (
+    const entry
+    of presence.values()
+  ) {
+    const socket =
+      io.sockets.sockets.get(
+        entry.socketId,
+      )
+
+    if (!socket) {
+      continue
+    }
+
+    if (
+      entry.role === 'dm'
+    ) {
+      socket.emit(
+        'campaign:state-changed',
+        state,
+      )
+    } else {
+      socket.emit(
+        'campaign:state-changed',
+        playerSafeState(
+          state,
+        ),
+      )
+    }
+  }
+}
+
+function broadcastSession(
+  campaignId: string,
+): void {
+  const session =
+    getActiveSession(
+      campaignId,
+    )
+
+  io.to(
+    roomName(
+      campaignId,
+    ),
+  ).emit(
+    'campaign:session-changed',
+    session,
   )
 }
 
@@ -283,40 +432,40 @@ function requireLocalRequest(
   next()
 }
 
-function broadcastState(
+function mergeActiveMapIntoState(
   campaignId: string,
-): void {
-  const state =
+  activeMap: unknown,
+): unknown {
+  const currentState =
     loadCampaignState(
       campaignId,
     )
 
-  io.to(
-    roomName(
-      campaignId,
-    ),
-  ).emit(
-    'campaign:state-changed',
-    state,
-  )
-}
-
-function broadcastSession(
-  campaignId: string,
-): void {
-  const session =
-    getActiveSession(
-      campaignId,
+  const base =
+    (
+      currentState &&
+      typeof currentState ===
+        'object'
     )
+      ? currentState as
+          Record<
+            string,
+            unknown
+          >
+      : {}
 
-  io.to(
-    roomName(
-      campaignId,
-    ),
-  ).emit(
-    'campaign:session-changed',
-    session,
+  const nextState = {
+    ...base,
+
+    activeMap,
+  }
+
+  saveCampaignState(
+    campaignId,
+    nextState,
   )
+
+  return nextState
 }
 
 app.get(
@@ -659,6 +808,231 @@ app.post(
 )
 
 app.get(
+  '/api/campaigns/:campaignId/maps',
+  requireLocalRequest,
+  (request, response) => {
+    try {
+      response.json(
+        listAssets(
+          request.params
+            .campaignId,
+          'map',
+        ),
+      )
+    } catch (error) {
+      response
+        .status(404)
+        .json({
+          error:
+            error instanceof Error
+              ? error.message
+              : 'Could not load maps.',
+        })
+    }
+  },
+)
+
+app.post(
+  '/api/campaigns/:campaignId/maps',
+  requireLocalRequest,
+  mapUpload.single(
+    'map',
+  ),
+  (request, response) => {
+    try {
+      const campaignId =
+        request.params
+          .campaignId
+
+      if (!request.file) {
+        response
+          .status(400)
+          .json({
+            error:
+              'No map file was uploaded.',
+          })
+
+        return
+      }
+
+      const asset =
+        saveMapAsset(
+          campaignId,
+          request.file
+            .originalname,
+          request.file
+            .mimetype,
+          request.file
+            .buffer,
+        )
+
+      mergeActiveMapIntoState(
+        campaignId,
+        asset,
+      )
+
+      broadcastState(
+        campaignId,
+      )
+
+      response
+        .status(201)
+        .json({
+          ok: true,
+
+          asset,
+
+          state:
+            loadCampaignState(
+              campaignId,
+            ),
+        })
+    } catch (error) {
+      response
+        .status(400)
+        .json({
+          error:
+            error instanceof Error
+              ? error.message
+              : 'Could not upload map.',
+        })
+    }
+  },
+)
+
+app.post(
+  '/api/campaigns/:campaignId/maps/:assetId/activate',
+  requireLocalRequest,
+  (request, response) => {
+    try {
+      const campaignId =
+        request.params
+          .campaignId
+
+      const asset =
+        getAsset(
+          campaignId,
+          request.params
+            .assetId,
+        )
+
+      if (
+        !asset ||
+        asset.assetType !== 'map'
+      ) {
+        response
+          .status(404)
+          .json({
+            error:
+              'Map not found.',
+          })
+
+        return
+      }
+
+      const state =
+        mergeActiveMapIntoState(
+          campaignId,
+          asset,
+        )
+
+      broadcastState(
+        campaignId,
+      )
+
+      response.json({
+        ok: true,
+
+        asset,
+
+        state,
+      })
+    } catch (error) {
+      response
+        .status(400)
+        .json({
+          error:
+            error instanceof Error
+              ? error.message
+              : 'Could not activate map.',
+        })
+    }
+  },
+)
+
+app.get(
+  '/campaign-assets/:campaignId/:assetId',
+  (request, response) => {
+    try {
+      const campaignId =
+        request.params
+          .campaignId
+
+      const asset =
+        getAsset(
+          campaignId,
+          request.params
+            .assetId,
+        )
+
+      if (!asset) {
+        response
+          .status(404)
+          .send(
+            'Asset not found.',
+          )
+
+        return
+      }
+
+      const absolutePath =
+        getAssetAbsolutePath(
+          campaignId,
+          asset,
+        )
+
+      if (
+        !fs.existsSync(
+          absolutePath,
+        )
+      ) {
+        response
+          .status(404)
+          .send(
+            'Asset file is missing.',
+          )
+
+        return
+      }
+
+      response.setHeader(
+        'Cache-Control',
+        'public, max-age=31536000, immutable',
+      )
+
+      response.setHeader(
+        'ETag',
+        `"${asset.contentHash}"`,
+      )
+
+      response.type(
+        asset.mimeType,
+      )
+
+      response.sendFile(
+        absolutePath,
+      )
+    } catch {
+      response
+        .status(404)
+        .send(
+          'Asset not found.',
+        )
+    }
+  },
+)
+
+app.get(
   '/dev/connect',
   (_request, response) => {
     response
@@ -704,6 +1078,7 @@ io.on(
           if (!role) {
             acknowledge({
               ok: false,
+
               error:
                 'Invalid role.',
             })
@@ -724,6 +1099,7 @@ io.on(
           if (!name) {
             acknowledge({
               ok: false,
+
               error:
                 'Name is required.',
             })
@@ -732,9 +1108,14 @@ io.on(
           }
 
           let campaign = null
-          let userId = 'dm'
+
+          let userId =
+            'dm'
+
           let player = null
-          let resumed = false
+
+          let resumed =
+            false
 
           if (
             role === 'dm'
@@ -862,6 +1243,11 @@ io.on(
             campaign.id,
           )
 
+          const fullState =
+            loadCampaignState(
+              campaign.id,
+            )
+
           if (
             role === 'dm'
           ) {
@@ -876,8 +1262,12 @@ io.on(
                 ),
 
               state:
-                loadCampaignState(
+                fullState,
+
+              maps:
+                listAssets(
                   campaign.id,
+                  'map',
                 ),
 
               snapshots:
@@ -904,6 +1294,11 @@ io.on(
               activeSession:
                 getActiveSession(
                   campaign.id,
+                ),
+
+              state:
+                playerSafeState(
+                  fullState,
                 ),
             })
           }
@@ -935,6 +1330,47 @@ io.on(
   },
 )
 
+app.use(
+  (
+    error: unknown,
+    _request: Request,
+    response: Response,
+    next: NextFunction,
+  ) => {
+    if (
+      error instanceof
+        multer.MulterError
+    ) {
+      response
+        .status(400)
+        .json({
+          error:
+            error.code ===
+              'LIMIT_FILE_SIZE'
+              ? 'Map is too large. Maximum size is 100 MB.'
+              : error.message,
+        })
+
+      return
+    }
+
+    if (
+      error instanceof Error
+    ) {
+      response
+        .status(400)
+        .json({
+          error:
+            error.message,
+        })
+
+      return
+    }
+
+    next()
+  },
+)
+
 if (
   fs.existsSync(
     DIST_ROOT,
@@ -951,7 +1387,7 @@ if (
   )
 
   app.get(
-    /^\/(?!api\/|dev\/|socket\.io\/).*/,
+    /^\/(?!api\/|dev\/|socket\.io\/|campaign-assets\/).*/,
     (_request, response) => {
       response.sendFile(
         path.join(
