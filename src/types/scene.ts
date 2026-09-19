@@ -41,6 +41,8 @@ export interface SceneToken {
   size: number
   ownerId: string | null
   visible: boolean
+  speedFeet: number
+  movementUsedFeet: number
 }
 
 export interface SceneMapAsset extends MapAsset {

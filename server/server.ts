@@ -280,7 +280,20 @@ function playerSafeState(
   state: unknown,
 ): {
   activeMap: unknown
-  tokens: unknown
+  tokens: Array<{
+    id: string
+    name: string
+    assetId: string
+    imageUrl: string
+    mapId: string
+    gridX: number
+    gridY: number
+    size: number
+    ownerId: string | null
+    visible: true
+    speedFeet: number
+    movementUsedFeet: number
+  }>
   allowPlayerMovement: boolean
 } {
   if (
@@ -288,8 +301,7 @@ function playerSafeState(
     typeof state !== 'object'
   ) {
     return {
-      activeMap:
-        null,
+      activeMap: null,
       tokens: [],
       allowPlayerMovement: false,
     }
@@ -302,16 +314,48 @@ function playerSafeState(
       allowPlayerMovement?: unknown
     }
 
+  const rawTokens =
+    Array.isArray(typedState.tokens)
+      ? typedState.tokens
+      : []
+
+  const safeTokens =
+    rawTokens
+      .filter(
+        (rawToken): rawToken is Record<string, unknown> =>
+          Boolean(
+            rawToken &&
+            typeof rawToken === 'object' &&
+            (rawToken as { visible?: unknown }).visible !== false,
+          ),
+      )
+      .map((rawToken) => {
+        const ownerId =
+          typeof rawToken.ownerId === 'string' && rawToken.ownerId
+            ? rawToken.ownerId
+            : null
+
+        return {
+          id: String(rawToken.id ?? ''),
+          name: String(rawToken.name ?? 'Token'),
+          assetId: String(rawToken.assetId ?? ''),
+          imageUrl: String(rawToken.imageUrl ?? ''),
+          mapId: String(rawToken.mapId ?? ''),
+          gridX: Math.max(0, Math.round(Number(rawToken.gridX) || 0)),
+          gridY: Math.max(0, Math.round(Number(rawToken.gridY) || 0)),
+          size: Math.max(0.5, Number(rawToken.size) || 1),
+          ownerId,
+          visible: true as const,
+          speedFeet: Math.max(0, Math.round(Number(rawToken.speedFeet) || 30)),
+          movementUsedFeet: Math.max(0, Math.round(Number(rawToken.movementUsedFeet) || 0)),
+        }
+      })
+      .filter((token) => token.id && token.mapId && token.imageUrl)
+
   return {
-    activeMap:
-      typedState.activeMap ??
-      null,
-    tokens:
-      Array.isArray(typedState.tokens)
-        ? typedState.tokens
-        : [],
-    allowPlayerMovement:
-      typedState.allowPlayerMovement === true,
+    activeMap: typedState.activeMap ?? null,
+    tokens: safeTokens,
+    allowPlayerMovement: typedState.allowPlayerMovement === true,
   }
 }
 
@@ -1602,8 +1646,11 @@ io.on(
               tokens?: Array<{
                 id?: string
                 ownerId?: string | null
+                visible?: boolean
                 gridX?: number
                 gridY?: number
+                speedFeet?: number
+                movementUsedFeet?: number
                 [key: string]: unknown
               }>
               allowPlayerMovement?: boolean
@@ -1623,21 +1670,46 @@ io.on(
           }
 
           const token = tokens[tokenIndex]
+          const isPlayerControlledMove = role === 'player'
           const allowed =
             role === 'dm' ||
             (
               state.allowPlayerMovement === true &&
+              token.visible !== false &&
               token.ownerId === userId
             )
 
           if (!allowed) {
-            throw new Error('You do not control this token.')
+            throw new Error('You do not control this visible token.')
+          }
+
+          const previousGridX = Math.max(0, Math.round(Number(token.gridX) || 0))
+          const previousGridY = Math.max(0, Math.round(Number(token.gridY) || 0))
+          const stepDistance = Math.max(
+            Math.abs(gridX - previousGridX),
+            Math.abs(gridY - previousGridY),
+          )
+          const distanceFeet = stepDistance * 5
+          const speedFeet = Math.max(0, Math.round(Number(token.speedFeet) || 30))
+          const movementUsedFeet = Math.max(0, Math.round(Number(token.movementUsedFeet) || 0))
+
+          if (
+            isPlayerControlledMove &&
+            movementUsedFeet + distanceFeet > speedFeet
+          ) {
+            const remainingFeet = Math.max(0, speedFeet - movementUsedFeet)
+            throw new Error(`Movement limit reached. ${remainingFeet} ft remaining.`)
           }
 
           tokens[tokenIndex] = {
             ...token,
             gridX,
             gridY,
+            speedFeet,
+            movementUsedFeet:
+              isPlayerControlledMove
+                ? movementUsedFeet + distanceFeet
+                : movementUsedFeet,
           }
 
           saveCampaignState(

@@ -2,6 +2,7 @@ import {
   Application,
   Container,
   Graphics,
+  Rectangle,
   Sprite,
   Texture,
   type FederatedPointerEvent,
@@ -53,9 +54,31 @@ interface MapViewportProps {
   movableTokenIds:
     string[]
 
+  placementEnabled:
+    boolean
+
   onTokenMove?:
     (
       tokenId: string,
+      gridX: number,
+      gridY: number,
+    ) => void
+
+  onTokenPickup?:
+    (tokenId: string) => void
+
+  onTokenSnap?:
+    (tokenId: string) => void
+
+  onPlaceAtGrid?:
+    (
+      gridX: number,
+      gridY: number,
+    ) => void
+
+  onAssetDrop?:
+    (
+      assetId: string,
       gridX: number,
       gridY: number,
     ) => void
@@ -211,7 +234,12 @@ export const MapViewport =
         grid,
         tokens,
         movableTokenIds,
+        placementEnabled,
         onTokenMove,
+        onTokenPickup,
+        onTokenSnap,
+        onPlaceAtGrid,
+        onAssetDrop,
         panEnabled,
         onCameraChange,
       },
@@ -769,6 +797,7 @@ export const MapViewport =
                 const canMoveToken = movableTokenIds.includes(token.id)
                 holder.eventMode = canMoveToken ? 'static' : 'none'
                 holder.cursor = canMoveToken ? 'grab' : 'default'
+                holder.hitArea = new Rectangle(0, 0, diameter, diameter)
 
                 if (canMoveToken) {
                   let dragging = false
@@ -790,6 +819,7 @@ export const MapViewport =
                       pointerOffsetY = point.y - holder.y
                       holder.cursor = 'grabbing'
                       holder.alpha = 0.88
+                      onTokenPickup?.(token.id)
                     }
 
                   const moveDrag =
@@ -826,6 +856,7 @@ export const MapViewport =
                       )
 
                       onTokenMove?.(token.id, snappedGridX, snappedGridY)
+                      onTokenSnap?.(token.id)
                     }
 
                   holder.on('pointerdown', startDrag)
@@ -878,6 +909,8 @@ export const MapViewport =
           grid.offsetY,
           movableTokenIds,
           onTokenMove,
+          onTokenPickup,
+          onTokenSnap,
         ],
       )
 
@@ -1014,6 +1047,63 @@ export const MapViewport =
 
           const canvas =
             app.canvas
+
+          const gridPointFromClient =
+            (clientX: number, clientY: number) => {
+              const rect = canvas.getBoundingClientRect()
+              const camera = cameraRef.current
+              const screenX = clientX - rect.left
+              const screenY = clientY - rect.top
+              const worldX = (screenX - camera.x) / camera.zoom
+              const worldY = (screenY - camera.y) / camera.zoom
+              const cellSize = Math.max(10, grid.cellSize)
+
+              return {
+                gridX: Math.max(0, Math.floor((worldX - grid.offsetX) / cellSize)),
+                gridY: Math.max(0, Math.floor((worldY - grid.offsetY) / cellSize)),
+              }
+            }
+
+          const onDragOver =
+            (event: DragEvent) => {
+              if (!activeMap || !onAssetDrop) return
+
+              const assetId = event.dataTransfer?.types.includes('application/x-dnd-vtt-token')
+              if (!assetId) return
+
+              event.preventDefault()
+              if (event.dataTransfer) event.dataTransfer.dropEffect = 'copy'
+              hostRef.current?.classList.add('is-token-drop-target')
+            }
+
+          const onDragLeave =
+            (event: DragEvent) => {
+              if (event.relatedTarget && hostRef.current?.contains(event.relatedTarget as Node)) {
+                return
+              }
+              hostRef.current?.classList.remove('is-token-drop-target')
+            }
+
+          const onDrop =
+            (event: DragEvent) => {
+              hostRef.current?.classList.remove('is-token-drop-target')
+              if (!activeMap || !onAssetDrop) return
+
+              const assetId = event.dataTransfer?.getData('application/x-dnd-vtt-token') ?? ''
+              if (!assetId) return
+
+              event.preventDefault()
+              const point = gridPointFromClient(event.clientX, event.clientY)
+              onAssetDrop(assetId, point.gridX, point.gridY)
+            }
+
+          const onPlacementClick =
+            (event: MouseEvent) => {
+              if (!placementEnabled || !activeMap || !onPlaceAtGrid) return
+
+              const point = gridPointFromClient(event.clientX, event.clientY)
+              onPlaceAtGrid(point.gridX, point.gridY)
+            }
 
           const onWheel =
             (
@@ -1184,6 +1274,11 @@ export const MapViewport =
               fitMap()
             }
 
+          canvas.addEventListener('dragover', onDragOver)
+          canvas.addEventListener('dragleave', onDragLeave)
+          canvas.addEventListener('drop', onDrop)
+          canvas.addEventListener('click', onPlacementClick)
+
           canvas.addEventListener(
             'wheel',
             onWheel,
@@ -1219,6 +1314,12 @@ export const MapViewport =
           )
 
           return () => {
+            hostRef.current?.classList.remove('is-token-drop-target')
+            canvas.removeEventListener('dragover', onDragOver)
+            canvas.removeEventListener('dragleave', onDragLeave)
+            canvas.removeEventListener('drop', onDrop)
+            canvas.removeEventListener('click', onPlacementClick)
+
             canvas.removeEventListener(
               'wheel',
               onWheel,
@@ -1253,6 +1354,13 @@ export const MapViewport =
         [
           ready,
           activeMap?.id,
+          panEnabled,
+          placementEnabled,
+          grid.cellSize,
+          grid.offsetX,
+          grid.offsetY,
+          onAssetDrop,
+          onPlaceAtGrid,
         ],
       )
 
@@ -1369,6 +1477,9 @@ export const MapViewport =
             'pixi-map-host',
             panEnabled
               ? 'is-pan-mode'
+              : '',
+            placementEnabled
+              ? 'is-token-placement-mode'
               : '',
             activeMap
               ? 'has-map'

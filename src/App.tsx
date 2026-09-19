@@ -17,6 +17,12 @@ import {
 } from './lib/socket'
 
 import {
+  initialiseSfx,
+  playSfx,
+  setSfxEnabled,
+} from './lib/audioManager'
+
+import {
   DEFAULT_GRID_SETTINGS,
   type GridSettings,
   type MapAsset,
@@ -185,12 +191,15 @@ function App() {
     () => localStorage.getItem(JOIN_CODE_STORAGE) ?? '',
   )
   const [cellSizeDraft, setCellSizeDraft] = useState('')
+  const [pendingTokenAssetId, setPendingTokenAssetId] = useState<string | null>(null)
+  const [tokenSfxEnabled, setTokenSfxEnabled] = useState(true)
 
   const gameStateRef = useRef<CampaignState>({})
   const gridSaveTimerRef = useRef<number | null>(null)
   const mapViewportRef = useRef<MapViewportHandle>(null)
   const mapFileInput = useRef<HTMLInputElement>(null)
   const tokenFileInput = useRef<HTMLInputElement>(null)
+  const tokenAssetDragRef = useRef<string | null>(null)
 
   const isDm = role === 'dm'
   const activeMap = gameState.activeMap ?? null
@@ -204,6 +213,14 @@ function App() {
   useEffect(() => {
     gameStateRef.current = gameState
   }, [gameState])
+
+  useEffect(() => {
+    initialiseSfx()
+  }, [])
+
+  useEffect(() => {
+    setSfxEnabled(tokenSfxEnabled)
+  }, [tokenSfxEnabled])
 
   useEffect(() => {
     setCellSizeDraft(String(Math.round(grid.cellSize)))
@@ -530,32 +547,82 @@ function App() {
     }
   }
 
-  const placeToken = async (asset: TokenAsset) => {
+  const createTokenAt = async (
+    asset: TokenAsset,
+    gridX: number,
+    gridY: number,
+  ) => {
     if (!isDm || !currentCampaign || !activeMap) return
 
     const existing = gameStateRef.current.tokens ?? []
-    const onCurrentMap = existing.filter((token) => token.mapId === activeMap.id)
     const token: SceneToken = {
       id: window.crypto.randomUUID(),
       name: asset.displayName.replace(/\.[^.]+$/, ''),
       assetId: asset.id,
       imageUrl: asset.url,
       mapId: activeMap.id,
-      gridX: 2 + (onCurrentMap.length % 6),
-      gridY: 2 + Math.floor(onCurrentMap.length / 6),
+      gridX: Math.max(0, Math.round(gridX)),
+      gridY: Math.max(0, Math.round(gridY)),
       size: 1,
       ownerId: null,
       visible: true,
+      speedFeet: 30,
+      movementUsedFeet: 0,
     }
 
+    const previousState = gameStateRef.current
     const nextState: CampaignState = {
-      ...gameStateRef.current,
+      ...previousState,
       tokens: [...existing, token],
     }
 
+    // Exit placement mode immediately. Waiting for the persistence request here
+    // can leave the freshly-created first token visible but temporarily locked.
+    setPendingTokenAssetId(null)
+    setToolMode('select')
     commitState(nextState)
-    await saveWholeState(currentCampaign.id, nextState)
-    setStatusMessage(`${token.name} placed on the active map.`)
+
+    try {
+      await saveWholeState(currentCampaign.id, nextState)
+      void playSfx('tokens/token-drop', ['tokens/token-snap', 'tokens/token-move'])
+      setStatusMessage(`${token.name} placed at grid ${token.gridX}, ${token.gridY}.`)
+    } catch (error) {
+      // If persistence fails, put the client back on the last known-good state.
+      commitState(previousState)
+      setStatusMessage(
+        error instanceof Error
+          ? error.message
+          : 'Token placement could not be saved.',
+      )
+    }
+  }
+
+  const armTokenPlacement = (asset: TokenAsset) => {
+    if (!activeMap) {
+      setStatusMessage('Activate a map before placing a token.')
+      return
+    }
+
+    setPendingTokenAssetId(asset.id)
+    setToolMode('select')
+    setStatusMessage(`Place ${asset.displayName}: click the map or drag the portrait onto a square.`)
+  }
+
+  const placePendingTokenAt = (gridX: number, gridY: number) => {
+    if (!pendingTokenAssetId) return
+    const asset = tokenAssets.find((candidate) => candidate.id === pendingTokenAssetId)
+    if (!asset) {
+      setPendingTokenAssetId(null)
+      return
+    }
+
+    void createTokenAt(asset, gridX, gridY)
+  }
+
+  const dropTokenAssetAt = (assetId: string, gridX: number, gridY: number) => {
+    const asset = tokenAssets.find((candidate) => candidate.id === assetId)
+    if (!asset) return
+    void createTokenAt(asset, gridX, gridY)
   }
 
   const moveToken = (
@@ -565,6 +632,9 @@ function App() {
   ) => {
     const current = gameStateRef.current
     const tokens = current.tokens ?? []
+    const original = tokens.find((token) => token.id === tokenId)
+    if (!original) return
+
     const nextState: CampaignState = {
       ...current,
       tokens: tokens.map((token) =>
@@ -580,8 +650,20 @@ function App() {
       { tokenId, gridX, gridY },
       (result: { ok?: boolean; error?: string }) => {
         if (!result?.ok) {
+          const latest = gameStateRef.current
+          commitState({
+            ...latest,
+            tokens: (latest.tokens ?? []).map((token) =>
+              token.id === tokenId
+                ? { ...token, gridX: original.gridX, gridY: original.gridY }
+                : token,
+            ),
+          })
           setStatusMessage(result?.error ?? 'Token movement was rejected.')
+          return
         }
+
+        void playSfx('tokens/token-snap', ['tokens/token-drop', 'tokens/token-move'])
       },
     )
   }
@@ -604,6 +686,41 @@ function App() {
 
     commitState(nextState)
     await saveWholeState(currentCampaign.id, nextState)
+  }
+
+  const resetTokenMovement = async (tokenId: string) => {
+    await updateToken(tokenId, { movementUsedFeet: 0 })
+    setStatusMessage('Token movement reset for the next turn.')
+  }
+
+  const resetAllTokenMovement = async () => {
+    if (!isDm || !currentCampaign) return
+
+    const current = gameStateRef.current
+    const nextState: CampaignState = {
+      ...current,
+      tokens: (current.tokens ?? []).map((token) => ({
+        ...token,
+        movementUsedFeet: 0,
+      })),
+    }
+
+    commitState(nextState)
+    await saveWholeState(currentCampaign.id, nextState)
+    setStatusMessage('Movement reset for all tokens.')
+  }
+
+  const testTokenSfx = async () => {
+    const played = await playSfx(
+      'tokens/token-snap',
+      ['tokens/token-drop', 'tokens/token-move'],
+    )
+
+    setStatusMessage(
+      played
+        ? 'Token SFX is connected and playing.'
+        : 'No token SFX cue was found. Check assets-source/audio/tokens/.',
+    )
   }
 
   const setPlayerMovement = async (enabled: boolean) => {
@@ -849,7 +966,9 @@ function App() {
             )}
             movableTokenIds={(gameState.tokens ?? [])
               .filter((token) =>
+                pendingTokenAssetId === null &&
                 toolMode === 'select' &&
+                token.visible &&
                 (
                   isDm ||
                   (
@@ -859,8 +978,14 @@ function App() {
                 ),
               )
               .map((token) => token.id)}
+            placementEnabled={isDm && pendingTokenAssetId !== null}
             onTokenMove={moveToken}
-            panEnabled={toolMode === 'pan'}
+            onTokenPickup={() => {
+              void playSfx('tokens/token-pickup', ['tokens/token-move'])
+            }}
+            onPlaceAtGrid={placePendingTokenAt}
+            onAssetDrop={isDm ? dropTokenAssetAt : undefined}
+            panEnabled={toolMode === 'pan' && pendingTokenAssetId === null}
             onCameraChange={(camera) => setCameraZoom(camera.zoom)}
           />
 
@@ -872,9 +997,21 @@ function App() {
             <button type="button" onClick={() => mapViewportRef.current?.actualSize()}>100%</button>
           </div>
 
-          <div className="map-hint">
-            <b>{toolMode === 'pan' ? 'PAN MODE' : 'SELECT MODE'}</b>
-            <span>Wheel = zoom • Drag = pan • Double-click = fit</span>
+          <div className={pendingTokenAssetId ? 'map-hint is-placement' : 'map-hint'}>
+            <b>
+              {pendingTokenAssetId
+                ? 'PLACE TOKEN'
+                : toolMode === 'pan'
+                  ? 'PAN MODE'
+                  : 'SELECT MODE'}
+            </b>
+            <span>
+              {pendingTokenAssetId
+                ? 'Click a square to place • or drag a portrait from the Token Chest'
+                : toolMode === 'pan'
+                  ? 'Wheel = zoom • Drag = pan • Double-click = fit'
+                  : 'Drag a token to move • it snaps to the grid'}
+            </span>
           </div>
 
           {diceResult !== null ? (
@@ -1067,7 +1204,7 @@ function App() {
                 <label className="toggle-row movement-toggle">
                   <span>
                     <strong>Player Self-Movement</strong>
-                    <small>Owned tokens only</small>
+                    <small>Owned visible tokens • movement budget enforced</small>
                   </span>
                   <input
                     type="checkbox"
@@ -1075,6 +1212,22 @@ function App() {
                     onChange={(event) => setPlayerMovement(event.target.checked)}
                   />
                 </label>
+
+                <label className="toggle-row movement-toggle">
+                  <span>
+                    <strong>Token SFX</strong>
+                    <small>Pickup • drop • snap feedback</small>
+                  </span>
+                  <input
+                    type="checkbox"
+                    checked={tokenSfxEnabled}
+                    onChange={(event) => setTokenSfxEnabled(event.target.checked)}
+                  />
+                </label>
+
+                <button type="button" className="secondary-button token-sfx-test" onClick={() => void testTokenSfx()}>
+                  Test Token SFX
+                </button>
 
                 <label className="file-drop">
                   <strong>Choose Portrait</strong>
@@ -1090,66 +1243,199 @@ function App() {
                   Add to Token Chest
                 </button>
 
+                {pendingTokenAssetId ? (
+                  <div className="token-placement-banner">
+                    <strong>Placement armed</strong>
+                    <span>Click the map where the token should appear.</span>
+                    <button type="button" onClick={() => setPendingTokenAssetId(null)}>Cancel</button>
+                  </div>
+                ) : null}
+
                 <div className="token-asset-list">
                   {tokenAssets.map((asset) => (
                     <button
                       type="button"
-                      className="token-asset"
+                      className={pendingTokenAssetId === asset.id ? 'token-asset is-selected' : 'token-asset'}
                       key={asset.id}
-                      onClick={() => placeToken(asset)}
+                      onClick={() => {
+                        // Some browsers dispatch a click after a completed HTML drag.
+                        // Ignore that synthetic click so drag-and-drop does not
+                        // accidentally re-arm PLACE TOKEN mode.
+                        if (tokenAssetDragRef.current === asset.id) {
+                          tokenAssetDragRef.current = null
+                          return
+                        }
+                        armTokenPlacement(asset)
+                      }}
                       disabled={!activeMap}
+                      draggable={Boolean(activeMap)}
+                      onDragStart={(event) => {
+                        tokenAssetDragRef.current = asset.id
+                        event.dataTransfer.effectAllowed = 'copy'
+                        event.dataTransfer.setData('application/x-dnd-vtt-token', asset.id)
+                        event.dataTransfer.setData('text/plain', asset.id)
+                        setPendingTokenAssetId(null)
+                        setToolMode('select')
+                      }}
+                      onDragEnd={() => {
+                        window.setTimeout(() => {
+                          if (tokenAssetDragRef.current === asset.id) {
+                            tokenAssetDragRef.current = null
+                          }
+                        }, 0)
+                      }}
                     >
                       <span className="token-asset-ring">
-                        <img src={asset.url} alt="" />
+                        <img src={asset.url} alt="" draggable={false} />
                       </span>
                       <span>
                         <strong>{asset.displayName}</strong>
-                        <small>{activeMap ? 'Place on map' : 'Activate a map first'}</small>
+                        <small>{activeMap ? 'Click to place • or drag onto map' : 'Activate a map first'}</small>
                       </span>
                     </button>
                   ))}
                 </div>
 
+                <div className="token-list-heading">
+                  <strong>Tokens on this map</strong>
+                  <button type="button" onClick={() => void resetAllTokenMovement()}>Reset All Move</button>
+                </div>
+
                 <div className="placed-token-list">
                   {(gameState.tokens ?? [])
                     .filter((token) => token.mapId === activeMap?.id)
-                    .map((token) => (
-                      <article className="placed-token" key={token.id}>
-                        <img src={token.imageUrl} alt="" />
-                        <div>
-                          <strong>{token.name}</strong>
-                          <small>Grid {token.gridX}, {token.gridY}</small>
-                        </div>
-                        <select
-                          aria-label={`${token.name} size`}
-                          value={token.size}
-                          onChange={(event) => updateToken(token.id, { size: Number(event.target.value) })}
-                        >
-                          <option value="0.5">Tiny</option>
-                          <option value="1">Small / Medium</option>
-                          <option value="2">Large</option>
-                          <option value="3">Huge</option>
-                          <option value="4">Gargantuan</option>
-                        </select>
-                        <select
-                          aria-label={`${token.name} owner`}
-                          value={token.ownerId ?? ''}
-                          onChange={(event) => updateToken(token.id, {
-                            ownerId: event.target.value || null,
-                          })}
-                        >
-                          <option value="">DM only</option>
-                          {presence
-                            .filter((user) => user.role === 'player')
-                            .map((player) => (
-                              <option value={player.id} key={player.id}>{player.name}</option>
-                            ))}
-                        </select>
-                        <button type="button" onClick={() => removeToken(token.id)} aria-label={`Remove ${token.name}`}>
-                          ×
-                        </button>
-                      </article>
-                    ))}
+                    .map((token) => {
+                      const speedFeet = Number(token.speedFeet ?? 30)
+                      const usedFeet = Number(token.movementUsedFeet ?? 0)
+
+                      return (
+                        <article className="placed-token" key={token.id}>
+                          <img src={token.imageUrl} alt="" />
+                          <div className="placed-token-main">
+                            <strong>{token.name}</strong>
+                            <small>Grid {token.gridX}, {token.gridY}</small>
+                            <small className={usedFeet >= speedFeet ? 'movement-readout is-spent' : 'movement-readout'}>
+                              Move {usedFeet}/{speedFeet} ft
+                            </small>
+                          </div>
+
+                          <div className="placed-token-controls">
+                            <label className="token-name-control">
+                              <span>Name</span>
+                              <input
+                                key={`${token.id}:${token.name}`}
+                                className="token-name-input"
+                                type="text"
+                                defaultValue={token.name}
+                                maxLength={80}
+                                aria-label={`${token.name} name`}
+                                title="Press Enter or click outside to save. Press Escape to cancel."
+                                onKeyDown={(event) => {
+                                  if (event.key === 'Enter') {
+                                    event.preventDefault()
+                                    event.currentTarget.blur()
+                                  }
+
+                                  if (event.key === 'Escape') {
+                                    event.preventDefault()
+                                    event.currentTarget.value = token.name
+                                    event.currentTarget.blur()
+                                  }
+                                }}
+                                onBlur={(event) => {
+                                  const nextName = event.currentTarget.value.trim()
+
+                                  if (!nextName) {
+                                    event.currentTarget.value = token.name
+                                    setStatusMessage('Token name cannot be empty.')
+                                    return
+                                  }
+
+                                  if (nextName === token.name) {
+                                    event.currentTarget.value = token.name
+                                    return
+                                  }
+
+                                  void updateToken(token.id, { name: nextName })
+                                    .then(() => {
+                                      setStatusMessage(`Token renamed to ${nextName}.`)
+                                    })
+                                    .catch((error) => {
+                                      event.currentTarget.value = token.name
+                                      setStatusMessage(
+                                        error instanceof Error
+                                          ? error.message
+                                          : 'Token rename could not be saved.',
+                                      )
+                                    })
+                                }}
+                              />
+                            </label>
+
+                            <label>
+                              <span>Size</span>
+                              <select
+                                aria-label={`${token.name} size`}
+                                value={token.size}
+                                onChange={(event) => updateToken(token.id, { size: Number(event.target.value) })}
+                              >
+                                <option value="0.5">Tiny</option>
+                                <option value="1">Small / Medium</option>
+                                <option value="2">Large</option>
+                                <option value="3">Huge</option>
+                                <option value="4">Gargantuan</option>
+                              </select>
+                            </label>
+
+                            <label>
+                              <span>Speed</span>
+                              <select
+                                aria-label={`${token.name} speed`}
+                                value={speedFeet}
+                                onChange={(event) => updateToken(token.id, { speedFeet: Number(event.target.value) })}
+                              >
+                                {[5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 80, 120].map((speed) => (
+                                  <option key={speed} value={speed}>{speed} ft</option>
+                                ))}
+                              </select>
+                            </label>
+
+                            <label>
+                              <span>Owner</span>
+                              <select
+                                aria-label={`${token.name} owner`}
+                                value={token.ownerId ?? ''}
+                                onChange={(event) => updateToken(token.id, {
+                                  ownerId: event.target.value || null,
+                                })}
+                              >
+                                <option value="">DM only</option>
+                                {presence
+                                  .filter((user) => user.role === 'player')
+                                  .map((player) => (
+                                    <option value={player.id} key={player.id}>{player.name}</option>
+                                  ))}
+                              </select>
+                            </label>
+                          </div>
+
+                          <div className="placed-token-actions">
+                            <label className="token-visible-toggle">
+                              <input
+                                type="checkbox"
+                                checked={token.visible}
+                                onChange={(event) => updateToken(token.id, { visible: event.target.checked })}
+                              />
+                              <span>Visible</span>
+                            </label>
+                            <button type="button" onClick={() => void resetTokenMovement(token.id)}>Reset Move</button>
+                            <button type="button" className="danger-button" onClick={() => removeToken(token.id)} aria-label={`Remove ${token.name}`}>
+                              Remove
+                            </button>
+                          </div>
+                        </article>
+                      )
+                    })}
                 </div>
               </section>
             ) : null}

@@ -1207,3 +1207,225 @@ input {
     font-size: 0;
   }
 }
+
+/* Token UX v2 — placement, movement budget, and SFX controls */
+.token-asset[draggable='true'] {
+  cursor: grab;
+}
+
+.token-asset[draggable='true']:active {
+  cursor: grabbing;
+}
+
+.token-asset.is-selected {
+  border-color: var(--brass-light);
+  box-shadow:
+    inset 0 0 22px rgba(239, 200, 115, 0.16),
+    0 0 0 2px rgba(199, 149, 75, 0.22);
+}
+
+.token-placement-banner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 3px 10px;
+  align-items: center;
+  margin-top: 12px;
+  padding: 10px 12px;
+  border: 1px solid #b8823c;
+  border-radius: 8px;
+  color: var(--parchment);
+  background: rgba(65, 37, 17, 0.92);
+}
+
+.token-placement-banner strong,
+.token-placement-banner span {
+  grid-column: 1;
+}
+
+.token-placement-banner span {
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.token-placement-banner button {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  min-height: 34px;
+  padding: 0 10px;
+  color: var(--parchment);
+  border: 1px solid #7d542c;
+  border-radius: 6px;
+  background: #1b0e07;
+  cursor: pointer;
+}
+
+.token-sfx-test {
+  width: 100%;
+  margin: 4px 0 10px;
+}
+
+.token-list-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(199, 149, 75, 0.35);
+  color: var(--parchment);
+}
+
+.token-list-heading button {
+  padding: 6px 9px;
+  color: var(--muted);
+  border: 1px solid #694522;
+  border-radius: 6px;
+  background: #180c06;
+  cursor: pointer;
+}
+
+.placed-token-list {
+  margin-top: 10px;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.placed-token {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 9px 10px;
+  padding: 10px;
+}
+
+.placed-token > img {
+  width: 44px;
+  height: 44px;
+  grid-row: 1;
+}
+
+.placed-token-main {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+  align-content: center;
+}
+
+.placed-token-main .movement-readout {
+  margin-top: 2px;
+  color: #b9d18d;
+  font-variant-numeric: tabular-nums;
+}
+
+.placed-token-main .movement-readout.is-spent {
+  color: #d69072;
+}
+
+.placed-token-controls {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.placed-token-controls label {
+  min-width: 0;
+  display: grid;
+  gap: 4px;
+  color: var(--muted);
+  font-size: 0.77rem;
+}
+
+.placed-token-controls select {
+  width: 100%;
+  min-width: 0;
+  height: 32px;
+  padding: 0 6px;
+  color: var(--parchment);
+  border: 1px solid #77502a;
+  border-radius: 5px;
+  background: #1b0e07;
+}
+
+.placed-token-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.placed-token-actions button {
+  width: auto;
+  min-height: 30px;
+  padding: 0 9px;
+  font-size: 0.8rem;
+}
+
+.placed-token-actions .danger-button {
+  margin-left: auto;
+  color: #e4aa8d;
+  border-color: #7f432e;
+}
+
+.token-visible-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.token-visible-toggle input {
+  accent-color: var(--brass);
+}
+
+.map-hint.is-placement {
+  border-color: #c7954b;
+  background: rgba(53, 29, 12, 0.94);
+  box-shadow: 0 0 22px rgba(199, 149, 75, 0.18);
+}
+
+.map-hint.is-placement b {
+  color: #f0c66f;
+}
+
+@media (max-width: 1360px) {
+  .placed-token {
+    grid-template-columns: 44px minmax(0, 1fr);
+  }
+
+  .placed-token select {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 1180px) {
+  .placed-token-controls {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Token rename control — DM-only placed-token settings */
+.token-name-control {
+  grid-column: 1 / -1;
+}
+
+.placed-token-controls .token-name-input {
+  width: 100%;
+  min-width: 0;
+  height: 34px;
+  padding: 0 9px;
+  color: var(--parchment);
+  border: 1px solid #77502a;
+  border-radius: 5px;
+  background: #1b0e07;
+  outline: none;
+  font-family: var(--body);
+  font-size: 0.9rem;
+}
+
+.placed-token-controls .token-name-input:focus {
+  border-color: var(--brass-light);
+  box-shadow: 0 0 0 2px rgba(199, 149, 75, 0.18);
+}
+
