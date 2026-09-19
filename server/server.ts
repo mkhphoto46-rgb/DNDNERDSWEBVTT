@@ -276,6 +276,56 @@ function roomName(
   )
 }
 
+const PLAYER_COLOR_PALETTE = [
+  '#D85A4A',
+  '#4A8BD8',
+  '#55A96A',
+  '#C9923E',
+  '#8F6DD8',
+  '#D866A2',
+  '#4AAFB0',
+  '#D27A3A',
+]
+
+function defaultPlayerColor(
+  playerId: string,
+): string {
+  let hash = 0
+
+  for (
+    let index = 0;
+    index < playerId.length;
+    index += 1
+  ) {
+    hash =
+      (
+        (
+          hash << 5
+        ) -
+        hash +
+        playerId.charCodeAt(index)
+      ) |
+      0
+  }
+
+  return PLAYER_COLOR_PALETTE[
+    Math.abs(hash) %
+    PLAYER_COLOR_PALETTE.length
+  ]
+}
+
+function safeTokenColor(
+  value: unknown,
+  fallback: string,
+): string {
+  return (
+    typeof value === 'string' &&
+    /^#[0-9a-f]{6}$/i.test(value)
+  )
+    ? value.toUpperCase()
+    : fallback
+}
+
 function playerSafeState(
   state: unknown,
 ): {
@@ -291,6 +341,8 @@ function playerSafeState(
     size: number
     ownerId: string | null
     visible: true
+    color: string
+    level: number
     speedFeet: number
     movementUsedFeet: number
   }>
@@ -311,6 +363,7 @@ function playerSafeState(
     state as {
       activeMap?: unknown
       tokens?: unknown
+      playerColors?: unknown
       allowPlayerMovement?: unknown
     }
 
@@ -335,6 +388,20 @@ function playerSafeState(
             ? rawToken.ownerId
             : null
 
+        const playerColors =
+          typedState.playerColors &&
+          typeof typedState.playerColors === 'object'
+            ? typedState.playerColors as Record<string, unknown>
+            : {}
+
+        const inheritedColor =
+          ownerId
+            ? safeTokenColor(
+                playerColors[ownerId],
+                defaultPlayerColor(ownerId),
+              )
+            : '#C9954B'
+
         return {
           id: String(rawToken.id ?? ''),
           name: String(rawToken.name ?? 'Token'),
@@ -346,6 +413,12 @@ function playerSafeState(
           size: Math.max(0.5, Number(rawToken.size) || 1),
           ownerId,
           visible: true as const,
+          color:
+            safeTokenColor(
+              rawToken.color,
+              inheritedColor,
+            ),
+          level: Math.max(1, Math.min(30, Math.round(Number(rawToken.level) || 1))),
           speedFeet: Math.max(0, Math.round(Number(rawToken.speedFeet) || 30)),
           movementUsedFeet: Math.max(0, Math.round(Number(rawToken.movementUsedFeet) || 0)),
         }

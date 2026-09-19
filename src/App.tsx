@@ -73,6 +73,8 @@ interface CampaignState {
   version?: number
   activeMap?: SceneMapAsset | null
   mapSettings?: MapSettingsByAssetId
+  mapNames?: Record<string, string>
+  playerColors?: Record<string, string>
   activeSceneId?: string | null
   tokens?: SceneToken[]
   allowPlayerMovement?: boolean
@@ -97,6 +99,38 @@ const PLAYER_KEY_STORAGE = 'dnd_vtt_player_key_v1'
 const PLAYER_NAME_STORAGE = 'dnd_vtt_player_name_v1'
 const JOIN_CODE_STORAGE = 'dnd_vtt_join_code_v1'
 const GRID_SAVE_DELAY_MS = 350
+const DEFAULT_TOKEN_COLOR = '#C9954B'
+const PLAYER_COLOR_PALETTE = [
+  '#D85A4A',
+  '#4A8BD8',
+  '#55A96A',
+  '#C9923E',
+  '#8F6DD8',
+  '#D866A2',
+  '#4AAFB0',
+  '#D27A3A',
+]
+
+function normalizeTokenColor(
+  value: unknown,
+  fallback = DEFAULT_TOKEN_COLOR,
+): string {
+  const candidate = String(value ?? '').trim()
+
+  return /^#[0-9a-f]{6}$/i.test(candidate)
+    ? candidate.toUpperCase()
+    : fallback
+}
+
+function defaultPlayerColor(playerId: string): string {
+  let hash = 0
+
+  for (let index = 0; index < playerId.length; index += 1) {
+    hash = ((hash << 5) - hash + playerId.charCodeAt(index)) | 0
+  }
+
+  return PLAYER_COLOR_PALETTE[Math.abs(hash) % PLAYER_COLOR_PALETTE.length]
+}
 
 function getOrCreatePlayerKey(): string {
   let key = localStorage.getItem(PLAYER_KEY_STORAGE)
@@ -204,6 +238,15 @@ function App() {
   const isDm = role === 'dm'
   const activeMap = gameState.activeMap ?? null
   const grid = readGridFromState(gameState)
+
+  const getPlayerColor = (playerId: string): string =>
+    normalizeTokenColor(
+      gameStateRef.current.playerColors?.[playerId],
+      defaultPlayerColor(playerId),
+    )
+
+  const getMapDisplayName = (map: Pick<MapAsset, 'id' | 'displayName'>): string =>
+    gameStateRef.current.mapNames?.[map.id]?.trim() || map.displayName
 
   const commitState = (state: CampaignState) => {
     gameStateRef.current = state
@@ -450,6 +493,9 @@ function App() {
     asset: MapAsset,
   ) => {
     const gridSettings = normalizeGridSettings(state.mapSettings?.[asset.id])
+    const displayName =
+      state.mapNames?.[asset.id]?.trim() ||
+      asset.displayName
 
     const nextState: CampaignState = {
       ...state,
@@ -459,6 +505,7 @@ function App() {
       },
       activeMap: {
         ...asset,
+        displayName,
         grid: gridSettings,
       },
     }
@@ -511,7 +558,7 @@ function App() {
       )
 
       await activateMapState(currentCampaign.id, result.state, result.asset)
-      setStatusMessage(`${map.displayName} is now active.`)
+      setStatusMessage(`${getMapDisplayName(map)} is now active.`)
     } catch (error) {
       setStatusMessage(error instanceof Error ? error.message : 'Could not activate map.')
     }
@@ -566,6 +613,8 @@ function App() {
       size: 1,
       ownerId: null,
       visible: true,
+      color: DEFAULT_TOKEN_COLOR,
+      level: 1,
       speedFeet: 30,
       movementUsedFeet: 0,
     }
@@ -686,6 +735,73 @@ function App() {
 
     commitState(nextState)
     await saveWholeState(currentCampaign.id, nextState)
+  }
+
+  const renameMap = async (
+    mapId: string,
+    requestedName: string,
+  ) => {
+    if (!isDm || !currentCampaign) return
+
+    const nextName = requestedName.trim()
+
+    if (!nextName) {
+      setStatusMessage('Map name cannot be empty.')
+      return
+    }
+
+    const current = gameStateRef.current
+    const nextState: CampaignState = {
+      ...current,
+      mapNames: {
+        ...(current.mapNames ?? {}),
+        [mapId]: nextName,
+      },
+      activeMap:
+        current.activeMap?.id === mapId
+          ? {
+              ...current.activeMap,
+              displayName: nextName,
+            }
+          : current.activeMap,
+    }
+
+    commitState(nextState)
+    await saveWholeState(currentCampaign.id, nextState)
+    setStatusMessage(`Map renamed to ${nextName}.`)
+  }
+
+  const updatePlayerColor = async (
+    playerId: string,
+    requestedColor: string,
+  ) => {
+    if (!isDm || !currentCampaign) return
+
+    const color = normalizeTokenColor(
+      requestedColor,
+      defaultPlayerColor(playerId),
+    )
+
+    const current = gameStateRef.current
+    const nextState: CampaignState = {
+      ...current,
+      playerColors: {
+        ...(current.playerColors ?? {}),
+        [playerId]: color,
+      },
+      tokens: (current.tokens ?? []).map((token) =>
+        token.ownerId === playerId
+          ? {
+              ...token,
+              color,
+            }
+          : token,
+      ),
+    }
+
+    commitState(nextState)
+    await saveWholeState(currentCampaign.id, nextState)
+    setStatusMessage('Player color updated. Owned tokens now use the same ring color.')
   }
 
   const resetTokenMovement = async (tokenId: string) => {
@@ -961,9 +1077,20 @@ function App() {
             ref={mapViewportRef}
             activeMap={activeMap}
             grid={grid}
-            tokens={(gameState.tokens ?? []).filter(
-              (token) => token.mapId === activeMap?.id && token.visible,
-            )}
+            tokens={(gameState.tokens ?? [])
+              .filter(
+                (token) => token.mapId === activeMap?.id && token.visible,
+              )
+              .map((token) => ({
+                ...token,
+                level: Math.max(1, Number(token.level ?? 1)),
+                color: normalizeTokenColor(
+                  token.color,
+                  token.ownerId
+                    ? getPlayerColor(token.ownerId)
+                    : DEFAULT_TOKEN_COLOR,
+                ),
+              }))}
             movableTokenIds={(gameState.tokens ?? [])
               .filter((token) =>
                 pendingTokenAssetId === null &&
@@ -1050,15 +1177,42 @@ function App() {
                 <div className="party-list">
                   {presence
                     .filter((user) => user.role === 'player')
-                    .map((user) => (
-                      <div className="party-member" key={user.id}>
-                        <span>{user.name.slice(0, 1).toUpperCase()}</span>
-                        <div>
-                          <strong>{user.name}</strong>
-                          <small>Connected</small>
+                    .map((user) => {
+                      const playerColor = getPlayerColor(user.id)
+
+                      return (
+                        <div className="party-member" key={user.id}>
+                          <span
+                            className="party-member-mark"
+                            style={{
+                              borderColor: playerColor,
+                              color: playerColor,
+                              boxShadow: `inset 0 0 0 2px ${playerColor}33`,
+                            }}
+                          >
+                            {user.name.slice(0, 1).toUpperCase()}
+                          </span>
+
+                          <div className="party-member-copy">
+                            <strong>{user.name}</strong>
+                            <small>Connected</small>
+                          </div>
+
+                          <label className="party-color-control">
+                            <span>Player Color</span>
+                            <input
+                              type="color"
+                              value={playerColor}
+                              aria-label={`${user.name} player color`}
+                              onChange={(event) => {
+                                void updatePlayerColor(user.id, event.target.value)
+                              }}
+                            />
+                            <code>{playerColor}</code>
+                          </label>
                         </div>
-                      </div>
-                    ))}
+                      )
+                    })}
                 </div>
               </section>
             ) : null}
@@ -1176,20 +1330,78 @@ function App() {
                 </button>
 
                 <div className="map-list">
-                  {maps.map((map) => (
-                    <button
-                      type="button"
-                      key={map.id}
-                      className={activeMap?.id === map.id ? 'map-item is-active' : 'map-item'}
-                      onClick={() => activateMap(map)}
-                    >
-                      <img src={map.url} alt="" />
-                      <span>
-                        <strong>{map.displayName}</strong>
-                        <small>{(map.byteSize / 1024 / 1024).toFixed(1)} MB</small>
-                      </span>
-                    </button>
-                  ))}
+                  {maps.map((map) => {
+                    const displayName = getMapDisplayName(map)
+
+                    return (
+                      <article
+                        key={map.id}
+                        className={activeMap?.id === map.id ? 'map-item is-active' : 'map-item'}
+                      >
+                        <button
+                          type="button"
+                          className="map-activate-button"
+                          onClick={() => activateMap(map)}
+                        >
+                          <img src={map.url} alt="" />
+                          <span>
+                            <strong>{displayName}</strong>
+                            <small>
+                              {(map.byteSize / 1024 / 1024).toFixed(1)} MB
+                              {activeMap?.id === map.id ? ' • Active' : ''}
+                            </small>
+                          </span>
+                        </button>
+
+                        <label className="map-name-control">
+                          <span>Name</span>
+                          <input
+                            key={`${map.id}:${displayName}`}
+                            type="text"
+                            defaultValue={displayName}
+                            maxLength={100}
+                            aria-label={`${displayName} map name`}
+                            title="Press Enter or click outside to save. Press Escape to cancel."
+                            onKeyDown={(event) => {
+                              if (event.key === 'Enter') {
+                                event.preventDefault()
+                                event.currentTarget.blur()
+                              }
+
+                              if (event.key === 'Escape') {
+                                event.preventDefault()
+                                event.currentTarget.value = displayName
+                                event.currentTarget.blur()
+                              }
+                            }}
+                            onBlur={(event) => {
+                              const nextName = event.currentTarget.value.trim()
+
+                              if (!nextName) {
+                                event.currentTarget.value = displayName
+                                setStatusMessage('Map name cannot be empty.')
+                                return
+                              }
+
+                              if (nextName === displayName) {
+                                event.currentTarget.value = displayName
+                                return
+                              }
+
+                              void renameMap(map.id, nextName).catch((error) => {
+                                event.currentTarget.value = displayName
+                                setStatusMessage(
+                                  error instanceof Error
+                                    ? error.message
+                                    : 'Map rename could not be saved.',
+                                )
+                              })
+                            }}
+                          />
+                        </label>
+                      </article>
+                    )
+                  })}
                 </div>
               </section>
             ) : null}
@@ -1310,10 +1522,21 @@ function App() {
 
                       return (
                         <article className="placed-token" key={token.id}>
-                          <img src={token.imageUrl} alt="" />
+                          <img
+                            src={token.imageUrl}
+                            alt=""
+                            style={{
+                              borderColor: normalizeTokenColor(
+                                token.color,
+                                token.ownerId
+                                  ? getPlayerColor(token.ownerId)
+                                  : DEFAULT_TOKEN_COLOR,
+                              ),
+                            }}
+                          />
                           <div className="placed-token-main">
                             <strong>{token.name}</strong>
-                            <small>Grid {token.gridX}, {token.gridY}</small>
+                            <small>Level {Math.max(1, Number(token.level ?? 1))} • Grid {token.gridX}, {token.gridY}</small>
                             <small className={usedFeet >= speedFeet ? 'movement-readout is-spent' : 'movement-readout'}>
                               Move {usedFeet}/{speedFeet} ft
                             </small>
@@ -1373,6 +1596,55 @@ function App() {
                             </label>
 
                             <label>
+                              <span>Level</span>
+                              <input
+                                className="token-number-input"
+                                type="number"
+                                min="1"
+                                max="30"
+                                step="1"
+                                value={Math.max(1, Number(token.level ?? 1))}
+                                aria-label={`${token.name} level`}
+                                onChange={(event) => {
+                                  const level = Math.max(
+                                    1,
+                                    Math.min(30, Math.round(Number(event.target.value) || 1)),
+                                  )
+                                  void updateToken(token.id, { level })
+                                }}
+                              />
+                            </label>
+
+                            <label className="token-color-control">
+                              <span>Token Color</span>
+                              <div className="token-color-input-row">
+                                <input
+                                  type="color"
+                                  value={normalizeTokenColor(
+                                    token.color,
+                                    token.ownerId
+                                      ? getPlayerColor(token.ownerId)
+                                      : DEFAULT_TOKEN_COLOR,
+                                  )}
+                                  aria-label={`${token.name} token color`}
+                                  onChange={(event) => {
+                                    void updateToken(token.id, {
+                                      color: normalizeTokenColor(event.target.value),
+                                    })
+                                  }}
+                                />
+                                <code>
+                                  {normalizeTokenColor(
+                                    token.color,
+                                    token.ownerId
+                                      ? getPlayerColor(token.ownerId)
+                                      : DEFAULT_TOKEN_COLOR,
+                                  )}
+                                </code>
+                              </div>
+                            </label>
+
+                            <label>
                               <span>Size</span>
                               <select
                                 aria-label={`${token.name} size`}
@@ -1405,9 +1677,16 @@ function App() {
                               <select
                                 aria-label={`${token.name} owner`}
                                 value={token.ownerId ?? ''}
-                                onChange={(event) => updateToken(token.id, {
-                                  ownerId: event.target.value || null,
-                                })}
+                                onChange={(event) => {
+                                  const ownerId = event.target.value || null
+                                  const patch: Partial<SceneToken> = { ownerId }
+
+                                  if (ownerId) {
+                                    patch.color = getPlayerColor(ownerId)
+                                  }
+
+                                  void updateToken(token.id, patch)
+                                }}
                               >
                                 <option value="">DM only</option>
                                 {presence

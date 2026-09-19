@@ -104,6 +104,20 @@ interface LoadedImageTexture {
   height: number
 }
 
+interface TokenTooltipState {
+  token: SceneToken
+  x: number
+  y: number
+}
+
+function tokenColorNumber(value: string): number {
+  const normalized = /^#[0-9a-f]{6}$/i.test(value)
+    ? value.slice(1)
+    : 'C9954B'
+
+  return Number.parseInt(normalized, 16)
+}
+
 const INITIAL_CAMERA:
   MapCamera = {
     x: 0,
@@ -325,6 +339,14 @@ export const MapViewport =
           null,
         )
 
+      const [
+        tokenTooltip,
+        setTokenTooltip,
+      ] =
+        useState<TokenTooltipState | null>(
+          null,
+        )
+
       useEffect(
         () => {
           panEnabledRef.current =
@@ -332,6 +354,15 @@ export const MapViewport =
         },
         [
           panEnabled,
+        ],
+      )
+
+      useEffect(
+        () => {
+          setTokenTooltip(null)
+        },
+        [
+          activeMap?.id,
         ],
       )
 
@@ -795,9 +826,28 @@ export const MapViewport =
                 )
                 holder.zIndex = 20
                 const canMoveToken = movableTokenIds.includes(token.id)
-                holder.eventMode = canMoveToken ? 'static' : 'none'
+                holder.eventMode = 'static'
                 holder.cursor = canMoveToken ? 'grab' : 'default'
                 holder.hitArea = new Rectangle(0, 0, diameter, diameter)
+
+                const showTooltip =
+                  (event: FederatedPointerEvent) => {
+                    setTokenTooltip({
+                      token,
+                      x: event.global.x,
+                      y: event.global.y,
+                    })
+                  }
+
+                holder.on('pointerover', showTooltip)
+                holder.on('pointermove', showTooltip)
+                holder.on('pointerout', () => {
+                  setTokenTooltip((current) =>
+                    current?.token.id === token.id
+                      ? null
+                      : current,
+                  )
+                })
 
                 if (canMoveToken) {
                   let dragging = false
@@ -819,6 +869,7 @@ export const MapViewport =
                       pointerOffsetY = point.y - holder.y
                       holder.cursor = 'grabbing'
                       holder.alpha = 0.88
+                      setTokenTooltip(null)
                       onTokenPickup?.(token.id)
                     }
 
@@ -882,7 +933,11 @@ export const MapViewport =
                 const ring = new Graphics()
                 ring
                   .circle(diameter / 2, diameter / 2, diameter / 2 - 2)
-                  .stroke({ width: 4, color: 0xd1a252, alpha: 1 })
+                  .stroke({
+                    width: 4,
+                    color: tokenColorNumber(token.color),
+                    alpha: 1,
+                  })
                   .circle(diameter / 2, diameter / 2, diameter / 2 - 6)
                   .stroke({ width: 1.5, color: 0x3b1c0c, alpha: 1 })
 
@@ -1518,6 +1573,44 @@ export const MapViewport =
                 <code>
                   {activeMap?.url}
                 </code>
+              </div>
+            )
+            : null}
+
+          {tokenTooltip
+            ? (
+              <div
+                className="token-hover-card"
+                style={{
+                  left: Math.max(
+                    8,
+                    Math.min(
+                      tokenTooltip.x + 14,
+                      Math.max(
+                        8,
+                        (hostRef.current?.clientWidth ?? 260) - 220,
+                      ),
+                    ),
+                  ),
+                  top: Math.max(
+                    8,
+                    Math.min(
+                      tokenTooltip.y + 14,
+                      Math.max(
+                        8,
+                        (hostRef.current?.clientHeight ?? 140) - 104,
+                      ),
+                    ),
+                  ),
+                  borderColor: tokenTooltip.token.color,
+                }}
+              >
+                <strong>{tokenTooltip.token.name}</strong>
+                <span>Level {Math.max(1, Number(tokenTooltip.token.level ?? 1))}</span>
+                <span>
+                  Movement {Math.max(0, Number(tokenTooltip.token.movementUsedFeet ?? 0))}
+                  /{Math.max(0, Number(tokenTooltip.token.speedFeet ?? 30))} ft
+                </span>
               </div>
             )
             : null}

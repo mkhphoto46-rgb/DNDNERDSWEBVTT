@@ -161,3 +161,39 @@
   font-weight: 700;
   letter-spacing: 0.12em;
 }
+
+/* Token hover identity card */
+.token-hover-card {
+  position: absolute;
+  z-index: 42;
+  width: 200px;
+  min-height: 86px;
+  display: grid;
+  gap: 3px;
+  padding: 10px 12px;
+  pointer-events: none;
+  color: #ead8b0;
+  border: 2px solid #c9954b;
+  border-radius: 7px;
+  background:
+    linear-gradient(180deg, rgba(49, 27, 14, 0.98), rgba(20, 10, 6, 0.98));
+  box-shadow:
+    0 10px 26px rgba(0, 0, 0, 0.62),
+    inset 0 0 0 1px rgba(239, 208, 139, 0.1);
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+.token-hover-card strong {
+  overflow: hidden;
+  color: #f0d39a;
+  font-size: 1rem;
+  line-height: 1.15;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.token-hover-card span {
+  color: #cbb88e;
+  font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
+}

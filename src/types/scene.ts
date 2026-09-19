@@ -41,6 +41,8 @@ export interface SceneToken {
   size: number
   ownerId: string | null
   visible: boolean
+  color: string
+  level: number
   speedFeet: number
   movementUsedFeet: number
 }
