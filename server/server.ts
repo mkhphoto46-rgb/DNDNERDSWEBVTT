@@ -210,6 +210,83 @@ function isLoopbackAddress(
   )
 }
 
+type ProxyHeaderValue =
+  string |
+  string[] |
+  undefined
+
+type ProxyHeaderBag =
+  Record<
+    string,
+    ProxyHeaderValue
+  >
+
+function hasForwardedClientHeaders(
+  headers: ProxyHeaderBag,
+): boolean {
+  const keys = [
+    'cf-connecting-ip',
+    'x-forwarded-for',
+    'forwarded',
+    'x-real-ip',
+  ]
+
+  return keys.some(
+    (key) => {
+      const value =
+        headers[key]
+
+      if (
+        Array.isArray(value)
+      ) {
+        return value.some(
+          (entry) =>
+            entry
+              .trim()
+              .length > 0,
+        )
+      }
+
+      return (
+        typeof value ===
+          'string' &&
+        value
+          .trim()
+          .length > 0
+      )
+    },
+  )
+}
+
+function isTrustedLocalHttpRequest(
+  request: Request,
+): boolean {
+  return (
+    isLoopbackAddress(
+      request.socket
+        .remoteAddress,
+    ) &&
+    !hasForwardedClientHeaders(
+      request.headers,
+    )
+  )
+}
+
+function isTrustedLocalSocket(
+  socket: Socket,
+): boolean {
+  return (
+    isLoopbackAddress(
+      socket.handshake
+        .address,
+    ) &&
+    !hasForwardedClientHeaders(
+      socket.handshake
+        .headers,
+    )
+  )
+}
+
 function isUsefulLanIPv4(
   address: string,
 ): boolean {
@@ -595,9 +672,8 @@ function requireLocalRequest(
   next: NextFunction,
 ): void {
   if (
-    !isLoopbackAddress(
-      request.socket
-        .remoteAddress,
+    !isTrustedLocalHttpRequest(
+      request,
     )
   ) {
     response
@@ -687,11 +763,20 @@ app.get(
 app.get(
   '/api/access-info',
   (request, response) => {
+    response.set(
+      'Cache-Control',
+      'no-store',
+    )
+
     response.json({
       isLocalHost:
-        isLoopbackAddress(
-          request.socket
-            .remoteAddress,
+        isTrustedLocalHttpRequest(
+          request,
+        ),
+
+      remoteViaProxy:
+        hasForwardedClientHeaders(
+          request.headers,
         ),
     })
   },
@@ -1369,9 +1454,8 @@ io.on(
             role === 'dm'
           ) {
             if (
-              !isLoopbackAddress(
-                socket.handshake
-                  .address,
+              !isTrustedLocalSocket(
+                socket,
               )
             ) {
               acknowledge({

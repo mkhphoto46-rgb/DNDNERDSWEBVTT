@@ -17,6 +17,12 @@ import {
 } from './lib/socket'
 
 import {
+  createFreshTokenInstance,
+  normalizeTokenInstance,
+  tokenMovementSummary,
+} from './lib/tokenInstances'
+
+import {
   initialiseSfx,
   playSfx,
   setSfxEnabled,
@@ -183,10 +189,21 @@ function readGridFromState(state: CampaignState): GridSettings {
 }
 
 function hydrateActiveMapGrid(state: CampaignState): CampaignState {
-  if (!state.activeMap) return state
+  const normalizedTokens =
+    Array.isArray(state.tokens)
+      ? state.tokens.map(normalizeTokenInstance)
+      : state.tokens
+
+  if (!state.activeMap) {
+    return {
+      ...state,
+      tokens: normalizedTokens,
+    }
+  }
 
   return {
     ...state,
+    tokens: normalizedTokens,
     activeMap: {
       ...state.activeMap,
       grid: readGridFromState(state),
@@ -602,22 +619,17 @@ function App() {
     if (!isDm || !currentCampaign || !activeMap) return
 
     const existing = gameStateRef.current.tokens ?? []
-    const token: SceneToken = {
-      id: window.crypto.randomUUID(),
-      name: asset.displayName.replace(/\.[^.]+$/, ''),
-      assetId: asset.id,
-      imageUrl: asset.url,
-      mapId: activeMap.id,
-      gridX: Math.max(0, Math.round(gridX)),
-      gridY: Math.max(0, Math.round(gridY)),
-      size: 1,
-      ownerId: null,
-      visible: true,
-      color: DEFAULT_TOKEN_COLOR,
-      level: 1,
-      speedFeet: 30,
-      movementUsedFeet: 0,
-    }
+    const token =
+      createFreshTokenInstance(
+        asset,
+        {
+          id: window.crypto.randomUUID(),
+          mapId: activeMap.id,
+          gridX,
+          gridY,
+          color: DEFAULT_TOKEN_COLOR,
+        },
+      )
 
     const previousState = gameStateRef.current
     const nextState: CampaignState = {
@@ -1502,7 +1514,11 @@ function App() {
                       </span>
                       <span>
                         <strong>{asset.displayName}</strong>
-                        <small>{activeMap ? 'Click to place • or drag onto map' : 'Activate a map first'}</small>
+                        <small>
+                          {activeMap
+                            ? 'Reusable portrait • click or drag as many fresh copies as needed'
+                            : 'Activate a map first'}
+                        </small>
                       </span>
                     </button>
                   ))}
@@ -1517,8 +1533,11 @@ function App() {
                   {(gameState.tokens ?? [])
                     .filter((token) => token.mapId === activeMap?.id)
                     .map((token) => {
-                      const speedFeet = Number(token.speedFeet ?? 30)
-                      const usedFeet = Number(token.movementUsedFeet ?? 0)
+                      const {
+                        speedFeet,
+                        usedFeet,
+                        remainingFeet,
+                      } = tokenMovementSummary(token)
 
                       return (
                         <article className="placed-token" key={token.id}>
@@ -1537,8 +1556,8 @@ function App() {
                           <div className="placed-token-main">
                             <strong>{token.name}</strong>
                             <small>Level {Math.max(1, Number(token.level ?? 1))} • Grid {token.gridX}, {token.gridY}</small>
-                            <small className={usedFeet >= speedFeet ? 'movement-readout is-spent' : 'movement-readout'}>
-                              Move {usedFeet}/{speedFeet} ft
+                            <small className={remainingFeet <= 0 ? 'movement-readout is-spent' : 'movement-readout'}>
+                              Speed {speedFeet} ft • Used {usedFeet} ft • Left {remainingFeet} ft
                             </small>
                           </div>
 

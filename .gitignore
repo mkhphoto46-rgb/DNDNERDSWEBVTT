@@ -58,3 +58,8 @@ desktop.ini
 *.tmp
 *.temp
 *.bak
+
+# Local remote-access binary and logs
+/tools/remote/cloudflared.exe
+/tools/remote/*.log
+
