@@ -3,8 +3,16 @@ import http from 'node:http'
 import os from 'node:os'
 import path from 'node:path'
 
-import express from 'express'
-import { Server, type Socket } from 'socket.io'
+import express, {
+  type NextFunction,
+  type Request,
+  type Response,
+} from 'express'
+
+import {
+  Server,
+  type Socket,
+} from 'socket.io'
 
 import {
   DIST_ROOT,
@@ -12,11 +20,18 @@ import {
 
 import {
   createCampaign,
+  createSnapshot,
+  endSession,
+  getActiveSession,
   getCampaign,
   getCampaignByJoinCode,
   listCampaigns,
+  listSnapshots,
   loadCampaignState,
+  registerOrResumePlayer,
+  restoreSnapshot,
   saveCampaignState,
+  startSession,
   touchCampaign,
 } from './store'
 
@@ -37,6 +52,7 @@ interface PresenceEntry {
   campaignId: string
   role: 'dm' | 'player'
   name: string
+  userId: string
 }
 
 const app =
@@ -49,7 +65,9 @@ app.use(
 )
 
 const httpServer =
-  http.createServer(app)
+  http.createServer(
+    app,
+  )
 
 const io =
   new Server(
@@ -79,7 +97,8 @@ function isLoopbackAddress(
   return (
     address === '127.0.0.1' ||
     address === '::1' ||
-    address === '::ffff:127.0.0.1'
+    address ===
+      '::ffff:127.0.0.1'
   )
 }
 
@@ -157,21 +176,29 @@ function emitPresence(
       campaignId,
     )
 
-  const players =
+  const users =
     room
       ? [...room.values()].map(
           (entry) => ({
-            name: entry.name,
-            role: entry.role,
+            id:
+              entry.userId,
+
+            name:
+              entry.name,
+
+            role:
+              entry.role,
           }),
         )
       : []
 
   io.to(
-    roomName(campaignId),
+    roomName(
+      campaignId,
+    ),
   ).emit(
     'session:presence',
-    players,
+    users,
   )
 }
 
@@ -229,16 +256,18 @@ function leaveCurrentCampaign(
 
   delete socket.data.campaignId
   delete socket.data.role
+  delete socket.data.userId
 }
 
 function requireLocalRequest(
-  request: express.Request,
-  response: express.Response,
-  next: express.NextFunction,
+  request: Request,
+  response: Response,
+  next: NextFunction,
 ): void {
   if (
     !isLoopbackAddress(
-      request.socket.remoteAddress,
+      request.socket
+        .remoteAddress,
     )
   ) {
     response
@@ -252,6 +281,42 @@ function requireLocalRequest(
   }
 
   next()
+}
+
+function broadcastState(
+  campaignId: string,
+): void {
+  const state =
+    loadCampaignState(
+      campaignId,
+    )
+
+  io.to(
+    roomName(
+      campaignId,
+    ),
+  ).emit(
+    'campaign:state-changed',
+    state,
+  )
+}
+
+function broadcastSession(
+  campaignId: string,
+): void {
+  const session =
+    getActiveSession(
+      campaignId,
+    )
+
+  io.to(
+    roomName(
+      campaignId,
+    ),
+  ).emit(
+    'campaign:session-changed',
+    session,
+  )
 }
 
 app.get(
@@ -295,7 +360,8 @@ app.get(
     response.json({
       isLocalHost:
         isLoopbackAddress(
-          request.socket.remoteAddress,
+          request.socket
+            .remoteAddress,
         ),
     })
   },
@@ -347,14 +413,11 @@ app.get(
   requireLocalRequest,
   (request, response) => {
     try {
-      const state =
+      response.json(
         loadCampaignState(
           request.params
             .campaignId,
-        )
-
-      response.json(
-        state,
+        ),
       )
     } catch (error) {
       response
@@ -374,10 +437,17 @@ app.put(
   requireLocalRequest,
   (request, response) => {
     try {
-      saveCampaignState(
+      const campaignId =
         request.params
-          .campaignId,
+          .campaignId
+
+      saveCampaignState(
+        campaignId,
         request.body ?? {},
+      )
+
+      broadcastState(
+        campaignId,
       )
 
       response.json({
@@ -391,6 +461,198 @@ app.put(
             error instanceof Error
               ? error.message
               : 'Campaign not found.',
+        })
+    }
+  },
+)
+
+app.get(
+  '/api/campaigns/:campaignId/session',
+  requireLocalRequest,
+  (request, response) => {
+    try {
+      response.json(
+        getActiveSession(
+          request.params
+            .campaignId,
+        ),
+      )
+    } catch (error) {
+      response
+        .status(404)
+        .json({
+          error:
+            error instanceof Error
+              ? error.message
+              : 'Campaign not found.',
+        })
+    }
+  },
+)
+
+app.post(
+  '/api/campaigns/:campaignId/session/start',
+  requireLocalRequest,
+  (request, response) => {
+    try {
+      const campaignId =
+        request.params
+          .campaignId
+
+      const session =
+        startSession(
+          campaignId,
+        )
+
+      broadcastSession(
+        campaignId,
+      )
+
+      response
+        .status(201)
+        .json(
+          session,
+        )
+    } catch (error) {
+      response
+        .status(409)
+        .json({
+          error:
+            error instanceof Error
+              ? error.message
+              : 'Could not start session.',
+        })
+    }
+  },
+)
+
+app.post(
+  '/api/campaigns/:campaignId/session/end',
+  requireLocalRequest,
+  (request, response) => {
+    try {
+      const campaignId =
+        request.params
+          .campaignId
+
+      const session =
+        endSession(
+          campaignId,
+        )
+
+      broadcastSession(
+        campaignId,
+      )
+
+      response.json(
+        session,
+      )
+    } catch (error) {
+      response
+        .status(409)
+        .json({
+          error:
+            error instanceof Error
+              ? error.message
+              : 'Could not end session.',
+        })
+    }
+  },
+)
+
+app.get(
+  '/api/campaigns/:campaignId/snapshots',
+  requireLocalRequest,
+  (request, response) => {
+    try {
+      response.json(
+        listSnapshots(
+          request.params
+            .campaignId,
+        ),
+      )
+    } catch (error) {
+      response
+        .status(404)
+        .json({
+          error:
+            error instanceof Error
+              ? error.message
+              : 'Campaign not found.',
+        })
+    }
+  },
+)
+
+app.post(
+  '/api/campaigns/:campaignId/snapshots',
+  requireLocalRequest,
+  (request, response) => {
+    try {
+      const snapshot =
+        createSnapshot(
+          request.params
+            .campaignId,
+
+          String(
+            request.body?.name ??
+              '',
+          ),
+        )
+
+      response
+        .status(201)
+        .json(
+          snapshot,
+        )
+    } catch (error) {
+      response
+        .status(400)
+        .json({
+          error:
+            error instanceof Error
+              ? error.message
+              : 'Could not create snapshot.',
+        })
+    }
+  },
+)
+
+app.post(
+  '/api/campaigns/:campaignId/snapshots/:snapshotId/restore',
+  requireLocalRequest,
+  (request, response) => {
+    try {
+      const campaignId =
+        request.params
+          .campaignId
+
+      restoreSnapshot(
+        campaignId,
+        request.params
+          .snapshotId,
+      )
+
+      broadcastState(
+        campaignId,
+      )
+
+      response.json({
+        ok: true,
+
+        state:
+          loadCampaignState(
+            campaignId,
+          ),
+      })
+    } catch (error) {
+      response
+        .status(404)
+        .json({
+          error:
+            error instanceof Error
+              ? error.message
+              : 'Could not restore snapshot.',
         })
     }
   },
@@ -428,6 +690,7 @@ io.on(
               campaignId?: string
               joinCode?: string
               name?: string
+              playerKey?: string
             }
 
           const role =
@@ -441,7 +704,6 @@ io.on(
           if (!role) {
             acknowledge({
               ok: false,
-
               error:
                 'Invalid role.',
             })
@@ -462,7 +724,6 @@ io.on(
           if (!name) {
             acknowledge({
               ok: false,
-
               error:
                 'Name is required.',
             })
@@ -471,13 +732,17 @@ io.on(
           }
 
           let campaign = null
+          let userId = 'dm'
+          let player = null
+          let resumed = false
 
           if (
             role === 'dm'
           ) {
             if (
               !isLoopbackAddress(
-                socket.handshake.address,
+                socket.handshake
+                  .address,
               )
             ) {
               acknowledge({
@@ -505,6 +770,27 @@ io.on(
                     '',
                 ),
               )
+
+            if (campaign) {
+              player =
+                registerOrResumePlayer(
+                  campaign.id,
+
+                  String(
+                    payload.playerKey ??
+                      '',
+                  ),
+
+                  name,
+                )
+
+              userId =
+                player.id
+
+              resumed =
+                player.createdAt !==
+                player.lastSeenAt
+            }
           }
 
           if (!campaign) {
@@ -558,6 +844,8 @@ io.on(
               role,
 
               name,
+
+              userId,
             },
           )
 
@@ -567,24 +855,58 @@ io.on(
           socket.data.role =
             role
 
+          socket.data.userId =
+            userId
+
           touchCampaign(
             campaign.id,
           )
 
-          acknowledge({
-            ok: true,
+          if (
+            role === 'dm'
+          ) {
+            acknowledge({
+              ok: true,
 
-            campaign: {
-              id:
-                campaign.id,
+              campaign,
 
-              name:
-                campaign.name,
+              activeSession:
+                getActiveSession(
+                  campaign.id,
+                ),
 
-              joinCode:
-                campaign.joinCode,
-            },
-          })
+              state:
+                loadCampaignState(
+                  campaign.id,
+                ),
+
+              snapshots:
+                listSnapshots(
+                  campaign.id,
+                ),
+            })
+          } else {
+            acknowledge({
+              ok: true,
+
+              campaign: {
+                id:
+                  campaign.id,
+
+                name:
+                  campaign.name,
+              },
+
+              player,
+
+              resumed,
+
+              activeSession:
+                getActiveSession(
+                  campaign.id,
+                ),
+            })
+          }
 
           emitPresence(
             campaign.id,

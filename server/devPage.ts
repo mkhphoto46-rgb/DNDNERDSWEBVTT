@@ -11,7 +11,7 @@ export const DEV_CONNECTION_PAGE = `
   >
 
   <title>
-    D&D VTT Server Test
+    D&D VTT Persistence Test
   </title>
 
   <style>
@@ -21,14 +21,11 @@ export const DEV_CONNECTION_PAGE = `
 
     body {
       margin: 0;
-
       min-height: 100vh;
+      padding: 28px;
 
-      padding: 30px;
-
-      background: #0c0a08;
-
-      color: #e6d7b8;
+      background: #0d0a07;
+      color: #eadcbc;
 
       font-family:
         system-ui,
@@ -37,54 +34,50 @@ export const DEV_CONNECTION_PAGE = `
 
     .wrap {
       width: min(
-        900px,
+        1100px,
         100%
       );
 
       margin: 0 auto;
     }
 
-    h1 {
+    h1,
+    h2,
+    h3 {
       margin-top: 0;
     }
 
-    .warning {
-      margin-bottom: 20px;
-
+    .notice {
+      margin-bottom: 18px;
       padding: 12px;
 
       border:
-        1px solid #6f542e;
+        1px solid #72552d;
 
-      background: #18120d;
-
-      color: #c6a76e;
+      background: #1a130c;
+      color: #d2b57d;
     }
 
     .host-mode {
-      margin-bottom: 20px;
-
+      margin-bottom: 18px;
       padding: 12px;
 
       border:
-        1px solid #34552f;
+        1px solid #41613a;
 
-      background: #10180e;
-
-      color: #9fc08f;
+      background: #11190f;
+      color: #a7ca98;
     }
 
     .player-mode {
-      margin-bottom: 20px;
-
+      margin-bottom: 18px;
       padding: 12px;
 
       border:
         1px solid #444;
 
       background: #111;
-
-      color: #aaa;
+      color: #bbb;
     }
 
     .grid {
@@ -96,100 +89,157 @@ export const DEV_CONNECTION_PAGE = `
           minmax(0, 1fr)
         );
 
-      gap: 15px;
+      gap: 16px;
     }
 
     .card {
       padding: 18px;
 
       border:
-        1px solid #3a2d20;
+        1px solid #3d3021;
 
-      background: #15110d;
+      background: #17110c;
+    }
+
+    .wide {
+      grid-column:
+        1 / -1;
     }
 
     input,
+    textarea,
     button {
       width: 100%;
 
-      min-height: 40px;
-
       margin-top: 8px;
+      padding: 9px 11px;
 
-      padding: 8px 10px;
+      font: inherit;
     }
 
-    input {
-      color: white;
-
+    input,
+    textarea {
       border:
-        1px solid #423426;
+        1px solid #4a3927;
 
-      background: #080706;
+      background: #090706;
+      color: white;
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical;
     }
 
     button {
+      min-height: 40px;
+
       cursor: pointer;
 
       border:
-        1px solid #8a6737;
+        1px solid #8b6838;
 
-      background: #b78b49;
-
+      background: #b68a49;
       color: #171007;
 
       font-weight: 800;
     }
 
+    button.secondary {
+      background: #2b2117;
+      color: #e7d4ae;
+    }
+
+    button.danger {
+      border-color: #81453c;
+      background: #6b3028;
+      color: white;
+    }
+
     button:disabled {
       cursor: not-allowed;
-
       opacity: 0.4;
     }
 
     .campaign {
-      margin-top: 8px;
-
-      padding: 10px;
+      margin-top: 10px;
+      padding: 12px;
 
       border:
-        1px solid #32271d;
+        1px solid #392b1e;
 
-      background: #0c0a08;
+      background: #0e0b08;
     }
 
     .campaign button {
       width: auto;
+      margin-right: 8px;
+    }
 
-      margin-right: 6px;
+    .snapshot {
+      margin-top: 8px;
+      padding: 10px;
+
+      border:
+        1px solid #35291e;
+
+      background: #0c0907;
+    }
+
+    .snapshot button {
+      width: auto;
     }
 
     code {
-      color: #d9b46f;
-    }
-
-    #presence {
-      padding-left: 18px;
+      color: #dfb96e;
     }
 
     .status {
-      min-height: 24px;
-
       margin-top: 10px;
+      min-height: 22px;
 
-      color: #9db47c;
+      color: #a5c48e;
+    }
+
+    .error {
+      color: #e48d7f;
+    }
+
+    .muted {
+      color: #9a8e7a;
     }
 
     .hidden {
       display: none;
     }
 
+    #presence {
+      padding-left: 20px;
+    }
+
+    .session-active {
+      color: #9dcc8b;
+    }
+
+    .session-inactive {
+      color: #c0a889;
+    }
+
     @media (
-      max-width: 700px
+      max-width: 760px
     ) {
+      body {
+        padding: 15px;
+      }
+
       .grid {
         grid-template-columns:
           1fr;
+      }
+
+      .wide {
+        grid-column:
+          auto;
       }
     }
   </style>
@@ -199,12 +249,12 @@ export const DEV_CONNECTION_PAGE = `
   <div class="wrap">
 
     <h1>
-      D&D VTT — Server Foundation Test
+      D&D VTT — Persistence Test
     </h1>
 
-    <div class="warning">
-      Temporary diagnostic page.
-      This is NOT the final VTT UI.
+    <div class="notice">
+      Temporary development page.
+      The final fantasy UI will replace this.
     </div>
 
     <div
@@ -225,7 +275,7 @@ export const DEV_CONNECTION_PAGE = `
 
         <input
           id="campaignName"
-          placeholder="Campaign name"
+          placeholder="New campaign name"
         >
 
         <button
@@ -252,47 +302,97 @@ export const DEV_CONNECTION_PAGE = `
       </section>
 
       <section
-        id="dmCard"
-        class="card"
+        id="dmControlCard"
+        class="card wide hidden"
       >
         <h2>
-          Join as DM
+          Current DM Campaign
         </h2>
 
-        <p>
-          DM access works only from:
+        <div
+          id="currentCampaign"
+          class="muted"
+        >
+          No campaign opened.
+        </div>
+
+        <hr>
+
+        <h3>
+          Session
+        </h3>
+
+        <div
+          id="sessionStatus"
+          class="session-inactive"
+        >
+          No active session.
+        </div>
+
+        <button
+          id="startSession"
+        >
+          Start Session
+        </button>
+
+        <button
+          id="endSession"
+          class="danger"
+        >
+          End Session
+        </button>
+
+        <hr>
+
+        <h3>
+          Autosave Test
+        </h3>
+
+        <p class="muted">
+          Type here. It should survive a server restart.
         </p>
 
-        <code>
-          http://localhost:3000
-        </code>
+        <textarea
+          id="devNote"
+          placeholder="Persistent campaign note..."
+        ></textarea>
+
+        <div
+          id="saveStatus"
+          class="status"
+        ></div>
+
+        <hr>
+
+        <h3>
+          Snapshots
+        </h3>
 
         <input
-          id="dmCampaignId"
-          placeholder="Campaign ID"
-        >
-
-        <input
-          id="dmName"
-          value="Dungeon Master"
-          placeholder="DM name"
+          id="snapshotName"
+          placeholder="Snapshot name"
         >
 
         <button
-          id="joinDm"
+          id="createSnapshot"
+          class="secondary"
         >
-          Join as DM
+          Create Manual Snapshot
         </button>
 
         <div
-          id="dmStatus"
+          id="snapshotStatus"
           class="status"
+        ></div>
+
+        <div
+          id="snapshotList"
         ></div>
       </section>
 
       <section class="card">
         <h2>
-          Join as Player
+          Player Join
         </h2>
 
         <input
@@ -315,12 +415,14 @@ export const DEV_CONNECTION_PAGE = `
           id="playerStatus"
           class="status"
         ></div>
+
+        <div
+          id="playerIdentity"
+          class="muted"
+        ></div>
       </section>
 
-      <section
-        class="card"
-        style="grid-column: 1 / -1;"
-      >
+      <section class="card">
         <h2>
           Live Presence
         </h2>
@@ -343,11 +445,52 @@ export const DEV_CONNECTION_PAGE = `
     const socket = io()
 
     let isLocalHost = false
+    let currentCampaignId = ''
+    let currentCampaignState = {}
+    let saveTimer = null
 
-    const campaignList =
-      document.getElementById(
-        'campaignList'
+    const PLAYER_KEY_STORAGE =
+      'dnd_vtt_player_key_v1'
+
+    const PLAYER_NAME_STORAGE =
+      'dnd_vtt_player_name_v1'
+
+    const JOIN_CODE_STORAGE =
+      'dnd_vtt_join_code_v1'
+
+    function getOrCreatePlayerKey() {
+      let key =
+        localStorage.getItem(
+          PLAYER_KEY_STORAGE
+        )
+
+      if (key) {
+        return key
+      }
+
+      if (
+        window.crypto &&
+        window.crypto.randomUUID
+      ) {
+        key =
+          window.crypto.randomUUID()
+      } else {
+        key =
+          'player-' +
+          Date.now() +
+          '-' +
+          Math.random()
+            .toString(16)
+            .slice(2)
+      }
+
+      localStorage.setItem(
+        PLAYER_KEY_STORAGE,
+        key
       )
+
+      return key
+    }
 
     function escapeHtml(value) {
       const div =
@@ -361,14 +504,61 @@ export const DEV_CONNECTION_PAGE = `
       return div.innerHTML
     }
 
-    async function detectAccessMode() {
-      const response =
-        await fetch(
-          '/api/access-info'
+    function setStatus(
+      elementId,
+      message,
+      isError
+    ) {
+      const element =
+        document.getElementById(
+          elementId
         )
 
+      element.textContent =
+        message
+
+      element.className =
+        isError
+          ? 'status error'
+          : 'status'
+    }
+
+    async function jsonRequest(
+      url,
+      options
+    ) {
+      const response =
+        await fetch(
+          url,
+          options
+        )
+
+      let body = null
+
+      try {
+        body =
+          await response.json()
+      } catch {
+        body = null
+      }
+
+      if (!response.ok) {
+        throw new Error(
+          body &&
+          body.error
+            ? body.error
+            : 'Request failed.'
+        )
+      }
+
+      return body
+    }
+
+    async function detectAccessMode() {
       const info =
-        await response.json()
+        await jsonRequest(
+          '/api/access-info'
+        )
 
       isLocalHost =
         Boolean(
@@ -385,27 +575,14 @@ export const DEV_CONNECTION_PAGE = `
           'campaignCard'
         )
 
-      const dmCard =
-        document.getElementById(
-          'dmCard'
-        )
-
-      if (
-        isLocalHost
-      ) {
+      if (isLocalHost) {
         accessMode.className =
           'host-mode'
 
         accessMode.textContent =
-          'HOST MODE — This browser is running on the DM computer.'
+          'HOST MODE — DM computer detected.'
 
         campaignCard
-          .classList
-          .remove(
-            'hidden'
-          )
-
-        dmCard
           .classList
           .remove(
             'hidden'
@@ -417,337 +594,21 @@ export const DEV_CONNECTION_PAGE = `
           'player-mode'
 
         accessMode.textContent =
-          'PLAYER MODE — This browser can join campaigns but cannot use DM controls.'
+          'PLAYER MODE — DM controls are disabled.'
 
         campaignCard
           .classList
           .add(
             'hidden'
           )
-
-        dmCard
-          .classList
-          .add(
-            'hidden'
-          )
       }
     }
-
-    async function refreshCampaigns() {
-      const response =
-        await fetch(
-          '/api/campaigns'
-        )
-
-      if (
-        !response.ok
-      ) {
-        campaignList.innerHTML =
-          '<p>Campaign management is available only on the host computer.</p>'
-
-        return
-      }
-
-      const campaigns =
-        await response.json()
-
-      campaignList.innerHTML = ''
-
-      if (
-        campaigns.length === 0
-      ) {
-        campaignList.innerHTML =
-          '<p>No campaigns yet.</p>'
-
-        return
-      }
-
-      for (
-        const campaign
-        of campaigns
-      ) {
-        const wrapper =
-          document.createElement(
-            'div'
-          )
-
-        wrapper.className =
-          'campaign'
-
-        wrapper.innerHTML =
-          '<strong>' +
-          escapeHtml(
-            campaign.name
-          ) +
-          '</strong>' +
-          '<br>' +
-          '<small>ID: <code>' +
-          escapeHtml(
-            campaign.id
-          ) +
-          '</code></small>' +
-          '<br>' +
-          '<small>Join: <code>' +
-          escapeHtml(
-            campaign.joinCode
-          ) +
-          '</code></small>' +
-          '<br>' +
-          '<button type="button">' +
-          'Use Campaign' +
-          '</button>'
-
-        wrapper
-          .querySelector(
-            'button'
-          )
-          .addEventListener(
-            'click',
-            () => {
-              document
-                .getElementById(
-                  'dmCampaignId'
-                )
-                .value =
-                campaign.id
-
-              document
-                .getElementById(
-                  'joinCode'
-                )
-                .value =
-                campaign.joinCode
-            }
-          )
-
-        campaignList.appendChild(
-          wrapper
-        )
-      }
-    }
-
-    document
-      .getElementById(
-        'createCampaign'
-      )
-      .addEventListener(
-        'click',
-        async () => {
-          const name =
-            document
-              .getElementById(
-                'campaignName'
-              )
-              .value
-              .trim()
-
-          if (!name) {
-            alert(
-              'Enter a campaign name.'
-            )
-
-            return
-          }
-
-          const response =
-            await fetch(
-              '/api/campaigns',
-              {
-                method:
-                  'POST',
-
-                headers: {
-                  'Content-Type':
-                    'application/json'
-                },
-
-                body:
-                  JSON.stringify({
-                    name
-                  })
-              }
-            )
-
-          const result =
-            await response.json()
-
-          if (
-            !response.ok
-          ) {
-            alert(
-              result.error ||
-              'Could not create campaign.'
-            )
-
-            return
-          }
-
-          document
-            .getElementById(
-              'dmCampaignId'
-            )
-            .value =
-            result.id
-
-          document
-            .getElementById(
-              'joinCode'
-            )
-            .value =
-            result.joinCode
-
-          document
-            .getElementById(
-              'campaignName'
-            )
-            .value = ''
-
-          await refreshCampaigns()
-        }
-      )
-
-    document
-      .getElementById(
-        'joinDm'
-      )
-      .addEventListener(
-        'click',
-        () => {
-          const campaignId =
-            document
-              .getElementById(
-                'dmCampaignId'
-              )
-              .value
-              .trim()
-
-          const name =
-            document
-              .getElementById(
-                'dmName'
-              )
-              .value
-              .trim()
-
-          socket.emit(
-            'session:join',
-            {
-              role:
-                'dm',
-
-              campaignId,
-
-              name
-            },
-            (result) => {
-              document
-                .getElementById(
-                  'dmStatus'
-                )
-                .textContent =
-                result.ok
-                  ? 'DM joined successfully.'
-                  : result.error
-            }
-          )
-        }
-      )
-
-    document
-      .getElementById(
-        'joinPlayer'
-      )
-      .addEventListener(
-        'click',
-        () => {
-          const name =
-            document
-              .getElementById(
-                'playerName'
-              )
-              .value
-              .trim()
-
-          const joinCode =
-            document
-              .getElementById(
-                'joinCode'
-              )
-              .value
-              .trim()
-
-          socket.emit(
-            'session:join',
-            {
-              role:
-                'player',
-
-              joinCode,
-
-              name
-            },
-            (result) => {
-              document
-                .getElementById(
-                  'playerStatus'
-                )
-                .textContent =
-                result.ok
-                  ? 'Player joined successfully.'
-                  : result.error
-            }
-          )
-        }
-      )
-
-    socket.on(
-      'session:presence',
-      (players) => {
-        const list =
-          document.getElementById(
-            'presence'
-          )
-
-        list.innerHTML = ''
-
-        if (
-          players.length === 0
-        ) {
-          list.innerHTML =
-            '<li>No connected users.</li>'
-
-          return
-        }
-
-        for (
-          const player
-          of players
-        ) {
-          const item =
-            document.createElement(
-              'li'
-            )
-
-          item.textContent =
-            player.name +
-            ' — ' +
-            player.role
-
-          list.appendChild(
-            item
-          )
-        }
-      }
-    )
 
     async function loadHostInfo() {
-      const response =
-        await fetch(
+      const info =
+        await jsonRequest(
           '/api/host-info'
         )
-
-      const info =
-        await response.json()
 
       const lines = [
         '<strong>DM:</strong>',
@@ -789,6 +650,854 @@ export const DEV_CONNECTION_PAGE = `
         )
         .innerHTML =
         lines.join('')
+    }
+
+    async function refreshCampaigns() {
+      if (!isLocalHost) {
+        return
+      }
+
+      const campaigns =
+        await jsonRequest(
+          '/api/campaigns'
+        )
+
+      const list =
+        document.getElementById(
+          'campaignList'
+        )
+
+      list.innerHTML = ''
+
+      if (
+        campaigns.length === 0
+      ) {
+        list.innerHTML =
+          '<p class="muted">No campaigns yet.</p>'
+
+        return
+      }
+
+      for (
+        const campaign
+        of campaigns
+      ) {
+        const wrapper =
+          document.createElement(
+            'div'
+          )
+
+        wrapper.className =
+          'campaign'
+
+        wrapper.innerHTML =
+          '<strong>' +
+          escapeHtml(
+            campaign.name
+          ) +
+          '</strong>' +
+          '<br>' +
+          '<small>ID: <code>' +
+          escapeHtml(
+            campaign.id
+          ) +
+          '</code></small>' +
+          '<br>' +
+          '<small>Join Code: <code>' +
+          escapeHtml(
+            campaign.joinCode
+          ) +
+          '</code></small>' +
+          '<br>' +
+          '<button type="button">' +
+          'Open / Continue as DM' +
+          '</button>'
+
+        wrapper
+          .querySelector(
+            'button'
+          )
+          .addEventListener(
+            'click',
+            () => {
+              openCampaignAsDm(
+                campaign
+              )
+            }
+          )
+
+        list.appendChild(
+          wrapper
+        )
+      }
+    }
+
+    async function openCampaignAsDm(
+      campaign
+    ) {
+      socket.emit(
+        'session:join',
+        {
+          role:
+            'dm',
+
+          campaignId:
+            campaign.id,
+
+          name:
+            'Dungeon Master'
+        },
+        async (result) => {
+          if (!result.ok) {
+            alert(
+              result.error
+            )
+
+            return
+          }
+
+          currentCampaignId =
+            campaign.id
+
+          currentCampaignState =
+            result.state || {}
+
+          document
+            .getElementById(
+              'currentCampaign'
+            )
+            .innerHTML =
+            '<strong>' +
+            escapeHtml(
+              campaign.name
+            ) +
+            '</strong>' +
+            '<br>Join Code: <code>' +
+            escapeHtml(
+              campaign.joinCode
+            ) +
+            '</code>'
+
+          document
+            .getElementById(
+              'dmControlCard'
+            )
+            .classList
+            .remove(
+              'hidden'
+            )
+
+          document
+            .getElementById(
+              'devNote'
+            )
+            .value =
+            currentCampaignState
+              .devNote ||
+            ''
+
+          document
+            .getElementById(
+              'joinCode'
+            )
+            .value =
+            campaign.joinCode
+
+          updateSessionDisplay(
+            result.activeSession
+          )
+
+          await refreshSnapshots()
+
+          setStatus(
+            'saveStatus',
+            'Campaign loaded from disk.',
+            false
+          )
+        }
+      )
+    }
+
+    function updateSessionDisplay(
+      session
+    ) {
+      const element =
+        document.getElementById(
+          'sessionStatus'
+        )
+
+      const startButton =
+        document.getElementById(
+          'startSession'
+        )
+
+      const endButton =
+        document.getElementById(
+          'endSession'
+        )
+
+      if (session) {
+        element.className =
+          'session-active'
+
+        element.textContent =
+          'Session ' +
+          session.number +
+          ' ACTIVE — started ' +
+          new Date(
+            session.startedAt
+          ).toLocaleString()
+
+        startButton.disabled =
+          true
+
+        endButton.disabled =
+          false
+      } else {
+        element.className =
+          'session-inactive'
+
+        element.textContent =
+          'No active session.'
+
+        startButton.disabled =
+          false
+
+        endButton.disabled =
+          true
+      }
+    }
+
+    async function saveCurrentState() {
+      if (
+        !currentCampaignId
+      ) {
+        return
+      }
+
+      currentCampaignState =
+        Object.assign(
+          {},
+          currentCampaignState,
+          {
+            devNote:
+              document
+                .getElementById(
+                  'devNote'
+                )
+                .value
+          }
+        )
+
+      setStatus(
+        'saveStatus',
+        'Saving...',
+        false
+      )
+
+      try {
+        await jsonRequest(
+          '/api/campaigns/' +
+          encodeURIComponent(
+            currentCampaignId
+          ) +
+          '/state',
+          {
+            method:
+              'PUT',
+
+            headers: {
+              'Content-Type':
+                'application/json'
+            },
+
+            body:
+              JSON.stringify(
+                currentCampaignState
+              )
+          }
+        )
+
+        setStatus(
+          'saveStatus',
+          'Autosaved.',
+          false
+        )
+      } catch (error) {
+        setStatus(
+          'saveStatus',
+          error.message,
+          true
+        )
+      }
+    }
+
+    document
+      .getElementById(
+        'devNote'
+      )
+      .addEventListener(
+        'input',
+        () => {
+          clearTimeout(
+            saveTimer
+          )
+
+          setStatus(
+            'saveStatus',
+            'Waiting to autosave...',
+            false
+          )
+
+          saveTimer =
+            setTimeout(
+              saveCurrentState,
+              700
+            )
+        }
+      )
+
+    async function refreshSnapshots() {
+      if (
+        !currentCampaignId
+      ) {
+        return
+      }
+
+      const snapshots =
+        await jsonRequest(
+          '/api/campaigns/' +
+          encodeURIComponent(
+            currentCampaignId
+          ) +
+          '/snapshots'
+        )
+
+      const list =
+        document.getElementById(
+          'snapshotList'
+        )
+
+      list.innerHTML = ''
+
+      if (
+        snapshots.length === 0
+      ) {
+        list.innerHTML =
+          '<p class="muted">No snapshots yet.</p>'
+
+        return
+      }
+
+      for (
+        const snapshot
+        of snapshots
+      ) {
+        const wrapper =
+          document.createElement(
+            'div'
+          )
+
+        wrapper.className =
+          'snapshot'
+
+        wrapper.innerHTML =
+          '<strong>' +
+          escapeHtml(
+            snapshot.name
+          ) +
+          '</strong>' +
+          '<br>' +
+          '<small>' +
+          escapeHtml(
+            new Date(
+              snapshot.createdAt
+            ).toLocaleString()
+          ) +
+          '</small>' +
+          '<br>' +
+          '<button type="button">' +
+          'Restore' +
+          '</button>'
+
+        wrapper
+          .querySelector(
+            'button'
+          )
+          .addEventListener(
+            'click',
+            async () => {
+              const confirmed =
+                window.confirm(
+                  'Restore this snapshot? A backup of the current state will be created automatically first.'
+                )
+
+              if (!confirmed) {
+                return
+              }
+
+              try {
+                const result =
+                  await jsonRequest(
+                    '/api/campaigns/' +
+                    encodeURIComponent(
+                      currentCampaignId
+                    ) +
+                    '/snapshots/' +
+                    encodeURIComponent(
+                      snapshot.id
+                    ) +
+                    '/restore',
+                    {
+                      method:
+                        'POST'
+                    }
+                  )
+
+                currentCampaignState =
+                  result.state ||
+                  {}
+
+                document
+                  .getElementById(
+                    'devNote'
+                  )
+                  .value =
+                  currentCampaignState
+                    .devNote ||
+                  ''
+
+                setStatus(
+                  'snapshotStatus',
+                  'Snapshot restored.',
+                  false
+                )
+
+                await refreshSnapshots()
+              } catch (error) {
+                setStatus(
+                  'snapshotStatus',
+                  error.message,
+                  true
+                )
+              }
+            }
+          )
+
+        list.appendChild(
+          wrapper
+        )
+      }
+    }
+
+    document
+      .getElementById(
+        'createCampaign'
+      )
+      .addEventListener(
+        'click',
+        async () => {
+          const input =
+            document.getElementById(
+              'campaignName'
+            )
+
+          const name =
+            input.value.trim()
+
+          if (!name) {
+            alert(
+              'Enter a campaign name.'
+            )
+
+            return
+          }
+
+          try {
+            const campaign =
+              await jsonRequest(
+                '/api/campaigns',
+                {
+                  method:
+                    'POST',
+
+                  headers: {
+                    'Content-Type':
+                      'application/json'
+                  },
+
+                  body:
+                    JSON.stringify({
+                      name:
+                        name
+                    })
+                }
+              )
+
+            input.value = ''
+
+            await refreshCampaigns()
+
+            openCampaignAsDm(
+              campaign
+            )
+          } catch (error) {
+            alert(
+              error.message
+            )
+          }
+        }
+      )
+
+    document
+      .getElementById(
+        'startSession'
+      )
+      .addEventListener(
+        'click',
+        async () => {
+          if (
+            !currentCampaignId
+          ) {
+            return
+          }
+
+          try {
+            const session =
+              await jsonRequest(
+                '/api/campaigns/' +
+                encodeURIComponent(
+                  currentCampaignId
+                ) +
+                '/session/start',
+                {
+                  method:
+                    'POST'
+                }
+              )
+
+            updateSessionDisplay(
+              session
+            )
+
+            await refreshSnapshots()
+          } catch (error) {
+            alert(
+              error.message
+            )
+          }
+        }
+      )
+
+    document
+      .getElementById(
+        'endSession'
+      )
+      .addEventListener(
+        'click',
+        async () => {
+          if (
+            !currentCampaignId
+          ) {
+            return
+          }
+
+          try {
+            await saveCurrentState()
+
+            await jsonRequest(
+              '/api/campaigns/' +
+              encodeURIComponent(
+                currentCampaignId
+              ) +
+              '/session/end',
+              {
+                method:
+                  'POST'
+              }
+            )
+
+            updateSessionDisplay(
+              null
+            )
+
+            await refreshSnapshots()
+          } catch (error) {
+            alert(
+              error.message
+            )
+          }
+        }
+      )
+
+    document
+      .getElementById(
+        'createSnapshot'
+      )
+      .addEventListener(
+        'click',
+        async () => {
+          if (
+            !currentCampaignId
+          ) {
+            return
+          }
+
+          const input =
+            document.getElementById(
+              'snapshotName'
+            )
+
+          try {
+            await saveCurrentState()
+
+            await jsonRequest(
+              '/api/campaigns/' +
+                encodeURIComponent(
+                  currentCampaignId
+                ) +
+                '/snapshots',
+              {
+                method:
+                  'POST',
+
+                headers: {
+                  'Content-Type':
+                    'application/json'
+                },
+
+                body:
+                  JSON.stringify({
+                    name:
+                      input.value
+                  })
+              }
+            )
+
+            input.value = ''
+
+            setStatus(
+              'snapshotStatus',
+              'Snapshot created.',
+              false
+            )
+
+            await refreshSnapshots()
+          } catch (error) {
+            setStatus(
+              'snapshotStatus',
+              error.message,
+              true
+            )
+          }
+        }
+      )
+
+    document
+      .getElementById(
+        'joinPlayer'
+      )
+      .addEventListener(
+        'click',
+        () => {
+          const name =
+            document
+              .getElementById(
+                'playerName'
+              )
+              .value
+              .trim()
+
+          const joinCode =
+            document
+              .getElementById(
+                'joinCode'
+              )
+              .value
+              .trim()
+
+          if (!name) {
+            setStatus(
+              'playerStatus',
+              'Enter your player name.',
+              true
+            )
+
+            return
+          }
+
+          if (!joinCode) {
+            setStatus(
+              'playerStatus',
+              'Enter the campaign join code.',
+              true
+            )
+
+            return
+          }
+
+          const playerKey =
+            getOrCreatePlayerKey()
+
+          localStorage.setItem(
+            PLAYER_NAME_STORAGE,
+            name
+          )
+
+          localStorage.setItem(
+            JOIN_CODE_STORAGE,
+            joinCode
+          )
+
+          socket.emit(
+            'session:join',
+            {
+              role:
+                'player',
+
+              name,
+
+              joinCode,
+
+              playerKey
+            },
+            (result) => {
+              if (!result.ok) {
+                setStatus(
+                  'playerStatus',
+                  result.error,
+                  true
+                )
+
+                return
+              }
+
+              setStatus(
+                'playerStatus',
+                result.resumed
+                  ? 'Returning player resumed successfully.'
+                  : 'New player registered successfully.',
+                false
+              )
+
+              document
+                .getElementById(
+                  'playerIdentity'
+                )
+                .textContent =
+                'Player ID: ' +
+                result.player.id
+
+              updateSessionDisplay(
+                result.activeSession
+              )
+            }
+          )
+        }
+      )
+
+    socket.on(
+      'session:presence',
+      (users) => {
+        const list =
+          document.getElementById(
+            'presence'
+          )
+
+        list.innerHTML = ''
+
+        if (
+          users.length === 0
+        ) {
+          list.innerHTML =
+            '<li>No connected users.</li>'
+
+          return
+        }
+
+        for (
+          const user
+          of users
+        ) {
+          const item =
+            document.createElement(
+              'li'
+            )
+
+          item.textContent =
+            user.name +
+            ' — ' +
+            user.role
+
+          list.appendChild(
+            item
+          )
+        }
+      }
+    )
+
+    socket.on(
+      'campaign:state-changed',
+      (state) => {
+        if (!isLocalHost) {
+          return
+        }
+
+        currentCampaignState =
+          state || {}
+
+        const note =
+          document.getElementById(
+            'devNote'
+          )
+
+        if (
+          document.activeElement !==
+          note
+        ) {
+          note.value =
+            currentCampaignState
+              .devNote ||
+            ''
+        }
+      }
+    )
+
+    socket.on(
+      'campaign:session-changed',
+      (session) => {
+        updateSessionDisplay(
+          session
+        )
+      }
+    )
+
+    const storedName =
+      localStorage.getItem(
+        PLAYER_NAME_STORAGE
+      )
+
+    const storedJoinCode =
+      localStorage.getItem(
+        JOIN_CODE_STORAGE
+      )
+
+    if (storedName) {
+      document
+        .getElementById(
+          'playerName'
+        )
+        .value =
+        storedName
+    }
+
+    if (storedJoinCode) {
+      document
+        .getElementById(
+          'joinCode'
+        )
+        .value =
+        storedJoinCode
     }
 
     loadHostInfo()
