@@ -1,0 +1,52 @@
+# Dependencies
+node_modules/
+
+# Production build
+dist/
+
+# Vite / tooling
+.vite/
+*.local
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Local VTT runtime data
+data/
+
+# Campaign runtime / backups
+campaigns/
+backups/
+
+# SQLite
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+*.db
+*.db-shm
+*.db-wal
+
+# Operating system
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
