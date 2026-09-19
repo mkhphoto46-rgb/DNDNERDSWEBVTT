@@ -1,0 +1,1229 @@
+import {
+  Application,
+  Container,
+  Graphics,
+  Sprite,
+  Texture,
+} from 'pixi.js'
+
+import {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from 'react'
+
+import './MapViewport.css'
+
+import {
+  centerCamera,
+  clampZoom,
+  fitCamera,
+  panCamera,
+  type MapCamera,
+  zoomCameraAtPoint,
+} from '../lib/mapCamera'
+
+import type {
+  GridSettings,
+  SceneMapAsset,
+} from '../types/scene'
+
+export interface MapViewportHandle {
+  fitMap: () => void
+  actualSize: () => void
+  zoomIn: () => void
+  zoomOut: () => void
+}
+
+interface MapViewportProps {
+  activeMap:
+    | SceneMapAsset
+    | null
+
+  grid:
+    GridSettings
+
+  panEnabled:
+    boolean
+
+  onCameraChange?:
+    (
+      camera:
+        MapCamera,
+    ) => void
+}
+
+interface MapSize {
+  width: number
+  height: number
+}
+
+interface LoadedImageTexture {
+  texture: Texture
+  width: number
+  height: number
+}
+
+const INITIAL_CAMERA:
+  MapCamera = {
+    x: 0,
+    y: 0,
+    zoom: 1,
+  }
+
+function normalizeOffset(
+  value: number,
+  cellSize: number,
+): number {
+  return (
+    (
+      value %
+      cellSize
+    ) +
+    cellSize
+  ) %
+  cellSize
+}
+
+function loadImageElement(
+  url: string,
+): Promise<HTMLImageElement> {
+  return new Promise(
+    (
+      resolve,
+      reject,
+    ) => {
+      const image =
+        new Image()
+
+      image.decoding =
+        'async'
+
+      const cleanup =
+        () => {
+          image.onload =
+            null
+
+          image.onerror =
+            null
+        }
+
+      image.onload =
+        () => {
+          cleanup()
+
+          if (
+            image.naturalWidth <= 0 ||
+            image.naturalHeight <= 0
+          ) {
+            reject(
+              new Error(
+                'The map image loaded without valid dimensions.',
+              ),
+            )
+
+            return
+          }
+
+          resolve(
+            image,
+          )
+        }
+
+      image.onerror =
+        () => {
+          cleanup()
+
+          reject(
+            new Error(
+              'The browser could not load the map image.',
+            ),
+          )
+        }
+
+      image.src =
+        url
+
+      if (
+        image.complete &&
+        image.naturalWidth > 0 &&
+        image.naturalHeight > 0
+      ) {
+        cleanup()
+
+        resolve(
+          image,
+        )
+      }
+    },
+  )
+}
+
+async function loadTextureFromMapUrl(
+  url: string,
+): Promise<LoadedImageTexture> {
+  const image =
+    await loadImageElement(
+      url,
+    )
+
+  const texture =
+    Texture.from(
+      image,
+    )
+
+  return {
+    texture,
+
+    width:
+      image.naturalWidth,
+
+    height:
+      image.naturalHeight,
+  }
+}
+
+export const MapViewport =
+  forwardRef<
+    MapViewportHandle,
+    MapViewportProps
+  >(
+    function MapViewport(
+      {
+        activeMap,
+        grid,
+        panEnabled,
+        onCameraChange,
+      },
+      ref,
+    ) {
+      const hostRef =
+        useRef<HTMLDivElement>(
+          null,
+        )
+
+      const appRef =
+        useRef<Application | null>(
+          null,
+        )
+
+      const worldRef =
+        useRef<Container | null>(
+          null,
+        )
+
+      const mapSpriteRef =
+        useRef<Sprite | null>(
+          null,
+        )
+
+      const gridGraphicsRef =
+        useRef<Graphics | null>(
+          null,
+        )
+
+      const mapSizeRef =
+        useRef<MapSize>({
+          width: 0,
+          height: 0,
+        })
+
+      const cameraRef =
+        useRef<MapCamera>({
+          ...INITIAL_CAMERA,
+        })
+
+      const panEnabledRef =
+        useRef(
+          panEnabled,
+        )
+
+      const pointerRef =
+        useRef<{
+          active: boolean
+          pointerId:
+            | number
+            | null
+          lastX: number
+          lastY: number
+        }>({
+          active: false,
+          pointerId: null,
+          lastX: 0,
+          lastY: 0,
+        })
+
+      const [
+        ready,
+        setReady,
+      ] =
+        useState(
+          false,
+        )
+
+      const [
+        loadError,
+        setLoadError,
+      ] =
+        useState<
+          string |
+          null
+        >(
+          null,
+        )
+
+      useEffect(
+        () => {
+          panEnabledRef.current =
+            panEnabled
+        },
+        [
+          panEnabled,
+        ],
+      )
+
+      const applyCamera =
+        (
+          camera:
+            MapCamera,
+        ) => {
+          cameraRef.current =
+            camera
+
+          const world =
+            worldRef.current
+
+          if (world) {
+            world.position.set(
+              camera.x,
+              camera.y,
+            )
+
+            world.scale.set(
+              camera.zoom,
+            )
+          }
+
+          onCameraChange?.(
+            camera,
+          )
+        }
+
+      const viewportSize =
+        () => {
+          const app =
+            appRef.current
+
+          if (!app) {
+            return {
+              width: 0,
+              height: 0,
+            }
+          }
+
+          return {
+            width:
+              app.screen.width,
+
+            height:
+              app.screen.height,
+          }
+        }
+
+      const fitMap =
+        () => {
+          const worldSize =
+            mapSizeRef.current
+
+          if (
+            worldSize.width <= 0 ||
+            worldSize.height <= 0
+          ) {
+            return
+          }
+
+          applyCamera(
+            fitCamera(
+              viewportSize(),
+              worldSize,
+              34,
+            ),
+          )
+        }
+
+      const actualSize =
+        () => {
+          const worldSize =
+            mapSizeRef.current
+
+          if (
+            worldSize.width <= 0 ||
+            worldSize.height <= 0
+          ) {
+            return
+          }
+
+          applyCamera(
+            centerCamera(
+              viewportSize(),
+              worldSize,
+              1,
+            ),
+          )
+        }
+
+      const zoomBy =
+        (
+          factor:
+            number,
+        ) => {
+          const size =
+            viewportSize()
+
+          if (
+            size.width <= 0 ||
+            size.height <= 0
+          ) {
+            return
+          }
+
+          const camera =
+            cameraRef.current
+
+          applyCamera(
+            zoomCameraAtPoint(
+              camera,
+              {
+                x:
+                  size.width /
+                  2,
+
+                y:
+                  size.height /
+                  2,
+              },
+              camera.zoom *
+                factor,
+            ),
+          )
+        }
+
+      useImperativeHandle(
+        ref,
+        () => ({
+          fitMap,
+
+          actualSize,
+
+          zoomIn: () =>
+            zoomBy(
+              1.2,
+            ),
+
+          zoomOut: () =>
+            zoomBy(
+              1 / 1.2,
+            ),
+        }),
+      )
+
+      useEffect(
+        () => {
+          let cancelled =
+            false
+
+          const host =
+            hostRef.current
+
+          if (!host) {
+            return
+          }
+
+          const application =
+            new Application()
+
+          const initialise =
+            async () => {
+              try {
+                await application.init({
+                  resizeTo:
+                    host,
+
+                  preference:
+                    'webgl',
+
+                  antialias:
+                    true,
+
+                  autoDensity:
+                    true,
+
+                  resolution:
+                    Math.min(
+                      window.devicePixelRatio ||
+                        1,
+                      2,
+                    ),
+
+                  background:
+                    '#050403',
+
+                  backgroundAlpha:
+                    1,
+                })
+
+                if (cancelled) {
+                  application.destroy(
+                    true,
+                  )
+
+                  return
+                }
+
+                application.canvas.className =
+                  'pixi-map-canvas'
+
+                application.canvas.setAttribute(
+                  'aria-label',
+                  'Battle map viewport',
+                )
+
+                host.appendChild(
+                  application.canvas,
+                )
+
+                const world =
+                  new Container()
+
+                world.sortableChildren =
+                  true
+
+                application.stage.addChild(
+                  world,
+                )
+
+                appRef.current =
+                  application
+
+                worldRef.current =
+                  world
+
+                setReady(
+                  true,
+                )
+              } catch (error) {
+                setLoadError(
+                  error instanceof Error
+                    ? error.message
+                    : 'PixiJS could not initialize the map renderer.',
+                )
+              }
+            }
+
+          initialise()
+
+          return () => {
+            cancelled =
+              true
+
+            setReady(
+              false,
+            )
+
+            mapSpriteRef.current =
+              null
+
+            gridGraphicsRef.current =
+              null
+
+            worldRef.current =
+              null
+
+            appRef.current =
+              null
+
+            application.destroy(
+              true,
+            )
+          }
+        },
+        [],
+      )
+
+      useEffect(
+        () => {
+          if (!ready) {
+            return
+          }
+
+          const world =
+            worldRef.current
+
+          if (!world) {
+            return
+          }
+
+          let cancelled =
+            false
+
+          const loadMap =
+            async () => {
+              setLoadError(
+                null,
+              )
+
+              const previous =
+                world.removeChildren()
+
+              for (
+                const child
+                of previous
+              ) {
+                child.destroy()
+              }
+
+              mapSpriteRef.current =
+                null
+
+              gridGraphicsRef.current =
+                null
+
+              mapSizeRef.current = {
+                width: 0,
+                height: 0,
+              }
+
+              if (!activeMap) {
+                applyCamera({
+                  ...INITIAL_CAMERA,
+                })
+
+                return
+              }
+
+              try {
+                const loaded =
+                  await loadTextureFromMapUrl(
+                    activeMap.url,
+                  )
+
+                if (cancelled) {
+                  loaded.texture.destroy()
+
+                  return
+                }
+
+                const sprite =
+                  new Sprite(
+                    loaded.texture,
+                  )
+
+                sprite.position.set(
+                  0,
+                  0,
+                )
+
+                sprite.width =
+                  loaded.width
+
+                sprite.height =
+                  loaded.height
+
+                sprite.zIndex =
+                  0
+
+                const gridGraphics =
+                  new Graphics()
+
+                gridGraphics.zIndex =
+                  10
+
+                world.addChild(
+                  sprite,
+                )
+
+                world.addChild(
+                  gridGraphics,
+                )
+
+                mapSpriteRef.current =
+                  sprite
+
+                gridGraphicsRef.current =
+                  gridGraphics
+
+                mapSizeRef.current = {
+                  width:
+                    loaded.width,
+
+                  height:
+                    loaded.height,
+                }
+
+                requestAnimationFrame(
+                  () => {
+                    requestAnimationFrame(
+                      () => {
+                        fitMap()
+                      },
+                    )
+                  },
+                )
+              } catch (error) {
+                setLoadError(
+                  error instanceof Error
+                    ? error.message
+                    : 'Map texture failed to load.',
+                )
+              }
+            }
+
+          loadMap()
+
+          return () => {
+            cancelled =
+              true
+          }
+        },
+        [
+          ready,
+          activeMap?.id,
+          activeMap?.url,
+        ],
+      )
+
+      useEffect(
+        () => {
+          const graphics =
+            gridGraphicsRef.current
+
+          const size =
+            mapSizeRef.current
+
+          if (
+            !graphics ||
+            size.width <= 0 ||
+            size.height <= 0
+          ) {
+            return
+          }
+
+          graphics.clear()
+
+          if (
+            !grid.enabled
+          ) {
+            return
+          }
+
+          const cellSize =
+            Math.max(
+              10,
+              grid.cellSize,
+            )
+
+          const startX =
+            normalizeOffset(
+              grid.offsetX,
+              cellSize,
+            )
+
+          const startY =
+            normalizeOffset(
+              grid.offsetY,
+              cellSize,
+            )
+
+          let lineCount =
+            0
+
+          const maximumLines =
+            5000
+
+          for (
+            let x =
+              startX;
+            x <=
+              size.width &&
+            lineCount <
+              maximumLines;
+            x +=
+              cellSize
+          ) {
+            graphics
+              .moveTo(
+                x,
+                0,
+              )
+              .lineTo(
+                x,
+                size.height,
+              )
+
+            lineCount +=
+              1
+          }
+
+          for (
+            let y =
+              startY;
+            y <=
+              size.height &&
+            lineCount <
+              maximumLines;
+            y +=
+              cellSize
+          ) {
+            graphics
+              .moveTo(
+                0,
+                y,
+              )
+              .lineTo(
+                size.width,
+                y,
+              )
+
+            lineCount +=
+              1
+          }
+
+          graphics.stroke({
+            width:
+              1.25,
+
+            color:
+              0xe5d7ad,
+
+            alpha:
+              grid.opacity,
+          })
+        },
+        [
+          ready,
+          activeMap?.id,
+          grid.enabled,
+          grid.cellSize,
+          grid.offsetX,
+          grid.offsetY,
+          grid.opacity,
+        ],
+      )
+
+      useEffect(
+        () => {
+          if (!ready) {
+            return
+          }
+
+          const app =
+            appRef.current
+
+          if (!app) {
+            return
+          }
+
+          const canvas =
+            app.canvas
+
+          const onWheel =
+            (
+              event:
+                WheelEvent,
+            ) => {
+              if (!activeMap) {
+                return
+              }
+
+              event.preventDefault()
+
+              const rect =
+                canvas.getBoundingClientRect()
+
+              const point = {
+                x:
+                  event.clientX -
+                  rect.left,
+
+                y:
+                  event.clientY -
+                  rect.top,
+              }
+
+              const current =
+                cameraRef.current
+
+              const factor =
+                Math.exp(
+                  -event.deltaY *
+                    0.0014,
+                )
+
+              applyCamera(
+                zoomCameraAtPoint(
+                  current,
+                  point,
+                  clampZoom(
+                    current.zoom *
+                      factor,
+                  ),
+                ),
+              )
+            }
+
+          const onPointerDown =
+            (
+              event:
+                PointerEvent,
+            ) => {
+              const shouldPan =
+                (
+                  panEnabledRef.current &&
+                  event.button === 0
+                ) ||
+                event.button === 1
+
+              if (
+                !activeMap ||
+                !shouldPan
+              ) {
+                return
+              }
+
+              event.preventDefault()
+
+              pointerRef.current = {
+                active:
+                  true,
+
+                pointerId:
+                  event.pointerId,
+
+                lastX:
+                  event.clientX,
+
+                lastY:
+                  event.clientY,
+              }
+
+              canvas.setPointerCapture(
+                event.pointerId,
+              )
+
+              canvas.classList.add(
+                'is-dragging',
+              )
+            }
+
+          const onPointerMove =
+            (
+              event:
+                PointerEvent,
+            ) => {
+              const pointer =
+                pointerRef.current
+
+              if (
+                !pointer.active ||
+                pointer.pointerId !==
+                  event.pointerId
+              ) {
+                return
+              }
+
+              const deltaX =
+                event.clientX -
+                pointer.lastX
+
+              const deltaY =
+                event.clientY -
+                pointer.lastY
+
+              pointer.lastX =
+                event.clientX
+
+              pointer.lastY =
+                event.clientY
+
+              applyCamera(
+                panCamera(
+                  cameraRef.current,
+                  deltaX,
+                  deltaY,
+                ),
+              )
+            }
+
+          const endPointer =
+            (
+              event:
+                PointerEvent,
+            ) => {
+              const pointer =
+                pointerRef.current
+
+              if (
+                pointer.pointerId !==
+                  event.pointerId
+              ) {
+                return
+              }
+
+              pointer.active =
+                false
+
+              pointer.pointerId =
+                null
+
+              canvas.classList.remove(
+                'is-dragging',
+              )
+
+              if (
+                canvas.hasPointerCapture(
+                  event.pointerId,
+                )
+              ) {
+                canvas.releasePointerCapture(
+                  event.pointerId,
+                )
+              }
+            }
+
+          const onDoubleClick =
+            () => {
+              fitMap()
+            }
+
+          canvas.addEventListener(
+            'wheel',
+            onWheel,
+            {
+              passive:
+                false,
+            },
+          )
+
+          canvas.addEventListener(
+            'pointerdown',
+            onPointerDown,
+          )
+
+          canvas.addEventListener(
+            'pointermove',
+            onPointerMove,
+          )
+
+          canvas.addEventListener(
+            'pointerup',
+            endPointer,
+          )
+
+          canvas.addEventListener(
+            'pointercancel',
+            endPointer,
+          )
+
+          canvas.addEventListener(
+            'dblclick',
+            onDoubleClick,
+          )
+
+          return () => {
+            canvas.removeEventListener(
+              'wheel',
+              onWheel,
+            )
+
+            canvas.removeEventListener(
+              'pointerdown',
+              onPointerDown,
+            )
+
+            canvas.removeEventListener(
+              'pointermove',
+              onPointerMove,
+            )
+
+            canvas.removeEventListener(
+              'pointerup',
+              endPointer,
+            )
+
+            canvas.removeEventListener(
+              'pointercancel',
+              endPointer,
+            )
+
+            canvas.removeEventListener(
+              'dblclick',
+              onDoubleClick,
+            )
+          }
+        },
+        [
+          ready,
+          activeMap?.id,
+        ],
+      )
+
+      useEffect(
+        () => {
+          const host =
+            hostRef.current
+
+          if (
+            !host ||
+            !ready
+          ) {
+            return
+          }
+
+          let previousWidth =
+            host.clientWidth
+
+          let previousHeight =
+            host.clientHeight
+
+          const observer =
+            new ResizeObserver(
+              () => {
+                const nextWidth =
+                  host.clientWidth
+
+                const nextHeight =
+                  host.clientHeight
+
+                if (
+                  nextWidth <= 0 ||
+                  nextHeight <= 0
+                ) {
+                  return
+                }
+
+                if (
+                  previousWidth <= 0 ||
+                  previousHeight <= 0
+                ) {
+                  previousWidth =
+                    nextWidth
+
+                  previousHeight =
+                    nextHeight
+
+                  return
+                }
+
+                const camera =
+                  cameraRef.current
+
+                const worldCenterX =
+                  (
+                    previousWidth /
+                      2 -
+                    camera.x
+                  ) /
+                  camera.zoom
+
+                const worldCenterY =
+                  (
+                    previousHeight /
+                      2 -
+                    camera.y
+                  ) /
+                  camera.zoom
+
+                previousWidth =
+                  nextWidth
+
+                previousHeight =
+                  nextHeight
+
+                applyCamera({
+                  x:
+                    nextWidth /
+                      2 -
+                    worldCenterX *
+                      camera.zoom,
+
+                  y:
+                    nextHeight /
+                      2 -
+                    worldCenterY *
+                      camera.zoom,
+
+                  zoom:
+                    camera.zoom,
+                })
+              },
+            )
+
+          observer.observe(
+            host,
+          )
+
+          return () => {
+            observer.disconnect()
+          }
+        },
+        [
+          ready,
+        ],
+      )
+
+      return (
+        <div
+          ref={
+            hostRef
+          }
+          className={[
+            'pixi-map-host',
+            panEnabled
+              ? 'is-pan-mode'
+              : '',
+            activeMap
+              ? 'has-map'
+              : 'is-empty',
+          ].join(' ')}
+        >
+          {!activeMap
+            ? (
+              <div className="pixi-empty-map">
+                <div className="pixi-empty-map-mark">
+                  ◇
+                </div>
+
+                <strong>
+                  No map revealed
+                </strong>
+
+                <span>
+                  The active battle map will appear here.
+                </span>
+              </div>
+            )
+            : null}
+
+          {loadError
+            ? (
+              <div className="pixi-map-error">
+                <strong>
+                  Map failed to render
+                </strong>
+
+                <span>
+                  {loadError}
+                </span>
+
+                <code>
+                  {activeMap?.url}
+                </code>
+              </div>
+            )
+            : null}
+        </div>
+      )
+    },
+  )

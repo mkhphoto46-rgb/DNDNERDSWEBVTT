@@ -17,20 +17,21 @@
 }
 
 :root {
-  --ink: #120c07;
-  --deep-wood: #1d1008;
-  --wood: #3a2112;
-  --wood-light: #5a351d;
-  --leather: #2a160c;
-  --parchment: #d6bd86;
-  --parchment-dark: #9f8150;
-  --brass: #b88a43;
-  --brass-bright: #ddb96d;
-  --brass-dark: #6b4722;
-  --ember: #8f3a2a;
-  --mist: #d7c7a2;
-  --green: #8ca66c;
-  --shadow: rgba(0, 0, 0, 0.72);
+  --bg: #080503;
+  --panel: #211108;
+  --panel-2: #321c10;
+  --wood: #422513;
+  --wood-light: #5b351e;
+  --brass: #c7954b;
+  --brass-light: #efc873;
+  --parchment: #f1dfb8;
+  --muted: #c4ae86;
+  --border: #79522b;
+  --green: #8fb56d;
+  --body: Georgia, 'Times New Roman', serif;
+  --title: 'Ghost Theory', Georgia, serif;
+  --label: 'Van Helsing', Georgia, serif;
+  --number: 'Pieces of Eight', Georgia, serif;
 }
 
 button,
@@ -38,586 +39,356 @@ input {
   font: inherit;
 }
 
-button {
-  -webkit-tap-highlight-color: transparent;
-}
-
 .startup-shell {
-  position: relative;
   min-height: 100dvh;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 34px 20px 60px;
-  color: var(--mist);
+  gap: 10px;
+  padding: 32px;
+  color: var(--parchment);
   background:
-    radial-gradient(circle at 50% 18%, rgba(185, 135, 62, 0.14), transparent 28%),
-    radial-gradient(circle at 50% 80%, rgba(93, 43, 17, 0.2), transparent 35%),
-    repeating-linear-gradient(
-      88deg,
-      rgba(255, 255, 255, 0.018) 0 1px,
-      transparent 1px 7px
-    ),
-    linear-gradient(100deg, #140a05, #28150a 48%, #100804);
+    radial-gradient(circle at 50% 14%, rgba(193, 139, 63, 0.18), transparent 30%),
+    linear-gradient(105deg, #100805, #28160b 50%, #0d0704);
 }
 
-.startup-shell::before,
-.table-header::after,
-.tool-rail::after,
-.inspector::after,
-.player-dock::after {
-  content: '';
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  opacity: 0.12;
-  background:
-    repeating-linear-gradient(
-      4deg,
-      transparent 0 5px,
-      rgba(255, 235, 190, 0.09) 6px,
-      transparent 7px 14px
-    );
-  mix-blend-mode: soft-light;
-}
-
-.startup-ornament {
-  width: min(520px, 80vw);
-  height: 50px;
-  margin-bottom: 10px;
-  background: url('/assets/ui/ornament.svg') center / contain no-repeat;
-  opacity: 0.9;
-}
-
-.startup-emblem {
-  width: 84px;
-  height: 84px;
+.startup-seal {
+  width: 88px;
+  height: 88px;
   display: grid;
   place-items: center;
   border: 2px solid var(--brass);
   border-radius: 50%;
-  color: var(--brass-bright);
-  background:
-    radial-gradient(circle, #311b0f 0 48%, #140b06 49% 100%);
-  box-shadow:
-    0 0 0 6px rgba(74, 44, 24, 0.9),
-    0 0 0 8px rgba(184, 138, 67, 0.35),
-    0 16px 40px rgba(0, 0, 0, 0.55);
+  font-family: var(--number);
+  font-size: 1.5rem;
+  color: var(--brass-light);
+  background: radial-gradient(circle, #3b2213, #130a06);
+  box-shadow: inset 0 0 15px #000, 0 0 0 6px #3b2111;
 }
 
-.startup-emblem svg {
-  width: 47px;
-  height: 47px;
-}
-
-.startup-title {
-  margin: 22px 0 2px;
-  font-family: 'Ghost Theory', Georgia, serif;
-  font-size: clamp(2.1rem, 6vw, 4.6rem);
+.startup-shell > h1 {
+  margin: 16px 0 0;
+  font-family: var(--title);
+  font-size: clamp(3rem, 6vw, 5.4rem);
   font-weight: 400;
-  letter-spacing: 0.06em;
-  color: #e2c37c;
-  text-shadow:
-    0 2px 0 #5a371b,
-    0 8px 24px #000;
+  color: #f0d28e;
 }
 
-.startup-motto {
-  margin: 0 0 30px;
-  font-family: 'Pieces of Eight', Georgia, serif;
-  font-size: clamp(1.1rem, 2.5vw, 1.7rem);
-  letter-spacing: 0.08em;
-  color: #bea166;
+.startup-shell > p {
+  margin: 0 0 24px;
+  font-family: var(--number);
+  font-size: clamp(1.3rem, 2vw, 1.9rem);
+  color: #d8b970;
 }
 
-.loading-rune {
-  margin-top: 28px;
-  font-family: 'Van Helsing', Georgia, serif;
-  color: #9b8357;
-  letter-spacing: 0.09em;
-}
-
-.campaign-gate,
-.player-gate {
-  position: relative;
-  z-index: 1;
-  width: min(980px, 96vw);
-  padding: 26px;
-  border: 1px solid rgba(221, 185, 109, 0.56);
-  border-radius: 10px;
-  background:
-    linear-gradient(rgba(38, 22, 13, 0.95), rgba(19, 11, 7, 0.97)),
-    repeating-linear-gradient(90deg, transparent 0 18px, rgba(255, 255, 255, 0.02) 19px 20px);
-  box-shadow:
-    inset 0 0 0 3px rgba(77, 45, 22, 0.85),
-    inset 0 0 40px rgba(0, 0, 0, 0.35),
-    0 28px 70px rgba(0, 0, 0, 0.48);
+.gate-card {
+  width: min(1020px, 96vw);
+  padding: 28px;
+  border: 1px solid #9a6a35;
+  border-radius: 12px;
+  background: linear-gradient(#2c190f, #160b06);
+  box-shadow: inset 0 0 0 3px #4b2b17, 0 26px 65px rgba(0,0,0,0.55);
 }
 
 .player-gate {
-  width: min(520px, 94vw);
+  width: min(560px, 94vw);
 }
 
-.gate-heading {
-  text-align: center;
+.gate-card header {
   margin-bottom: 22px;
+  text-align: center;
 }
 
-.gate-heading > span,
-.eyebrow {
-  font-family: 'Van Helsing', Georgia, serif;
-  font-size: 0.76rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--brass);
+.gate-card header > span {
+  font-family: var(--label);
+  font-size: 1rem;
+  color: var(--brass-light);
+  letter-spacing: 0.12em;
 }
 
-.gate-heading h2 {
-  margin: 5px 0 4px;
-  font-family: 'Ghost Theory', Georgia, serif;
+.gate-card h2 {
+  margin: 7px 0 0;
+  font-family: var(--title);
+  font-size: 2.5rem;
   font-weight: 400;
-  font-size: 2rem;
-  color: #e4ca8a;
-}
-
-.gate-heading p {
-  margin: 0;
-  color: #9f8d70;
+  color: #f0d59c;
 }
 
 .campaign-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 14px;
 }
 
 .campaign-card {
-  position: relative;
-  min-height: 124px;
-  display: grid;
-  grid-template-columns: 58px 1fr;
-  gap: 14px;
-  align-items: center;
+  min-height: 130px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 7px;
+  padding: 18px;
   text-align: left;
-  padding: 15px;
-  color: #dbc79f;
-  border: 1px solid #6d4b27;
-  border-radius: 8px;
-  background:
-    linear-gradient(135deg, #321d10, #1a0e08 70%);
-  box-shadow:
-    inset 0 0 0 2px rgba(225, 181, 95, 0.08),
-    0 9px 22px rgba(0, 0, 0, 0.27);
+  color: var(--parchment);
+  border: 1px solid #7c552c;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #3b2213, #1b0f09 75%);
   cursor: pointer;
-  transition: 160ms ease;
 }
 
 .campaign-card:hover {
-  transform: translateY(-2px);
-  border-color: #b38443;
-  box-shadow:
-    inset 0 0 0 2px rgba(225, 181, 95, 0.12),
-    0 13px 30px rgba(0, 0, 0, 0.38);
+  border-color: var(--brass-light);
+  filter: brightness(1.07);
 }
 
-.campaign-seal {
-  width: 54px;
-  height: 54px;
-  display: grid;
-  place-items: center;
-  color: #c9a45d;
-  border: 1px solid #75532c;
-  border-radius: 50%;
-  background: #160c07;
-  box-shadow: inset 0 0 12px #000;
+.campaign-card strong {
+  font-family: var(--body);
+  font-size: 1.3rem;
 }
 
-.campaign-seal svg {
-  width: 30px;
-  height: 30px;
-}
-
-.campaign-card-copy {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-}
-
-.campaign-card-copy strong {
-  font-family: 'Van Helsing', Georgia, serif;
-  font-size: 1.08rem;
-  color: #e5d2a8;
-}
-
-.campaign-card-copy small {
+.campaign-card small {
   margin-top: 8px;
-  color: #796950;
+  color: var(--muted);
 }
 
-.campaign-code {
-  font-family: 'Pieces of Eight', Georgia, serif;
-  letter-spacing: 0.12em;
-  color: #d6ab5a;
+.campaign-card b {
+  font-family: var(--number);
+  font-size: 1.3rem;
+  letter-spacing: 0.1em;
+  color: var(--brass-light);
 }
 
-.campaign-enter {
-  grid-column: 2;
-  font-size: 0.82rem;
-  color: #8e7652;
-}
-
-.create-campaign {
+.create-campaign,
+.join-form {
   display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 10px;
+  gap: 12px;
   margin-top: 18px;
 }
 
-.join-form {
-  display: grid;
-  gap: 14px;
+.create-campaign {
+  grid-template-columns: 1fr auto;
 }
 
 .join-form label {
   display: grid;
-  gap: 6px;
-  font-family: 'Van Helsing', Georgia, serif;
-  color: #bca77c;
+  gap: 7px;
+  font-family: var(--body);
+  font-size: 1.05rem;
+  font-weight: 700;
 }
 
 .create-campaign input,
-.join-form input {
-  width: 100%;
-  min-height: 44px;
+.join-form input,
+.grid-editor input[type='number'] {
+  min-height: 48px;
   padding: 10px 13px;
-  color: #f0dfb9;
-  border: 1px solid #604320;
-  border-radius: 5px;
+  color: #fff0ce;
+  border: 1px solid #765126;
+  border-radius: 6px;
+  background: #0f0805;
   outline: none;
-  background: #100905;
-  box-shadow: inset 0 3px 12px #000;
+  font-family: var(--body);
+  font-size: 1.02rem;
 }
 
-.create-campaign input:focus,
-.join-form input:focus {
-  border-color: #bc8b42;
-  box-shadow:
-    inset 0 3px 12px #000,
-    0 0 0 2px rgba(188, 139, 66, 0.12);
-}
-
-.brass-button,
-.wood-button {
-  min-height: 42px;
-  padding: 9px 15px;
-  border-radius: 5px;
+.create-campaign button,
+.join-form button,
+.primary-button,
+.secondary-button {
+  min-height: 48px;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-family: var(--body);
+  font-size: 1rem;
+  font-weight: 700;
   cursor: pointer;
-  font-family: 'Van Helsing', Georgia, serif;
-  letter-spacing: 0.035em;
 }
 
-.brass-button {
-  color: #1e1208;
-  border: 1px solid #e3c177;
-  background:
-    linear-gradient(#d3ad63, #9b6b31);
-  box-shadow:
-    inset 0 1px #f4d99d,
-    0 4px 12px rgba(0, 0, 0, 0.32);
+.create-campaign button,
+.join-form button,
+.primary-button {
+  color: #1b1008;
+  border: 1px solid #f0d48c;
+  background: linear-gradient(#dfbd72, #a97535);
 }
 
-.brass-button:hover {
-  filter: brightness(1.09);
-}
-
-.wood-button {
-  color: #dbc59a;
-  border: 1px solid #684728;
-  background:
-    linear-gradient(#432616, #24130b);
-}
-
-.full-width {
+.secondary-button {
   width: 100%;
-  margin-top: 10px;
-}
-
-.enter-table-button {
-  margin-top: 4px;
+  margin-top: 9px;
+  color: var(--parchment);
+  border: 1px solid #765029;
+  background: linear-gradient(#482918, #24130b);
 }
 
 .startup-status {
-  margin-top: 16px;
-  color: #b9a077;
-  font-family: 'Van Helsing', Georgia, serif;
+  margin-top: 14px;
+  font-family: var(--body);
+  font-size: 1rem;
+  color: var(--muted);
 }
 
 .table-shell {
-  position: relative;
   width: 100vw;
   height: 100dvh;
   overflow: hidden;
   display: grid;
-  color: var(--mist);
-  background:
-    radial-gradient(circle at center, #24150c, #0b0604 72%);
+  color: var(--parchment);
+  background: var(--bg);
 }
 
 .dm-shell {
   grid-template:
-    'header header header' 78px
+    'header header header' 92px
     'tools stage inspector' minmax(0, 1fr)
-    'dock dock dock' 66px
-    / 74px minmax(0, 1fr) 310px;
+    'dock dock dock' 78px
+    / 104px minmax(0, 1fr) 380px;
 }
 
 .player-shell {
   grid-template:
-    'header header' 78px
+    'header header' 92px
     'tools stage' minmax(0, 1fr)
-    'dock dock' 66px
-    / 74px minmax(0, 1fr);
+    'dock dock' 78px
+    / 104px minmax(0, 1fr);
 }
 
 .table-header {
   grid-area: header;
-  position: relative;
   z-index: 20;
   display: grid;
-  grid-template-columns: minmax(230px, 1fr) minmax(260px, 1.4fr) minmax(230px, 1fr);
+  grid-template-columns: minmax(280px, 1fr) minmax(280px, 1.2fr) minmax(240px, 1fr);
   align-items: center;
-  gap: 14px;
-  padding: 8px 16px;
-  border-bottom: 2px solid #6f4924;
-  background:
-    radial-gradient(circle at 50% -60%, rgba(210, 160, 78, 0.15), transparent 55%),
-    repeating-linear-gradient(94deg, rgba(255,255,255,0.025) 0 2px, transparent 2px 20px),
-    linear-gradient(#3b2111, #241208);
-  box-shadow:
-    0 8px 28px rgba(0,0,0,0.55),
-    inset 0 -1px #a27036;
+  gap: 18px;
+  padding: 10px 18px;
+  border-bottom: 2px solid #81572d;
+  background: linear-gradient(#472917, #28150b);
+  box-shadow: 0 9px 28px rgba(0,0,0,0.5);
 }
 
-.brand-lockup {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  min-width: 0;
+.campaign-heading > span {
+  font-family: var(--label);
+  font-size: 0.9rem;
+  color: var(--brass-light);
+  letter-spacing: 0.12em;
 }
 
-.brand-die {
-  flex: 0 0 50px;
-  width: 50px;
-  height: 50px;
-  display: grid;
-  place-items: center;
-  color: #d6ae61;
-  border: 1px solid #9a6d35;
-  border-radius: 50%;
-  background: #160b05;
-  box-shadow:
-    inset 0 0 13px #000,
-    0 0 0 3px rgba(80, 47, 22, 0.8);
-}
-
-.brand-die svg {
-  width: 29px;
-  height: 29px;
-}
-
-.brand-lockup h1 {
+.campaign-heading h1 {
+  margin: 4px 0 0;
   overflow: hidden;
-  margin: 1px 0 0;
-  font-family: 'Ghost Theory', Georgia, serif;
-  font-size: clamp(1.25rem, 2vw, 1.8rem);
-  font-weight: 400;
   white-space: nowrap;
   text-overflow: ellipsis;
-  color: #e5cb8f;
+  font-family: var(--title);
+  font-size: clamp(1.8rem, 2.4vw, 2.4rem);
+  font-weight: 400;
+  color: #f0d497;
 }
 
 .fate-banner {
-  position: relative;
-  z-index: 2;
-  min-width: 0;
-  padding: 9px 44px;
   text-align: center;
-  color: #d7b66e;
-  background:
-    url('/assets/ui/ornament.svg') center / 100% 100% no-repeat;
-}
-
-.fate-banner span {
-  display: inline-block;
-  padding: 2px 12px;
-  font-family: 'Pieces of Eight', Georgia, serif;
-  font-size: clamp(0.85rem, 1.4vw, 1.2rem);
-  letter-spacing: 0.06em;
-  text-shadow: 0 2px 5px #000;
+  font-family: var(--number);
+  font-size: 1.25rem;
+  color: #e4c375;
 }
 
 .header-status {
-  position: relative;
-  z-index: 1;
   justify-self: end;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 11px;
+  font-family: var(--body);
 }
 
-.session-lamp {
-  width: 10px;
-  height: 10px;
-  flex: 0 0 10px;
-  border-radius: 50%;
-  background: #685746;
-  box-shadow: 0 0 0 3px #1a0d07;
-}
-
-.session-lamp.is-live {
-  background: #8eb66a;
-  box-shadow:
-    0 0 0 3px #1a0d07,
-    0 0 12px #8eb66a;
-}
-
-.session-lamp.large {
-  width: 15px;
-  height: 15px;
-  flex-basis: 15px;
-}
-
-.session-copy {
+.header-status > div:not(.join-code) {
   display: flex;
   flex-direction: column;
-  min-width: 92px;
 }
 
-.session-copy small {
-  color: #88765c;
+.header-status small {
+  color: var(--muted);
 }
 
-.session-copy strong {
-  font-family: 'Van Helsing', Georgia, serif;
-  font-size: 0.86rem;
-  color: #d9c399;
+.session-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #6f5d49;
 }
 
-.join-code-plate {
-  min-width: 70px;
-  padding: 5px 8px;
+.session-dot.is-live {
+  background: var(--green);
+  box-shadow: 0 0 10px var(--green);
+}
+
+.join-code {
+  min-width: 88px;
+  padding: 6px 10px;
   text-align: center;
-  border: 1px solid #815a2b;
-  border-radius: 4px;
-  background: #140a05;
-  box-shadow: inset 0 0 9px #000;
+  border: 1px solid #996733;
+  border-radius: 5px;
+  background: #120905;
 }
 
-.join-code-plate small {
+.join-code small {
   display: block;
-  font-size: 0.62rem;
-  letter-spacing: 0.11em;
-  color: #77644c;
-  text-transform: uppercase;
 }
 
-.join-code-plate strong {
-  font-family: 'Pieces of Eight', Georgia, serif;
-  letter-spacing: 0.08em;
-  color: #dab25f;
+.join-code b {
+  font-family: var(--number);
+  font-size: 1.3rem;
+  color: var(--brass-light);
 }
 
 .tool-rail {
   grid-area: tools;
-  position: relative;
   z-index: 12;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 7px;
-  padding: 8px 7px;
-  border-right: 2px solid #4d2f18;
-  background:
-    linear-gradient(90deg, #1b0f08, #321b0e);
-  box-shadow:
-    8px 0 22px rgba(0,0,0,0.35),
-    inset -1px 0 #805226;
+  gap: 9px;
+  padding: 11px 10px;
+  border-right: 2px solid #58391e;
+  background: linear-gradient(90deg, #180d07, #382014);
 }
 
-.rail-cap {
-  position: relative;
-  z-index: 1;
-  width: 100%;
+.rail-title {
   margin-bottom: 2px;
-  padding: 4px 0 6px;
-  text-align: center;
-  font-family: 'Van Helsing', Georgia, serif;
-  font-size: 0.6rem;
-  letter-spacing: 0.15em;
-  color: #7e684b;
+  font-family: var(--body);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #c9aa73;
 }
 
-.tool-button {
-  position: relative;
-  z-index: 1;
-  width: 54px;
-  min-height: 54px;
+.tool {
+  width: 80px;
+  min-height: 68px;
   display: grid;
   place-items: center;
-  gap: 1px;
-  padding: 5px 2px;
-  color: #b69b6f;
-  border: 1px solid #51331b;
-  border-radius: 7px;
-  background:
-    linear-gradient(#342013, #1a0e08);
-  box-shadow:
-    inset 0 1px rgba(255,255,255,0.03),
-    0 4px 7px rgba(0,0,0,0.26);
+  align-content: center;
+  gap: 5px;
+  color: #d0b788;
+  border: 1px solid #6b4725;
+  border-radius: 9px;
+  background: linear-gradient(#432716, #1c0f08);
   cursor: pointer;
 }
 
-.tool-button svg {
-  width: 23px;
-  height: 23px;
+.tool.is-active,
+.tool:hover {
+  color: #f1d18b;
+  border-color: #c18b43;
+  background: linear-gradient(#58341c, #28150b);
 }
 
-.tool-button:hover:not(:disabled),
-.tool-button.is-active {
-  color: #e0bd72;
-  border-color: #a27337;
-  background:
-    linear-gradient(#4b2d17, #25130a);
-}
-
-.tool-button.is-active {
-  box-shadow:
-    inset 0 0 12px rgba(223, 178, 88, 0.08),
-    0 0 0 2px rgba(184, 138, 67, 0.08);
-}
-
-.tool-button.is-disabled {
-  opacity: 0.33;
-  cursor: not-allowed;
-}
-
-.tool-label {
-  font-family: 'Van Helsing', Georgia, serif;
-  font-size: 0.52rem;
+.tool-icon {
+  font-size: 1.55rem;
   line-height: 1;
 }
 
-.rail-divider {
-  position: relative;
-  z-index: 1;
-  width: 38px;
-  height: 1px;
-  margin: 2px 0;
-  background: linear-gradient(90deg, transparent, #74502a, transparent);
+.tool b {
+  font-family: var(--body);
+  font-size: 0.9rem;
 }
 
 .battlefield {
@@ -625,9 +396,7 @@ button {
   min-width: 0;
   min-height: 0;
   padding: 10px;
-  background:
-    radial-gradient(circle at 50% 20%, rgba(129, 77, 36, 0.14), transparent 38%),
-    #0c0704;
+  background: #090604;
 }
 
 .battlefield-frame {
@@ -635,655 +404,510 @@ button {
   width: 100%;
   height: 100%;
   min-height: 0;
-  padding: 12px;
-  border: 3px solid #8a6132;
-  border-radius: 9px;
-  background:
-    linear-gradient(90deg, #2b170c, #442815 50%, #28150b);
-  box-shadow:
-    inset 0 0 0 3px #1a0d07,
-    inset 0 0 0 5px #5a381d,
-    0 18px 35px rgba(0,0,0,0.5);
+  padding: 14px;
+  border: 3px solid #9a6b38;
+  border-radius: 11px;
+  background: linear-gradient(90deg, #321b0f, #50301b 50%, #2b170c);
+  box-shadow: inset 0 0 0 3px #160b06, inset 0 0 0 6px #624020, 0 18px 44px rgba(0,0,0,0.5);
 }
 
-.frame-corner {
+.battlefield-frame::before,
+.battlefield-frame::after {
+  content: '';
   position: absolute;
-  z-index: 8;
-  width: 38px;
-  height: 38px;
+  z-index: 12;
+  left: 28px;
+  right: 28px;
+  height: 14px;
   pointer-events: none;
-  border-color: #d0a154;
-  filter: drop-shadow(0 2px 4px #000);
+  border-left: 3px solid #d8a552;
+  border-right: 3px solid #d8a552;
 }
 
-.corner-tl {
-  top: -2px;
-  left: -2px;
-  border-top: 3px solid;
-  border-left: 3px solid;
-  border-top-left-radius: 8px;
+.battlefield-frame::before {
+  top: 4px;
+  border-top: 3px solid #d8a552;
 }
 
-.corner-tr {
-  top: -2px;
-  right: -2px;
-  border-top: 3px solid;
-  border-right: 3px solid;
-  border-top-right-radius: 8px;
+.battlefield-frame::after {
+  bottom: 4px;
+  border-bottom: 3px solid #d8a552;
 }
 
-.corner-bl {
-  bottom: -2px;
-  left: -2px;
-  border-bottom: 3px solid;
-  border-left: 3px solid;
-  border-bottom-left-radius: 8px;
-}
-
-.corner-br {
-  bottom: -2px;
-  right: -2px;
-  border-bottom: 3px solid;
-  border-right: 3px solid;
-  border-bottom-right-radius: 8px;
-}
-
-.scene-ribbon {
+.scene-title {
   position: absolute;
-  z-index: 9;
-  top: -9px;
+  z-index: 15;
+  top: -10px;
   left: 50%;
   transform: translateX(-50%);
-  min-width: min(420px, 58%);
-  max-width: 70%;
-  padding: 6px 24px;
-  text-align: center;
+  min-width: min(480px, 62%);
+  max-width: 72%;
+  padding: 8px 28px;
   overflow: hidden;
+  text-align: center;
   white-space: nowrap;
   text-overflow: ellipsis;
-  color: #dac185;
-  border: 1px solid #89602f;
-  border-radius: 4px;
-  background:
-    linear-gradient(#402515, #211108);
-  box-shadow:
-    inset 0 0 0 1px rgba(232, 193, 111, 0.08),
-    0 6px 12px rgba(0,0,0,0.35);
-  font-family: 'Van Helsing', Georgia, serif;
-  letter-spacing: 0.045em;
+  font-family: var(--body);
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: #f0d9a4;
+  border: 1px solid #a67338;
+  border-radius: 6px;
+  background: linear-gradient(#4c2b18, #211108);
+  box-shadow: 0 7px 18px rgba(0,0,0,0.4);
 }
 
-.map-stage {
+.pixi-map-host {
   position: relative;
   width: 100%;
   height: 100%;
   min-height: 0;
   overflow: hidden;
-  display: grid;
-  place-items: center;
-  user-select: none;
-  touch-action: none;
-  border: 1px solid #18100b;
-  background:
-    radial-gradient(circle at center, rgba(64, 47, 33, 0.12), transparent 50%),
-    repeating-linear-gradient(0deg, transparent 0 39px, rgba(187, 159, 103, 0.04) 40px),
-    repeating-linear-gradient(90deg, transparent 0 39px, rgba(187, 159, 103, 0.04) 40px),
-    #050403;
-  box-shadow:
-    inset 0 0 70px rgba(0,0,0,0.88);
+  border: 1px solid #1d120b;
+  background: #050403;
+  box-shadow: inset 0 0 80px rgba(0,0,0,0.88);
 }
 
-.map-stage.is-pannable {
+.pixi-map-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+  user-select: none;
+}
+
+.pixi-map-host.is-pan-mode .pixi-map-canvas {
   cursor: grab;
 }
 
-.map-stage.is-dragging {
-  cursor: grabbing;
+.pixi-map-canvas.is-dragging {
+  cursor: grabbing !important;
 }
 
-.battle-map-image {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-  will-change: transform;
-  transform-origin: center;
-  transition: transform 80ms linear;
-  pointer-events: none;
-  box-shadow: 0 0 35px rgba(0,0,0,0.62);
-}
-
-.is-dragging .battle-map-image {
-  transition: none;
-}
-
-.empty-map-state {
-  width: min(480px, 80%);
-  text-align: center;
-  color: #7f725f;
-}
-
-.empty-map-sigil {
-  width: 76px;
-  height: 76px;
+.pixi-empty-map {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
   display: grid;
   place-items: center;
-  margin: 0 auto 12px;
-  color: #846538;
-  border: 1px solid #3f2b18;
-  border-radius: 50%;
-  background: rgba(22, 13, 7, 0.74);
+  align-content: center;
+  gap: 8px;
+  text-align: center;
+  pointer-events: none;
+  color: var(--muted);
 }
 
-.empty-map-sigil svg {
-  width: 39px;
-  height: 39px;
+.pixi-empty-map-mark {
+  font-size: 4rem;
+  color: var(--brass);
 }
 
-.empty-map-state h2 {
-  margin: 0 0 6px;
-  font-family: 'Ghost Theory', Georgia, serif;
-  font-size: 1.6rem;
+.pixi-empty-map strong {
+  font-family: var(--title);
+  font-size: 2rem;
   font-weight: 400;
-  color: #ac9366;
+  color: #dfc28a;
 }
 
-.empty-map-state p {
-  margin: 0;
-  line-height: 1.45;
-}
-
-.map-controls {
+.camera-controls {
   position: absolute;
-  z-index: 10;
-  right: 18px;
-  top: 18px;
+  z-index: 16;
+  top: 22px;
+  right: 22px;
   display: flex;
   align-items: center;
-  gap: 3px;
-  padding: 4px;
-  border: 1px solid #5d4023;
-  border-radius: 7px;
-  background: rgba(18, 10, 6, 0.9);
-  box-shadow: 0 5px 14px rgba(0,0,0,0.4);
+  gap: 5px;
+  padding: 6px;
+  border: 1px solid #76502a;
+  border-radius: 8px;
+  background: rgba(20,10,6,0.94);
 }
 
-.map-controls button {
-  width: 31px;
-  height: 31px;
-  display: grid;
-  place-items: center;
-  padding: 0;
-  color: #bda170;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  background: transparent;
+.camera-controls button {
+  min-width: 40px;
+  height: 38px;
+  padding: 0 10px;
+  color: #ebca86;
+  border: 1px solid #51351c;
+  border-radius: 5px;
+  background: #2b170d;
+  font-family: var(--body);
+  font-size: 1rem;
+  font-weight: 700;
   cursor: pointer;
 }
 
-.map-controls button:hover {
-  color: #e1c27f;
-  border-color: #6d4a27;
-  background: #2b190e;
-}
-
-.map-controls svg {
-  width: 17px;
-  height: 17px;
-}
-
-.map-controls span {
-  width: 48px;
+.camera-controls strong {
+  min-width: 64px;
   text-align: center;
-  font-family: 'Pieces of Eight', Georgia, serif;
-  color: #cfad69;
+  font-family: var(--number);
+  font-size: 1.1rem;
+  color: var(--brass-light);
 }
 
-.map-status-plate {
+.map-hint {
   position: absolute;
-  z-index: 10;
-  left: 18px;
-  bottom: 18px;
+  z-index: 16;
+  left: 22px;
+  bottom: 22px;
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 6px 10px;
-  border: 1px solid #52381f;
-  border-radius: 5px;
-  background: rgba(16, 9, 5, 0.86);
+  gap: 12px;
+  padding: 9px 13px;
+  border: 1px solid #654522;
+  border-radius: 6px;
+  background: rgba(18,9,5,0.92);
+  font-family: var(--body);
 }
 
-.map-status-plate > span {
-  font-family: 'Van Helsing', Georgia, serif;
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  color: #c6a66c;
+.map-hint b {
+  color: #e7c27d;
 }
 
-.map-status-plate small {
-  color: #6f6455;
+.map-hint span {
+  color: var(--muted);
+  font-size: 0.86rem;
 }
 
 .dice-result {
   position: absolute;
-  z-index: 15;
+  z-index: 30;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 112px;
-  height: 112px;
+  width: 190px;
+  min-height: 190px;
   display: grid;
   place-items: center;
   align-content: center;
-  color: #e5c97d;
-  border: 2px solid #ae7e3d;
-  clip-path: polygon(50% 0, 92% 26%, 80% 78%, 50% 100%, 20% 78%, 8% 26%);
-  background: radial-gradient(circle, #3d2413, #120906);
-  filter: drop-shadow(0 14px 24px #000);
-  animation: dice-pop 220ms ease-out;
+  gap: 4px;
+  color: #f2d58f;
+  border: 2px solid #bb8440;
+  clip-path: polygon(50% 0, 92% 20%, 100% 62%, 72% 100%, 28% 100%, 0 62%, 8% 20%);
+  background: radial-gradient(circle, #4a2a17, #140a06 72%);
+  filter: drop-shadow(0 18px 30px #000);
 }
 
 .dice-result small {
-  font-family: 'Van Helsing', Georgia, serif;
-  font-size: 0.65rem;
-  letter-spacing: 0.12em;
+  font-family: var(--body);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #c3a16c;
 }
 
 .dice-result strong {
-  margin-top: -4px;
-  font-family: 'Pieces of Eight', Georgia, serif;
-  font-size: 3rem;
+  font-family: var(--number);
+  font-size: 4.8rem;
   line-height: 1;
-}
-
-.dice-result.critical {
-  color: #e9dc91;
-  filter: drop-shadow(0 0 16px rgba(222, 198, 100, 0.55)) drop-shadow(0 14px 24px #000);
-}
-
-.dice-result.fumble {
-  color: #bd6d59;
-  border-color: #7c382b;
-}
-
-@keyframes dice-pop {
-  from {
-    transform: translate(-50%, -50%) scale(0.55) rotate(-12deg);
-    opacity: 0;
-  }
-  to {
-    transform: translate(-50%, -50%) scale(1) rotate(0);
-    opacity: 1;
-  }
 }
 
 .inspector {
   grid-area: inspector;
-  position: relative;
   z-index: 11;
   min-width: 0;
   min-height: 0;
   display: grid;
-  grid-template-rows: 58px minmax(0, 1fr);
-  border-left: 2px solid #55351c;
-  background:
-    linear-gradient(90deg, #211108, #342013);
-  box-shadow:
-    -8px 0 22px rgba(0,0,0,0.35),
-    inset 1px 0 #825329;
+  grid-template-rows: 74px minmax(0,1fr);
+  border-left: 2px solid #62401f;
+  background: linear-gradient(90deg, #211108, #3a2315);
 }
 
 .inspector-tabs {
-  position: relative;
-  z-index: 1;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  border-bottom: 1px solid #5c3b20;
-  background: #170c06;
+  grid-template-columns: repeat(4,1fr);
+  border-bottom: 1px solid #684522;
+  background: #160b06;
 }
 
 .inspector-tabs button {
-  display: grid;
-  place-items: center;
-  align-content: center;
-  gap: 2px;
-  color: #8f7652;
+  color: #c5aa79;
   border: 0;
-  border-right: 1px solid #3c2514;
+  border-right: 1px solid #462a17;
   background: transparent;
+  font-family: var(--body);
+  font-size: 0.78rem;
+  font-weight: 700;
   cursor: pointer;
 }
 
 .inspector-tabs button.is-active {
-  color: #d3af69;
-  background:
-    linear-gradient(#3d2414, #251208);
-  box-shadow: inset 0 -2px #bc8a43;
-}
-
-.inspector-tabs svg {
-  width: 20px;
-  height: 20px;
-}
-
-.inspector-tabs span {
-  font-family: 'Van Helsing', Georgia, serif;
-  font-size: 0.56rem;
+  color: #f0ce81;
+  background: linear-gradient(#4a2b18, #281409);
+  box-shadow: inset 0 -3px #c58d44;
 }
 
 .inspector-body {
-  position: relative;
-  z-index: 1;
   min-height: 0;
   overflow-y: auto;
-  padding: 16px;
+  padding: 20px;
 }
 
 .panel-heading {
-  margin-bottom: 14px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #54351d;
-  background:
-    url('/assets/ui/ornament.svg') center bottom / 90% 13px no-repeat;
+  margin-bottom: 17px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #684522;
 }
 
 .panel-heading > span {
-  display: block;
-  font-family: 'Van Helsing', Georgia, serif;
-  font-size: 0.67rem;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
-  color: #8f7047;
+  font-family: var(--label);
+  font-size: 0.9rem;
+  color: #d4b272;
+  letter-spacing: 0.1em;
 }
 
-.panel-heading strong {
-  display: block;
-  margin-top: 3px;
-  font-family: 'Ghost Theory', Georgia, serif;
-  font-size: 1.35rem;
+.panel-heading h2 {
+  margin: 5px 0 0;
+  font-family: var(--title);
+  font-size: 1.9rem;
   font-weight: 400;
-  color: #dbc082;
+  color: #efd39d;
 }
 
-.party-list {
+.party-list,
+.map-list,
+.snapshot-list {
   display: grid;
-  gap: 8px;
+  gap: 9px;
 }
 
 .party-member {
   display: grid;
-  grid-template-columns: 38px 1fr auto;
+  grid-template-columns: 46px 1fr;
+  gap: 11px;
   align-items: center;
-  gap: 9px;
-  padding: 9px;
-  border: 1px solid #4a2f1a;
-  border-radius: 6px;
-  background: rgba(16, 8, 4, 0.55);
+  padding: 11px;
+  border: 1px solid #5d3d20;
+  border-radius: 7px;
+  background: #170c07;
 }
 
-.member-avatar {
-  width: 38px;
-  height: 38px;
+.party-member > span {
+  width: 46px;
+  height: 46px;
   display: grid;
   place-items: center;
-  border: 1px solid #866033;
+  border: 1px solid #986c37;
   border-radius: 50%;
-  background: #2f1a0e;
-  font-family: 'Pieces of Eight', Georgia, serif;
-  color: #c8a35f;
+  font-family: var(--number);
+  font-size: 1.25rem;
+  color: var(--brass-light);
+  background: #351d10;
 }
 
-.party-member strong,
-.scene-card strong,
-.map-library-item strong,
-.snapshot-mini strong,
-.session-card strong {
-  display: block;
-  font-family: 'Van Helsing', Georgia, serif;
-  color: #d6c09a;
+.party-member div {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--body);
 }
 
 .party-member small,
-.scene-card small,
-.map-library-item small,
-.snapshot-mini small,
-.session-card small {
-  color: #766853;
+.map-item small,
+.snapshot-list small {
+  color: var(--muted);
 }
 
-.online-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #7fa663;
-  box-shadow: 0 0 7px #7fa663;
+.empty-note {
+  font-family: var(--body);
+  font-size: 1rem;
+  color: var(--muted);
 }
 
-.panel-empty {
-  color: #746753;
-  font-style: italic;
+.grid-editor {
+  display: grid;
+  gap: 15px;
 }
 
-.scene-card {
-  padding: 10px;
-  border: 1px solid #4a2f1a;
-  border-radius: 6px;
-  background: rgba(16, 8, 4, 0.55);
+.grid-editor label {
+  display: grid;
+  gap: 7px;
+  font-family: var(--body);
+  font-size: 1rem;
+  font-weight: 700;
 }
 
-.scene-thumbnail {
+.toggle-row {
+  grid-template-columns: 1fr auto !important;
+  align-items: center;
+}
+
+.toggle-row input {
+  width: 22px;
+  height: 22px;
+  accent-color: var(--brass);
+}
+
+.two-column-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.grid-editor input[type='range'] {
   width: 100%;
-  aspect-ratio: 16 / 9;
-  margin-bottom: 9px;
-  overflow: hidden;
-  border: 1px solid #55371e;
-  background: #050302;
+  accent-color: var(--brass);
 }
 
-.scene-thumbnail img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.grid-help {
+  padding: 13px;
+  border-left: 3px solid #956530;
+  background: rgba(0,0,0,0.17);
+  font-family: var(--body);
+  color: var(--muted);
 }
 
-.coming-next {
-  margin-top: 12px;
-  padding: 10px;
-  border-left: 2px solid #745029;
-  color: #746958;
-  background: rgba(0,0,0,0.18);
-  font-size: 0.8rem;
+.grid-help p {
+  margin: 7px 0 0;
+  line-height: 1.45;
 }
 
 .file-drop {
-  min-height: 116px;
+  min-height: 130px;
   display: grid;
   place-items: center;
   align-content: center;
-  gap: 2px;
-  padding: 12px;
+  gap: 5px;
+  padding: 14px;
   text-align: center;
-  color: #ac8c5b;
-  border: 1px dashed #79552c;
-  border-radius: 7px;
-  background:
-    radial-gradient(circle, #2f1b0f, #140a05);
+  border: 1px dashed #9f6d36;
+  border-radius: 8px;
+  background: radial-gradient(circle, #351e11, #150b06);
   cursor: pointer;
 }
 
-.file-drop:hover {
-  border-color: #bd8c47;
-}
-
-.file-drop svg {
-  width: 34px;
-  height: 34px;
-}
-
-.file-drop > span {
-  font-family: 'Van Helsing', Georgia, serif;
+.file-drop strong {
+  font-family: var(--body);
+  font-size: 1.05rem;
 }
 
 .file-drop small {
-  color: #766650;
+  color: var(--muted);
 }
 
 .file-drop input {
   display: none;
 }
 
-.map-library {
-  display: grid;
-  gap: 7px;
-  margin-top: 14px;
+.primary-button {
+  width: 100%;
+  margin-top: 10px;
 }
 
-.map-library-item {
+.map-list {
+  margin-top: 15px;
+}
+
+.map-item {
   width: 100%;
   display: grid;
-  grid-template-columns: 56px 1fr;
-  gap: 9px;
+  grid-template-columns: 72px 1fr;
+  gap: 11px;
   align-items: center;
-  padding: 7px;
+  padding: 9px;
   text-align: left;
-  color: inherit;
-  border: 1px solid #412918;
-  border-radius: 5px;
+  color: var(--parchment);
+  border: 1px solid #50331b;
+  border-radius: 6px;
   background: #150b06;
   cursor: pointer;
 }
 
-.map-library-item:hover,
-.map-library-item.is-active {
-  border-color: #956936;
-  background: #26150b;
+.map-item.is-active,
+.map-item:hover {
+  border-color: #a8783c;
+  background: #2a170c;
 }
 
-.map-library-thumb {
-  width: 56px;
-  height: 42px;
-  overflow: hidden;
-  border: 1px solid #4d321b;
-  background: #050302;
-}
-
-.map-library-thumb img {
-  width: 100%;
-  height: 100%;
+.map-item img {
+  width: 72px;
+  height: 54px;
   object-fit: cover;
+  border: 1px solid #65411f;
+}
+
+.map-item span,
+.snapshot-list div {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--body);
 }
 
 .session-card {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 10px;
-  padding: 12px;
-  border: 1px solid #4c321c;
-  border-radius: 6px;
-  background: rgba(14, 8, 4, 0.55);
+  padding: 13px;
+  border: 1px solid #5d3d20;
+  border-radius: 7px;
+  background: #170c07;
+  font-family: var(--body);
 }
 
-.snapshot-mini-list {
-  display: grid;
-  gap: 6px;
+.snapshot-list {
   margin-top: 14px;
 }
 
-.snapshot-mini {
-  padding: 7px 9px;
-  border-left: 2px solid #674724;
-  background: rgba(0,0,0,0.17);
+.snapshot-list div {
+  padding: 9px 11px;
+  border-left: 3px solid #85592d;
+  background: rgba(0,0,0,0.16);
 }
 
-.player-dock {
+.bottom-dock {
   grid-area: dock;
-  position: relative;
   z-index: 20;
   display: flex;
   align-items: stretch;
   justify-content: center;
-  gap: 3px;
-  padding: 5px 12px;
-  border-top: 2px solid #6b4522;
-  background:
-    repeating-linear-gradient(92deg, rgba(255,255,255,0.02) 0 2px, transparent 2px 19px),
-    linear-gradient(#392010, #1f1008);
-  box-shadow:
-    0 -8px 25px rgba(0,0,0,0.42),
-    inset 0 1px #9b6731;
+  gap: 4px;
+  padding: 7px 14px;
+  border-top: 2px solid #7b5228;
+  background: linear-gradient(#432714, #211108);
 }
 
-.dock-item {
-  position: relative;
-  z-index: 1;
-  min-width: 116px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 6px 13px;
-  color: #b99d6f;
-  border: 1px solid #56371d;
-  border-radius: 6px 6px 2px 2px;
-  background:
-    linear-gradient(#3d2413, #211108);
+.bottom-dock button {
+  min-width: 135px;
+  padding: 8px 14px;
+  color: #d1b680;
+  border: 1px solid #6b4622;
+  border-radius: 7px;
+  background: linear-gradient(#462918, #211108);
+  font-family: var(--body);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.bottom-dock button:disabled {
+  opacity: 0.34;
+}
+
+.bottom-dock .dice-button {
+  color: #f1ca7c;
+  border-color: #b17b39;
+  background: radial-gradient(circle at top, #63391d, #271309 72%);
   cursor: pointer;
 }
 
-.dock-item svg {
-  width: 22px;
-  height: 22px;
-}
-
-.dock-item span {
-  font-family: 'Van Helsing', Georgia, serif;
-  font-size: 0.76rem;
-}
-
-.dock-item:hover:not(:disabled) {
-  color: #e1c079;
-  border-color: #9f7038;
-}
-
-.dock-item.is-disabled {
-  opacity: 0.32;
-  cursor: not-allowed;
-}
-
-.dice-dock {
-  min-width: 138px;
-  color: #e0bb70;
-  border-color: #a47538;
-  background:
-    radial-gradient(circle at top, #5b351a, #251208 70%);
-}
-
-.table-toast {
+.toast {
   position: fixed;
   z-index: 100;
   left: 50%;
-  bottom: 78px;
+  bottom: 92px;
   transform: translateX(-50%);
-  max-width: min(520px, 86vw);
-  padding: 9px 15px;
-  text-align: center;
-  color: #dbc28e;
-  border: 1px solid #755029;
-  border-radius: 6px;
-  background: rgba(21, 11, 6, 0.96);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+  max-width: min(600px, 88vw);
+  padding: 11px 17px;
+  color: #f0d9aa;
+  border: 1px solid #84592c;
+  border-radius: 7px;
+  background: rgba(24,12,7,0.97);
+  font-family: var(--body);
+  font-size: 0.98rem;
   cursor: pointer;
-  font-family: 'Van Helsing', Georgia, serif;
 }
 
-@media (max-width: 900px) {
-  .dm-shell,
-  .player-shell {
+@media (max-width: 1180px) {
+  .dm-shell {
     grid-template:
-      'header header' 64px
-      'tools stage' minmax(0, 1fr)
-      'dock dock' 58px
-      / 54px minmax(0, 1fr);
+      'header header' 84px
+      'tools stage' minmax(0,1fr)
+      'dock dock' 70px
+      / 86px minmax(0,1fr);
   }
 
   .inspector {
@@ -1291,69 +915,58 @@ button {
   }
 
   .table-header {
-    grid-template-columns: minmax(0, 1fr) auto;
-    padding: 6px 9px;
-  }
-
-  .brand-die {
-    width: 42px;
-    height: 42px;
-    flex-basis: 42px;
-  }
-
-  .brand-die svg {
-    width: 24px;
-    height: 24px;
-  }
-
-  .brand-lockup h1 {
-    font-size: 1.08rem;
-  }
-
-  .eyebrow {
-    font-size: 0.56rem;
+    grid-template-columns: minmax(0,1fr) auto;
   }
 
   .fate-banner {
-    position: absolute;
-    left: 50%;
-    bottom: 2px;
-    transform: translateX(-50%);
-    width: 48%;
-    padding: 1px 10px;
-    background: none;
-    pointer-events: none;
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .dm-shell,
+  .player-shell {
+    grid-template:
+      'header header' 72px
+      'tools stage' minmax(0,1fr)
+      'dock dock' 62px
+      / 60px minmax(0,1fr);
   }
 
-  .fate-banner span {
-    font-size: 0.64rem;
-    white-space: nowrap;
+  .table-header {
+    padding: 7px 10px;
   }
 
-  .session-copy,
-  .join-code-plate {
+  .campaign-heading h1 {
+    font-size: 1.3rem;
+  }
+
+  .campaign-heading > span {
+    font-size: 0.68rem;
+  }
+
+  .header-status > div:not(.join-code),
+  .join-code {
     display: none;
   }
 
   .tool-rail {
-    padding: 6px 4px;
-    gap: 5px;
+    padding: 7px 5px;
   }
 
-  .tool-button {
-    width: 43px;
-    min-height: 43px;
-    padding: 3px;
+  .tool {
+    width: 48px;
+    min-height: 48px;
+    padding: 4px;
   }
 
-  .tool-button svg {
-    width: 21px;
-    height: 21px;
-  }
-
-  .tool-label,
-  .rail-cap {
+  .tool b,
+  .rail-title {
     display: none;
+  }
+
+  .tool-icon {
+    font-size: 1.25rem;
   }
 
   .battlefield {
@@ -1361,54 +974,41 @@ button {
   }
 
   .battlefield-frame {
-    padding: 6px;
+    padding: 7px;
   }
 
-  .scene-ribbon {
+  .scene-title {
     min-width: 45%;
-    max-width: 70%;
-    padding: 4px 13px;
-    font-size: 0.7rem;
+    max-width: 72%;
+    padding: 6px 14px;
+    font-size: 0.82rem;
   }
 
-  .map-controls {
-    top: 11px;
-    right: 11px;
-    transform: scale(0.9);
+  .camera-controls {
+    top: 12px;
+    right: 12px;
+    transform: scale(0.88);
     transform-origin: top right;
   }
 
-  .map-status-plate {
-    left: 11px;
-    bottom: 11px;
+  .map-hint {
+    left: 12px;
+    bottom: 12px;
   }
 
-  .map-status-plate small {
+  .map-hint span {
     display: none;
   }
 
-  .player-dock {
-    gap: 2px;
-    padding: 4px;
+  .bottom-dock {
+    padding: 5px;
   }
 
-  .dock-item {
+  .bottom-dock button {
     min-width: 0;
     flex: 1 1 0;
-    padding: 5px 4px;
-  }
-
-  .dock-item span {
-    font-size: 0.58rem;
-  }
-
-  .dock-item svg {
-    width: 20px;
-    height: 20px;
-  }
-
-  .dice-dock {
-    min-width: 0;
+    padding: 6px 4px;
+    font-size: 0.76rem;
   }
 }
 
@@ -1418,42 +1018,20 @@ button {
     padding-top: 30px;
   }
 
-  .startup-emblem {
-    width: 66px;
-    height: 66px;
+  .startup-shell > h1 {
+    font-size: 2.8rem;
   }
 
-  .startup-title {
-    margin-top: 14px;
+  .gate-card {
+    padding: 20px 15px;
   }
 
-  .campaign-gate,
-  .player-gate {
-    padding: 18px 14px;
-  }
-
-  .campaign-grid {
-    grid-template-columns: 1fr;
-  }
-
+  .campaign-grid,
   .create-campaign {
     grid-template-columns: 1fr;
   }
 
-  .fate-banner {
-    display: none;
-  }
-
-  .map-status-plate {
-    font-size: 0.72rem;
-  }
-
-  .dock-item span {
-    display: none;
-  }
-
-  .dock-item svg {
-    width: 24px;
-    height: 24px;
+  .bottom-dock button:not(.dice-button) {
+    font-size: 0;
   }
 }
