@@ -2,9 +2,14 @@ import assert from 'node:assert/strict'
 import test from 'node:test'
 
 import {
-  createFreshTokenInstance,
-  DEFAULT_TOKEN_SPEED_FEET,
-  normalizeTokenInstance,
+  createFreshActorFromAsset,
+  migrateActorState,
+  nextActorName,
+} from './actors'
+
+import {
+  createFreshSceneTokenInstance,
+  tokenAssetFromActorPortrait,
   tokenMovementSummary,
 } from './tokenInstances'
 
@@ -24,90 +29,108 @@ const skeletonAsset: TokenAsset = {
   url: '/campaign-assets/campaign/token_skeleton',
 }
 
-test('one portrait can spawn multiple independent token instances', () => {
-  const first =
-    createFreshTokenInstance(
-      skeletonAsset,
-      {
-        id: 'instance-a',
-        mapId: 'map-1',
-        gridX: 2,
-        gridY: 3,
-        color: '#C9954B',
-      },
-    )
+test('one portrait can create independent actors and scene tokens', () => {
+  const firstActor = createFreshActorFromAsset(
+    skeletonAsset,
+    {
+      id: 'actor-a',
+      name: 'Skeleton',
+    },
+  )
 
-  const second =
-    createFreshTokenInstance(
-      skeletonAsset,
-      {
-        id: 'instance-b',
-        mapId: 'map-1',
-        gridX: 7,
-        gridY: 8,
-        color: '#C9954B',
-      },
-    )
+  const secondActor = createFreshActorFromAsset(
+    skeletonAsset,
+    {
+      id: 'actor-b',
+      name: 'Skeleton 2',
+    },
+  )
 
-  assert.notEqual(first.id, second.id)
-  assert.equal(first.assetId, second.assetId)
+  const firstToken = createFreshSceneTokenInstance(
+    skeletonAsset,
+    {
+      id: 'token-a',
+      actorId: firstActor.id,
+      mapId: 'map-1',
+      gridX: 2,
+      gridY: 3,
+      color: '#C9954B',
+    },
+  )
 
-  assert.equal(first.speedFeet, DEFAULT_TOKEN_SPEED_FEET)
-  assert.equal(second.speedFeet, DEFAULT_TOKEN_SPEED_FEET)
+  const secondToken = createFreshSceneTokenInstance(
+    skeletonAsset,
+    {
+      id: 'token-b',
+      actorId: secondActor.id,
+      mapId: 'map-1',
+      gridX: 7,
+      gridY: 8,
+      color: '#C9954B',
+    },
+  )
 
-  assert.equal(first.movementUsedFeet, 0)
-  assert.equal(second.movementUsedFeet, 0)
+  firstActor.speedFeet = 60
+  firstActor.currentHp = 3
+  firstToken.movementUsedFeet = 25
 
-  first.speedFeet = 60
-  first.movementUsedFeet = 25
-  first.name = 'Skeleton A'
-
-  assert.equal(second.speedFeet, DEFAULT_TOKEN_SPEED_FEET)
-  assert.equal(second.movementUsedFeet, 0)
-  assert.equal(second.name, 'Skeleton')
+  assert.equal(secondActor.speedFeet, 30)
+  assert.equal(secondActor.currentHp, 10)
+  assert.equal(secondToken.movementUsedFeet, 0)
+  assert.notEqual(firstToken.actorId, secondToken.actorId)
 })
 
-test('fresh token instances always start with fresh movement defaults', () => {
-  const token =
-    createFreshTokenInstance(
+test('new actors created from the same portrait receive useful unique default names', () => {
+  const actors = [
+    createFreshActorFromAsset(
       skeletonAsset,
       {
-        id: 'fresh-instance',
-        mapId: 'map-1',
-        gridX: 0,
-        gridY: 0,
-        color: '#C9954B',
+        id: 'actor-a',
+        name: 'Skeleton',
       },
-    )
+    ),
+  ]
 
-  assert.equal(token.speedFeet, 30)
-  assert.equal(token.movementUsedFeet, 0)
+  assert.equal(
+    nextActorName('Skeleton.jpg', actors),
+    'Skeleton 2',
+  )
 })
 
-test('legacy invalid zero speed is repaired to the current default', () => {
-  const token =
-    createFreshTokenInstance(
-      skeletonAsset,
+test('legacy token-only campaign state migrates to actor plus scene token', () => {
+  const migrated = migrateActorState(
+    undefined,
+    [
       {
-        id: 'legacy-instance',
+        id: 'legacy-token',
+        actorId: '',
+        assetId: skeletonAsset.id,
+        imageUrl: skeletonAsset.url,
         mapId: 'map-1',
-        gridX: 0,
-        gridY: 0,
+        gridX: 1,
+        gridY: 2,
+        size: 1,
+        visible: true,
         color: '#C9954B',
+        movementUsedFeet: 5,
+        name: 'Old Skeleton',
+        ownerId: null,
+        level: 4,
+        speedFeet: 40,
       },
-    )
+    ],
+  )
 
-  token.speedFeet = 0
-  token.movementUsedFeet = -20
-
-  const normalized =
-    normalizeTokenInstance(token)
-
-  assert.equal(normalized.speedFeet, 30)
-  assert.equal(normalized.movementUsedFeet, 0)
+  assert.equal(migrated.actors.length, 1)
+  assert.equal(migrated.tokens.length, 1)
+  assert.equal(migrated.actors[0].name, 'Old Skeleton')
+  assert.equal(migrated.actors[0].level, 4)
+  assert.equal(migrated.actors[0].speedFeet, 40)
+  assert.equal(migrated.tokens[0].actorId, migrated.actors[0].id)
+  assert.equal(migrated.tokens[0].movementUsedFeet, 5)
 })
 
-test('movement summary distinguishes speed, used and remaining movement', () => {
+test('movement summary reads actor speed and token movement independently', () => {
   assert.deepEqual(
     tokenMovementSummary({
       speedFeet: 30,
@@ -119,4 +142,32 @@ test('movement summary distinguishes speed, used and remaining movement', () => 
       remainingFeet: 20,
     },
   )
+})
+
+
+test('actor portraits outside the Token Chest can back a scene token asset', () => {
+  const actor = createFreshActorFromAsset(
+    skeletonAsset,
+    { id: 'actor-compendium', name: 'Compendium Skeleton' },
+  )
+
+  actor.portraitAssetId = 'compendium:srd:skeleton'
+  actor.portraitUrl = '/api/compendium/monsters/srd%3Askeleton/portrait'
+
+  const asset = tokenAssetFromActorPortrait(actor)
+  assert.ok(asset)
+  assert.equal(asset.id, 'compendium:srd:skeleton')
+  assert.equal(asset.url, actor.portraitUrl)
+
+  const token = createFreshSceneTokenInstance(asset, {
+    id: 'scene-compendium',
+    actorId: actor.id,
+    mapId: 'map-1',
+    gridX: 4,
+    gridY: 5,
+    color: '#C9954B',
+  })
+
+  assert.equal(token.imageUrl, actor.portraitUrl)
+  assert.equal(token.assetId, 'compendium:srd:skeleton')
 })

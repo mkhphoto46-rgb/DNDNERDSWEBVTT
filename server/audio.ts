@@ -88,6 +88,51 @@ const CUE_ALIASES:
     'dice/dice-shake': [
       'dice/dice_shake',
     ],
+    'doors/door-open-stone': [
+      'doors/door-open-wood',
+    ],
+    'doors/door-close-stone': [
+      'doors/door-close-wood',
+    ],
+    'magic/spell-cast': [
+      'magic/vs_chant_evoc_lm',
+    ],
+    'magic/healing': [
+      'magic/sim_heal01',
+    ],
+    'magic/fire': [
+      'magic/spr_fireball',
+    ],
+    'magic/frost': [
+      'magic/sim_explcold',
+    ],
+    'magic/lightning': [
+      'magic/sim_exp2light',
+    ],
+    'magic/necrotic': [
+      'magic/sim_negative',
+    ],
+    'magic/radiant': [
+      'magic/sim_pulsholy',
+    ],
+    'magic/teleport': [
+      'magic/sff_comtime',
+    ],
+    'atmosphere/session-start': [
+      'doors/magical-secret-reveal',
+    ],
+    'atmosphere/session-end': [
+      'combat/combat-end',
+    ],
+    'atmosphere/map-reveal': [
+      'doors/magical-secret-reveal',
+    ],
+    'atmosphere/fog-reveal': [
+      'magic/sps_fog',
+    ],
+    'atmosphere/notification': [
+      'ui/success',
+    ],
   }
 
 export function ensureAudioDirectories(): void {

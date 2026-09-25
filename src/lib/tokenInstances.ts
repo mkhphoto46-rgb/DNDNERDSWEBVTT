@@ -1,11 +1,40 @@
 import {
+  DEFAULT_ACTOR_SPEED_FEET,
+} from './actors'
+
+import {
+  normalizeGridIndex,
+} from './mapGridBounds'
+
+import {
   type SceneToken,
   type TokenAsset,
 } from '../types/scene'
 
-export const DEFAULT_TOKEN_SPEED_FEET = 30
-export const DEFAULT_TOKEN_LEVEL = 1
+import {
+  type Actor,
+} from '../types/actor'
+
 export const DEFAULT_TOKEN_SIZE = 1
+
+export function tokenAssetFromActorPortrait(actor: Actor): TokenAsset | null {
+  const url = actor.portraitUrl.trim()
+  if (!url) return null
+
+  return {
+    id: actor.portraitAssetId || `actor-portrait:${actor.id}`,
+    assetType: 'token',
+    displayName: actor.name,
+    relativePath: '',
+    contentHash: '',
+    byteSize: 0,
+    mimeType: url.endsWith('.svg') || url.includes('/portrait')
+      ? 'image/svg+xml'
+      : 'image/*',
+    updatedAt: '',
+    url,
+  }
+}
 
 function finiteNumber(
   value: unknown,
@@ -17,23 +46,11 @@ function finiteNumber(
     : fallback
 }
 
-function positiveSpeedOrDefault(
-  value: unknown,
-): number {
-  const parsed = finiteNumber(
-    value,
-    DEFAULT_TOKEN_SPEED_FEET,
-  )
-
-  return parsed > 0
-    ? Math.round(parsed)
-    : DEFAULT_TOKEN_SPEED_FEET
-}
-
-export function createFreshTokenInstance(
+export function createFreshSceneTokenInstance(
   asset: TokenAsset,
   options: {
     id: string
+    actorId: string
     mapId: string
     gridX: number
     gridY: number
@@ -42,81 +59,80 @@ export function createFreshTokenInstance(
 ): SceneToken {
   return {
     id: options.id,
-    name: asset.displayName.replace(/\.[^.]+$/, ''),
+    actorId: options.actorId,
     assetId: asset.id,
     imageUrl: asset.url,
     mapId: options.mapId,
-    gridX: Math.max(0, Math.round(options.gridX)),
-    gridY: Math.max(0, Math.round(options.gridY)),
+    gridX: normalizeGridIndex(options.gridX),
+    gridY: normalizeGridIndex(options.gridY),
     size: DEFAULT_TOKEN_SIZE,
-    ownerId: null,
     visible: true,
     color: options.color,
-    level: DEFAULT_TOKEN_LEVEL,
-    speedFeet: DEFAULT_TOKEN_SPEED_FEET,
     movementUsedFeet: 0,
   }
 }
 
-export function normalizeTokenInstance(
+export function normalizeSceneTokenInstance(
   token: SceneToken,
 ): SceneToken {
   return {
-    ...token,
-    level: Math.max(
-      1,
+    id: String(token.id ?? ''),
+    actorId:
+      typeof token.actorId === 'string' && token.actorId
+        ? token.actorId
+        : `actor-${String(token.id ?? '')}`,
+    assetId: String(token.assetId ?? ''),
+    imageUrl: String(token.imageUrl ?? ''),
+    mapId: String(token.mapId ?? ''),
+    gridX: normalizeGridIndex(token.gridX),
+    gridY: normalizeGridIndex(token.gridY),
+    size: Math.max(0.5, finiteNumber(token.size, DEFAULT_TOKEN_SIZE)),
+    visible: token.visible !== false,
+    color:
+      typeof token.color === 'string' && token.color.trim()
+        ? token.color
+        : '#C9954B',
+    movementUsedFeet: Math.max(
+      0,
       Math.round(
         finiteNumber(
-          token.level,
-          DEFAULT_TOKEN_LEVEL,
+          token.movementUsedFeet,
+          0,
         ),
       ),
     ),
-    size: Math.max(
-      0.5,
-      finiteNumber(
-        token.size,
-        DEFAULT_TOKEN_SIZE,
-      ),
-    ),
-    speedFeet:
-      positiveSpeedOrDefault(
-        token.speedFeet,
-      ),
-    movementUsedFeet:
-      Math.max(
-        0,
-        Math.round(
-          finiteNumber(
-            token.movementUsedFeet,
-            0,
-          ),
-        ),
-      ),
   }
 }
 
 export function tokenMovementSummary(
-  token: Pick<
-    SceneToken,
-    'speedFeet' | 'movementUsedFeet'
-  >,
+  value: {
+    speedFeet: number
+    movementUsedFeet: number
+  },
 ): {
   speedFeet: number
   usedFeet: number
   remainingFeet: number
 } {
-  const speedFeet =
-    positiveSpeedOrDefault(
-      token.speedFeet,
+  const rawSpeed =
+    Math.round(
+      finiteNumber(
+        value.speedFeet,
+        DEFAULT_ACTOR_SPEED_FEET,
+      ),
     )
+
+  const speedFeet =
+    rawSpeed > 0
+      ? rawSpeed
+      : DEFAULT_ACTOR_SPEED_FEET
 
   const usedFeet =
     Math.max(
       0,
       Math.round(
         finiteNumber(
-          token.movementUsedFeet,
+          value.movementUsedFeet,
           0,
         ),
       ),

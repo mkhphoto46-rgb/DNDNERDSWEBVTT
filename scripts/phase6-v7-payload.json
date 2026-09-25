@@ -1,0 +1,421 @@
+{
+  "expected_pre_state": {
+    "runtime_magic": 262,
+    "runtime_poison": 14,
+    "book_magic": 317,
+    "book_magic_profiles": 317,
+    "book_poison": 1,
+    "book_poison_profiles": 1,
+    "residual": 0,
+    "old_queue": 0,
+    "automation_backlog": 853,
+    "effective_extracted": 0,
+    "v5_repairs": 99,
+    "v5_bad_provenance": 0,
+    "quarantined_magic": 36,
+    "quarantined_poison": 0,
+    "v6_resolutions": 79
+  },
+  "recovered_magic": [
+    {
+      "entity_version_id": "entity-c07ce31dc14fdcfdd45a",
+      "expected_original_name": "Wondrous Item, Rare (Requires Attunement)",
+      "book_magic_item_id": "book-magic-item.2014.bigby-presents-glory-of-the-giants.crown-of-the-wrath-bringer.115",
+      "item_name": "Crown of the Wrath Bringer",
+      "rules_version": "2014",
+      "source_id": "source-22dc71cdbd7120f3d542",
+      "source_title": "Bigby Presents: Glory of the Giants",
+      "source_page": 115,
+      "item_type": "Wondrous Item",
+      "rarity": "Rare",
+      "requires_attunement": 1,
+      "evidence_note": "Bounded V7 recovery from local indexed source page 115: the page directly pairs the title 'Crown of the Wrath Bringer' with its magic-item descriptor. Only identity/basic descriptor profile is promoted; item-specific mechanics remain explicitly backlogged."
+    },
+    {
+      "entity_version_id": "entity-0ac06a9146502ed10eba",
+      "expected_original_name": "Wondrous Item, Artifact (Requires Attunement)",
+      "book_magic_item_id": "book-magic-item.2014.bigby-presents-glory-of-the-giants.helm-of-perfect-potential.116",
+      "item_name": "Helm of Perfect Potential",
+      "rules_version": "2014",
+      "source_id": "source-22dc71cdbd7120f3d542",
+      "source_title": "Bigby Presents: Glory of the Giants",
+      "source_page": 116,
+      "item_type": "Wondrous Item",
+      "rarity": "Artifact",
+      "requires_attunement": 1,
+      "evidence_note": "Bounded V7 recovery from local indexed source page 116: the page directly pairs the title 'Helm of Perfect Potential' with its magic-item descriptor. Only identity/basic descriptor profile is promoted; item-specific mechanics remain explicitly backlogged."
+    },
+    {
+      "entity_version_id": "entity-93a679c01a7c8515d210",
+      "expected_original_name": "Wondrous Item, Rare",
+      "book_magic_item_id": "book-magic-item.2014.bigby-presents-glory-of-the-giants.glowrune-pigment.116",
+      "item_name": "Glowrune Pigment",
+      "rules_version": "2014",
+      "source_id": "source-22dc71cdbd7120f3d542",
+      "source_title": "Bigby Presents: Glory of the Giants",
+      "source_page": 116,
+      "item_type": "Wondrous Item",
+      "rarity": "Rare",
+      "requires_attunement": 0,
+      "evidence_note": "Bounded V7 recovery from local indexed source page 116: the page directly pairs the title 'Glowrune Pigment' with its magic-item descriptor. Only identity/basic descriptor profile is promoted; item-specific mechanics remain explicitly backlogged."
+    },
+    {
+      "entity_version_id": "entity-aef290570b6f1ad9a1e3",
+      "expected_original_name": "Wondrous Item, Legendary (Requires Attunement",
+      "book_magic_item_id": "book-magic-item.2014.bigby-presents-glory-of-the-giants.orb-of-skoraeus.118",
+      "item_name": "Orb of Skoraeus",
+      "rules_version": "2014",
+      "source_id": "source-22dc71cdbd7120f3d542",
+      "source_title": "Bigby Presents: Glory of the Giants",
+      "source_page": 118,
+      "item_type": "Wondrous Item",
+      "rarity": "Legendary",
+      "requires_attunement": 1,
+      "evidence_note": "Bounded V7 recovery from local indexed source page 118: the page directly pairs the title 'Orb of Skoraeus' with its magic-item descriptor. Only identity/basic descriptor profile is promoted; item-specific mechanics remain explicitly backlogged."
+    },
+    {
+      "entity_version_id": "entity-a0464c7d1fee8abd9e99",
+      "expected_original_name": "Wondrous Item, Very Rare (Requires Attunement)",
+      "book_magic_item_id": "book-magic-item.2014.bigby-presents-glory-of-the-giants.mistral-mantle.118",
+      "item_name": "Mistral Mantle",
+      "rules_version": "2014",
+      "source_id": "source-22dc71cdbd7120f3d542",
+      "source_title": "Bigby Presents: Glory of the Giants",
+      "source_page": 118,
+      "item_type": "Wondrous Item",
+      "rarity": "Very Rare",
+      "requires_attunement": 1,
+      "evidence_note": "Bounded V7 recovery from local indexed source page 118: the page directly pairs the title 'Mistral Mantle' with its magic-item descriptor. Only identity/basic descriptor profile is promoted; item-specific mechanics remain explicitly backlogged."
+    },
+    {
+      "entity_version_id": "entity-a21281057e79353924b2",
+      "expected_original_name": "Staff, Rare (Requires Attunement)",
+      "book_magic_item_id": "book-magic-item.2014.bigby-presents-glory-of-the-giants.staff-of-the-rooted-hills.120",
+      "item_name": "Staff of the Rooted Hills",
+      "rules_version": "2014",
+      "source_id": "source-22dc71cdbd7120f3d542",
+      "source_title": "Bigby Presents: Glory of the Giants",
+      "source_page": 120,
+      "item_type": "Staff",
+      "rarity": "Rare",
+      "requires_attunement": 1,
+      "evidence_note": "Bounded V7 recovery from local indexed source page 120: the page directly pairs the title 'Staff of the Rooted Hills' with its magic-item descriptor. Only identity/basic descriptor profile is promoted; item-specific mechanics remain explicitly backlogged."
+    },
+    {
+      "entity_version_id": "entity-4a87a4431e60ed1f3ad8",
+      "expected_original_name": "Wondrous Item, Very Rare (Requires Attunement)",
+      "book_magic_item_id": "book-magic-item.2014.bigby-presents-glory-of-the-giants.sanctum-amulet.120",
+      "item_name": "Sanctum Amulet",
+      "rules_version": "2014",
+      "source_id": "source-22dc71cdbd7120f3d542",
+      "source_title": "Bigby Presents: Glory of the Giants",
+      "source_page": 120,
+      "item_type": "Wondrous Item",
+      "rarity": "Very Rare",
+      "requires_attunement": 1,
+      "evidence_note": "Bounded V7 recovery from local indexed source page 120: the page directly pairs the title 'Sanctum Amulet' with its magic-item descriptor. Only identity/basic descriptor profile is promoted; item-specific mechanics remain explicitly backlogged."
+    },
+    {
+      "entity_version_id": "entity-ef48ec1d831e7929a644",
+      "expected_original_name": "Wondrous Item, Rare",
+      "book_magic_item_id": "book-magic-item.2014.bigby-presents-glory-of-the-giants.war-horn-of-valor.121",
+      "item_name": "War Horn of Valor",
+      "rules_version": "2014",
+      "source_id": "source-22dc71cdbd7120f3d542",
+      "source_title": "Bigby Presents: Glory of the Giants",
+      "source_page": 121,
+      "item_type": "Wondrous Item",
+      "rarity": "Rare",
+      "requires_attunement": 0,
+      "evidence_note": "Bounded V7 recovery from local indexed source page 121: the page directly pairs the title 'War Horn of Valor' with its magic-item descriptor. Only identity/basic descriptor profile is promoted; item-specific mechanics remain explicitly backlogged."
+    },
+    {
+      "entity_version_id": "entity-f3292afa72d19ef1b5bc",
+      "expected_original_name": "Wondrous Item, Rare (Requires Attunement)",
+      "book_magic_item_id": "book-magic-item.2014.the-book-of-many-things.donjon-s-sundering-sphere.36",
+      "item_name": "Donjon's Sundering Sphere",
+      "rules_version": "2014",
+      "source_id": "source-f413440ea7fd6888245d",
+      "source_title": "The Book of Many Things",
+      "source_page": 36,
+      "item_type": "Wondrous Item",
+      "rarity": "Rare",
+      "requires_attunement": 1,
+      "evidence_note": "Bounded V7 recovery from local indexed source page 36: the page directly pairs the title 'Donjon's Sundering Sphere' with its magic-item descriptor. Only identity/basic descriptor profile is promoted; item-specific mechanics remain explicitly backlogged."
+    },
+    {
+      "entity_version_id": "entity-6f2d1187f338d4acd308",
+      "expected_original_name": "Ring, Uncommon",
+      "book_magic_item_id": "book-magic-item.2014.the-book-of-many-things.ring-of-puzzler-s-wit.38",
+      "item_name": "Ring of Puzzler's Wit",
+      "rules_version": "2014",
+      "source_id": "source-f413440ea7fd6888245d",
+      "source_title": "The Book of Many Things",
+      "source_page": 38,
+      "item_type": "Ring",
+      "rarity": "Uncommon",
+      "requires_attunement": 0,
+      "evidence_note": "Bounded V7 recovery from local indexed source page 38: the page directly pairs the title 'Ring of Puzzler's Wit' with its magic-item descriptor. Only identity/basic descriptor profile is promoted; item-specific mechanics remain explicitly backlogged."
+    },
+    {
+      "entity_version_id": "entity-e9b457c9cba284d4d0f1",
+      "expected_original_name": "Wondrous Item, Very Rare (Requires Attunement)",
+      "book_magic_item_id": "book-magic-item.2014.the-book-of-many-things.skull-helm.39",
+      "item_name": "Skull Helm",
+      "rules_version": "2014",
+      "source_id": "source-f413440ea7fd6888245d",
+      "source_title": "The Book of Many Things",
+      "source_page": 39,
+      "item_type": "Wondrous Item",
+      "rarity": "Very Rare",
+      "requires_attunement": 1,
+      "evidence_note": "Bounded V7 recovery from local indexed source page 39: the page directly pairs the title 'Skull Helm' with its magic-item descriptor. Only identity/basic descriptor profile is promoted; item-specific mechanics remain explicitly backlogged."
+    },
+    {
+      "entity_version_id": "entity-d798ac0db36b7909e8f7",
+      "expected_original_name": "Wondrous Item, Uncommon",
+      "book_magic_item_id": "book-magic-item.2014.the-book-of-many-things.deck-of-miscellany.42",
+      "item_name": "Deck of Miscellany",
+      "rules_version": "2014",
+      "source_id": "source-f413440ea7fd6888245d",
+      "source_title": "The Book of Many Things",
+      "source_page": 42,
+      "item_type": "Wondrous Item",
+      "rarity": "Uncommon",
+      "requires_attunement": 0,
+      "evidence_note": "Bounded V7 recovery from local indexed source page 42: the page directly pairs the title 'Deck of Miscellany' with its magic-item descriptor. Only identity/basic descriptor profile is promoted; item-specific mechanics remain explicitly backlogged."
+    },
+    {
+      "entity_version_id": "entity-38fd51566735f444df1f",
+      "expected_original_name": "Wondrous Item, Very Rare",
+      "book_magic_item_id": "book-magic-item.2014.the-book-of-many-things.deck-of-wild-cards.42",
+      "item_name": "Deck of Wild Cards",
+      "rules_version": "2014",
+      "source_id": "source-f413440ea7fd6888245d",
+      "source_title": "The Book of Many Things",
+      "source_page": 42,
+      "item_type": "Wondrous Item",
+      "rarity": "Very Rare",
+      "requires_attunement": 0,
+      "evidence_note": "Bounded V7 recovery from local indexed source page 42: the page directly pairs the title 'Deck of Wild Cards' with its magic-item descriptor. Only identity/basic descriptor profile is promoted; item-specific mechanics remain explicitly backlogged."
+    },
+    {
+      "entity_version_id": "entity-405ec643d910681bcd87",
+      "expected_original_name": "Wondrous Item, Legendary",
+      "book_magic_item_id": "book-magic-item.2014.the-book-of-many-things.deck-of-many-more-things.52",
+      "item_name": "Deck of Many More Things",
+      "rules_version": "2014",
+      "source_id": "source-f413440ea7fd6888245d",
+      "source_title": "The Book of Many Things",
+      "source_page": 52,
+      "item_type": "Wondrous Item",
+      "rarity": "Legendary",
+      "requires_attunement": 0,
+      "evidence_note": "Bounded V7 recovery from local indexed source page 52: the page directly pairs the title 'Deck of Many More Things' with its magic-item descriptor. Only identity/basic descriptor profile is promoted; item-specific mechanics remain explicitly backlogged."
+    },
+    {
+      "entity_version_id": "entity-c24475b52781112440fd",
+      "expected_original_name": "Wondrous Item, Uncommon",
+      "book_magic_item_id": "book-magic-item.2014.the-book-of-many-things.deck-of-wonder.56",
+      "item_name": "Deck of Wonder",
+      "rules_version": "2014",
+      "source_id": "source-f413440ea7fd6888245d",
+      "source_title": "The Book of Many Things",
+      "source_page": 56,
+      "item_type": "Wondrous Item",
+      "rarity": "Uncommon",
+      "requires_attunement": 0,
+      "evidence_note": "Bounded V7 recovery from local indexed source page 56: the page directly pairs the title 'Deck of Wonder' with its magic-item descriptor. Only identity/basic descriptor profile is promoted; item-specific mechanics remain explicitly backlogged."
+    },
+    {
+      "entity_version_id": "entity-019b4edf6ae6fdc595f9",
+      "expected_original_name": "FATE DEALER's DECK, +1, +2, OR +3",
+      "book_magic_item_id": "book-magic-item.2014.the-book-of-many-things.fate-dealer-s-deck-plus-1-plus-2-or-plus-3.62",
+      "item_name": "Fate Dealer's Deck, +1, +2, or +3",
+      "rules_version": "2014",
+      "source_id": "source-f413440ea7fd6888245d",
+      "source_title": "The Book of Many Things",
+      "source_page": 62,
+      "item_type": "Wondrous Item",
+      "rarity": "Rare/Very Rare/Legendary",
+      "requires_attunement": 1,
+      "evidence_note": "Bounded V7 recovery from local indexed source page 62: the page directly pairs the title 'Fate Dealer's Deck, +1, +2, or +3' with its magic-item descriptor. Only identity/basic descriptor profile is promoted; item-specific mechanics remain explicitly backlogged."
+    },
+    {
+      "entity_version_id": "entity-e78f3a9a605f950e5328",
+      "expected_original_name": "WRAPS OF UNARMED PROWESS, +1, +2, OR +3",
+      "book_magic_item_id": "book-magic-item.2014.the-book-of-many-things.wraps-of-unarmed-prowess-plus-1-plus-2-or-plus-3.70",
+      "item_name": "Wraps of Unarmed Prowess, +1, +2, or +3",
+      "rules_version": "2014",
+      "source_id": "source-f413440ea7fd6888245d",
+      "source_title": "The Book of Many Things",
+      "source_page": 70,
+      "item_type": "Wondrous Item",
+      "rarity": "Uncommon/Rare/Very Rare",
+      "requires_attunement": 0,
+      "evidence_note": "Bounded V7 recovery from local indexed source page 70: the page directly pairs the title 'Wraps of Unarmed Prowess, +1, +2, or +3' with its magic-item descriptor. Only identity/basic descriptor profile is promoted; item-specific mechanics remain explicitly backlogged."
+    },
+    {
+      "entity_version_id": "entity-4e4060f9ab7459685002",
+      "expected_original_name": "Wondrous Item, Rare (Requires Attunement)",
+      "book_magic_item_id": "book-magic-item.2014.the-book-of-many-things.shrieking-greaves.175",
+      "item_name": "Shrieking Greaves",
+      "rules_version": "2014",
+      "source_id": "source-f413440ea7fd6888245d",
+      "source_title": "The Book of Many Things",
+      "source_page": 175,
+      "item_type": "Wondrous Item",
+      "rarity": "Rare",
+      "requires_attunement": 1,
+      "evidence_note": "Bounded V7 recovery from local indexed source page 175: the page directly pairs the title 'Shrieking Greaves' with its magic-item descriptor. Only identity/basic descriptor profile is promoted; item-specific mechanics remain explicitly backlogged."
+    }
+  ],
+  "noise": [
+    {
+      "entity_version_id": "entity-2067f32045b25901a5f6",
+      "expected_original_name": "Very Rare",
+      "source_title": "Bigby Presents: Glory of the Giants",
+      "source_page": 102,
+      "reason": "Star Forge item-creation rarity table row, not an item title."
+    },
+    {
+      "entity_version_id": "entity-9b75f3cab0ef08576a6e",
+      "expected_original_name": "WUXIA WEAPON NAM ES",
+      "source_title": "Dungeon Master's Guide",
+      "source_page": 42,
+      "reason": "Wuxia weapon-names section/table heading, not a magic item."
+    },
+    {
+      "entity_version_id": "entity-f6b42521014e7d4c5676",
+      "expected_original_name": "RAR ITY",
+      "source_title": "Dungeon Master's Guide",
+      "source_page": 136,
+      "reason": "Magic-item rarity rules heading, not an item."
+    },
+    {
+      "entity_version_id": "entity-353417e63bcd6d0c6fd2",
+      "expected_original_name": "75-76 Efreeti",
+      "source_title": "Dungeon Master's Guide",
+      "source_page": 179,
+      "reason": "Random-table row (Efreeti), not a magic item title."
+    },
+    {
+      "entity_version_id": "entity-52db3242a19c25be2f3c",
+      "expected_original_name": "Legendary",
+      "source_title": "Dungeon Master's Guide",
+      "source_page": 188,
+      "reason": "Rarity table value, not an item title."
+    },
+    {
+      "entity_version_id": "entity-39fdd7693e9fd16363fb",
+      "expected_original_name": "Potion HP Regained Rarity",
+      "source_title": "Dungeon Master's Guide",
+      "source_page": 292,
+      "reason": "Potions of Healing table header, not an item title."
+    },
+    {
+      "entity_version_id": "entity-e02df858aa2637c22c55",
+      "expected_original_name": "Potion Str. Rarity",
+      "source_title": "Dungeon Master's Guide",
+      "source_page": 292,
+      "reason": "Potion of Giant Strength table header, not an item title."
+    },
+    {
+      "entity_version_id": "entity-76e7ea0ff797f79366c7",
+      "expected_original_name": "Potion of Healing Ada +4 Uncommon",
+      "source_title": "Dungeon Master's Guide",
+      "source_page": 292,
+      "reason": "OCR-corrupted Potions of Healing table row, not an independent item block."
+    },
+    {
+      "entity_version_id": "entity-77e38cd7daaa4fc797b5",
+      "expected_original_name": "ANIMA TED ARMOR",
+      "source_title": "Monster Manual",
+      "source_page": 20,
+      "reason": "Monster Manual creature heading (Animated Armor), not a magic-item entry."
+    },
+    {
+      "entity_version_id": "entity-fb758089d20fbeda5c02",
+      "expected_original_name": "GITHY ANK I",
+      "source_title": "Monster Manual",
+      "source_page": 159,
+      "reason": "Monster Manual creature heading (Githyanki), not a magic-item entry."
+    },
+    {
+      "entity_version_id": "entity-19cf76170208119acb12",
+      "expected_original_name": "Habitar Any; Treasure: Any",
+      "source_title": "Monster Manual",
+      "source_page": 184,
+      "reason": "Monster statblock habitat/treasure metadata, not an item."
+    },
+    {
+      "entity_version_id": "entity-b96ede9c9fb9c0e26ca5",
+      "expected_original_name": "ACTI ONS",
+      "source_title": "Monster Manual",
+      "source_page": 325,
+      "reason": "Monster statblock ACTIONS heading, not an item."
+    },
+    {
+      "entity_version_id": "entity-3e839f0f4338e1251f40",
+      "expected_original_name": "PART I I EQUIPME NT",
+      "source_title": "Player's Handbook",
+      "source_page": 145,
+      "reason": "Player Handbook equipment section heading, not a magic item."
+    },
+    {
+      "entity_version_id": "entity-01713f7ead0cf1702aa4",
+      "expected_original_name": "Uncommon",
+      "source_title": "The Book of Many Things",
+      "source_page": 33,
+      "reason": "Magic Items by Name index-table rarity cell, not an item block."
+    },
+    {
+      "entity_version_id": "entity-1e14da9a161362e2fb3b",
+      "expected_original_name": "Small or Medium Celestial, Typically Lawful Evil",
+      "source_title": "The Book of Many Things",
+      "source_page": 49,
+      "reason": "Creature statblock size/type/alignment line, not an item."
+    },
+    {
+      "entity_version_id": "entity-ce6b41b89d898f4cfb9c",
+      "expected_original_name": "Medium Humanoid, Neutral Good",
+      "source_title": "The Book of Many Things",
+      "source_page": 81,
+      "reason": "NPC statblock size/type/alignment line, not an item."
+    },
+    {
+      "entity_version_id": "entity-c36917056abebfb630f9",
+      "expected_original_name": "Skills Perception +5",
+      "source_title": "The Book of Many Things",
+      "source_page": 185,
+      "reason": "Creature statblock skill line, not an item."
+    },
+    {
+      "entity_version_id": "entity-80cbe0a9f4e14819bc79",
+      "expected_original_name": "OFFENSIVE AND DEFENSIVE USES",
+      "source_title": "Volo's Guide to Monsters",
+      "source_page": 79,
+      "reason": "Nautiloid descriptive section heading, not an item."
+    }
+  ],
+  "post_normalization_runtime_duplicates": [
+    {
+      "entity_version_id": "entity-2601a2f84908f9a5364c",
+      "book_magic_item_id": "book-magic-item.2024.dungeon-master-s-guide.manat-or-boptty-health.281",
+      "canonical_name": "Manual of Bodily Health",
+      "runtime_id": "magic-item.manual-of-bodily-health",
+      "source_title": "Dungeon Master's Guide",
+      "source_page": 281,
+      "evidence_note": "V7 post-normalization duplicate resolution: V5 corrected the OCR title to 'Manual of Bodily Health', revealing that this 2024 book record duplicates the authoritative 2024 runtime registry entry. The book duplicate is removed while source provenance remains preserved."
+    },
+    {
+      "entity_version_id": "entity-2d1aa9a691ba9a0ea5a3",
+      "book_magic_item_id": "book-magic-item.2024.dungeon-master-s-guide.sworp-of-lire-stealing.318",
+      "canonical_name": "Sword of Life Stealing",
+      "runtime_id": "magic-item.sword-of-life-stealing",
+      "source_title": "Dungeon Master's Guide",
+      "source_page": 318,
+      "evidence_note": "V7 post-normalization duplicate resolution: V5 corrected the OCR title to 'Sword of Life Stealing', revealing that this 2024 book record duplicates the authoritative 2024 runtime registry entry. The book duplicate is removed while source provenance remains preserved."
+    }
+  ]
+}

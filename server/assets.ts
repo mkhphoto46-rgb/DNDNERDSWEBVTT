@@ -1,4 +1,4 @@
-import crypto from 'node:crypto'
+﻿import crypto from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
 import { DatabaseSync } from 'node:sqlite'
@@ -610,4 +610,73 @@ export function getAssetAbsolutePath(
   }
 
   return absolute
+}
+
+
+export function deleteAsset(
+  campaignId: string,
+  assetId: string,
+): AssetRecord | null {
+  const database =
+    openCampaignDatabase(
+      campaignId,
+    )
+
+  const row =
+    database.prepare(`
+      SELECT
+        id,
+        asset_type,
+        display_name,
+        relative_path,
+        content_hash,
+        byte_size,
+        mime_type,
+        updated_at
+      FROM asset_manifest
+      WHERE id = ?
+      LIMIT 1
+    `).get(
+      assetId,
+    ) as unknown as
+      | AssetRow
+      | undefined
+
+  if (!row) {
+    database.close()
+    return null
+  }
+
+  const asset =
+    rowToAsset(
+      campaignId,
+      row,
+    )
+
+  const absolutePath =
+    getAssetAbsolutePath(
+      campaignId,
+      asset,
+    )
+
+  database.prepare(`
+    DELETE FROM asset_manifest
+    WHERE id = ?
+  `).run(
+    assetId,
+  )
+
+  database.close()
+
+  if (
+    fs.existsSync(
+      absolutePath,
+    )
+  ) {
+    fs.unlinkSync(
+      absolutePath,
+    )
+  }
+
+  return asset
 }

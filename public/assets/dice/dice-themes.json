@@ -1,0 +1,190 @@
+{
+  "defaultThemeId": "silver",
+  "themes": [
+    {
+      "id": "red",
+      "name": "Red",
+      "models": {
+        "4": "/assets/dice/sets/red/d4.glb",
+        "6": "/assets/dice/sets/red/d6.glb",
+        "8": "/assets/dice/sets/red/d8.glb",
+        "10": "/assets/dice/sets/red/d10.glb",
+        "12": "/assets/dice/sets/red/d12.glb",
+        "20": "/assets/dice/sets/red/d20.glb",
+        "100": "/assets/dice/sets/red/d10.glb"
+      },
+      "material": {
+        "color": "#ffffff",
+        "emissive": "#000000",
+        "emissiveIntensity": 0,
+        "roughness": 0.34,
+        "metalness": 0.26
+      },
+      "lighting": {
+        "ambient": 1.4,
+        "key": 3.8,
+        "fill": 1.8,
+        "rim": 4.2
+      },
+      "stage": {
+        "color": "#25100f",
+        "glow": "#ff5b52",
+        "fallHeight": 3,
+        "gravity": 20,
+        "bounce": 0.34,
+        "spin": 10,
+        "durationMs": 1400,
+        "revealDelayMs": 1000,
+        "holdMs": 2600
+      }
+    },
+    {
+      "id": "silver",
+      "name": "Silver",
+      "models": {
+        "4": "/assets/dice/sets/silver/d4.glb",
+        "6": "/assets/dice/sets/silver/d6.glb",
+        "8": "/assets/dice/sets/silver/d8.glb",
+        "10": "/assets/dice/sets/silver/d10.glb",
+        "12": "/assets/dice/sets/silver/d12.glb",
+        "20": "/assets/dice/sets/silver/d20.glb",
+        "100": "/assets/dice/sets/silver/d10.glb"
+      },
+      "material": {
+        "color": "#ffffff",
+        "emissive": "#000000",
+        "emissiveIntensity": 0,
+        "roughness": 0.34,
+        "metalness": 0.26
+      },
+      "lighting": {
+        "ambient": 1.4,
+        "key": 3.8,
+        "fill": 1.8,
+        "rim": 4.2
+      },
+      "stage": {
+        "color": "#12181d",
+        "glow": "#c7d5de",
+        "fallHeight": 3,
+        "gravity": 20,
+        "bounce": 0.34,
+        "spin": 10,
+        "durationMs": 1400,
+        "revealDelayMs": 1000,
+        "holdMs": 2600
+      }
+    },
+    {
+      "id": "tie-dye",
+      "name": "Tie Dye",
+      "models": {
+        "4": "/assets/dice/sets/tiedye/d4.glb",
+        "6": "/assets/dice/sets/tiedye/d6.glb",
+        "8": "/assets/dice/sets/tiedye/d8.glb",
+        "10": "/assets/dice/sets/tiedye/d10.glb",
+        "12": "/assets/dice/sets/tiedye/d12.glb",
+        "20": "/assets/dice/sets/tiedye/d20.glb",
+        "100": "/assets/dice/sets/tiedye/d10.glb"
+      },
+      "material": {
+        "color": "#ffffff",
+        "emissive": "#000000",
+        "emissiveIntensity": 0,
+        "roughness": 0.34,
+        "metalness": 0.26
+      },
+      "lighting": {
+        "ambient": 1.4,
+        "key": 3.8,
+        "fill": 1.8,
+        "rim": 4.2
+      },
+      "stage": {
+        "color": "#1b1425",
+        "glow": "#be83ff",
+        "fallHeight": 3,
+        "gravity": 20,
+        "bounce": 0.34,
+        "spin": 10,
+        "durationMs": 1400,
+        "revealDelayMs": 1000,
+        "holdMs": 2600
+      }
+    },
+    {
+      "id": "white",
+      "name": "White",
+      "models": {
+        "4": "/assets/dice/sets/white/d4.glb",
+        "6": "/assets/dice/sets/white/d6.glb",
+        "8": "/assets/dice/sets/white/d8.glb",
+        "10": "/assets/dice/sets/white/d10.glb",
+        "12": "/assets/dice/sets/white/d12.glb",
+        "20": "/assets/dice/sets/white/d20.glb",
+        "100": "/assets/dice/sets/white/d10.glb"
+      },
+      "material": {
+        "color": "#ffffff",
+        "emissive": "#000000",
+        "emissiveIntensity": 0,
+        "roughness": 0.34,
+        "metalness": 0.26
+      },
+      "lighting": {
+        "ambient": 1.4,
+        "key": 3.8,
+        "fill": 1.8,
+        "rim": 4.2
+      },
+      "stage": {
+        "color": "#15191d",
+        "glow": "#e5edf2",
+        "fallHeight": 3,
+        "gravity": 20,
+        "bounce": 0.34,
+        "spin": 10,
+        "durationMs": 1400,
+        "revealDelayMs": 1000,
+        "holdMs": 2600
+      }
+    },
+    {
+      "id": "yellow",
+      "name": "Yellow",
+      "models": {
+        "4": "/assets/dice/sets/yellow/d4.glb",
+        "6": "/assets/dice/sets/yellow/d6.glb",
+        "8": "/assets/dice/sets/yellow/d8.glb",
+        "10": "/assets/dice/sets/yellow/d10.glb",
+        "12": "/assets/dice/sets/yellow/d12.glb",
+        "20": "/assets/dice/sets/yellow/d20.glb",
+        "100": "/assets/dice/sets/yellow/d10.glb"
+      },
+      "material": {
+        "color": "#ffffff",
+        "emissive": "#000000",
+        "emissiveIntensity": 0,
+        "roughness": 0.34,
+        "metalness": 0.26
+      },
+      "lighting": {
+        "ambient": 1.4,
+        "key": 3.8,
+        "fill": 1.8,
+        "rim": 4.2
+      },
+      "stage": {
+        "color": "#211d0b",
+        "glow": "#ffe05c",
+        "fallHeight": 3,
+        "gravity": 20,
+        "bounce": 0.34,
+        "spin": 10,
+        "durationMs": 1400,
+        "revealDelayMs": 1000,
+        "holdMs": 2600
+      }
+    }
+  ]
+}

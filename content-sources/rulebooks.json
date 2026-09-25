@@ -1,0 +1,119 @@
+[
+  {
+    "filename": "2014-Dungeon Master's Guide.pdf",
+    "title": "Dungeon Master's Guide",
+    "publicationYear": 2014,
+    "rulesVersion": "2014",
+    "sourceKind": "official-core",
+    "sourcePriority": 280,
+    "textExtraction": "auto"
+  },
+  {
+    "filename": "2014-fizbans-treasury-of-dragons.pdf",
+    "title": "Fizban's Treasury of Dragons",
+    "publicationYear": 2021,
+    "rulesVersion": "2014",
+    "sourceKind": "official-supplement",
+    "sourcePriority": 315,
+    "textExtraction": "auto"
+  },
+  {
+    "filename": "2014-Monster Manual.pdf",
+    "title": "Monster Manual",
+    "publicationYear": 2014,
+    "rulesVersion": "2014",
+    "sourceKind": "official-core",
+    "sourcePriority": 280,
+    "textExtraction": "auto"
+  },
+  {
+    "filename": "2014-Player's-Handbook.pdf",
+    "title": "Player's Handbook",
+    "publicationYear": 2014,
+    "rulesVersion": "2014",
+    "sourceKind": "official-core",
+    "sourcePriority": 280,
+    "textExtraction": "auto"
+  },
+  {
+    "filename": "2014-tashas_cauldron_of_everything.pdf",
+    "title": "Tasha's Cauldron of Everything",
+    "publicationYear": 2020,
+    "rulesVersion": "2014",
+    "sourceKind": "official-supplement",
+    "sourcePriority": 310,
+    "textExtraction": "auto"
+  },
+  {
+    "filename": "2014-xanathars-guide-to-everything.pdf",
+    "title": "Xanathar's Guide to Everything",
+    "publicationYear": 2017,
+    "rulesVersion": "2014",
+    "sourceKind": "official-supplement",
+    "sourcePriority": 305,
+    "textExtraction": "auto"
+  },
+  {
+    "filename": "2016-Volos-Guide-to-Monsters.pdf",
+    "title": "Volo's Guide to Monsters",
+    "publicationYear": 2016,
+    "rulesVersion": "2014",
+    "sourceKind": "official-supplement",
+    "sourcePriority": 300,
+    "textExtraction": "auto"
+  },
+  {
+    "filename": "2021-mordenkainens-tome-of-foes-deluxe.pdf",
+    "title": "Mordenkainen's Tome of Foes",
+    "publicationYear": 2018,
+    "rulesVersion": "2014",
+    "sourceKind": "official-supplement",
+    "sourcePriority": 305,
+    "textExtraction": "auto"
+  },
+  {
+    "filename": "2023-Bigby-Presents-Glory-of-the-Giants.pdf",
+    "title": "Bigby Presents: Glory of the Giants",
+    "publicationYear": 2023,
+    "rulesVersion": "2014",
+    "sourceKind": "official-supplement",
+    "sourcePriority": 320,
+    "textExtraction": "ocr"
+  },
+  {
+    "filename": "2023-The-Book-of-Many-Things.pdf",
+    "title": "The Book of Many Things",
+    "publicationYear": 2023,
+    "rulesVersion": "2014",
+    "sourceKind": "official-supplement",
+    "sourcePriority": 320,
+    "textExtraction": "ocr"
+  },
+  {
+    "filename": "2024-Dungeo-Masters-Guide.pdf",
+    "title": "Dungeon Master's Guide",
+    "publicationYear": 2024,
+    "rulesVersion": "2024",
+    "sourceKind": "official-core",
+    "sourcePriority": 500,
+    "textExtraction": "auto"
+  },
+  {
+    "filename": "2024-Monster-Manual.pdf",
+    "title": "Monster Manual",
+    "publicationYear": 2025,
+    "rulesVersion": "2024",
+    "sourceKind": "official-core",
+    "sourcePriority": 500,
+    "textExtraction": "auto"
+  },
+  {
+    "filename": "2024-Players_Handbook.pdf",
+    "title": "Player's Handbook",
+    "publicationYear": 2024,
+    "rulesVersion": "2024",
+    "sourceKind": "official-core",
+    "sourcePriority": 500,
+    "textExtraction": "auto"
+  }
+]

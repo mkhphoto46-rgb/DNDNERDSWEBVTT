@@ -32,6 +32,9 @@ pnpm-debug.log*
 /assets-source/audio/
 /assets-source/music/
 
+# User-owned rulebook PDFs. These stay local and must never be committed or uploaded.
+/content-sources/books/
+
 # SQLite
 *.sqlite
 *.sqlite-shm
@@ -63,3 +66,9 @@ desktop.ini
 /tools/remote/cloudflared.exe
 /tools/remote/*.log
 
+
+# Local platform hardening/runtime artifacts
+/_runtime/
+/_platform-test-data/
+/_platform_audit_snapshot/
+/_backups/

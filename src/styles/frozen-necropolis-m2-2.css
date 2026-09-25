@@ -1,0 +1,830 @@
+/*
+ * M2.2 — Frozen Necropolis visual lock.
+ * Design-only pass. No dice logic, socket API, combat rules, or persistence changes.
+ * This file is imported LAST and intentionally overrides legacy brown/wood styling.
+ */
+
+.table-shell {
+  --m22-bg-0: #03070a;
+  --m22-bg-1: #081015;
+  --m22-bg-2: #0f1a21;
+  --m22-panel: #111c23;
+  --m22-panel-hi: #1a2a34;
+  --m22-panel-soft: #223641;
+  --m22-line: #5f7888;
+  --m22-line-hi: #9bc8df;
+  --m22-ice: #b9e8ff;
+  --m22-ice-2: #73bfe7;
+  --m22-text: #eef7fb;
+  --m22-muted: #9dafba;
+  --m22-paper: #d8dde0;
+  --m22-paper-ink: #182126;
+  background:
+    radial-gradient(circle at 52% 18%, rgba(71, 146, 187, .12), transparent 32%),
+    linear-gradient(180deg, #111b22 0%, #071015 45%, #030608 100%) !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Desktop shell geometry                                                      */
+/* -------------------------------------------------------------------------- */
+
+@media (min-width: 1181px) {
+  .table-shell.dm-shell {
+    grid-template:
+      'header header header' 86px
+      'tools stage inspector' minmax(0, 1fr)
+      'tools dock dock' 206px
+      / 112px minmax(0, 1fr) 392px !important;
+  }
+
+  .table-shell.player-shell,
+  .table-shell.player-shell.player-shell-with-sheet,
+  .table-shell.player-shell.player-spellbook-open {
+    grid-template:
+      'header header' 86px
+      'tools stage' minmax(0, 1fr)
+      'tools dock' 206px
+      / 112px minmax(0, 1fr) !important;
+  }
+
+  .table-shell.player-shell.player-shell-with-sheet {
+    grid-template-areas:
+      'header header'
+      'tools sheet'
+      'tools dock' !important;
+  }
+
+  .table-shell.player-shell.player-spellbook-open {
+    grid-template-areas:
+      'header header'
+      'tools stage'
+      'tools dock' !important;
+  }
+
+  .table-shell.player-shell.player-shell-with-sheet > .tool-rail,
+  .table-shell.player-shell.player-spellbook-open > .tool-rail {
+    display: block !important;
+  }
+
+  .table-shell.player-shell.player-shell-with-sheet > .player-sheet-panel {
+    grid-area: sheet !important;
+    display: block !important;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Header — stop cropping, stop overlap, keep the reference hierarchy          */
+/* -------------------------------------------------------------------------- */
+
+.table-shell > .table-header {
+  min-height: 86px !important;
+  height: 86px !important;
+  grid-template-columns: 360px minmax(330px, 440px) minmax(160px, 1fr) minmax(260px, 320px) 180px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  border-bottom: 2px solid #617a89 !important;
+  background:
+    linear-gradient(180deg, rgba(39, 55, 65, .98), rgba(13, 21, 27, .99) 58%, rgba(5, 9, 12, 1)) !important;
+  box-shadow:
+    inset 0 -1px 0 rgba(203, 231, 246, .18),
+    0 8px 22px rgba(0, 0, 0, .65) !important;
+}
+
+.table-shell > .table-header::before {
+  width: 74px !important;
+  height: 86px !important;
+  background-size: 74px 74px !important;
+  background-position: 0 4px !important;
+  opacity: .95 !important;
+}
+
+.table-shell > .table-header::after {
+  width: 74px !important;
+  height: 86px !important;
+  background-size: auto 124px !important;
+  background-position: right top !important;
+  opacity: .78 !important;
+}
+
+.frozen-brand-block {
+  padding-left: 66px !important;
+  padding-right: 8px !important;
+  overflow: visible !important;
+}
+
+.frozen-brand-block img {
+  width: 286px !important;
+  height: 74px !important;
+  max-width: 286px !important;
+  object-fit: contain !important;
+  object-position: left center !important;
+}
+
+.frozen-scene-selector {
+  width: calc(100% - 18px) !important;
+  max-width: 422px !important;
+  height: 50px !important;
+  margin: auto 9px !important;
+  border: 1px solid #728a99 !important;
+  background:
+    linear-gradient(180deg, #dce2e4 0%, #c3cbce 56%, #aeb9be 100%) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, .35),
+    0 4px 12px rgba(0, 0, 0, .42) !important;
+}
+
+.frozen-scene-copy small { color: #53636d !important; }
+.frozen-scene-copy strong { color: #152027 !important; }
+
+.frozen-reference-motto {
+  transform: rotate(-3deg) !important;
+  overflow: hidden !important;
+  padding: 0 10px !important;
+  color: #d2dce1 !important;
+}
+
+.frozen-reference-motto span,
+.frozen-reference-motto b {
+  font-size: .94rem !important;
+  white-space: nowrap;
+}
+
+.frozen-header-tools {
+  justify-content: center !important;
+  padding: 0 6px !important;
+}
+
+.frozen-search-button {
+  min-width: 142px !important;
+  max-width: 156px !important;
+  background: #071015 !important;
+  border-color: #4f6877 !important;
+}
+
+.frozen-table-identity {
+  padding: 0 54px 0 10px !important;
+  overflow: hidden !important;
+}
+
+.frozen-table-identity strong,
+.frozen-table-identity small,
+.frozen-join-code {
+  max-width: 116px !important;
+  text-overflow: ellipsis !important;
+  overflow: hidden !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Left rail — use real live buttons, not a cropped screenshot hit-map         */
+/* -------------------------------------------------------------------------- */
+
+.table-shell > .tool-rail {
+  width: 112px !important;
+  min-width: 112px !important;
+  overflow: hidden !important;
+  border-right: 2px solid #607987 !important;
+  background:
+    linear-gradient(90deg, #071015 0%, #132029 58%, #081015 100%) !important;
+}
+
+.table-shell > .tool-rail::before {
+  display: none !important;
+}
+
+.table-shell > .tool-rail::after {
+  width: 108px !important;
+  height: 190px !important;
+  left: 1px !important;
+  bottom: 5px !important;
+  background-size: contain !important;
+  background-position: center bottom !important;
+  opacity: .78 !important;
+}
+
+.frozen-primary-tools {
+  width: 112px !important;
+  height: auto !important;
+  padding: 10px 8px !important;
+  display: grid !important;
+  grid-template-rows: repeat(5, 78px) !important;
+  gap: 7px !important;
+}
+
+.frozen-primary-tools button {
+  display: grid !important;
+  grid-template-rows: 30px 1fr !important;
+  place-items: center !important;
+  width: 96px !important;
+  height: 78px !important;
+  padding: 8px 4px 6px !important;
+  color: #eaf3f7 !important;
+  border: 1px solid #536a78 !important;
+  border-radius: 4px !important;
+  background:
+    linear-gradient(180deg, rgba(40, 55, 65, .96), rgba(13, 22, 28, .98)) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(218, 237, 248, .05),
+    inset 0 -14px 20px rgba(0, 0, 0, .2) !important;
+}
+
+.frozen-primary-tools button > span,
+.frozen-primary-tools button > b {
+  opacity: 1 !important;
+  pointer-events: none !important;
+}
+
+.frozen-primary-tools button > span {
+  color: #c6e8f8 !important;
+  font-size: 1.35rem !important;
+  text-shadow: 0 0 10px rgba(94, 188, 237, .35);
+}
+
+.frozen-primary-tools button > b {
+  color: #eef6f9 !important;
+  font: .78rem var(--body) !important;
+  font-weight: 400 !important;
+}
+
+.frozen-primary-tools button:hover,
+.frozen-primary-tools button.is-active {
+  border-color: #91cbe8 !important;
+  background:
+    linear-gradient(180deg, rgba(48, 76, 91, .98), rgba(14, 28, 37, .98)) !important;
+  box-shadow:
+    inset 3px 0 0 #71c8f0,
+    0 0 14px rgba(82, 181, 230, .13) !important;
+}
+
+.frozen-primary-tools button:hover::after,
+.frozen-primary-tools button.is-active::after {
+  display: none !important;
+}
+
+/* Camera controls remain functional but no longer float across the header. */
+.camera-rail-controls,
+.tool-mode-group {
+  top: 94px !important;
+  z-index: 120 !important;
+  background: rgba(6, 13, 18, .92) !important;
+  border-color: #526c7c !important;
+}
+
+.dm-shell .camera-rail-controls { right: 402px !important; }
+.dm-shell .tool-mode-group { right: 590px !important; }
+.player-shell .camera-rail-controls { right: 12px !important; }
+.player-shell .tool-mode-group { right: 198px !important; }
+
+.player-shell-with-sheet .camera-rail-controls,
+.player-shell-with-sheet .tool-mode-group,
+.player-spellbook-open .camera-rail-controls,
+.player-spellbook-open .tool-mode-group,
+.dm-spellbook-open .camera-rail-controls,
+.dm-spellbook-open .tool-mode-group {
+  display: none !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Battlefield                                                                 */
+/* -------------------------------------------------------------------------- */
+
+.table-shell > .battlefield {
+  padding: 7px !important;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(62, 123, 157, .08), transparent 55%),
+    #03070a !important;
+}
+
+.table-shell .battlefield-frame {
+  padding: 8px !important;
+  border: 2px solid #6d8593 !important;
+  background: #05090c !important;
+  box-shadow:
+    inset 0 0 0 2px #030608,
+    inset 0 0 0 4px rgba(203, 229, 241, .07),
+    0 12px 28px rgba(0, 0, 0, .62) !important;
+}
+
+.table-shell .pixi-map-host {
+  background: #000 !important;
+  border-color: #263741 !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* DM right rail — one cold palette, no brown or parchment                    */
+/* -------------------------------------------------------------------------- */
+
+.table-shell.dm-shell > .inspector {
+  grid-template-rows: minmax(250px, 44%) 0 minmax(0, 56%) !important;
+  border-left: 2px solid #607987 !important;
+  background:
+    linear-gradient(180deg, #0f1920, #071015 60%, #04090c) !important;
+}
+
+.table-shell.dm-shell > .inspector::after {
+  width: 68px !important;
+  top: auto !important;
+  bottom: 3px !important;
+  height: 240px !important;
+  background-size: contain !important;
+  background-position: right bottom !important;
+  opacity: .68 !important;
+}
+
+.initiative-order-slot-right {
+  margin-right: 0 !important;
+  padding-right: 54px !important;
+  background:
+    linear-gradient(180deg, #15232c, #091116 78%) !important;
+  border-bottom-color: #658190 !important;
+}
+
+.initiative-order-slot-right::after {
+  opacity: .34 !important;
+}
+
+.initiative-order-slot-right .initiative-panel,
+.initiative-order-slot-right .initiative-panel * {
+  color: #e9f4f8 !important;
+}
+
+.initiative-order-slot-right .initiative-panel-heading,
+.initiative-order-slot-right .initiative-console-header {
+  background: linear-gradient(180deg, #243641, #101b22) !important;
+  border-bottom-color: #5c7787 !important;
+}
+
+.initiative-order-slot-right .initiative-row,
+.initiative-order-slot-right .initiative-participant-row,
+.initiative-order-slot-right .initiative-selection-group,
+.initiative-order-slot-right .initiative-console-group,
+.initiative-order-slot-right .initiative-player-roll-card,
+.initiative-order-slot-right .initiative-player-wait-card,
+.initiative-order-slot-right .initiative-roster-warning,
+.initiative-order-slot-right article,
+.initiative-order-slot-right section {
+  border-color: #405968 !important;
+  background: linear-gradient(180deg, #1c2c35, #0d171d) !important;
+  box-shadow: none !important;
+}
+
+.initiative-order-slot-right button,
+.initiative-order-slot-right input,
+.initiative-order-slot-right select {
+  color: #e7f2f7 !important;
+  border-color: #587485 !important;
+  background: #0c171d !important;
+}
+
+.inspector-body {
+  margin-right: 0 !important;
+  padding: 12px 66px 16px 12px !important;
+  color: #e8f2f6 !important;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(86, 163, 205, .08), transparent 36%),
+    linear-gradient(180deg, #14222b, #081116 70%) !important;
+  scrollbar-color: #547184 #081116 !important;
+}
+
+.inspector-body > section,
+.inspector-body article,
+.inspector-body div,
+.inspector-body label,
+.inspector-body p,
+.inspector-body strong,
+.inspector-body h1,
+.inspector-body h2,
+.inspector-body h3,
+.inspector-body h4,
+.inspector-body dt,
+.inspector-body dd {
+  color: #e7f1f5 !important;
+}
+
+.inspector-body small,
+.inspector-body em,
+.inspector-body .empty-note {
+  color: #9fb2bd !important;
+}
+
+.inspector-body .panel-heading {
+  margin: -12px -66px 12px -12px !important;
+  padding: 10px 68px 10px 14px !important;
+  border-bottom: 1px solid #526d7d !important;
+  background: linear-gradient(180deg, #253944, #12212a) !important;
+}
+
+.inspector-body .panel-heading > span { color: #8ec7e5 !important; }
+.inspector-body .panel-heading h2 { color: #f2f8fa !important; }
+
+.inspector-body article,
+.inspector-body .party-card,
+.inspector-body .party-xp-award,
+.inspector-body .party-member,
+.inspector-body .health-panel,
+.inspector-body .grid-editor,
+.inspector-body .map-card,
+.inspector-body .map-role-card,
+.inspector-body .world-map-upload-block,
+.inspector-body .session-card,
+.inspector-body .rules-library-hero,
+.inspector-body .rules-library-results,
+.inspector-body .rules-library-detail,
+.inspector-body .monster-card,
+.inspector-body .actor-card,
+.inspector-body .token-card {
+  color: #e9f3f7 !important;
+  border-color: #486373 !important;
+  background: linear-gradient(180deg, rgba(26, 43, 53, .98), rgba(11, 22, 28, .98)) !important;
+  box-shadow: inset 0 0 0 1px rgba(213, 236, 248, .04) !important;
+}
+
+.inspector-body button,
+.inspector-body input,
+.inspector-body select,
+.inspector-body textarea {
+  color: #eaf4f8 !important;
+  border-color: #567485 !important;
+  background: #0b171d !important;
+}
+
+.inspector-body button:hover,
+.inspector-body button.is-active,
+.inspector-body .primary-button {
+  color: #f6fbfd !important;
+  border-color: #8cc9e8 !important;
+  background: linear-gradient(180deg, #315164, #183340) !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Bottom dock — keep Chat exactly in the successful direction                 */
+/* -------------------------------------------------------------------------- */
+
+.table-shell > .bottom-dock.frozen-reference-dock {
+  min-height: 206px !important;
+  height: 206px !important;
+  grid-template-columns: 24% 23% 28% minmax(260px, 25%) !important;
+  gap: 4px !important;
+  padding: 4px 5px 7px !important;
+  overflow: hidden !important;
+  border-top: 2px solid #617b89 !important;
+  background: linear-gradient(180deg, #111c23, #05090c) !important;
+}
+
+.reference-chat-panel,
+.reference-quickbar-panel,
+.reference-world-panel {
+  border-color: #5d7786 !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(213, 235, 247, .05),
+    inset 0 0 22px rgba(0, 0, 0, .25) !important;
+}
+
+/* Chat content stays light because the user explicitly approved this direction. */
+.reference-chat-panel {
+  background: linear-gradient(180deg, #26343d 0 40px, #d7dbdc 40px 100%) !important;
+}
+
+.reference-quickbar-panel {
+  background: linear-gradient(180deg, #26343d 0 40px, #cbd3d6 40px 100%) !important;
+}
+
+.reference-world-panel {
+  background: linear-gradient(180deg, #26343d 0 38px, #cbd3d6 38px 100%) !important;
+}
+
+.reference-world-panel .world-map-launcher {
+  border-color: #778d99 !important;
+  background: #dce2e4 !important;
+}
+
+.reference-world-panel .world-map-launcher-copy small { color: #5b707c !important; }
+.reference-world-panel .world-map-launcher-copy strong { color: #18242a !important; }
+.reference-world-panel .world-map-launcher-copy em { color: #62747e !important; }
+
+/* -------------------------------------------------------------------------- */
+/* Character sheet — remove every legacy brown surface                         */
+/* -------------------------------------------------------------------------- */
+
+.table-shell.player-shell.player-shell-with-sheet > .player-sheet-panel {
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  padding: 12px 18px 16px !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  border: 0 !important;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(80, 156, 199, .08), transparent 38%),
+    linear-gradient(180deg, #101b22, #050a0e 76%) !important;
+  scrollbar-color: #567485 #071015 !important;
+}
+
+.table-shell .player-sheet-panel .character-sheet,
+.table-shell .player-sheet-panel .character-sheet-empty {
+  width: min(100%, 1320px) !important;
+  max-width: 1320px !important;
+  margin: 0 auto !important;
+  padding: 18px !important;
+  color: #eaf4f8 !important;
+  border: 1px solid #527184 !important;
+  border-radius: 5px !important;
+  background:
+    linear-gradient(180deg, rgba(22, 37, 46, .98), rgba(8, 16, 21, .99)) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(215, 237, 248, .05),
+    0 16px 34px rgba(0, 0, 0, .38) !important;
+}
+
+.table-shell .character-sheet,
+.table-shell .character-sheet * {
+  border-color: #405c6d !important;
+}
+
+.table-shell .character-sheet,
+.table-shell .character-sheet label,
+.table-shell .character-sheet p,
+.table-shell .character-sheet strong,
+.table-shell .character-sheet b,
+.table-shell .character-sheet h1,
+.table-shell .character-sheet h2,
+.table-shell .character-sheet h3,
+.table-shell .character-sheet h4,
+.table-shell .character-sheet span {
+  color: #e7f2f7 !important;
+}
+
+.table-shell .character-sheet small,
+.table-shell .character-sheet em,
+.table-shell .character-derived-note,
+.table-shell .ability-no-skills,
+.table-shell .xp-mode-note {
+  color: #9eb1bc !important;
+}
+
+.table-shell .character-sheet input,
+.table-shell .character-sheet select,
+.table-shell .character-sheet textarea {
+  color: #eef7fa !important;
+  border-color: #4d6a7b !important;
+  background: #09141a !important;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, .2) !important;
+}
+
+.table-shell .character-sheet input:focus,
+.table-shell .character-sheet select:focus,
+.table-shell .character-sheet textarea:focus {
+  border-color: #8fd0ef !important;
+  outline: none !important;
+}
+
+.table-shell .character-sheet button,
+.table-shell .character-sheet .primary-button,
+.table-shell .character-sheet .secondary-button,
+.table-shell .character-sheet-close,
+.table-shell .character-token-place,
+.table-shell .character-token-upload {
+  color: #ecf7fb !important;
+  border-color: #57798b !important;
+  background: linear-gradient(180deg, #294452, #102630) !important;
+}
+
+.table-shell .character-sheet button:hover,
+.table-shell .character-sheet .primary-button:hover,
+.table-shell .character-sheet .secondary-button:hover {
+  border-color: #92d0ef !important;
+  background: linear-gradient(180deg, #355c70, #173543) !important;
+}
+
+.table-shell .ability-score-card,
+.table-shell .character-progression-card,
+.table-shell .character-background-card,
+.table-shell .character-defense-card,
+.table-shell .character-feature-card,
+.table-shell .character-notes,
+.table-shell .character-attack-editor,
+.table-shell .spell-slot-runtime,
+.table-shell .character-rule-detail,
+.table-shell .character-spell-detail,
+.table-shell .character-spell-entry,
+.table-shell .character-feature-entry {
+  color: #e9f3f7 !important;
+  border-color: #456274 !important;
+  background: linear-gradient(180deg, #172832, #0a171e) !important;
+}
+
+.table-shell .ability-score-card > strong,
+.table-shell .ability-score-heading,
+.table-shell .character-progression-heading,
+.table-shell .character-feature-heading {
+  color: #bfeaff !important;
+}
+
+.table-shell .ability-modifier-line,
+.table-shell .ability-skill-row,
+.table-shell .character-combat-strip > div,
+.table-shell .xp-track-wrap {
+  background: #0a151b !important;
+  border-color: #405e70 !important;
+}
+
+.table-shell .character-sheet-token-frame,
+.table-shell .character-sheet-emblem,
+.table-shell .character-token-color {
+  border-color: #6e9bb4 !important;
+  background: radial-gradient(circle at 50% 35%, #223d4b, #081218 72%) !important;
+}
+
+.table-shell .character-spell-tags span,
+.table-shell .character-defense-choice,
+.table-shell .character-defense-toggle {
+  color: #bfe9fd !important;
+  border-color: #4f7488 !important;
+  background: #10232d !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* DM + Player spellbooks — same ice system, zero brown                        */
+/* -------------------------------------------------------------------------- */
+
+.table-shell .dm-spellbook-stage,
+.table-shell .player-spellbook-stage {
+  grid-area: stage !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  padding: 10px 12px 12px !important;
+  overflow: hidden !important;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(78, 152, 195, .08), transparent 36%),
+    linear-gradient(180deg, #101b22, #050a0e) !important;
+}
+
+.table-shell .dm-spellbook-panel,
+.table-shell .player-spellbook-panel {
+  height: 100% !important;
+  min-height: 0 !important;
+  color: #eaf4f8 !important;
+  border: 1px solid #527184 !important;
+  border-radius: 5px !important;
+  background: linear-gradient(180deg, #172832, #08141a) !important;
+  box-shadow: inset 0 0 0 1px rgba(214, 237, 249, .05) !important;
+}
+
+.table-shell .dm-spellbook-panel *,
+.table-shell .player-spellbook-panel * {
+  border-color: #405d6e !important;
+}
+
+.table-shell .dm-spellbook-panel h1,
+.table-shell .dm-spellbook-panel h2,
+.table-shell .dm-spellbook-panel h3,
+.table-shell .dm-spellbook-panel h4,
+.table-shell .dm-spellbook-panel strong,
+.table-shell .dm-spellbook-panel label,
+.table-shell .dm-spellbook-panel p,
+.table-shell .player-spellbook-panel h1,
+.table-shell .player-spellbook-panel h2,
+.table-shell .player-spellbook-panel h3,
+.table-shell .player-spellbook-panel h4,
+.table-shell .player-spellbook-panel strong,
+.table-shell .player-spellbook-panel label,
+.table-shell .player-spellbook-panel p {
+  color: #eaf4f8 !important;
+}
+
+.table-shell .dm-spellbook-panel small,
+.table-shell .dm-spellbook-panel em,
+.table-shell .player-spellbook-panel small,
+.table-shell .player-spellbook-panel em {
+  color: #9db2be !important;
+}
+
+.table-shell .dm-spellbook-header,
+.table-shell .player-spellbook-header,
+.table-shell .dm-spellbook-filters,
+.table-shell .player-spellbook-toolbar,
+.table-shell .dm-spellbook-list,
+.table-shell .player-spellbook-list,
+.table-shell .dm-spellbook-detail,
+.table-shell .player-spellbook-detail,
+.table-shell .dm-spellbook-facts > div,
+.table-shell .player-spellbook-facts > div,
+.table-shell .dm-spellbook-progression,
+.table-shell .dm-spell-description,
+.table-shell .player-spellbook-description,
+.table-shell .dm-spell-higher,
+.table-shell .player-spellbook-higher {
+  color: #e8f3f7 !important;
+  border-color: #456375 !important;
+  background: linear-gradient(180deg, #172833, #0a171e) !important;
+}
+
+.table-shell .dm-spellbook-panel input,
+.table-shell .dm-spellbook-panel select,
+.table-shell .dm-spellbook-panel button,
+.table-shell .player-spellbook-panel input,
+.table-shell .player-spellbook-panel select,
+.table-shell .player-spellbook-panel button {
+  color: #edf7fb !important;
+  border-color: #537486 !important;
+  background: #0b171d !important;
+}
+
+.table-shell .dm-spellbook-panel button:hover,
+.table-shell .player-spellbook-panel button:hover {
+  border-color: #91ceec !important;
+  background: #19313d !important;
+}
+
+.table-shell .character-spell-tags span,
+.table-shell .dm-spellbook-tags span {
+  color: #c2ebff !important;
+  border-color: #537c91 !important;
+  background: #102630 !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* World map viewer — cold palette only                                        */
+/* -------------------------------------------------------------------------- */
+
+.world-map-window {
+  border-color: #6d8796 !important;
+  background: #060c10 !important;
+}
+
+.world-map-header {
+  border-bottom-color: #5f7a89 !important;
+  background: linear-gradient(180deg, #263b47, #101c23 78%) !important;
+}
+
+.world-map-controls button,
+.world-map-controls output {
+  border-color: #587686 !important;
+  background: linear-gradient(#263c48, #10212a) !important;
+}
+
+.world-map-viewport {
+  background: radial-gradient(circle at center, rgba(82, 158, 201, .09), transparent 55%), #03080b !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Player sheet/spellbook state-specific anti-overlap rules                    */
+/* -------------------------------------------------------------------------- */
+
+@media (min-width: 1181px) {
+  .table-shell.player-shell.player-shell-with-sheet > .battlefield,
+  .table-shell.player-shell.player-shell-with-sheet > .player-mobile-initiative-slot {
+    display: none !important;
+  }
+
+  .table-shell.player-shell.player-spellbook-open > .battlefield,
+  .table-shell.player-shell.player-spellbook-open > .player-sheet-panel,
+  .table-shell.player-shell.player-spellbook-open > .player-mobile-initiative-slot {
+    display: none !important;
+  }
+
+  .table-shell.player-shell:not(.player-shell-with-sheet):not(.player-spellbook-open) > .battlefield {
+    grid-area: stage !important;
+    display: block !important;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Width pressure — keep the shell balanced around the user's 1914×941 target */
+/* -------------------------------------------------------------------------- */
+
+@media (max-width: 1600px) and (min-width: 1181px) {
+  .table-shell.dm-shell {
+    grid-template-columns: 106px minmax(0, 1fr) 360px !important;
+  }
+
+  .table-shell.player-shell,
+  .table-shell.player-shell.player-shell-with-sheet,
+  .table-shell.player-shell.player-spellbook-open {
+    grid-template-columns: 106px minmax(0, 1fr) !important;
+  }
+
+  .table-shell > .table-header {
+    grid-template-columns: 330px minmax(280px, 390px) minmax(130px, 1fr) minmax(230px, 280px) 160px !important;
+  }
+
+  .frozen-brand-block { padding-left: 60px !important; }
+  .frozen-brand-block img { width: 258px !important; max-width: 258px !important; }
+  .frozen-primary-tools { width: 106px !important; }
+  .frozen-primary-tools button { width: 90px !important; }
+  .dm-shell .camera-rail-controls { right: 370px !important; }
+  .dm-shell .tool-mode-group { right: 552px !important; }
+}
+
+@media (max-width: 1180px) {
+  /* Preserve the existing mobile/tablet routing; only unify the palette. */
+  .table-shell > .table-header {
+    height: 76px !important;
+    min-height: 76px !important;
+  }
+
+  .player-sheet-panel,
+  .dm-spellbook-stage,
+  .player-spellbook-stage {
+    background: linear-gradient(180deg, #101b22, #050a0e) !important;
+  }
+}

@@ -1,0 +1,4745 @@
+// GENERATED FILE — DO NOT EDIT BY HAND.
+// Source: 5e-bits/5e-database 2024 SRD equipment dataset.
+// Underlying content: Wizards of the Coast SRD 5.2.1, CC-BY-4.0.
+export const SRD_EQUIPMENT = [
+  {
+    "id": "acid",
+    "name": "Acid",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "25 gp",
+    "weight": 1,
+    "description": "When you take the Attack action, you can replace one of your attacks with throwing a vial of Acid. Target one creature or object you can see within 20 feet of yourself. The target must succeed on a Dexterity saving throw (DC 8 plus your Dexterity modifier and Proficiency Bonus) or take 2d6 Acid damage.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "alchemists-fire",
+    "name": "Alchemist's Fire",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "25 gp",
+    "weight": 1,
+    "description": "When you take the Attack action, you can replace one of your attacks with throwing a flask of Alchemist's Fire. Target one creature or object you can see within 20 feet of yourself. The target must succeed on a Dexterity saving throw (DC 8 plus your Dexterity modifier and Proficiency Bonus) or take 1d4 Fire damage and start burning (see “Rules Glossary”).",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "alchemists-supplies",
+    "name": "Alchemist's Supplies",
+    "categories": [
+      "Artisan's Tools",
+      "Tools"
+    ],
+    "cost": "50 gp",
+    "weight": 8,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "amulet",
+    "name": "Amulet",
+    "categories": [
+      "Adventuring Gear",
+      "Holy Symbols"
+    ],
+    "cost": "5 gp",
+    "weight": 1,
+    "description": "A Holy Symbol takes one of the forms in the Holy Symbol table and is bejeweled or painted to channel divine magic. A Cleric or Paladin can use a Holy Symbol as a Spellcasting Focus.\nThe table indicates whether a Holy Symbol needs to be held, worn, or borne on fabric (such as a tabard or banner) or a Shield.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "antitoxin",
+    "name": "Antitoxin",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "50 gp",
+    "weight": 1,
+    "description": "As a Bonus Action, you can drink a vial of Antitoxin to gain Advantage on saving throws to avoid or end the Poisoned condition for 1 hour.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "arrows",
+    "name": "Arrows",
+    "categories": [
+      "Ammunition"
+    ],
+    "cost": "1 gp",
+    "weight": 1,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "backpack",
+    "name": "Backpack",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "2 gp",
+    "weight": 5,
+    "description": "A Backpack holds up to 30 pounds within 1 cubic foot. It can also serve as a saddlebag.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "bagpipes",
+    "name": "Bagpipes",
+    "categories": [
+      "Musical Instruments",
+      "Tools"
+    ],
+    "cost": "30 gp",
+    "weight": 6,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "ball-bearings",
+    "name": "Ball bearings",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "1 gp",
+    "weight": 2,
+    "description": "As a Utilize action, you can spill Ball Bearings from their pouch. They spread to cover a level, 10-footsquare area within 10 feet of yourself. A creature that enters this area for the first time on a turn must succeed on a DC 10 Dexterity saving throw or have the Prone condition. It takes 10 minutes to recover the Ball Bearings.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "barrel",
+    "name": "Barrel",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "2 gp",
+    "weight": 70,
+    "description": "A Barrel holds up to 40 gallons of liquid or up to 4 cubic feet of dry goods.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "basket",
+    "name": "Basket",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "2 gp",
+    "weight": 2,
+    "description": "A Basket holds up to 40 pounds within 2 cubic feet.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "battleaxe",
+    "name": "Battleaxe",
+    "categories": [
+      "Martial Melee Weapons",
+      "Martial Weapons",
+      "Melee Weapons",
+      "Weapons"
+    ],
+    "cost": "10 gp",
+    "weight": 4,
+    "description": "",
+    "damageDice": "1d8",
+    "damageType": "Slashing",
+    "versatileDamage": "1d10",
+    "rangeNormal": 5,
+    "rangeLong": null,
+    "properties": [
+      "Versatile"
+    ],
+    "mastery": "Topple",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "bedroll",
+    "name": "Bedroll",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "2 gp",
+    "weight": 25,
+    "description": "A Bedroll sleeps one Small or Medium creature. While in a Bedroll, you automatically succeed on saving throws against extreme cold (see “Gameplay Toolbox”).",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "bell",
+    "name": "Bell",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "1 gp",
+    "weight": 1,
+    "description": "When rung as a Utilize action, a Bell produces a sound that can be heard up to 60 feet away.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "blanket",
+    "name": "Blanket",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "5 gp",
+    "weight": 3,
+    "description": "While wrapped in a blanket, you have Advantage on saving throws against extreme cold (see “Gameplay Toolbox”).",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "block-and-tackle",
+    "name": "Block and tackle",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "1 gp",
+    "weight": 5,
+    "description": "A Block and Tackle allows you to hoist up to four times the weight you can normally lift.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "blowgun",
+    "name": "Blowgun",
+    "categories": [
+      "Martial Weapons",
+      "Martial Ranged Weapons",
+      "Ranged Weapons",
+      "Weapons"
+    ],
+    "cost": "10 gp",
+    "weight": 1,
+    "description": "",
+    "damageDice": "1",
+    "damageType": "Piercing",
+    "versatileDamage": "",
+    "rangeNormal": 25,
+    "rangeLong": 100,
+    "properties": [
+      "Ammunition",
+      "Loading"
+    ],
+    "mastery": "Vex",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "bolts",
+    "name": "Bolts",
+    "categories": [
+      "Ammunition"
+    ],
+    "cost": "1 gp",
+    "weight": 1.5,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "book",
+    "name": "Book",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "25 gp",
+    "weight": 5,
+    "description": "A Book contains fiction or nonfiction. If you consult an accurate nonfiction Book about its topic, you gain a +5 bonus to Intelligence (Arcana, History, Nature, or Religion) checks you make about that topic.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "bottle-glass",
+    "name": "Bottle, Glass",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "2 gp",
+    "weight": 2,
+    "description": "A Glass Bottle holds up to 11/2 pints.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "breastplate",
+    "name": "Breastplate",
+    "categories": [
+      "Armor",
+      "Medium Armor"
+    ],
+    "cost": "400 gp",
+    "weight": 20,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": 14,
+    "dexBonus": true,
+    "maxDexBonus": 2,
+    "strengthMinimum": 0,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "brewers-supplies",
+    "name": "Brewer's Supplies",
+    "categories": [
+      "Artisan's Tools",
+      "Tools"
+    ],
+    "cost": "20 gp",
+    "weight": 9,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "bucket",
+    "name": "Bucket",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "5 cp",
+    "weight": 2,
+    "description": "A Bucket holds up to half a cubic foot of contents.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "bullets-firearm",
+    "name": "Bullets, Firearm",
+    "categories": [
+      "Ammunition"
+    ],
+    "cost": "3 gp",
+    "weight": 2,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "bullets-sling",
+    "name": "Bullets, Sling",
+    "categories": [
+      "Ammunition"
+    ],
+    "cost": "4 cp",
+    "weight": 1.5,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "burglars-pack",
+    "name": "Burglar's Pack",
+    "categories": [
+      "Adventuring Gear",
+      "Equipment Packs"
+    ],
+    "cost": "16 gp",
+    "weight": 20,
+    "description": "A Burglar's Pack contains the following items: Backpack, Ball Bearings, Bell, 10 Candles, Crowbar, Hooded Lantern, 7 flasks of Oil, 5 days of Rations, Rope, Tinderbox, and Waterskin.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": [
+      {
+        "name": "Backpack",
+        "quantity": 1
+      },
+      {
+        "name": "Ball bearings",
+        "quantity": 1
+      },
+      {
+        "name": "Bell",
+        "quantity": 1
+      },
+      {
+        "name": "Candle",
+        "quantity": 10
+      },
+      {
+        "name": "Crowbar",
+        "quantity": 1
+      },
+      {
+        "name": "Lantern, Hooded",
+        "quantity": 1
+      },
+      {
+        "name": "Flask",
+        "quantity": 7
+      },
+      {
+        "name": "Oil",
+        "quantity": 7
+      },
+      {
+        "name": "Rations",
+        "quantity": 5
+      },
+      {
+        "name": "Rope",
+        "quantity": 1
+      },
+      {
+        "name": "Tinderbox",
+        "quantity": 1
+      },
+      {
+        "name": "Waterskin",
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "id": "calligraphers-supplies",
+    "name": "Calligrapher's Supplies",
+    "categories": [
+      "Artisan's Tools",
+      "Tools"
+    ],
+    "cost": "10 gp",
+    "weight": 5,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "caltrops",
+    "name": "Caltrops",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "2 gp",
+    "weight": 2,
+    "description": "As a Utilize action, you can spread Caltrops from their bag to cover a 5-foot-square area within 5 feet of yourself. A creature that enters this area for the first time on a turn must succeed on a DC 15 Dexterity saving throw or take 1 Piercing damage and have its Speed reduced to 0 until the start of its next turn. It takes 10 minutes to recover the Caltrops.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "candle",
+    "name": "Candle",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "1 cp",
+    "weight": 0,
+    "description": "For 1 hour, a lit Candle sheds Bright Light in a 5-foot radius and Dim Light for an additional 5 feet.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "carpenters-tools",
+    "name": "Carpenter's Tools",
+    "categories": [
+      "Artisan's Tools",
+      "Tools"
+    ],
+    "cost": "8 gp",
+    "weight": 6,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "cartographer-tools",
+    "name": "Cartographer's Tools",
+    "categories": [
+      "Artisan's Tools",
+      "Tools"
+    ],
+    "cost": "15 gp",
+    "weight": 6,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "case-crossbow-bolt",
+    "name": "Case, Crossbow Bolt",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "1 gp",
+    "weight": 1,
+    "description": "A Crossbow Bolt Case holds up to 20 Bolts.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "case-map-or-scroll",
+    "name": "Case, Map or Scroll",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "1 gp",
+    "weight": 1,
+    "description": "A Map or Scroll Case holds up to 10 sheets of paper or 5 sheets of parchment.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "chain",
+    "name": "Chain",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "5 gp",
+    "weight": 6,
+    "description": "As a Utilize action, you can wrap a Chain around an unwilling creature within 5 feet of yourself that has the Grappled, Incapacitated, or Restrained condition if you succeed on a DC 13 Strength (Athletics) check. If the creature's legs are bound, the creature has the Restrained condition until it escapes. Escaping the Chain requires the creature to make a successful DC 18 Dexterity (Acrobatics) check as an action. Bursting the Chain requires a successful DC 20 Strength (Athletics) check as an action.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "chain-mail",
+    "name": "Chain Mail",
+    "categories": [
+      "Armor",
+      "Heavy Armor"
+    ],
+    "cost": "75 gp",
+    "weight": 55,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": 16,
+    "dexBonus": false,
+    "maxDexBonus": 0,
+    "strengthMinimum": 13,
+    "stealthDisadvantage": true,
+    "contents": []
+  },
+  {
+    "id": "chain-shirt",
+    "name": "Chain Shirt",
+    "categories": [
+      "Armor",
+      "Medium Armor"
+    ],
+    "cost": "50 gp",
+    "weight": 14,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": 13,
+    "dexBonus": true,
+    "maxDexBonus": 2,
+    "strengthMinimum": 0,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "chest",
+    "name": "Chest",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "50 gp",
+    "weight": 20,
+    "description": "A Chest holds up to 12 cubic feet of contents.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "climbers-kit",
+    "name": "Climber's Kit",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "25 gp",
+    "weight": 8,
+    "description": "A Climber's Kit includes boot tips, gloves, pitons, and a harness. As a Utilize action, you can use the Climber's Kit to anchor yourself; when you do, you can't fall more than 25 feet from the anchor point, and you can't move more than 25 feet from there without undoing the anchor as a Bonus Action.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "clothes-fine",
+    "name": "Clothes, Fine",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "15 gp",
+    "weight": 3,
+    "description": "Fine Clothes are made of expensive fabrics and adorned with expertly crafted details. Some events and locations admit only people wearing these clothes.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "clothes-travelers",
+    "name": "Clothes, Traveler's",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "5 gp",
+    "weight": 4,
+    "description": "Traveler's Clothes are resilient garments designed for travel in various environments.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "club",
+    "name": "Club",
+    "categories": [
+      "Melee Weapons",
+      "Simple Melee Weapons",
+      "Simple Weapons",
+      "Weapons"
+    ],
+    "cost": "1 sp",
+    "weight": 2,
+    "description": "",
+    "damageDice": "1d4",
+    "damageType": "Bludgeoning",
+    "versatileDamage": "",
+    "rangeNormal": 5,
+    "rangeLong": null,
+    "properties": [
+      "Light"
+    ],
+    "mastery": "Slow",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "cobblers-tools",
+    "name": "Cobbler's Tools",
+    "categories": [
+      "Artisan's Tools",
+      "Tools"
+    ],
+    "cost": "5 gp",
+    "weight": 5,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "component-pouch",
+    "name": "Component Pouch",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "2 gp",
+    "weight": 1,
+    "description": "A Component Pouch is watertight and filled with compartments that hold all the free Material components of your spells.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "cooks-utensils",
+    "name": "Cook's Utensils",
+    "categories": [
+      "Artisan's Tools",
+      "Tools"
+    ],
+    "cost": "1 gp",
+    "weight": 8,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "costume",
+    "name": "Costume",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "5 gp",
+    "weight": 4,
+    "description": "While wearing a Costume, you have Advantage on any ability check you make to impersonate the person or type of person it represents.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "crowbar",
+    "name": "Crowbar",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "2 gp",
+    "weight": 5,
+    "description": "Using a Crowbar gives you Advantage on Strength checks where the Crowbar's leverage can be applied.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "crystal",
+    "name": "Crystal",
+    "categories": [
+      "Arcane Foci",
+      "Adventuring Gear"
+    ],
+    "cost": "10 gp",
+    "weight": 1,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "dagger",
+    "name": "Dagger",
+    "categories": [
+      "Melee Weapons",
+      "Simple Melee Weapons",
+      "Simple Weapons",
+      "Weapons"
+    ],
+    "cost": "2 gp",
+    "weight": 1,
+    "description": "",
+    "damageDice": "1d4",
+    "damageType": "Piercing",
+    "versatileDamage": "",
+    "rangeNormal": 5,
+    "rangeLong": null,
+    "properties": [
+      "Finesse",
+      "Light",
+      "Thrown"
+    ],
+    "mastery": "Nick",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "dart",
+    "name": "Dart",
+    "categories": [
+      "Ranged Weapons",
+      "Simple Ranged Weapons",
+      "Simple Weapons",
+      "Weapons"
+    ],
+    "cost": "5 gp",
+    "weight": 0.25,
+    "description": "",
+    "damageDice": "1d4",
+    "damageType": "Piercing",
+    "versatileDamage": "",
+    "rangeNormal": 20,
+    "rangeLong": 60,
+    "properties": [
+      "Finesse",
+      "Thrown"
+    ],
+    "mastery": "Vex",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "dice",
+    "name": "Dice",
+    "categories": [
+      "Gaming Sets",
+      "Tools"
+    ],
+    "cost": "1 sp",
+    "weight": 0,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "diplomat-pack",
+    "name": "Diplomat's Pack",
+    "categories": [
+      "Adventuring Gear",
+      "Equipment Packs"
+    ],
+    "cost": "39 gp",
+    "weight": 20,
+    "description": "A Diplomat's Pack contains the following items: Chest, Fine Clothes, Ink, 5 Ink Pens, Lamp, 2 Map or Scroll Cases, 4 flasks of Oil, 5 sheets of Paper, 5 sheets of Parchment, Perfume, and Tinderbox.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": [
+      {
+        "name": "Chest",
+        "quantity": 1
+      },
+      {
+        "name": "Clothes, Fine",
+        "quantity": 1
+      },
+      {
+        "name": "Ink",
+        "quantity": 1
+      },
+      {
+        "name": "Ink Pen",
+        "quantity": 5
+      },
+      {
+        "name": "Lamp",
+        "quantity": 1
+      },
+      {
+        "name": "Case, Map or Scroll",
+        "quantity": 2
+      },
+      {
+        "name": "Flask",
+        "quantity": 4
+      },
+      {
+        "name": "Oil",
+        "quantity": 4
+      },
+      {
+        "name": "Paper",
+        "quantity": 5
+      },
+      {
+        "name": "Parchment",
+        "quantity": 5
+      },
+      {
+        "name": "Perfume",
+        "quantity": 1
+      },
+      {
+        "name": "Tinderbox",
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "id": "disguise-kit",
+    "name": "Disguise Kit",
+    "categories": [
+      "Adventuring Gear",
+      "Other Tools"
+    ],
+    "cost": "25 gp",
+    "weight": 3,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "dragonchess",
+    "name": "Dragonchess",
+    "categories": [
+      "Gaming Sets",
+      "Tools"
+    ],
+    "cost": "1 gp",
+    "weight": 0,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "drum",
+    "name": "Drum",
+    "categories": [
+      "Musical Instruments",
+      "Tools"
+    ],
+    "cost": "6 gp",
+    "weight": 3,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "dulcimer",
+    "name": "Dulcimer",
+    "categories": [
+      "Musical Instruments",
+      "Tools"
+    ],
+    "cost": "25 gp",
+    "weight": 10,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "dungeoneer-pack",
+    "name": "Dungeoneer's Pack",
+    "categories": [
+      "Adventuring Gear",
+      "Equipment Packs"
+    ],
+    "cost": "12 gp",
+    "weight": 55,
+    "description": "A Dungeoneer's Pack contains the following items: Backpack, Caltrops, Crowbar, 2 flasks of Oil, 10 days of Rations, Rope, Tinderbox, 10 Torches, and Waterskin.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": [
+      {
+        "name": "Backpack",
+        "quantity": 1
+      },
+      {
+        "name": "Caltrops",
+        "quantity": 10
+      },
+      {
+        "name": "Crowbar",
+        "quantity": 1
+      },
+      {
+        "name": "Flask",
+        "quantity": 2
+      },
+      {
+        "name": "Oil",
+        "quantity": 2
+      },
+      {
+        "name": "Rations",
+        "quantity": 10
+      },
+      {
+        "name": "Rope",
+        "quantity": 1
+      },
+      {
+        "name": "Tinderbox",
+        "quantity": 1
+      },
+      {
+        "name": "Torch",
+        "quantity": 10
+      },
+      {
+        "name": "Waterskin",
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "id": "emblem",
+    "name": "Emblem",
+    "categories": [
+      "Adventuring Gear",
+      "Holy Symbols"
+    ],
+    "cost": "5 gp",
+    "weight": 0,
+    "description": "A Holy Symbol takes one of the forms in the Holy Symbol table and is bejeweled or painted to channel divine magic. A Cleric or Paladin can use a Holy Symbol as a Spellcasting Focus.\nThe table indicates whether a Holy Symbol needs to be held, worn, or borne on fabric (such as a tabard or banner) or a Shield.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "entertainers-pack",
+    "name": "Entertainer's Pack",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "40 gp",
+    "weight": null,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": [
+      {
+        "name": "Backpack",
+        "quantity": 1
+      },
+      {
+        "name": "Bedroll",
+        "quantity": 1
+      },
+      {
+        "name": "Costume",
+        "quantity": 2
+      },
+      {
+        "name": "Candle",
+        "quantity": 5
+      },
+      {
+        "name": "Rations",
+        "quantity": 5
+      },
+      {
+        "name": "Waterskin",
+        "quantity": 1
+      },
+      {
+        "name": "Disguise Kit",
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "id": "explorers-pack",
+    "name": "Explorer's Pack",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "10 gp",
+    "weight": 55,
+    "description": "An Explorer’s Pack contains the following items: Backpack, Bedroll, 2 flasks of Oil, 10 days of Rations, Rope, Tinderbox, 10 Torches, and Waterskin.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": [
+      {
+        "name": "Backpack",
+        "quantity": 1
+      },
+      {
+        "name": "Bedroll",
+        "quantity": 1
+      },
+      {
+        "name": "Oil",
+        "quantity": 2
+      },
+      {
+        "name": "Rations",
+        "quantity": 10
+      },
+      {
+        "name": "Rope",
+        "quantity": 1
+      },
+      {
+        "name": "Tinderbox",
+        "quantity": 1
+      },
+      {
+        "name": "Torch",
+        "quantity": 10
+      },
+      {
+        "name": "Waterskin",
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "id": "flail",
+    "name": "Flail",
+    "categories": [
+      "Martial Melee Weapons",
+      "Martial Weapons",
+      "Melee Weapons",
+      "Weapons"
+    ],
+    "cost": "10 gp",
+    "weight": 2,
+    "description": "",
+    "damageDice": "1d8",
+    "damageType": "Bludgeoning",
+    "versatileDamage": "",
+    "rangeNormal": 5,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "Sap",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "flask",
+    "name": "Flask",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "2 cp",
+    "weight": 1,
+    "description": "A Flask holds up to 1 pint.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "flute",
+    "name": "Flute",
+    "categories": [
+      "Musical Instruments",
+      "Tools"
+    ],
+    "cost": "2 gp",
+    "weight": 1,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "forgery-kit",
+    "name": "Forgery Kit",
+    "categories": [
+      "Other Tools",
+      "Tools"
+    ],
+    "cost": "15 gp",
+    "weight": 5,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "glaive",
+    "name": "Glaive",
+    "categories": [
+      "Martial Melee Weapons",
+      "Martial Weapons",
+      "Melee Weapons",
+      "Weapons"
+    ],
+    "cost": "20 gp",
+    "weight": 6,
+    "description": "",
+    "damageDice": "1d10",
+    "damageType": "Slashing",
+    "versatileDamage": "",
+    "rangeNormal": 5,
+    "rangeLong": null,
+    "properties": [
+      "Heavy",
+      "Reach",
+      "Two-Handed"
+    ],
+    "mastery": "Graze",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "glassblowers-tools",
+    "name": "Glassblower's Tools",
+    "categories": [
+      "Artisan's Tools",
+      "Tools"
+    ],
+    "cost": "30 gp",
+    "weight": 5,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "grappling-hook",
+    "name": "Grappling Hook",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "2 gp",
+    "weight": 4,
+    "description": "As a Utilize action, you can throw the Grappling Hook at a railing, a ledge, or another catch within 50 feet of yourself, and the hook catches on if you succeed on a DC 13 Dexterity (Acrobatics) check. If you tied a Rope to the hook, you can then climb it.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "greataxe",
+    "name": "Greataxe",
+    "categories": [
+      "Martial Melee Weapons",
+      "Martial Weapons",
+      "Melee Weapons",
+      "Weapons"
+    ],
+    "cost": "30 gp",
+    "weight": 7,
+    "description": "",
+    "damageDice": "1d12",
+    "damageType": "Slashing",
+    "versatileDamage": "",
+    "rangeNormal": 5,
+    "rangeLong": null,
+    "properties": [
+      "Heavy",
+      "Two-Handed"
+    ],
+    "mastery": "Cleave",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "greatclub",
+    "name": "Greatclub",
+    "categories": [
+      "Melee Weapons",
+      "Simple Melee Weapons",
+      "Simple Weapons",
+      "Weapons"
+    ],
+    "cost": "2 sp",
+    "weight": 10,
+    "description": "",
+    "damageDice": "1d8",
+    "damageType": "Bludgeoning",
+    "versatileDamage": "",
+    "rangeNormal": 5,
+    "rangeLong": null,
+    "properties": [
+      "Two-Handed"
+    ],
+    "mastery": "Push",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "greatsword",
+    "name": "Greatsword",
+    "categories": [
+      "Martial Melee Weapons",
+      "Martial Weapons",
+      "Melee Weapons",
+      "Weapons"
+    ],
+    "cost": "50 gp",
+    "weight": 6,
+    "description": "",
+    "damageDice": "2d6",
+    "damageType": "Slashing",
+    "versatileDamage": "",
+    "rangeNormal": 5,
+    "rangeLong": null,
+    "properties": [
+      "Heavy",
+      "Two-Handed"
+    ],
+    "mastery": "Graze",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "halberd",
+    "name": "Halberd",
+    "categories": [
+      "Martial Melee Weapons",
+      "Martial Weapons",
+      "Melee Weapons",
+      "Weapons"
+    ],
+    "cost": "20 gp",
+    "weight": 6,
+    "description": "",
+    "damageDice": "1d10",
+    "damageType": "Slashing",
+    "versatileDamage": "",
+    "rangeNormal": 5,
+    "rangeLong": null,
+    "properties": [
+      "Heavy",
+      "Reach",
+      "Two-Handed"
+    ],
+    "mastery": "Cleave",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "half-plate-armor",
+    "name": "Half-Plate Armor",
+    "categories": [
+      "Armor",
+      "Medium Armor"
+    ],
+    "cost": "750 gp",
+    "weight": 40,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": 15,
+    "dexBonus": true,
+    "maxDexBonus": 2,
+    "strengthMinimum": 0,
+    "stealthDisadvantage": true,
+    "contents": []
+  },
+  {
+    "id": "hand-crossbow",
+    "name": "Hand Crossbow",
+    "categories": [
+      "Martial Ranged Weapons",
+      "Martial Weapons",
+      "Ranged Weapons",
+      "Weapons"
+    ],
+    "cost": "25 gp",
+    "weight": 2,
+    "description": "",
+    "damageDice": "1d6",
+    "damageType": "Piercing",
+    "versatileDamage": "",
+    "rangeNormal": 30,
+    "rangeLong": 120,
+    "properties": [
+      "Ammunition",
+      "Light",
+      "Loading"
+    ],
+    "mastery": "Vex",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "handaxe",
+    "name": "Handaxe",
+    "categories": [
+      "Melee Weapons",
+      "Simple Melee Weapons",
+      "Simple Weapons",
+      "Weapons"
+    ],
+    "cost": "5 gp",
+    "weight": 2,
+    "description": "",
+    "damageDice": "1d6",
+    "damageType": "Slashing",
+    "versatileDamage": "",
+    "rangeNormal": 5,
+    "rangeLong": null,
+    "properties": [
+      "Light",
+      "Thrown"
+    ],
+    "mastery": "Vex",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "healers-kit",
+    "name": "Healer's Kit",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "5 gp",
+    "weight": 3,
+    "description": "A Healer's Kit has ten uses. As a Utilize action, you can expend one of its uses to stabilize an Unconscious creature that has 0 Hit Points without needing to make a Wisdom (Medicine) check.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "heavy-crossbow",
+    "name": "Heavy Crossbow",
+    "categories": [
+      "Martial Ranged Weapons",
+      "Martial Weapons",
+      "Ranged Weapons",
+      "Weapons"
+    ],
+    "cost": "50 gp",
+    "weight": 18,
+    "description": "",
+    "damageDice": "1d10",
+    "damageType": "Piercing",
+    "versatileDamage": "",
+    "rangeNormal": 100,
+    "rangeLong": 400,
+    "properties": [
+      "Ammunition",
+      "Heavy",
+      "Loading",
+      "Two-Handed"
+    ],
+    "mastery": "Push",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "herbalism-kit",
+    "name": "Herbalism Kit",
+    "categories": [
+      "Other Tools",
+      "Tools"
+    ],
+    "cost": "5 gp",
+    "weight": 3,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "hide-armor",
+    "name": "Hide Armor",
+    "categories": [
+      "Armor",
+      "Light Armor"
+    ],
+    "cost": "10 gp",
+    "weight": 12,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": 12,
+    "dexBonus": true,
+    "maxDexBonus": 2,
+    "strengthMinimum": 0,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "holy-water",
+    "name": "Holy Water",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "25 gp",
+    "weight": 1,
+    "description": "When you take the Attack action, you can replace one of your attacks with throwing a flask of Holy Water. Target one creature you can see within 20 feet of yourself. The target must succeed on a Dexterity saving throw (DC 8 plus your Dexterity modifier and Proficiency Bonus) or take 2d8 Radiant damage if it is a Fiend or an Undead.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "horn",
+    "name": "Horn",
+    "categories": [
+      "Musical Instruments",
+      "Tools"
+    ],
+    "cost": "3 gp",
+    "weight": 2,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "hunting-trap",
+    "name": "Hunting Trap",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "5 gp",
+    "weight": 25,
+    "description": "As a Utilize action, you can set a Hunting Trap, which is a sawtooth steel ring that snaps shut when a creature steps on a pressure plate in the center. The trap is affixed by a heavy chain to an immobile object, such as a tree or a spike driven into the ground. A creature that steps on the plate must succeed on a DC 13 Dexterity saving throw or take 1d4 Piercing damage and have its Speed reduced to 0 until the start of its next turn. Thereafter, until the creature breaks free of the trap, its movement is limited by the length of the chain (typically 3 feet). A creature can use its action to make a DC 13 Strength (Athletics) check, freeing itself or another creature within its reach on a success. Each failed check deals 1 Piercing damage to the trapped creature.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "ink",
+    "name": "Ink",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "10 gp",
+    "weight": 0,
+    "description": "Ink comes in a 1-ounce bottle, which provides enough ink to write about 500 pages.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "ink-pen",
+    "name": "Ink Pen",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "2 cp",
+    "weight": 0,
+    "description": "Using Ink, an Ink Pen is used to write or draw.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "javelin",
+    "name": "Javelin",
+    "categories": [
+      "Melee Weapons",
+      "Simple Melee Weapons",
+      "Simple Weapons",
+      "Weapons"
+    ],
+    "cost": "5 gp",
+    "weight": 2,
+    "description": "",
+    "damageDice": "1d6",
+    "damageType": "Piercing",
+    "versatileDamage": "",
+    "rangeNormal": 5,
+    "rangeLong": null,
+    "properties": [
+      "Thrown"
+    ],
+    "mastery": "Slow",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "jewelers-tools",
+    "name": "Jeweler's Tools",
+    "categories": [
+      "Artisan's Tools",
+      "Tools"
+    ],
+    "cost": "25 gp",
+    "weight": 2,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "jug",
+    "name": "Jug",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "2 cp",
+    "weight": 4,
+    "description": "A Jug holds up to 1 gallon.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "ladder",
+    "name": "Ladder",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "1 sp",
+    "weight": 25,
+    "description": "A Ladder is 10 feet tall. You must climb to move up or down it. Lamp (5 SP)",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "lamp",
+    "name": "Lamp",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "5 sp",
+    "weight": 1,
+    "description": "A Lamp burns Oil as fuel to cast Bright Light in a 15- foot radius and Dim Light for an additional 30 feet",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "lance",
+    "name": "Lance",
+    "categories": [
+      "Martial Melee Weapons",
+      "Martial Weapons",
+      "Melee Weapons",
+      "Weapons"
+    ],
+    "cost": "10 gp",
+    "weight": 6,
+    "description": "",
+    "damageDice": "1d10",
+    "damageType": "Piercing",
+    "versatileDamage": "",
+    "rangeNormal": 5,
+    "rangeLong": null,
+    "properties": [
+      "Heavy",
+      "Reach",
+      "Two-Handed"
+    ],
+    "mastery": "Topple",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "lantern-bullseye",
+    "name": "Lantern, Bullseye",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "10 gp",
+    "weight": 2,
+    "description": "A Bullseye Lantern burns Oil as fuel to cast Bright Light in a 60-foot Cone and Dim Light for an additional 60 feet.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "lantern-hooded",
+    "name": "Lantern, Hooded",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "5 gp",
+    "weight": 2,
+    "description": "A Hooded Lantern burns Oil as fuel to cast Bright Light in a 30-foot radius and Dim Light for an additional 30 feet. As a Bonus Action, you can lower the hood, reducing the light to Dim Light in a 5-foot radius, or raise it again.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "leather-armor",
+    "name": "Leather Armor",
+    "categories": [
+      "Armor",
+      "Light Armor"
+    ],
+    "cost": "10 gp",
+    "weight": 10,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": 11,
+    "dexBonus": true,
+    "maxDexBonus": null,
+    "strengthMinimum": 0,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "leatherworkers-tools",
+    "name": "Leatherworker's Tools",
+    "categories": [
+      "Artisan's Tools",
+      "Tools"
+    ],
+    "cost": "5 gp",
+    "weight": 5,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "light-crossbow",
+    "name": "Light Crossbow",
+    "categories": [
+      "Ranged Weapons",
+      "Simple Ranged Weapons",
+      "Simple Weapons",
+      "Weapons"
+    ],
+    "cost": "25 gp",
+    "weight": 5,
+    "description": "",
+    "damageDice": "1d8",
+    "damageType": "Piercing",
+    "versatileDamage": "",
+    "rangeNormal": 80,
+    "rangeLong": 320,
+    "properties": [
+      "Ammunition",
+      "Loading",
+      "Two-Handed"
+    ],
+    "mastery": "Slow",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "light-hammer",
+    "name": "Light Hammer",
+    "categories": [
+      "Melee Weapons",
+      "Simple Melee Weapons",
+      "Simple Weapons",
+      "Weapons"
+    ],
+    "cost": "2 gp",
+    "weight": 2,
+    "description": "",
+    "damageDice": "1d4",
+    "damageType": "Bludgeoning",
+    "versatileDamage": "",
+    "rangeNormal": 5,
+    "rangeLong": null,
+    "properties": [
+      "Light",
+      "Thrown"
+    ],
+    "mastery": "Nick",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "lock",
+    "name": "Lock",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "10 gp",
+    "weight": 1,
+    "description": "A Lock comes with a key. Without the key, a creature can use Thieves' Tools to pick this Lock with a successful DC 15 Dexterity (Sleight of Hand) check.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "longbow",
+    "name": "Longbow",
+    "categories": [
+      "Martial Ranged Weapons",
+      "Martial Weapons",
+      "Ranged Weapons",
+      "Weapons"
+    ],
+    "cost": "5 gp",
+    "weight": 2,
+    "description": "",
+    "damageDice": "1d8",
+    "damageType": "Piercing",
+    "versatileDamage": "",
+    "rangeNormal": 150,
+    "rangeLong": 600,
+    "properties": [
+      "Ammunition",
+      "Heavy",
+      "Two-Handed"
+    ],
+    "mastery": "Slow",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "longsword",
+    "name": "Longsword",
+    "categories": [
+      "Martial Melee Weapons",
+      "Martial Weapons",
+      "Melee Weapons",
+      "Weapons"
+    ],
+    "cost": "15 gp",
+    "weight": 3,
+    "description": "",
+    "damageDice": "1d8",
+    "damageType": "Slashing",
+    "versatileDamage": "1d10",
+    "rangeNormal": 5,
+    "rangeLong": null,
+    "properties": [
+      "Versatile"
+    ],
+    "mastery": "Sap",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "lute",
+    "name": "Lute",
+    "categories": [
+      "Musical Instruments",
+      "Tools"
+    ],
+    "cost": "35 gp",
+    "weight": 2,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "lyre",
+    "name": "Lyre",
+    "categories": [
+      "Musical Instruments",
+      "Tools"
+    ],
+    "cost": "30 gp",
+    "weight": 2,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "mace",
+    "name": "Mace",
+    "categories": [
+      "Melee Weapons",
+      "Simple Melee Weapons",
+      "Simple Weapons",
+      "Weapons"
+    ],
+    "cost": "5 gp",
+    "weight": 2,
+    "description": "",
+    "damageDice": "1d6",
+    "damageType": "Bludgeoning",
+    "versatileDamage": "",
+    "rangeNormal": 5,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "Sap",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "magnifying-glass",
+    "name": "Magnifying Glass",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "100 gp",
+    "weight": 0,
+    "description": "A Magnifying Glass grants Advantage on any ability check made to appraise or inspect a highly detailed item. Lighting a fire with a Magnifying Glass requires light as bright as sunlight to focus, tinder to ignite, and about 5 minutes for the fire to ignite.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "manacles",
+    "name": "Manacles",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "2 gp",
+    "weight": 6,
+    "description": "As a Utilize action, you can use Manacles to bind an unwilling Small or Medium creature within 5 feet of yourself that has the Grappled, Incapacitated, or Restrained condition if you succeed on a DC 13 Dexterity (Sleight of Hand) check. While bound, a creature has Disadvantage on attack rolls, and the creature is Restrained if the Manacles are attached to a chain or hook that is fixed in place. Escaping the Manacles requires a successful DC 20 Dexterity (Sleight of Hand) check as an action. Bursting them requires a successful DC 25 Strength (Athletics) check as an action.\nEach set of Manacles comes with a key. Without the key, a creature can use Thieves' Tools to pick the Manacles' lock with a successful DC 15 Dexterity (Sleight of Hand) check.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "map",
+    "name": "Map",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "1 gp",
+    "weight": 0,
+    "description": "If you consult an accurate Map, you gain a +5 bonus to Wisdom (Survival) checks you make to find your way in the place represented on it.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "masons-tools",
+    "name": "Mason's Tools",
+    "categories": [
+      "Artisan's Tools",
+      "Tools"
+    ],
+    "cost": "10 gp",
+    "weight": 8,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "maul",
+    "name": "Maul",
+    "categories": [
+      "Martial Melee Weapons",
+      "Martial Weapons",
+      "Melee Weapons",
+      "Weapons"
+    ],
+    "cost": "10 gp",
+    "weight": 10,
+    "description": "",
+    "damageDice": "2d6",
+    "damageType": "Bludgeoning",
+    "versatileDamage": "",
+    "rangeNormal": 5,
+    "rangeLong": null,
+    "properties": [
+      "Heavy",
+      "Two-Handed"
+    ],
+    "mastery": "Topple",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "mirror",
+    "name": "Mirror",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "5 gp",
+    "weight": 0.5,
+    "description": "A handheld steel Mirror is useful for personal cosmetics but also for peeking around corners and reflecting light as a signal.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "morningstar",
+    "name": "Morningstar",
+    "categories": [
+      "Martial Melee Weapons",
+      "Martial Weapons",
+      "Melee Weapons",
+      "Weapons"
+    ],
+    "cost": "15 gp",
+    "weight": 4,
+    "description": "",
+    "damageDice": "1d8",
+    "damageType": "Piercing",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "Sap",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "musket",
+    "name": "Musket",
+    "categories": [
+      "Martial Ranged Weapons",
+      "Martial Weapons",
+      "Ranged Weapons",
+      "Weapons"
+    ],
+    "cost": "500 gp",
+    "weight": 10,
+    "description": "",
+    "damageDice": "1d12",
+    "damageType": "Piercing",
+    "versatileDamage": "",
+    "rangeNormal": 40,
+    "rangeLong": 120,
+    "properties": [
+      "Ammunition",
+      "Loading",
+      "Two-Handed"
+    ],
+    "mastery": "Slow",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "navigators-tools",
+    "name": "Navigator's Tools",
+    "categories": [
+      "Other Tools",
+      "Tools"
+    ],
+    "cost": "25 gp",
+    "weight": 2,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "needles",
+    "name": "Needles",
+    "categories": [
+      "Ammunition"
+    ],
+    "cost": "1 gp",
+    "weight": 1,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "net",
+    "name": "Net",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "1 gp",
+    "weight": 3,
+    "description": "When you take the Attack action, you can replace one of your attacks with throwing a Net. Target a creature you can see within 15 feet of yourself. The target must succeed on a Dexterity saving throw (DC 8 plus your Dexterity modifier and Proficiency Bonus) or have the Restrained condition until it escapes. The target succeeds automatically if it is Huge or larger.\nTo escape, the target or a creature within 5 feet of it must take an action to make a DC 10 Strength (Athletics) check, freeing the Restrained creature on a success. Destroying the Net (AC 10; 5 HP; Immunity to Bludgeoning, Poison, and Psychic damage) also frees the target, ending the effect.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "oil",
+    "name": "Oil",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "1 sp",
+    "weight": 1,
+    "description": "You can douse a creature, object, or space with Oil or use it as fuel, as detailed below.\n**Dousing a Creature or an Object.** When you take the Attack action, you can replace one of your attacks with throwing an Oil flask. Target one creature or object within 20 feet of yourself. The target must succeed on a Dexterity saving throw (DC 8 plus your Dexterity modifier and Proficiency Bonus) or be covered in oil. If the target takes Fire damage before the oil dries (after 1 minute), the target takes an extra 5 Fire damage from burning oil.\n**Dousing a Space.** You can take the Utilize action to pour an Oil flask on level ground to cover a 5-foot-square area within 5 feet of yourself. If lit, the oil burns until the end of the turn 2 rounds from when the oil was lit (or 12 seconds) and deals 5 Fire damage to any creature that enters the area or ends its turn there. A creature can take this damage only once per turn.\n**Fuel.**  Oil serves as fuel for Lamps and Lanterns. Once lit, a flask of Oil burns for 6 hours in a Lamp or Lantern. That duration doesn't need to be consecutive; you can extinguish the burning Oil (as a Utilize action) and rekindle it again until it has burned for a total of 6 hours",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "orb",
+    "name": "Orb",
+    "categories": [
+      "Arcane Foci",
+      "Adventuring Gear"
+    ],
+    "cost": "20 gp",
+    "weight": 3,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "padded-armor",
+    "name": "Padded Armor",
+    "categories": [
+      "Armor",
+      "Light Armor"
+    ],
+    "cost": "5 gp",
+    "weight": 8,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": 11,
+    "dexBonus": true,
+    "maxDexBonus": null,
+    "strengthMinimum": 0,
+    "stealthDisadvantage": true,
+    "contents": []
+  },
+  {
+    "id": "painters-supplies",
+    "name": "Painter's Supplies",
+    "categories": [
+      "Artisan's Tools",
+      "Tools"
+    ],
+    "cost": "10 gp",
+    "weight": 5,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "pan-flute",
+    "name": "Pan flute",
+    "categories": [
+      "Musical Instruments",
+      "Tools"
+    ],
+    "cost": "12 gp",
+    "weight": 2,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "paper",
+    "name": "Paper",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "2 sp",
+    "weight": 0,
+    "description": "One sheet of Paper can hold about 250 handwritten words.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "parchment",
+    "name": "Parchment",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "3 gp",
+    "weight": 0,
+    "description": "One sheet of Parchment can hold about 250 handwritten words.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "perfume",
+    "name": "Perfume",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "5 gp",
+    "weight": 0,
+    "description": "Perfume comes in a 4-ounce vial. For 1 hour after applying Perfume to yourself, you have Advantage on Charisma (Persuasion) checks made to influence an Indifferent Humanoid within 5 feet of yourself.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "pike",
+    "name": "Pike",
+    "categories": [
+      "Martial Melee Weapons",
+      "Martial Weapons",
+      "Melee Weapons",
+      "Weapons"
+    ],
+    "cost": "5 gp",
+    "weight": 6,
+    "description": "",
+    "damageDice": "1d10",
+    "damageType": "Piercing",
+    "versatileDamage": "",
+    "rangeNormal": 5,
+    "rangeLong": null,
+    "properties": [
+      "Heavy",
+      "Reach",
+      "Two-Handed"
+    ],
+    "mastery": "Push",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "pistol",
+    "name": "Pistol",
+    "categories": [
+      "Martial Ranged Weapons",
+      "Martial Weapons",
+      "Ranged Weapons",
+      "Weapons"
+    ],
+    "cost": "250 gp",
+    "weight": 3,
+    "description": "",
+    "damageDice": "1d10",
+    "damageType": "Piercing",
+    "versatileDamage": "",
+    "rangeNormal": 30,
+    "rangeLong": 90,
+    "properties": [
+      "Ammunition",
+      "Loading"
+    ],
+    "mastery": "Vex",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "plate-armor",
+    "name": "Plate Armor",
+    "categories": [
+      "Armor",
+      "Heavy Armor"
+    ],
+    "cost": "1500 gp",
+    "weight": 65,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": 18,
+    "dexBonus": false,
+    "maxDexBonus": 0,
+    "strengthMinimum": 15,
+    "stealthDisadvantage": true,
+    "contents": []
+  },
+  {
+    "id": "playing-cards",
+    "name": "Playing Cards",
+    "categories": [
+      "Gaming Sets",
+      "Tools"
+    ],
+    "cost": "5 sp",
+    "weight": 0,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "poison-basic",
+    "name": "Poison, Basic",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "100 gp",
+    "weight": 0,
+    "description": "As a Bonus Action, you can use a vial of Basic Poison to coat one weapon or up to three pieces of ammunition. A creature that takes Piercing or Slashing damage from the poisoned weapon or ammunition takes an extra 1d4 Poison damage. Once applied, the poison retains potency for 1 minute or until its damage is dealt, whichever comes first.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "poisoners-kit",
+    "name": "Poisoner's Kit",
+    "categories": [
+      "Other Tools",
+      "Tools"
+    ],
+    "cost": "5 gp",
+    "weight": 2,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "pole",
+    "name": "Pole",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "5 cp",
+    "weight": 7,
+    "description": "A Pole is 10 feet long. You can use it to touch something up to 10 feet away. If you must make a Strength (Athletics) check as part of a High or Long Jump, you can use the Pole to vault, giving yourself Advantage on the check.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "pot-iron",
+    "name": "Pot, Iron",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "2 gp",
+    "weight": 10,
+    "description": "An Iron Pot holds up to 1 gallon.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "potion-of-healing",
+    "name": "Potion of Healing",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "50 gp",
+    "weight": 0.5,
+    "description": "This potion is a magic item. As a Bonus Action, you can drink it or administer it to another creature within 5 feet of yourself. The creature that drinks the magical red fluid in this vial regains 2d4 + 2 Hit Points.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "potters-tools",
+    "name": "Potter's Tools",
+    "categories": [
+      "Artisan's Tools",
+      "Tools"
+    ],
+    "cost": "10 gp",
+    "weight": 3,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "pouch",
+    "name": "Pouch",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "5 sp",
+    "weight": 1,
+    "description": "A Pouch holds up to 6 pounds within one-fifth of a cubic foot.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "priests-pack",
+    "name": "Priest's Pack",
+    "categories": [
+      "Adventuring Gear",
+      "Equipment Packs"
+    ],
+    "cost": "33 gp",
+    "weight": 29,
+    "description": "A Priest's Pack contains the following items: Backpack, Blanket, Holy Water, Lamp, 7 days of Rations, Robe, and Tinderbox.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": [
+      {
+        "name": "Backpack",
+        "quantity": 1
+      },
+      {
+        "name": "Blanket",
+        "quantity": 1
+      },
+      {
+        "name": "Holy Water",
+        "quantity": 1
+      },
+      {
+        "name": "Lamp",
+        "quantity": 1
+      },
+      {
+        "name": "Rations",
+        "quantity": 7
+      },
+      {
+        "name": "Robe",
+        "quantity": 1
+      },
+      {
+        "name": "Tinderbox",
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "id": "quarterstaff",
+    "name": "Quarterstaff",
+    "categories": [
+      "Arcane Foci",
+      "Druidic Foci",
+      "Melee Weapons",
+      "Simple Melee Weapons",
+      "Simple Weapons",
+      "Weapons"
+    ],
+    "cost": "2 sp",
+    "weight": 4,
+    "description": "",
+    "damageDice": "1d6",
+    "damageType": "Bludgeoning",
+    "versatileDamage": "1d8",
+    "rangeNormal": 5,
+    "rangeLong": null,
+    "properties": [
+      "Versatile"
+    ],
+    "mastery": "Topple",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "quiver",
+    "name": "Quiver",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "1 gp",
+    "weight": 1,
+    "description": "A Quiver holds up to 20 Arrows.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "ram-portable",
+    "name": "Ram, Portable",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "4 gp",
+    "weight": 35,
+    "description": "You can use a Portable Ram to break down doors. When doing so, you gain a +4 bonus to the Strength check. One other character can help you use the ram, giving you Advantage on this check.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "rapier",
+    "name": "Rapier",
+    "categories": [
+      "Martial Melee Weapons",
+      "Martial Weapons",
+      "Melee Weapons",
+      "Weapons"
+    ],
+    "cost": "25 gp",
+    "weight": 2,
+    "description": "",
+    "damageDice": "1d8",
+    "damageType": "Piercing",
+    "versatileDamage": "",
+    "rangeNormal": 5,
+    "rangeLong": null,
+    "properties": [
+      "Finesse"
+    ],
+    "mastery": "Vex",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "rations",
+    "name": "Rations",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "5 sp",
+    "weight": 2,
+    "description": "Rations consist of travel-ready food, including jerky, dried fruit, hardtack, and nuts. See \"Malnutrition\" in \"Rules Glossary\" for the risks of not eating.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "reliquary",
+    "name": "Reliquary",
+    "categories": [
+      "Adventuring Gear",
+      "Holy Symbols"
+    ],
+    "cost": "5 gp",
+    "weight": 2,
+    "description": "A Holy Symbol takes one of the forms in the Holy Symbol table and is bejeweled or painted to channel divine magic. A Cleric or Paladin can use a Holy Symbol as a Spellcasting Focus.\nThe table indicates whether a Holy Symbol needs to be held, worn, or borne on fabric (such as a tabard or banner) or a Shield.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "ring-mail",
+    "name": "Ring Mail",
+    "categories": [
+      "Armor",
+      "Heavy Armor"
+    ],
+    "cost": "30 gp",
+    "weight": 40,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": 14,
+    "dexBonus": false,
+    "maxDexBonus": 0,
+    "strengthMinimum": 0,
+    "stealthDisadvantage": true,
+    "contents": []
+  },
+  {
+    "id": "robe",
+    "name": "Robe",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "1 gp",
+    "weight": 1,
+    "description": "A Robe has vocational or ceremonial significance. Some events and locations admit only people wearing a Robe bearing certain colors or symbols.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "rod",
+    "name": "Rod",
+    "categories": [
+      "Arcane Foci",
+      "Adventuring Gear"
+    ],
+    "cost": "10 gp",
+    "weight": 2,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "rope",
+    "name": "Rope",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "1 gp",
+    "weight": 5,
+    "description": "As a Utilize action, you can tie a knot with Rope if you succeed on a DC 10 Dexterity (Sleight of Hand) check. The Rope can be burst with a successful DC 20 Strength (Athletics) check.\n You can bind an unwilling creature with the Rope only if the creature has the Grappled, Incapacitated, or Restrained condition. If the creature's legs are bound, the creature has the Restrained condition until it escapes. Escaping the Rope requires the creature to make a successful DC 15 Dexterity (Acrobatics) check as an action.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "sack",
+    "name": "Sack",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "1 cp",
+    "weight": 1,
+    "description": "A Sack holds up to 30 pounds within 1 cubic foot.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "scale-mail",
+    "name": "Scale Mail",
+    "categories": [
+      "Armor",
+      "Medium Armor"
+    ],
+    "cost": "50 gp",
+    "weight": 45,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": 14,
+    "dexBonus": true,
+    "maxDexBonus": 2,
+    "strengthMinimum": 0,
+    "stealthDisadvantage": true,
+    "contents": []
+  },
+  {
+    "id": "scholars-pack",
+    "name": "Scholar's Pack",
+    "categories": [
+      "Adventuring Gear",
+      "Equipment Packs"
+    ],
+    "cost": "40 gp",
+    "weight": 22,
+    "description": "A Scholar's Pack contains the following items: Backpack, Blanket, Book, Ink, Ink Pen, Lamp, 10 flasks of Oil, 10 sheets of Parchment, and Tinderbox.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": [
+      {
+        "name": "Backpack",
+        "quantity": 1
+      },
+      {
+        "name": "Blanket",
+        "quantity": 1
+      },
+      {
+        "name": "Book",
+        "quantity": 1
+      },
+      {
+        "name": "Ink",
+        "quantity": 1
+      },
+      {
+        "name": "Ink Pen",
+        "quantity": 1
+      },
+      {
+        "name": "Lamp",
+        "quantity": 1
+      },
+      {
+        "name": "Oil",
+        "quantity": 10
+      },
+      {
+        "name": "Parchment",
+        "quantity": 10
+      },
+      {
+        "name": "Tinderbox",
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "id": "scimitar",
+    "name": "Scimitar",
+    "categories": [
+      "Martial Melee Weapons",
+      "Martial Weapons",
+      "Melee Weapons",
+      "Weapons"
+    ],
+    "cost": "25 gp",
+    "weight": 3,
+    "description": "",
+    "damageDice": "1d6",
+    "damageType": "Slashing",
+    "versatileDamage": "",
+    "rangeNormal": 5,
+    "rangeLong": null,
+    "properties": [
+      "Finesse",
+      "Light"
+    ],
+    "mastery": "Nick",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "shawm",
+    "name": "Shawm",
+    "categories": [
+      "Musical Instruments",
+      "Tools"
+    ],
+    "cost": "2 gp",
+    "weight": 1,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "shield",
+    "name": "Shield",
+    "categories": [
+      "Armor",
+      "Shields"
+    ],
+    "cost": "10 gp",
+    "weight": 6,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": 2,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": 0,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "shortbow",
+    "name": "Shortbow",
+    "categories": [
+      "Ranged Weapons",
+      "Simple Ranged Weapons",
+      "Simple Weapons",
+      "Weapons"
+    ],
+    "cost": "25 gp",
+    "weight": 2,
+    "description": "",
+    "damageDice": "1d6",
+    "damageType": "Piercing",
+    "versatileDamage": "",
+    "rangeNormal": 80,
+    "rangeLong": 320,
+    "properties": [
+      "Ammunition",
+      "Two-Handed"
+    ],
+    "mastery": "Vex",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "shortsword",
+    "name": "Shortsword",
+    "categories": [
+      "Martial Melee Weapons",
+      "Martial Weapons",
+      "Melee Weapons",
+      "Weapons"
+    ],
+    "cost": "10 gp",
+    "weight": 2,
+    "description": "",
+    "damageDice": "1d6",
+    "damageType": "Piercing",
+    "versatileDamage": "",
+    "rangeNormal": 5,
+    "rangeLong": null,
+    "properties": [
+      "Finesse",
+      "Light"
+    ],
+    "mastery": "Vex",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "shovel",
+    "name": "Shovel",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "2 gp",
+    "weight": 5,
+    "description": "Working for 1 hour, you can use a Shovel to dig a hole that is 5 feet on each side in soil or similar material.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "sickle",
+    "name": "Sickle",
+    "categories": [
+      "Melee Weapons",
+      "Simple Melee Weapons",
+      "Simple Weapons",
+      "Weapons"
+    ],
+    "cost": "1 gp",
+    "weight": 2,
+    "description": "",
+    "damageDice": "1d4",
+    "damageType": "Slashing",
+    "versatileDamage": "",
+    "rangeNormal": 5,
+    "rangeLong": null,
+    "properties": [
+      "Light"
+    ],
+    "mastery": "Nick",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "signal-whistle",
+    "name": "Signal Whistle",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "5 cp",
+    "weight": 0,
+    "description": "When blown as a Utilize action, a Signal Whistle produces a sound that can be heard up to 600 feet away.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "sling",
+    "name": "Sling",
+    "categories": [
+      "Ranged Weapons",
+      "Simple Ranged Weapons",
+      "Simple Weapons",
+      "Weapons"
+    ],
+    "cost": "1 sp",
+    "weight": 0,
+    "description": "",
+    "damageDice": "1d4",
+    "damageType": "Piercing",
+    "versatileDamage": "",
+    "rangeNormal": 30,
+    "rangeLong": 120,
+    "properties": [
+      "Ammunition"
+    ],
+    "mastery": "Slow",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "smiths-tools",
+    "name": "Smith's Tools",
+    "categories": [
+      "Artisan's Tools",
+      "Tools"
+    ],
+    "cost": "20 gp",
+    "weight": 8,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "spear",
+    "name": "Spear",
+    "categories": [
+      "Melee Weapons",
+      "Simple Melee Weapons",
+      "Simple Weapons",
+      "Weapons"
+    ],
+    "cost": "5 gp",
+    "weight": 2,
+    "description": "",
+    "damageDice": "1d6",
+    "damageType": "Piercing",
+    "versatileDamage": "1d8",
+    "rangeNormal": 5,
+    "rangeLong": null,
+    "properties": [
+      "Thrown",
+      "Versatile"
+    ],
+    "mastery": "Sap",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "spell-scroll-cantrip",
+    "name": "Spell Scroll, Cantrip",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "30 gp",
+    "weight": 0,
+    "description": "A *Spell Scroll* (Cantrip) or *Spell Scroll* (Level 1) is a magic item that bears the words of a cantrip or level 1 spell, respectively, determined by the scroll's creator. If the spell is on your class's spell list, you can read the scroll and cast the spell using its normal casting time and without providing any Material components.\nIf the spell requires a saving throw or an attack roll, the spell save DC is 13, and the attack bonus is +5. The scroll disintegrates when the casting is completed.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "spell-scroll-level-1",
+    "name": "Spell Scroll, Level 1",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "50 gp",
+    "weight": 0,
+    "description": "A *Spell Scroll* (Cantrip) or *Spell Scroll* (Level 1) is a magic item that bears the words of a cantrip or level 1 spell, respectively, determined by the scroll's creator. If the spell is on your class's spell list, you can read the scroll and cast the spell using its normal casting time and without providing any Material components.\nIf the spell requires a saving throw or an attack roll, the spell save DC is 13, and the attack bonus is +5. The scroll disintegrates when the casting is completed.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "spellbook",
+    "name": "Spellbook",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "50 gp",
+    "weight": 3,
+    "description": "Essential for wizards, a spellbook is a leather-bound tome with 100 blank vellum pages suitable for recording spells.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "spikes-iron",
+    "name": "Spikes, Iron",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "1 gp",
+    "weight": 2,
+    "description": "Iron Spikes come in bundles of ten. As a Utilize action, you can use a blunt object, such as a Light Hammer, to hammer a spike into wood, earth, or a similar material. You can do so to jam a door shut or to then tie a Rope or Chain to the Spike.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "splint-armor",
+    "name": "Splint Armor",
+    "categories": [
+      "Armor",
+      "Heavy Armor"
+    ],
+    "cost": "200 gp",
+    "weight": 60,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": 17,
+    "dexBonus": false,
+    "maxDexBonus": 0,
+    "strengthMinimum": 15,
+    "stealthDisadvantage": true,
+    "contents": []
+  },
+  {
+    "id": "sprig-of-mistletoe",
+    "name": "Sprig of Mistletoe",
+    "categories": [
+      "Druidic Foci",
+      "Adventuring Gear"
+    ],
+    "cost": "1 gp",
+    "weight": 0,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "spyglass",
+    "name": "Spyglass",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "1000 gp",
+    "weight": 1,
+    "description": "Objects viewed through a Spyglass are magnified to twice their size.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "staff",
+    "name": "Staff",
+    "categories": [
+      "Arcane Foci",
+      "Adventuring Gear",
+      "Druidic Foci"
+    ],
+    "cost": "5 gp",
+    "weight": 4,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "string",
+    "name": "String",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "1 sp",
+    "weight": 0,
+    "description": "String is 10 feet long. You can tie a knot in it as a Utilize action.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "studded-leather-armor",
+    "name": "Studded Leather Armor",
+    "categories": [
+      "Armor",
+      "Light Armor"
+    ],
+    "cost": "45 gp",
+    "weight": 13,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": 12,
+    "dexBonus": true,
+    "maxDexBonus": null,
+    "strengthMinimum": 0,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "tent",
+    "name": "Tent",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "2 gp",
+    "weight": 20,
+    "description": "A Tent sleeps up to two Small or Medium creatures.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "thieves-tools",
+    "name": "Thieves' Tools",
+    "categories": [
+      "Other Tools",
+      "Tools"
+    ],
+    "cost": "25 gp",
+    "weight": 1,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "three-dragon-ante",
+    "name": "Three-Dragon Ante",
+    "categories": [
+      "Gaming Sets",
+      "Tools"
+    ],
+    "cost": "1 gp",
+    "weight": 0,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "tinderbox",
+    "name": "Tinderbox",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "5 sp",
+    "weight": 1,
+    "description": "A Tinderbox is a small container holding flint, fire steel, and tinder (usually dry cloth soaked in light oil) used to kindle a fire. Using it to light a Candle, Lamp, Lantern, or Torch—or anything else with exposed fuel—takes a Bonus Action. Lighting any other fire takes 1 minute.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "tinkers-tools",
+    "name": "Tinker's Tools",
+    "categories": [
+      "Artisan's Tools",
+      "Tools"
+    ],
+    "cost": "50 gp",
+    "weight": 10,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "torch",
+    "name": "Torch",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "1 cp",
+    "weight": 1,
+    "description": "A Torch burns for 1 hour, casting Bright Light in a 20-foot radius and Dim Light for an additional 20 feet. When you take the Attack action, you can attack with the Torch, using it as a Simple Melee weapon. On a hit, the target takes 1 Fire damage.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "trident",
+    "name": "Trident",
+    "categories": [
+      "Martial Melee Weapons",
+      "Martial Weapons",
+      "Melee Weapons",
+      "Weapons"
+    ],
+    "cost": "5 gp",
+    "weight": 4,
+    "description": "",
+    "damageDice": "1d6",
+    "damageType": "Piercing",
+    "versatileDamage": "1d8",
+    "rangeNormal": 5,
+    "rangeLong": null,
+    "properties": [
+      "Thrown",
+      "Versatile"
+    ],
+    "mastery": "Topple",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "vial",
+    "name": "Vial",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "1 gp",
+    "weight": 0,
+    "description": "A Vial holds up to 4 ounces.",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "viol",
+    "name": "Viol",
+    "categories": [
+      "Musical Instruments",
+      "Tools"
+    ],
+    "cost": "30 gp",
+    "weight": 2,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "wand",
+    "name": "Wand",
+    "categories": [
+      "Arcane Foci",
+      "Adventuring Gear"
+    ],
+    "cost": "10 gp",
+    "weight": 1,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "war-pick",
+    "name": "War Pick",
+    "categories": [
+      "Martial Melee Weapons",
+      "Martial Weapons",
+      "Melee Weapons",
+      "Weapons"
+    ],
+    "cost": "5 gp",
+    "weight": 2,
+    "description": "",
+    "damageDice": "1d8",
+    "damageType": "Piercing",
+    "versatileDamage": "1d10",
+    "rangeNormal": 5,
+    "rangeLong": null,
+    "properties": [
+      "Versatile"
+    ],
+    "mastery": "Sap",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "warhammer",
+    "name": "Warhammer",
+    "categories": [
+      "Martial Melee Weapons",
+      "Martial Weapons",
+      "Melee Weapons",
+      "Weapons"
+    ],
+    "cost": "15 gp",
+    "weight": 5,
+    "description": "",
+    "damageDice": "1d8",
+    "damageType": "Bludgeoning",
+    "versatileDamage": "1d10",
+    "rangeNormal": 5,
+    "rangeLong": null,
+    "properties": [
+      "Versatile"
+    ],
+    "mastery": "Push",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "waterskin",
+    "name": "Waterskin",
+    "categories": [
+      "Adventuring Gear"
+    ],
+    "cost": "2 sp",
+    "weight": 5,
+    "description": "A Waterskin holds up to 4 pints. If you don't drink sufficient water, you risk dehydration (see “Rules Glossary”).",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "weavers-tools",
+    "name": "Weaver's Tools",
+    "categories": [
+      "Artisan's Tools",
+      "Tools"
+    ],
+    "cost": "1 gp",
+    "weight": 5,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "whip",
+    "name": "Whip",
+    "categories": [
+      "Martial Melee Weapons",
+      "Martial Weapons",
+      "Melee Weapons",
+      "Weapons"
+    ],
+    "cost": "2 gp",
+    "weight": 3,
+    "description": "",
+    "damageDice": "1d4",
+    "damageType": "Slashing",
+    "versatileDamage": "",
+    "rangeNormal": 5,
+    "rangeLong": null,
+    "properties": [
+      "Finesse",
+      "Reach"
+    ],
+    "mastery": "Slow",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "woodcarvers-tools",
+    "name": "Woodcarver's Tools",
+    "categories": [
+      "Artisan's Tools",
+      "Tools"
+    ],
+    "cost": "1 gp",
+    "weight": 5,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  },
+  {
+    "id": "yew-wand",
+    "name": "Yew Wand",
+    "categories": [
+      "Druidic Foci",
+      "Adventuring Gear"
+    ],
+    "cost": "10 gp",
+    "weight": 1,
+    "description": "",
+    "damageDice": "",
+    "damageType": "",
+    "versatileDamage": "",
+    "rangeNormal": null,
+    "rangeLong": null,
+    "properties": [],
+    "mastery": "",
+    "armorClass": null,
+    "dexBonus": false,
+    "maxDexBonus": null,
+    "strengthMinimum": null,
+    "stealthDisadvantage": false,
+    "contents": []
+  }
+] as const

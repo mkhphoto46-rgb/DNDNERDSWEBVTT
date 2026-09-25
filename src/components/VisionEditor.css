@@ -1,0 +1,634 @@
+.vision-editor-shell {
+  position: fixed;
+  inset: 0;
+  z-index: 10050;
+  display: grid;
+  grid-template-rows: 58px minmax(0, 1fr);
+  color: #dff8ff;
+  background:
+    radial-gradient(circle at 18% 4%, rgba(55, 145, 173, .16), transparent 34%),
+    linear-gradient(180deg, #06131a 0%, #02080c 100%);
+  font-family: var(--body);
+}
+
+.vision-editor-topbar {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 12px;
+  padding: 7px 10px 7px 14px;
+  border-bottom: 1px solid rgba(113, 213, 238, .24);
+  background: rgba(4, 17, 24, .97);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
+}
+
+.vision-editor-brand {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.vision-editor-brand > svg {
+  width: 23px;
+  height: 23px;
+  color: #8fe9fb;
+  filter: drop-shadow(0 0 9px rgba(93, 207, 235, .32));
+}
+
+.vision-editor-brand > span {
+  min-width: 0;
+  display: grid;
+  gap: 1px;
+}
+
+.vision-editor-brand small {
+  color: #6da7b8;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 1.45px;
+}
+
+.vision-editor-brand strong {
+  min-width: 0;
+  overflow: hidden;
+  color: #edfcff;
+  font-size: 15px;
+  line-height: 1.15;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.vision-editor-status {
+  min-height: 27px;
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 9px;
+  border: 1px solid rgba(98, 164, 184, .28);
+  border-radius: 999px;
+  color: #7faeba;
+  background: rgba(14, 40, 50, .58);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: .9px;
+}
+
+.vision-editor-status.is-enabled {
+  border-color: rgba(110, 221, 238, .5);
+  color: #a5f0fb;
+  background: rgba(25, 89, 103, .45);
+}
+
+.vision-editor-top-actions {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.vision-editor-top-actions button {
+  min-height: 31px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 5px 8px;
+  border: 1px solid rgba(91, 171, 193, .3);
+  border-radius: 7px;
+  color: #bfe9f2;
+  background: rgba(10, 36, 47, .82);
+  font-family: inherit;
+  font-size: 9px;
+}
+
+.vision-editor-top-actions button:hover:not(:disabled) {
+  border-color: rgba(118, 222, 244, .6);
+  color: #effdff;
+  background: rgba(20, 65, 80, .92);
+}
+
+.vision-editor-top-actions button:disabled {
+  opacity: .38;
+  cursor: default;
+}
+
+.vision-editor-top-actions button svg {
+  width: 14px;
+  height: 14px;
+}
+
+.vision-editor-top-actions .vision-editor-save {
+  border-color: rgba(102, 216, 235, .45);
+  color: #dffbff;
+  background: rgba(24, 92, 108, .58);
+}
+
+.vision-editor-top-actions .vision-editor-close {
+  width: 31px;
+  padding: 0;
+  color: #a8cbd3;
+  background: rgba(35, 17, 24, .5);
+}
+
+.vision-editor-layout {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 272px minmax(0, 1fr);
+}
+
+.vision-editor-sidebar {
+  min-height: 0;
+  overflow: auto;
+  display: grid;
+  align-content: start;
+  gap: 9px;
+  padding: 10px;
+  border-right: 1px solid rgba(95, 183, 205, .21);
+  background:
+    linear-gradient(180deg, rgba(7, 28, 38, .97), rgba(4, 17, 23, .98));
+}
+
+.vision-editor-sidebar > section {
+  display: grid;
+  gap: 8px;
+  padding: 9px;
+  border: 1px solid rgba(91, 172, 194, .23);
+  border-radius: 9px;
+  background: rgba(6, 24, 32, .76);
+}
+
+.vision-editor-sidebar section > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.vision-editor-sidebar section > header strong,
+.vision-editor-foundation > strong {
+  color: #cdeef5;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.05px;
+}
+
+.vision-editor-sidebar section > header small {
+  color: #6d9ca9;
+  font-size: 8px;
+}
+
+.vision-editor-tool-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 5px;
+}
+
+.vision-editor-tool-grid button {
+  min-width: 0;
+  min-height: 54px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 4px;
+  padding: 6px 3px;
+  border: 1px solid rgba(87, 165, 187, .28);
+  border-radius: 8px;
+  color: #9ac6d1;
+  background: rgba(8, 31, 41, .84);
+  font-family: inherit;
+  font-size: 9px;
+}
+
+.vision-editor-tool-grid button svg {
+  width: 17px;
+  height: 17px;
+}
+
+.vision-editor-tool-grid button.is-active {
+  border-color: rgba(114, 226, 246, .69);
+  color: #e5fcff;
+  background:
+    linear-gradient(180deg, rgba(39, 112, 132, .7), rgba(16, 60, 74, .84));
+  box-shadow: inset 0 0 18px rgba(87, 205, 233, .12);
+}
+
+.vision-wall-glyph {
+  height: 18px;
+  color: currentColor;
+  font-size: 24px;
+  line-height: 15px;
+  transform: rotate(90deg);
+}
+
+.vision-editor-hint,
+.vision-editor-foundation p {
+  margin: 0;
+  color: #7aa7b2;
+  font-size: 9px;
+  line-height: 1.45;
+}
+
+.vision-editor-runtime-switch label {
+  display: grid;
+  grid-template-columns: 17px minmax(0, 1fr);
+  gap: 7px;
+  align-items: start;
+}
+
+.vision-editor-runtime-switch input,
+.vision-channel-editor input {
+  accent-color: #6fcfe6;
+}
+
+.vision-editor-runtime-switch label > span {
+  display: grid;
+  gap: 2px;
+}
+
+.vision-editor-runtime-switch b {
+  color: #d7f5fa;
+  font-size: 10px;
+}
+
+.vision-editor-runtime-switch small {
+  color: #668e99;
+  font-size: 8px;
+  line-height: 1.4;
+}
+
+.vision-editor-selection {
+  border-color: rgba(100, 204, 228, .34) !important;
+}
+
+.vision-door-state-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
+}
+
+.vision-door-state-grid button {
+  min-width: 0;
+  min-height: 42px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 3px;
+  padding: 4px;
+  border: 1px solid rgba(88, 162, 184, .27);
+  border-radius: 7px;
+  color: #91bdc8;
+  background: rgba(8, 29, 39, .8);
+  font-family: inherit;
+  font-size: 8px;
+}
+
+.vision-door-state-grid button svg {
+  width: 14px;
+  height: 14px;
+}
+
+.vision-door-state-grid button.is-active {
+  border-color: rgba(116, 218, 241, .62);
+  color: #e2fbff;
+  background: rgba(31, 94, 111, .62);
+}
+
+.vision-channel-readout {
+  display: grid;
+  gap: 4px;
+}
+
+.vision-channel-readout span {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 7px;
+  min-height: 25px;
+  padding: 4px 6px;
+  border: 1px solid rgba(79, 139, 155, .18);
+  border-radius: 6px;
+  color: #759ca6;
+  background: rgba(4, 19, 26, .65);
+  font-size: 8px;
+}
+
+.vision-channel-readout span b {
+  color: #6c929c;
+  font-size: 7px;
+  letter-spacing: .5px;
+}
+
+.vision-channel-readout span.is-blocked {
+  border-color: rgba(100, 198, 222, .28);
+  color: #a6d5df;
+}
+
+.vision-channel-readout span.is-blocked b {
+  color: #8ce4f5;
+}
+
+.vision-channel-editor {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px;
+}
+
+.vision-channel-editor label {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px;
+  border: 1px solid rgba(88, 160, 180, .2);
+  border-radius: 6px;
+  color: #a0c5ce;
+  background: rgba(5, 22, 29, .65);
+  font-size: 8px;
+}
+
+.vision-editor-delete {
+  min-height: 31px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 1px solid rgba(221, 85, 102, .38);
+  border-radius: 7px;
+  color: #efb5bb;
+  background: rgba(83, 21, 31, .48);
+  font-family: inherit;
+  font-size: 9px;
+}
+
+.vision-editor-delete svg {
+  width: 14px;
+  height: 14px;
+}
+
+.vision-editor-foundation small {
+  color: #8fc3ce;
+  font-size: 8px;
+  line-height: 1.4;
+}
+
+.vision-editor-workspace {
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) 29px;
+  background:
+    radial-gradient(circle at 50% 40%, rgba(31, 89, 106, .12), transparent 42%),
+    #010609;
+}
+
+.vision-editor-map-wrap {
+  min-width: 0;
+  min-height: 0;
+  align-self: center;
+  justify-self: center;
+  position: relative;
+  display: inline-grid;
+  place-items: stretch;
+  max-width: calc(100vw - 300px);
+  max-height: calc(100vh - 96px);
+  border: 1px solid rgba(114, 210, 233, .28);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, .5);
+}
+
+.vision-editor-map-wrap > img,
+.vision-editor-overlay {
+  grid-area: 1 / 1;
+}
+
+.vision-editor-map-wrap > img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: calc(100vw - 300px);
+  max-height: calc(100vh - 96px);
+  user-select: none;
+  pointer-events: none;
+}
+
+.vision-editor-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+}
+
+.vision-editor-overlay.is-drawing {
+  cursor: crosshair;
+}
+
+.vision-editor-overlay.is-selecting {
+  cursor: default;
+}
+
+.vision-barrier-hit {
+  stroke: transparent;
+  stroke-width: 14px;
+  pointer-events: stroke;
+}
+
+.vision-barrier-line {
+  fill: none;
+  stroke: #88e9fb;
+  stroke-width: 3px;
+  pointer-events: none;
+  filter: drop-shadow(0 0 4px rgba(84, 209, 236, .55));
+}
+
+.vision-barrier-line.is-door {
+  stroke: #77bfff;
+  stroke-width: 4px;
+  stroke-dasharray: 9 5;
+}
+
+.vision-barrier-line.is-door.is-open {
+  stroke: #6ce3d0;
+  opacity: .8;
+  stroke-dasharray: 3 6;
+}
+
+.vision-barrier-line.is-door.is-locked {
+  stroke: #ae98ff;
+}
+
+.vision-barrier-line.is-selected {
+  stroke-width: 5px;
+  filter: drop-shadow(0 0 8px rgba(137, 237, 255, .9));
+}
+
+.vision-barrier-node {
+  fill: #dffcff;
+  stroke: #3d9eb7;
+  stroke-width: 1.5px;
+  pointer-events: none;
+}
+
+.vision-barrier-preview {
+  fill: none;
+  stroke: #e7fbff;
+  stroke-width: 2px;
+  stroke-dasharray: 8 5;
+  pointer-events: none;
+  opacity: .85;
+}
+
+.vision-barrier-preview.is-door {
+  stroke: #7fc4ff;
+}
+
+.vision-barrier-line.is-door:is(circle) {
+  fill: rgba(8, 33, 43, .96);
+}
+
+.vision-editor-workspace-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 0 10px;
+  border-top: 1px solid rgba(91, 174, 196, .16);
+  color: #628c97;
+  background: rgba(3, 14, 20, .92);
+  font-size: 8px;
+}
+
+.vision-editor-workspace-footer b {
+  color: #8ebdc8;
+}
+
+@media (max-width: 900px) {
+  .vision-editor-topbar {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .vision-editor-status {
+    display: none;
+  }
+
+  .vision-editor-layout {
+    grid-template-columns: 220px minmax(0, 1fr);
+  }
+
+  .vision-editor-map-wrap,
+  .vision-editor-map-wrap > img {
+    max-width: calc(100vw - 240px);
+  }
+
+  .vision-editor-top-actions button:not(.vision-editor-save):not(.vision-editor-close) {
+    font-size: 0;
+    width: 31px;
+    padding: 0;
+  }
+
+  .vision-editor-workspace-footer {
+    gap: 8px;
+  }
+}
+
+/* =========================================================
+   Vision Editor 1.1 — performance + navigation controls
+   ========================================================= */
+
+.vision-editor-zoom-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding-right: 5px;
+  margin-right: 2px;
+  border-right: 1px solid rgba(100, 178, 199, .2);
+}
+
+.vision-editor-zoom-controls button {
+  min-width: 30px;
+  padding-inline: 6px !important;
+}
+
+.vision-editor-zoom-controls .vision-editor-fit {
+  min-width: 68px;
+  font-family: var(--numbers);
+  font-size: 9px;
+}
+
+.vision-editor-tool-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.vision-editor-finish-outline {
+  min-height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 1px solid rgba(99, 208, 232, .38);
+  border-radius: 7px;
+  color: #d9f8ff;
+  background: rgba(24, 79, 94, .58);
+  font-family: inherit;
+  font-size: 9px;
+}
+
+.vision-editor-finish-outline:hover {
+  border-color: rgba(119, 224, 245, .68);
+  background: rgba(30, 99, 116, .72);
+}
+
+.vision-editor-finish-outline svg {
+  width: 13px;
+  height: 13px;
+}
+
+.vision-editor-map-viewport {
+  min-width: 0;
+  min-height: 0;
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(31, 89, 106, .12), transparent 43%),
+    #010609;
+}
+
+.vision-editor-map-wrap {
+  align-self: center;
+  justify-self: center;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.vision-editor-overlay.is-panning {
+  cursor: grab;
+}
+
+.vision-editor-overlay.is-panning:active {
+  cursor: grabbing;
+}
+
+.vision-editor-overlay.is-drawing {
+  cursor: crosshair;
+}
+
+.vision-editor-overlay.is-selecting {
+  cursor: default;
+}
+
+@media (max-width: 980px) {
+  .vision-editor-topbar {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .vision-editor-status {
+    display: none;
+  }
+
+  .vision-editor-top-actions {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+}

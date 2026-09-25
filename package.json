@@ -9,9 +9,16 @@
     "lint": "oxlint",
     "test": "tsx --test src/**/*.test.ts",
     "preview": "vite preview",
-    "server": "tsx server/server.ts"
+    "server": "tsx server/server.ts",
+    "sync:srd-character-data": "node scripts/sync-srd-character-data.mjs",
+    "index:rulebooks": "python scripts/index-owned-rulebooks.py",
+    "test:platform": "node scripts/platform-integration-test.mjs",
+    "verify:foundation": "npm run test && npm run build && npm run typecheck:server && npm run test:platform",
+    "typecheck:server": "tsc -p tsconfig.server.json",
+    "index:rules-knowledge": "python scripts/build-rules-knowledge.py"
   },
   "dependencies": {
+    "@adkinn/fifth-edition-srd-mcp": "1.4.0",
     "express": "^5.2.1",
     "lucide-react": "^1.47.0",
     "multer": "^2.4.0",
@@ -19,7 +26,8 @@
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "socket.io": "^4.8.3",
-    "socket.io-client": "^4.8.3"
+    "socket.io-client": "^4.8.3",
+    "three": "^0.186.0"
   },
   "devDependencies": {
     "@types/express": "^5.0.6",
@@ -27,6 +35,7 @@
     "@types/node": "^24.13.5",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.7",
+    "@types/three": "^0.186.0",
     "@vitejs/plugin-react": "^6.1.1",
     "oxlint": "^1.81.0",
     "tsx": "^4.23.13",

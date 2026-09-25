@@ -1,0 +1,166 @@
+.world-map-launcher {
+  position: relative;
+  min-width: 250px;
+  height: 64px;
+  display: grid;
+  grid-template-columns: 82px minmax(0,1fr) 28px;
+  align-items: center;
+  gap: 10px;
+  padding: 6px;
+  overflow: hidden;
+  color: #e7edf3;
+  text-align: left;
+  border: 1px solid #647381;
+  border-radius: 3px;
+  background: linear-gradient(180deg,#252e35,#11171c);
+  box-shadow: inset 0 0 0 1px rgba(216,232,242,.06), 0 8px 20px rgba(0,0,0,.42);
+  cursor: pointer;
+}
+
+.world-map-launcher:hover:not(:disabled),
+.world-map-launcher:focus-visible {
+  border-color: #a9c2d3;
+  outline: none;
+  box-shadow: inset 0 0 0 1px rgba(215,232,243,.12), 0 0 0 2px rgba(105,163,202,.14);
+}
+
+.world-map-launcher:disabled { opacity: .58; cursor: default; }
+.world-map-launcher > img,
+.world-map-launcher-empty {
+  width: 82px;
+  height: 50px;
+  object-fit: cover;
+  border: 1px solid #87939d;
+  background: #0a0f13;
+}
+.world-map-launcher-empty { display:grid; place-items:center; color:#9eb4c2; font-size:1.45rem; }
+.world-map-launcher-copy { min-width:0; display:grid; align-content:center; gap:2px; }
+.world-map-launcher-copy small { color:#9fb5c4; font:.66rem var(--label); letter-spacing:.11em; }
+.world-map-launcher-copy strong { overflow:hidden; color:#edf2f6; font:.96rem var(--body); white-space:nowrap; text-overflow:ellipsis; }
+.world-map-launcher-copy em { color:#91a0aa; font-size:.66rem; font-style:normal; }
+.world-map-launcher-expand { display:grid; place-items:center; color:#b9c8d2; font-size:1.15rem; }
+.world-map-launcher.is-compact { min-width:0; width:100%; height:58px; grid-template-columns:58px minmax(0,1fr) 22px; }
+.world-map-launcher.is-compact > img,
+.world-map-launcher.is-compact .world-map-launcher-empty { width:58px; height:44px; }
+
+.world-map-modal {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+}
+
+.world-map-backdrop {
+  position:absolute;
+  inset:0;
+  border:0;
+  background: radial-gradient(circle at center,rgba(48,80,99,.18),transparent 45%), rgba(1,4,7,.9);
+  backdrop-filter: blur(6px);
+}
+
+.world-map-window {
+  position:relative;
+  width:min(1540px,96vw);
+  height:min(900px,93dvh);
+  min-height:420px;
+  display:grid;
+  grid-template-rows:70px minmax(0,1fr);
+  overflow:hidden;
+  border:3px solid #71838e;
+  border-radius:3px;
+  background:#080c0f;
+  box-shadow: inset 0 0 0 2px #111820, inset 0 0 0 5px rgba(154,173,187,.18), 0 28px 80px rgba(0,0,0,.78);
+}
+
+.world-map-window::before {
+  content:'';
+  position:absolute;
+  z-index:8;
+  top:-4px;
+  left:0;
+  right:0;
+  height:26px;
+  pointer-events:none;
+  background:url('/assets/ui/frozen-necropolis/ice-top-strip.png') top center / 100% 24px no-repeat;
+  opacity:.85;
+}
+
+.world-map-window::after {
+  content:'';
+  position:absolute;
+  z-index:7;
+  right:0;
+  bottom:0;
+  width:112px;
+  height:62%;
+  pointer-events:none;
+  background:url('/assets/ui/frozen-necropolis/ornament-necromancer-right-clean.png') right bottom / 112px auto no-repeat;
+  opacity:.82;
+}
+
+.world-map-header {
+  position:relative;
+  z-index:10;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  padding:12px 100px 9px 20px;
+  border-bottom:2px solid #667883;
+  background:linear-gradient(180deg,#27323a,#11171c 78%);
+  box-shadow:0 8px 24px rgba(0,0,0,.46);
+}
+.world-map-header > div { min-width:0; display:grid; gap:2px; }
+.world-map-header span { color:#95b4c7; font:.73rem var(--label); letter-spacing:.14em; }
+.world-map-header strong { overflow:hidden; color:#edf1f4; font:1.32rem var(--title); font-weight:400; white-space:nowrap; text-overflow:ellipsis; }
+.world-map-controls { display:flex; align-items:center; gap:5px; }
+.world-map-controls button,
+.world-map-controls output {
+  min-width:42px;
+  height:38px;
+  display:grid;
+  place-items:center;
+  padding:0 10px;
+  color:#d9e2e8;
+  border:1px solid #596773;
+  border-radius:3px;
+  background:linear-gradient(#28323a,#151c21);
+  font:.8rem var(--body);
+}
+.world-map-controls button { cursor:pointer; }
+.world-map-controls button:hover { border-color:#9bb4c5; background:linear-gradient(#34434e,#1a252d); }
+.world-map-controls output { min-width:68px; color:#bfe4fa; font-family:var(--number); font-size:.9rem; }
+.world-map-controls .world-map-close { margin-left:8px; color:#f1d9d9; border-color:#7b5d61; }
+
+.world-map-viewport {
+  position:relative;
+  z-index:2;
+  min-width:0;
+  min-height:0;
+  overflow:hidden;
+  touch-action:none;
+  cursor:grab;
+  background: radial-gradient(circle at center,rgba(76,111,134,.11),transparent 55%), #040709;
+}
+.world-map-viewport.is-dragging { cursor:grabbing; }
+.world-map-image { position:absolute; left:0; top:0; max-width:none; transform-origin:0 0; user-select:none; pointer-events:none; will-change:transform; box-shadow:0 0 80px rgba(0,0,0,.72); }
+.world-map-compass { position:absolute; z-index:4; top:24px; right:128px; width:78px; aspect-ratio:1; display:grid; place-items:center; color:rgba(220,231,238,.76); border:1px solid rgba(174,197,212,.34); border-radius:50%; background:rgba(5,10,14,.54); box-shadow:inset 0 0 22px rgba(121,181,219,.08); pointer-events:none; }
+.world-map-compass b { position:absolute; top:6px; font:.72rem var(--number); }
+.world-map-compass span { font-size:2.4rem; line-height:1; }
+.world-map-help { position:absolute; z-index:4; left:50%; bottom:18px; transform:translateX(-50%); padding:7px 12px; color:#b6c5ce; border:1px solid rgba(118,137,150,.5); border-radius:3px; background:rgba(8,13,17,.82); font-size:.72rem; pointer-events:none; }
+.world-map-load-error { position:absolute; z-index:8; inset:50% auto auto 50%; width:min(520px,calc(100% - 48px)); transform:translate(-50%,-50%); display:grid; gap:8px; padding:18px; color:#e9f0f4; border:1px solid #80666b; border-radius:4px; background:rgba(25,15,18,.94); box-shadow:0 18px 50px rgba(0,0,0,.55); text-align:center; }
+.world-map-load-error strong { font:1.1rem var(--body); }
+.world-map-load-error span { color:#c0c9ce; font-size:.82rem; }
+
+@media (max-width:760px) {
+  .world-map-modal { padding:0; }
+  .world-map-window { width:100vw; height:100dvh; border-radius:0; }
+  .world-map-header { align-items:flex-start; padding:8px; }
+  .world-map-header > div { display:none; }
+  .world-map-controls { width:100%; justify-content:center; flex-wrap:wrap; }
+  .world-map-controls .world-map-close { margin-left:auto; }
+  .world-map-window::after { display:none; }
+  .world-map-compass { right:24px; }
+}

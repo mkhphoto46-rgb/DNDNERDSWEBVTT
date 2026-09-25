@@ -1,4 +1,4 @@
-/*
+﻿/*
   MapViewport-specific styles and layout safety fixes.
   This file intentionally loads from MapViewport.tsx so these rules
   are applied after the main application styles.
@@ -61,6 +61,53 @@
   overflow-wrap: anywhere;
   color: #c8a879;
   font-size: 0.82rem;
+}
+
+.pixi-map-loading {
+  position: absolute;
+  z-index: 25;
+  inset: 0;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 8px;
+  padding: 24px;
+  color: #d8f2f7;
+  text-align: center;
+  background: rgba(2, 10, 15, .58);
+  backdrop-filter: blur(2px);
+  pointer-events: none;
+}
+
+.pixi-map-loading strong {
+  font-size: 14px;
+}
+
+.pixi-map-loading > span:not(.pixi-map-loading-spinner) {
+  max-width: min(80%, 420px);
+  overflow: hidden;
+  color: #b8d8df;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pixi-map-loading small {
+  color: #8eafb8;
+  font-size: 10px;
+}
+
+.pixi-map-loading-spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid rgba(172, 225, 236, .28);
+  border-top-color: #a7e7f4;
+  border-radius: 50%;
+  animation: pixi-map-loading-spin .8s linear infinite;
+}
+
+@keyframes pixi-map-loading-spin {
+  to { transform: rotate(360deg); }
 }
 
 .inspector,
@@ -144,56 +191,337 @@
   cursor: crosshair !important;
 }
 
-.pixi-map-host.is-token-drop-target::after {
-  content: 'DROP TOKEN HERE';
-  position: absolute;
-  z-index: 25;
-  inset: 12px;
-  display: grid;
-  place-items: center;
-  pointer-events: none;
-  color: #f2d08b;
-  border: 2px dashed rgba(239, 200, 115, 0.88);
-  border-radius: 10px;
-  background: rgba(36, 20, 9, 0.12);
-  box-shadow: inset 0 0 45px rgba(199, 149, 75, 0.12);
-  font-family: Georgia, 'Times New Roman', serif;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-}
 
-/* Token hover identity card */
-.token-hover-card {
+/* ===== Arcane Reach: compact icy DM measurement + AoE inspection ===== */
+.arcane-reach-panel {
   position: absolute;
   z-index: 42;
-  width: 200px;
-  min-height: 86px;
+  top: 12px;
+  left: 12px;
+  width: min(224px, calc(100% - 24px));
   display: grid;
-  gap: 3px;
-  padding: 10px 12px;
-  pointer-events: none;
-  color: #ead8b0;
-  border: 2px solid #c9954b;
-  border-radius: 7px;
+  grid-template-columns: 1fr;
+  gap: 7px;
+  padding: 9px;
+  color: var(--mg-text, #d6e2e6);
+  border: 1px solid var(--mg-border-active, #5a9fb2);
+  border-radius: 9px;
   background:
-    linear-gradient(180deg, rgba(49, 27, 14, 0.98), rgba(20, 10, 6, 0.98));
+    radial-gradient(circle at 16% 0%, rgba(120, 184, 200, 0.12), transparent 42%),
+    linear-gradient(180deg, rgba(22, 40, 49, 0.97), rgba(8, 17, 22, 0.97));
   box-shadow:
-    0 10px 26px rgba(0, 0, 0, 0.62),
-    inset 0 0 0 1px rgba(239, 208, 139, 0.1);
-  font-family: Georgia, 'Times New Roman', serif;
+    inset 0 0 0 1px rgba(168, 217, 227, 0.06),
+    0 10px 28px rgba(0, 0, 0, 0.46),
+    0 0 20px rgba(120, 184, 200, 0.06);
+  backdrop-filter: blur(8px);
 }
 
-.token-hover-card strong {
-  overflow: hidden;
-  color: #f0d39a;
-  font-size: 1rem;
-  line-height: 1.15;
-  text-overflow: ellipsis;
+.arcane-reach-panel > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--mg-border-soft, #203842);
+}
+
+.arcane-reach-panel > header > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+}
+
+.arcane-reach-panel > header svg {
+  width: 16px;
+  height: 16px;
+  color: var(--mg-ice-bright, #a8d9e3);
+  filter: drop-shadow(0 0 6px rgba(120, 184, 200, 0.22));
+}
+
+.arcane-reach-panel > header strong {
+  color: var(--mg-text-strong, #edf5f7);
+  font-family: var(--title, Georgia, serif);
+  font-size: 0.86rem;
+  letter-spacing: 0.08em;
+}
+
+.arcane-reach-close,
+.arcane-reach-clear,
+.arcane-reach-modes button {
+  min-height: 29px;
+  color: var(--mg-text-muted, #8da1a8);
+  border: 1px solid var(--mg-border, #2a4652);
+  border-radius: 6px;
+  background: rgba(13, 24, 30, 0.9);
+  cursor: pointer;
+  font-family: var(--body, Georgia, serif);
+  transition:
+    color 120ms ease,
+    border-color 120ms ease,
+    background 120ms ease,
+    box-shadow 120ms ease;
+}
+
+.arcane-reach-close {
+  width: 28px;
+  min-height: 28px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+}
+
+.arcane-reach-close:hover,
+.arcane-reach-clear:hover,
+.arcane-reach-modes button:hover,
+.arcane-reach-modes button.is-active {
+  color: var(--mg-text-strong, #edf5f7);
+  border-color: var(--mg-ice, #78b8c8);
+  background: rgba(29, 51, 61, 0.96);
+  box-shadow:
+    inset 0 0 0 1px rgba(168, 217, 227, 0.05),
+    0 0 10px rgba(120, 184, 200, 0.09);
+}
+
+.arcane-reach-modes {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4px;
+}
+
+.arcane-reach-modes button {
+  width: 100%;
+  min-height: 28px;
+  padding: 4px 9px;
+  text-align: left;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.arcane-reach-modes button.is-active {
+  position: relative;
+  color: var(--mg-ice-bright, #a8d9e3);
+  border-color: var(--mg-border-active, #5a9fb2);
+}
+
+.arcane-reach-modes button.is-active::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  left: 4px;
+  width: 2px;
+  border-radius: 999px;
+  background: var(--mg-ice, #78b8c8);
+  box-shadow: 0 0 7px rgba(120, 184, 200, 0.4);
+}
+
+.arcane-reach-readout {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+  padding: 7px 8px;
+  border: 1px solid var(--mg-border-soft, #203842);
+  border-left: 2px solid var(--mg-ice-dim, #4f8493);
+  border-radius: 6px;
+  background: rgba(8, 17, 22, 0.56);
+}
+
+.arcane-reach-readout strong {
+  color: var(--mg-ice-bright, #a8d9e3);
+  font-size: 0.82rem;
+}
+
+.arcane-reach-readout span,
+.arcane-reach-readout small {
+  min-width: 0;
+  color: var(--mg-text-muted, #8da1a8);
+  overflow-wrap: anywhere;
+}
+
+.arcane-reach-readout span {
+  font-size: 0.66rem;
+  line-height: 1.35;
+}
+
+.arcane-reach-readout small {
+  font-size: 0.62rem;
+  line-height: 1.3;
+}
+
+.arcane-reach-clear {
+  width: 100%;
+  padding: 5px 8px;
+  color: var(--mg-ice, #78b8c8);
   white-space: nowrap;
 }
 
-.token-hover-card span {
-  color: #cbb88e;
-  font-size: 0.82rem;
-  font-variant-numeric: tabular-nums;
+.pixi-map-host.is-arcane-reach-mode .pixi-map-canvas {
+  cursor: crosshair !important;
+}
+
+@media (max-width: 760px) {
+  .arcane-reach-panel {
+    top: 7px;
+    left: 7px;
+    width: min(204px, calc(100% - 14px));
+    gap: 5px;
+    padding: 7px;
+  }
+
+  .arcane-reach-panel > header strong {
+    font-size: 0.8rem;
+  }
+
+  .arcane-reach-modes button {
+    min-height: 27px;
+    font-size: 0.68rem;
+  }
+
+  .arcane-reach-readout {
+    padding: 6px 7px;
+  }
+}
+
+/* ===== Battlefield Door interaction ===== */
+
+.pixi-door-control {
+  position: absolute;
+  z-index: 48;
+  left: 50%;
+  bottom: 14px;
+  width: min(330px, calc(100% - 28px));
+  transform: translateX(-50%);
+  display: grid;
+  gap: 9px;
+  padding: 10px;
+  border: 1px solid rgba(126, 216, 238, 0.5);
+  border-radius: 10px;
+  background:
+    radial-gradient(circle at 18% 0%, rgba(110, 210, 232, 0.12), transparent 44%),
+    linear-gradient(180deg, rgba(14, 36, 46, 0.98), rgba(5, 18, 25, 0.98));
+  box-shadow:
+    inset 0 0 0 1px rgba(201, 242, 250, 0.05),
+    0 12px 32px rgba(0, 0, 0, 0.56);
+  color: #dff7fc;
+  backdrop-filter: blur(10px);
+}
+
+.pixi-door-control.is-open {
+  border-color: rgba(121, 216, 154, 0.58);
+}
+
+.pixi-door-control.is-locked {
+  border-color: rgba(224, 130, 139, 0.62);
+}
+
+.pixi-door-control > header {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.pixi-door-control > header > span {
+  min-width: 0;
+  display: grid;
+  gap: 1px;
+}
+
+.pixi-door-control > header small {
+  color: #79b9c9;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.pixi-door-control > header strong {
+  color: #ebfbff;
+  font-size: 13px;
+  line-height: 1.2;
+}
+
+.pixi-door-control > header em {
+  color: #83aeb8;
+  font-size: 9px;
+  font-style: normal;
+}
+
+.pixi-door-close-panel {
+  width: 30px;
+  height: 30px;
+  flex: 0 0 30px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid rgba(108, 190, 210, 0.34);
+  border-radius: 7px;
+  background: rgba(4, 20, 27, 0.74);
+  color: #b7dfe8;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.pixi-door-actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.pixi-door-actions.is-player {
+  grid-template-columns: 1fr;
+}
+
+.pixi-door-actions button {
+  min-height: 34px;
+  border: 1px solid rgba(100, 190, 212, 0.32);
+  border-radius: 7px;
+  background: rgba(8, 31, 41, 0.86);
+  color: #c8eaf2;
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.pixi-door-actions button:hover {
+  border-color: rgba(126, 220, 240, 0.62);
+  background: rgba(20, 64, 78, 0.92);
+  color: #f3fdff;
+}
+
+.pixi-door-actions button.is-active {
+  border-color: rgba(128, 226, 242, 0.7);
+  background: rgba(31, 91, 107, 0.78);
+  color: #effdff;
+}
+
+.pixi-door-actions button.is-danger {
+  border-color: rgba(209, 104, 116, 0.4);
+  color: #efbec3;
+}
+
+.pixi-door-actions button.is-danger.is-active {
+  border-color: rgba(235, 117, 130, 0.7);
+  background: rgba(104, 31, 40, 0.74);
+  color: #ffecef;
+}
+
+.pixi-door-locked-note {
+  padding: 9px 10px;
+  border: 1px solid rgba(210, 105, 117, 0.38);
+  border-radius: 7px;
+  background: rgba(85, 23, 31, 0.48);
+  color: #f0c2c7;
+  font-size: 10px;
+  line-height: 1.35;
+  text-align: center;
+}
+
+@media (max-width: 760px) {
+  .pixi-door-control {
+    bottom: 10px;
+    width: min(300px, calc(100% - 20px));
+  }
 }

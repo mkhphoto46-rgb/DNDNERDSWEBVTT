@@ -1,0 +1,628 @@
+/*
+ * M2.3 — Frozen Necropolis reference alignment.
+ * Visual/layout pass only. It intentionally does not alter Dice logic,
+ * sockets, combat rules, persistence, map state, or component handlers.
+ *
+ * Source of truth: the approved 1672×941 Frozen Necropolis reference.
+ */
+
+.table-shell {
+  --m23-ice-line: #657b88;
+  --m23-ice-hi: #b7d7e8;
+  --m23-deep: #050a0d;
+  --m23-panel: #101a20;
+  --m23-panel-2: #17252d;
+  --m23-paper: #d5d8d7;
+  --m23-paper-2: #c7cccd;
+  --m23-ink: #182126;
+}
+
+/* Remove the bad M2 ice strip (it contained pieces of the logo/text). */
+.table-shell::after {
+  display: none !important;
+}
+
+@media (min-width: 1181px) {
+  .table-shell.dm-shell {
+    grid-template:
+      'header header header' 94px
+      'tools stage inspector' minmax(0, 1fr)
+      'tools dock dock' 250px
+      / 120px minmax(0, 1fr) 390px !important;
+  }
+
+  .table-shell.player-shell,
+  .table-shell.player-shell.player-shell-with-sheet,
+  .table-shell.player-shell.player-spellbook-open {
+    grid-template:
+      'header header' 94px
+      'tools stage' minmax(0, 1fr)
+      'tools dock' 250px
+      / 120px minmax(0, 1fr) !important;
+  }
+
+  .table-shell.player-shell.player-shell-with-sheet {
+    grid-template-areas:
+      'header header'
+      'tools sheet'
+      'tools dock' !important;
+  }
+
+  .table-shell.player-shell.player-spellbook-open {
+    grid-template-areas:
+      'header header'
+      'tools stage'
+      'tools dock' !important;
+  }
+}
+
+/* ========================================================================== */
+/* HEADER — match the approved reference proportions                           */
+/* ========================================================================== */
+
+.table-shell > .table-header {
+  height: 94px !important;
+  min-height: 94px !important;
+  grid-template-columns: 420px 330px 200px minmax(300px, 1fr) 190px !important;
+  align-items: stretch !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  border: 0 !important;
+  border-bottom: 3px solid #687c88 !important;
+  background:
+    radial-gradient(circle at 17% -30%, rgba(112, 148, 169, .18), transparent 28%),
+    linear-gradient(180deg, #26313a 0%, #131b21 54%, #080d11 100%) !important;
+  box-shadow:
+    inset 0 -1px 0 rgba(226, 240, 247, .16),
+    0 9px 24px rgba(0, 0, 0, .68) !important;
+}
+
+.table-shell > .table-header::before {
+  display: block !important;
+  left: 0 !important;
+  top: 0 !important;
+  width: 92px !important;
+  height: 94px !important;
+  background: url('/assets/ui/frozen-necropolis/ornament-skull-top-left.png') left top / 92px auto no-repeat !important;
+  opacity: 1 !important;
+}
+
+.table-shell > .table-header::after {
+  display: block !important;
+  right: 0 !important;
+  top: 0 !important;
+  width: 80px !important;
+  height: 94px !important;
+  background: url('/assets/ui/frozen-necropolis/ornament-banner-right.png') right top / auto 145px no-repeat !important;
+  opacity: .92 !important;
+}
+
+.frozen-brand-block {
+  padding: 0 8px 0 82px !important;
+  overflow: hidden !important;
+  align-items: center !important;
+}
+
+.frozen-brand-block img {
+  width: 326px !important;
+  max-width: 326px !important;
+  height: 88px !important;
+  object-fit: contain !important;
+  object-position: left center !important;
+  filter: drop-shadow(0 5px 8px rgba(0,0,0,.72)) !important;
+}
+
+.frozen-scene-selector {
+  align-self: center !important;
+  justify-self: start !important;
+  width: 312px !important;
+  max-width: 312px !important;
+  height: 52px !important;
+  margin: 0 0 0 5px !important;
+  grid-template-columns: 36px minmax(0,1fr) 22px !important;
+  padding: 5px 10px !important;
+  border: 2px solid #4c575e !important;
+  border-radius: 2px !important;
+  background:
+    linear-gradient(180deg, #d9dbd7 0%, #c7c9c5 58%, #abb0af 100%) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.45),
+    inset 0 -8px 16px rgba(59,72,80,.11),
+    0 4px 10px rgba(0,0,0,.45) !important;
+}
+
+.frozen-scene-selector:hover {
+  border-color: #7f96a3 !important;
+  filter: brightness(1.035) !important;
+}
+
+.frozen-scene-icon {
+  color: #2d373d !important;
+  font-size: 1.18rem !important;
+}
+
+.frozen-scene-copy small {
+  color: #516068 !important;
+  font-size: .61rem !important;
+  letter-spacing: .15em !important;
+}
+
+.frozen-scene-copy strong {
+  color: #172026 !important;
+  font-size: .98rem !important;
+  font-weight: 500 !important;
+}
+
+.frozen-scene-chevron {
+  color: #2e393f !important;
+  font-size: 1.12rem !important;
+}
+
+.frozen-reference-motto {
+  width: 100% !important;
+  padding: 0 12px !important;
+  overflow: hidden !important;
+  transform: rotate(-4deg) !important;
+  color: #d0d6d9 !important;
+  text-align: center !important;
+  text-shadow: 0 2px 3px #000 !important;
+}
+
+.frozen-reference-motto span,
+.frozen-reference-motto b {
+  display: block !important;
+  white-space: nowrap !important;
+  font-family: Georgia, serif !important;
+  font-style: italic !important;
+  font-size: .98rem !important;
+  font-weight: 400 !important;
+  line-height: 1.02 !important;
+}
+
+.frozen-header-tools {
+  justify-content: flex-end !important;
+  gap: 4px !important;
+  padding: 0 14px !important;
+  overflow: hidden !important;
+}
+
+.frozen-header-tools > button:not(.frozen-search-button) {
+  flex: 0 0 38px !important;
+  width: 38px !important;
+  height: 38px !important;
+  color: #d5dde1 !important;
+  border-color: transparent !important;
+  background: transparent !important;
+}
+
+.frozen-search-button {
+  flex: 0 0 158px !important;
+  min-width: 158px !important;
+  max-width: 158px !important;
+  height: 40px !important;
+  margin-left: 7px !important;
+  color: #9baab3 !important;
+  border: 1px solid #4f616c !important;
+  background: #091015 !important;
+  box-shadow: inset 0 0 12px rgba(0,0,0,.45) !important;
+}
+
+.frozen-table-identity {
+  min-width: 0 !important;
+  padding: 0 68px 0 12px !important;
+  align-content: center !important;
+  overflow: hidden !important;
+}
+
+.frozen-table-identity small,
+.frozen-table-identity strong,
+.frozen-join-code {
+  max-width: 112px !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+  text-overflow: ellipsis !important;
+}
+
+.frozen-table-identity strong {
+  color: #eef3f5 !important;
+  font-size: .96rem !important;
+}
+
+/* ========================================================================== */
+/* LEFT TOOL RAIL — restore the approved/original reference icon artwork       */
+/* ========================================================================== */
+
+.table-shell > .tool-rail {
+  width: 120px !important;
+  min-width: 120px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  border: 0 !important;
+  border-right: 3px solid #657985 !important;
+  background: linear-gradient(90deg, #0b1217, #172129 72%, #0a1014) !important;
+  box-shadow: 8px 0 20px rgba(0,0,0,.42) !important;
+}
+
+/* This is the exact tool art from the approved reference: Tokens / Scene /
+   Measure / Journal / Party. The live buttons remain on top as hit-zones. */
+.table-shell > .tool-rail::before {
+  content: '' !important;
+  display: block !important;
+  position: absolute !important;
+  z-index: 1 !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 120px !important;
+  height: 515px !important;
+  pointer-events: none !important;
+  background: url('/assets/ui/frozen-necropolis/left-tools-reference.png') left top / 120px 515px no-repeat !important;
+  opacity: 1 !important;
+}
+
+.table-shell > .tool-rail::after {
+  content: '' !important;
+  display: block !important;
+  position: absolute !important;
+  z-index: 1 !important;
+  left: 0 !important;
+  bottom: 0 !important;
+  width: 120px !important;
+  height: min(311px, 35vh) !important;
+  pointer-events: none !important;
+  background: url('/assets/ui/frozen-necropolis/ornament-hooded-left-clean.png') left bottom / 120px auto no-repeat !important;
+  opacity: .96 !important;
+}
+
+.frozen-primary-tools {
+  position: relative !important;
+  z-index: 4 !important;
+  width: 120px !important;
+  height: 515px !important;
+  padding: 0 !important;
+  display: grid !important;
+  grid-template-rows: repeat(5, 103px) !important;
+  gap: 0 !important;
+}
+
+.frozen-primary-tools button {
+  position: relative !important;
+  display: block !important;
+  width: 120px !important;
+  height: 103px !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  color: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.frozen-primary-tools button > span,
+.frozen-primary-tools button > b {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.frozen-primary-tools button:hover::after,
+.frozen-primary-tools button.is-active::after {
+  content: '' !important;
+  display: block !important;
+  position: absolute !important;
+  inset: 7px 9px !important;
+  pointer-events: none !important;
+  border: 2px solid rgba(145, 207, 238, .82) !important;
+  border-radius: 4px !important;
+  background: rgba(105, 184, 224, .035) !important;
+  box-shadow:
+    0 0 11px rgba(82,180,230,.32),
+    inset 0 0 13px rgba(92,187,234,.08) !important;
+}
+
+/* Map camera controls stay live, but sit over the map like the reference. */
+.camera-rail-controls,
+.tool-mode-group {
+  top: 106px !important;
+  z-index: 120 !important;
+  padding: 4px !important;
+  border: 1px solid #526773 !important;
+  background: rgba(7, 13, 17, .94) !important;
+  box-shadow: 0 5px 15px rgba(0,0,0,.42) !important;
+}
+
+.dm-shell .camera-rail-controls { right: 402px !important; }
+.dm-shell .tool-mode-group { right: 592px !important; }
+.player-shell .camera-rail-controls { right: 12px !important; }
+.player-shell .tool-mode-group { right: 202px !important; }
+
+/* ========================================================================== */
+/* BATTLEFIELD — clean frame, no duplicated logo strip                         */
+/* ========================================================================== */
+
+.table-shell > .battlefield {
+  padding: 7px 8px 7px !important;
+  background: #03070a !important;
+}
+
+.table-shell .battlefield-frame {
+  padding: 9px !important;
+  border: 3px solid #687d89 !important;
+  background: #05090c !important;
+  box-shadow:
+    inset 0 0 0 2px #020507,
+    inset 0 0 0 5px rgba(212,235,246,.07),
+    0 12px 28px rgba(0,0,0,.65) !important;
+}
+
+.table-shell .battlefield-frame::before {
+  content: '' !important;
+  display: block !important;
+  position: absolute !important;
+  z-index: 70 !important;
+  top: -5px !important;
+  left: -3px !important;
+  right: -3px !important;
+  height: 18px !important;
+  pointer-events: none !important;
+  border: 0 !important;
+  background: url('/assets/ui/frozen-necropolis/frozen-divider-clean.png') center top / 100% 18px no-repeat !important;
+  opacity: .88 !important;
+}
+
+.table-shell .battlefield-frame::after {
+  opacity: .72 !important;
+}
+
+/* ========================================================================== */
+/* RIGHT RAIL — remove ghost screenshot content; style the live panels         */
+/* ========================================================================== */
+
+.table-shell.dm-shell > .inspector {
+  width: 390px !important;
+  min-width: 390px !important;
+  grid-template-rows: minmax(272px, 48%) 0 minmax(0, 52%) !important;
+  overflow: hidden !important;
+  border-left: 3px solid #667b87 !important;
+  background: #080e12 !important;
+  box-shadow: -8px 0 22px rgba(0,0,0,.42) !important;
+}
+
+.table-shell.dm-shell > .inspector::after {
+  display: block !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 86px !important;
+  height: 100% !important;
+  background: url('/assets/ui/frozen-necropolis/ornament-necromancer-right-clean.png') right bottom / 86px auto no-repeat !important;
+  opacity: .92 !important;
+}
+
+.initiative-order-slot-right {
+  margin-right: 78px !important;
+  padding: 0 !important;
+  overflow: auto !important;
+  border-bottom: 2px solid #657b87 !important;
+  background: linear-gradient(180deg, #172229, #0a1014 78%) !important;
+}
+
+/* M2 used a screenshot of sample initiative rows behind the live UI. Disable
+   it: it caused the doubled/ghost Turn Order visible in the screenshots. */
+.initiative-order-slot-right::after {
+  display: none !important;
+}
+
+.initiative-order-slot-right .initiative-panel {
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+}
+
+.initiative-order-slot-right .initiative-panel-heading,
+.initiative-order-slot-right .initiative-console-header {
+  position: sticky !important;
+  z-index: 12 !important;
+  top: 0 !important;
+  margin: 0 !important;
+  min-height: 48px !important;
+  padding: 10px 12px !important;
+  color: #172026 !important;
+  border-bottom: 1px solid #727d82 !important;
+  background: linear-gradient(180deg, #dde0de, #c6cbca) !important;
+}
+
+.initiative-order-slot-right .initiative-panel-heading *,
+.initiative-order-slot-right .initiative-console-header * {
+  color: #172026 !important;
+}
+
+.initiative-order-slot-right .initiative-row,
+.initiative-order-slot-right .initiative-participant-row,
+.initiative-order-slot-right .initiative-selection-group,
+.initiative-order-slot-right .initiative-console-group,
+.initiative-order-slot-right .initiative-player-roll-card,
+.initiative-order-slot-right .initiative-player-wait-card,
+.initiative-order-slot-right .initiative-roster-warning {
+  margin: 0 8px 4px !important;
+  color: #eef4f6 !important;
+  border: 1px solid #4e5e67 !important;
+  border-radius: 2px !important;
+  background: linear-gradient(180deg, #252d32, #151b1f) !important;
+}
+
+.initiative-order-slot-right .initiative-row.is-current,
+.initiative-order-slot-right .initiative-participant-row.is-ready {
+  border-color: #c06468 !important;
+  background: linear-gradient(90deg, #713236, #342124 85%) !important;
+}
+
+.inspector-body {
+  margin-right: 78px !important;
+  padding: 0 12px 14px !important;
+  overflow: auto !important;
+  color: var(--m23-ink) !important;
+  background: linear-gradient(180deg, #d9dcda, #c8cdcc) !important;
+  scrollbar-color: #7d8a90 #c7cccd !important;
+}
+
+.inspector-body::after {
+  display: none !important;
+}
+
+.inspector-body > section,
+.inspector-body article,
+.inspector-body div,
+.inspector-body label,
+.inspector-body p,
+.inspector-body strong,
+.inspector-body h1,
+.inspector-body h2,
+.inspector-body h3,
+.inspector-body h4,
+.inspector-body dt,
+.inspector-body dd {
+  color: #182126 !important;
+}
+
+.inspector-body small,
+.inspector-body em,
+.inspector-body .empty-note {
+  color: #5b6970 !important;
+}
+
+.inspector-body .panel-heading {
+  position: sticky !important;
+  z-index: 10 !important;
+  top: 0 !important;
+  margin: 0 -12px 10px !important;
+  padding: 9px 12px !important;
+  border-bottom: 1px solid #7b8589 !important;
+  background: linear-gradient(180deg, #e2e2dd, #c9ccca) !important;
+}
+
+.inspector-body .panel-heading > span { color: #5c6870 !important; }
+.inspector-body .panel-heading h2 { color: #172026 !important; }
+
+.inspector-body article,
+.inspector-body .party-card,
+.inspector-body .party-xp-award,
+.inspector-body .party-member,
+.inspector-body .health-panel,
+.inspector-body .grid-editor,
+.inspector-body .map-card,
+.inspector-body .map-role-card,
+.inspector-body .world-map-upload-block,
+.inspector-body .session-card,
+.inspector-body .rules-library-hero,
+.inspector-body .rules-library-results,
+.inspector-body .rules-library-detail,
+.inspector-body .monster-card,
+.inspector-body .actor-card,
+.inspector-body .token-card {
+  color: #182126 !important;
+  border-color: #8c969a !important;
+  background: rgba(232, 234, 232, .88) !important;
+  box-shadow: none !important;
+}
+
+.inspector-body button,
+.inspector-body input,
+.inspector-body select,
+.inspector-body textarea {
+  color: #172026 !important;
+  border-color: #78868d !important;
+  background: #eef0ee !important;
+}
+
+.inspector-body button:hover,
+.inspector-body button.is-active,
+.inspector-body .primary-button {
+  color: #eef7fa !important;
+  border-color: #83bfdc !important;
+  background: linear-gradient(180deg, #315264, #183541) !important;
+}
+
+/* ========================================================================== */
+/* BOTTOM DOCK — reference height/spacing; dice internals intentionally intact */
+/* ========================================================================== */
+
+.table-shell > .bottom-dock.frozen-reference-dock {
+  height: 250px !important;
+  min-height: 250px !important;
+  grid-template-columns: 23.5% 21.6% 25.4% minmax(0, 29.5%) !important;
+  gap: 4px !important;
+  padding: 5px 6px 8px !important;
+  overflow: hidden !important;
+  border-top: 3px solid #667b87 !important;
+  background: linear-gradient(180deg, #111a20, #05090c) !important;
+}
+
+.reference-rolls-panel,
+.reference-chat-panel,
+.reference-quickbar-panel,
+.reference-world-panel {
+  min-width: 0 !important;
+  min-height: 0 !important;
+  border: 2px solid #617786 !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(224,239,247,.07),
+    inset 0 0 20px rgba(0,0,0,.22) !important;
+}
+
+/* Chat stays in the approved light treatment. */
+.reference-chat-panel {
+  background: linear-gradient(180deg, #26343d 0 40px, #d7dbdc 40px 100%) !important;
+}
+
+.reference-quickbar-panel {
+  background: linear-gradient(180deg, #26343d 0 40px, #cbd3d6 40px 100%) !important;
+}
+
+.reference-world-panel {
+  background: linear-gradient(180deg, #26343d 0 38px, #cbd3d6 38px 100%) !important;
+}
+
+/* Keep all dice controls/content untouched. Geometry only comes from the dock. */
+
+/* ========================================================================== */
+/* PLAYER SHEET / SPELLBOOK — do not let the fixed header/dock overlap content */
+/* ========================================================================== */
+
+.table-shell.player-shell.player-shell-with-sheet > .player-sheet-panel {
+  grid-area: sheet !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  height: 100% !important;
+  padding: 12px 18px 18px !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+}
+
+.table-shell .player-sheet-panel .character-sheet,
+.table-shell .player-sheet-panel .character-sheet-empty {
+  width: min(100%, 1320px) !important;
+  max-width: 1320px !important;
+  margin: 0 auto !important;
+}
+
+.table-shell .dm-spellbook-stage,
+.table-shell .player-spellbook-stage {
+  min-width: 0 !important;
+  min-height: 0 !important;
+  height: 100% !important;
+  overflow: hidden !important;
+}
+
+/* Preserve mobile behavior from the existing app; M2.3 is desktop-reference
+   alignment only. */
+@media (max-width: 1180px) {
+  .table-shell > .table-header,
+  .table-shell > .tool-rail,
+  .table-shell.dm-shell > .inspector,
+  .table-shell > .bottom-dock.frozen-reference-dock {
+    width: auto !important;
+    min-width: 0 !important;
+  }
+}

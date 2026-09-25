@@ -1,0 +1,1240 @@
+/*
+ * Ghost Theory / D&D Nerds — Frozen Necropolis exact-shell pass.
+ *
+ * This stylesheet deliberately overrides the old wood/brass shell instead of
+ * recolouring it. The live React/Pixi mechanics stay intact; layout, chrome,
+ * panel surfaces and interaction hit-zones follow the approved reference.
+ */
+
+.table-shell {
+  --bg: #05090d;
+  --panel: #11171d;
+  --panel-2: #1b232a;
+  --wood: #161d23;
+  --wood-light: #29333b;
+  --brass: #8fa3af;
+  --brass-light: #d5e0e6;
+  --parchment: #d8d4ca;
+  --muted: #9aa7b0;
+  --border: #677781;
+  --green: #78b98e;
+  --ice: #9edbfb;
+  --ice-2: #5ca7cf;
+  --stone-0: #05080b;
+  --stone-1: #0e1419;
+  --stone-2: #192229;
+  --stone-3: #2b363e;
+  --paper: #d8d5cb;
+  --ink: #161a1d;
+  --danger: #b86166;
+
+  position: relative;
+  isolation: isolate;
+  width: 100vw;
+  height: 100dvh;
+  overflow: hidden;
+  color: #eef3f6;
+  background:
+    radial-gradient(circle at 50% 16%, rgba(61, 112, 143, .14), transparent 35%),
+    linear-gradient(180deg, #11181e 0%, #05090c 48%, #020405 100%);
+}
+
+.table-shell::before {
+  content: '';
+  position: fixed;
+  z-index: 900;
+  inset: 0;
+  pointer-events: none;
+  border: 2px solid #697a85;
+  box-shadow:
+    inset 0 0 0 2px #0b1115,
+    inset 0 0 0 4px rgba(207, 226, 238, .15),
+    inset 0 0 42px rgba(88, 169, 216, .06);
+}
+
+.table-shell::after {
+  content: '';
+  position: fixed;
+  z-index: 901;
+  top: 0;
+  left: 6.5%;
+  right: 8%;
+  height: 24px;
+  pointer-events: none;
+  background: url('/assets/ui/frozen-necropolis/ice-top-strip.png') top center / 100% 24px no-repeat;
+  opacity: .9;
+}
+
+@media (min-width: 1181px) {
+  .dm-shell {
+    display: grid !important;
+    grid-template:
+      'header header header' 90px
+      'tools stage inspector' minmax(0, 1fr)
+      'tools dock dock' 220px
+      / 120px minmax(0, 1fr) 430px !important;
+  }
+
+  .player-shell {
+    display: grid !important;
+    grid-template:
+      'header header' 90px
+      'tools stage' minmax(0, 1fr)
+      'tools dock' 220px
+      / 120px minmax(0, 1fr) !important;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Header — exact hierarchy from the reference                                */
+/* -------------------------------------------------------------------------- */
+
+.table-header {
+  grid-area: header;
+  position: relative;
+  z-index: 50;
+  min-width: 0;
+  display: grid !important;
+  grid-template-columns: 355px minmax(250px, 1fr) 190px minmax(280px, .95fr) 190px;
+  align-items: stretch;
+  gap: 0;
+  padding: 0 8px 0 0 !important;
+  border: 0 !important;
+  border-bottom: 3px solid #657681 !important;
+  background:
+    linear-gradient(180deg, #242d34 0%, #11171c 58%, #080c0f 100%) !important;
+  box-shadow:
+    inset 0 -1px 0 rgba(218, 231, 239, .18),
+    0 10px 28px rgba(0, 0, 0, .7) !important;
+}
+
+.table-header::before {
+  content: '';
+  position: absolute;
+  z-index: 4;
+  left: 0;
+  top: 0;
+  width: 120px;
+  height: 100px;
+  pointer-events: none;
+  background: url('/assets/ui/frozen-necropolis/ornament-skull-top-left.png') left top / 120px 100px no-repeat;
+}
+
+.table-header::after {
+  content: '';
+  position: absolute;
+  z-index: 3;
+  right: 0;
+  top: 0;
+  width: 110px;
+  height: 90px;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, transparent, rgba(9, 14, 18, .35)),
+    url('/assets/ui/frozen-necropolis/ornament-banner-right.png') right top / auto 195px no-repeat;
+  opacity: .75;
+}
+
+.frozen-brand-block {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  padding-left: 105px;
+  overflow: hidden;
+}
+
+.frozen-brand-block img {
+  width: 250px;
+  max-width: calc(100% - 8px);
+  height: 72px;
+  object-fit: contain;
+  object-position: left center;
+  filter: drop-shadow(0 5px 9px rgba(0, 0, 0, .75));
+}
+
+.frozen-scene-selector {
+  align-self: center;
+  min-width: 0;
+  height: 54px;
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr) 24px;
+  align-items: center;
+  gap: 6px;
+  margin: 0 8px;
+  padding: 6px 10px;
+  color: #13191d !important;
+  text-align: left;
+  border: 2px solid #434c52 !important;
+  border-radius: 2px !important;
+  background:
+    linear-gradient(180deg, #d7d6cf, #bdbdb7 62%, #a7a9a6) !important;
+  box-shadow:
+    inset 0 0 0 2px rgba(255,255,255,.22),
+    0 4px 10px rgba(0,0,0,.45) !important;
+  cursor: pointer;
+}
+
+.frozen-scene-selector:hover {
+  border-color: #8397a3 !important;
+  filter: brightness(1.04);
+}
+
+.frozen-scene-icon {
+  display: grid;
+  place-items: center;
+  color: #30383d;
+  font-size: 1.45rem;
+}
+
+.frozen-scene-copy {
+  min-width: 0;
+  display: grid;
+  gap: 1px;
+}
+
+.frozen-scene-copy small {
+  color: #4b555b !important;
+  font: .58rem var(--label);
+  letter-spacing: .12em;
+}
+
+.frozen-scene-copy strong {
+  overflow: hidden;
+  color: #11171b;
+  font: 1rem var(--body);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.frozen-scene-chevron {
+  color: #30383e;
+  font-size: 1.3rem;
+}
+
+.frozen-reference-motto {
+  display: grid;
+  place-content: center;
+  transform: rotate(-4deg);
+  color: #c4c8c9;
+  text-align: center;
+  text-shadow: 0 2px 3px #000;
+}
+
+.frozen-reference-motto span,
+.frozen-reference-motto b {
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.05;
+}
+
+.frozen-reference-motto span { font-size: 1rem; }
+.frozen-reference-motto b { font-size: 1.05rem; }
+
+.frozen-header-tools {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  padding: 0 8px;
+}
+
+.frozen-header-tools > button:not(.frozen-search-button) {
+  width: 42px;
+  height: 42px;
+  padding: 0 !important;
+  color: #d5dadc !important;
+  border: 1px solid transparent !important;
+  border-radius: 3px !important;
+  background: transparent !important;
+  font: 1.25rem var(--body);
+  cursor: pointer;
+}
+
+.frozen-header-tools > button:not(.frozen-search-button):hover {
+  color: #fff !important;
+  border-color: #586772 !important;
+  background: rgba(126, 155, 174, .08) !important;
+}
+
+.frozen-search-button {
+  min-width: 160px;
+  height: 42px;
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  align-items: center;
+  margin-left: 7px;
+  padding: 0 11px !important;
+  color: #97a4ac !important;
+  text-align: left;
+  border: 1px solid #4a5963 !important;
+  border-radius: 3px !important;
+  background: #0c1115 !important;
+  box-shadow: inset 0 0 12px rgba(0,0,0,.42) !important;
+}
+
+.frozen-search-button em {
+  font: .86rem var(--body);
+  font-style: normal;
+}
+
+.frozen-table-identity {
+  position: relative;
+  z-index: 5;
+  min-width: 0;
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: 1px;
+  padding: 0 78px 0 12px;
+}
+
+.frozen-table-identity small {
+  max-width: 100%;
+  overflow: hidden;
+  color: #9ca8af !important;
+  font-size: .68rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.frozen-table-identity strong {
+  max-width: 100%;
+  overflow: hidden;
+  color: #edf1f3;
+  font: 1rem var(--body);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.frozen-join-code {
+  margin-top: 3px;
+  color: #aac9db;
+  font: .68rem var(--number);
+  letter-spacing: .09em;
+}
+
+.frozen-leave-table {
+  height: 26px;
+  margin-top: 3px;
+  padding: 0 8px !important;
+  color: #bdc8ce !important;
+  border: 1px solid #566671 !important;
+  background: #12191e !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Left rail — exact reference artwork with live invisible hit-zones           */
+/* -------------------------------------------------------------------------- */
+
+.tool-rail {
+  grid-area: tools;
+  position: relative;
+  z-index: 30;
+  min-width: 0;
+  min-height: 0;
+  display: block !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  border: 0 !important;
+  border-right: 3px solid #64747e !important;
+  background:
+    linear-gradient(90deg, #0d1419, #182128 72%, #0a0f13) !important;
+  box-shadow: 8px 0 20px rgba(0,0,0,.42);
+}
+
+.tool-rail::before {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 120px;
+  height: 515px;
+  pointer-events: none;
+  background: url('/assets/ui/frozen-necropolis/left-tools-reference.png') left top / 120px 515px no-repeat;
+}
+
+.tool-rail::after {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  bottom: 0;
+  width: 125px;
+  height: min(311px, 36vh);
+  pointer-events: none;
+  background: url('/assets/ui/frozen-necropolis/ornament-hooded-left-clean.png') left bottom / 125px auto no-repeat;
+}
+
+.frozen-primary-tools {
+  position: relative;
+  z-index: 4;
+  width: 120px;
+  height: 515px;
+  display: grid !important;
+  grid-template-rows: repeat(5, 103px);
+  gap: 0 !important;
+}
+
+.frozen-primary-tools button {
+  position: relative;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  padding: 0 !important;
+  color: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  cursor: pointer;
+}
+
+.frozen-primary-tools button > span,
+.frozen-primary-tools button > b {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.frozen-primary-tools button:hover::after,
+.frozen-primary-tools button.is-active::after {
+  content: '';
+  position: absolute;
+  inset: 8px 10px;
+  border: 2px solid rgba(131, 204, 243, .75);
+  border-radius: 5px;
+  box-shadow:
+    0 0 10px rgba(80, 180, 233, .26),
+    inset 0 0 12px rgba(91, 182, 231, .08);
+  pointer-events: none;
+}
+
+/* Functional map camera/tool controls are moved to the top-right of the map,
+   matching the reference instead of consuming left-rail space. */
+.camera-rail-controls,
+.tool-mode-group {
+  position: fixed;
+  z-index: 80;
+  top: 100px;
+  display: flex !important;
+  align-items: center;
+  gap: 4px !important;
+  padding: 4px !important;
+  border: 1px solid #52626d !important;
+  border-radius: 3px;
+  background: rgba(8, 13, 17, .9) !important;
+  box-shadow: 0 5px 15px rgba(0,0,0,.38);
+}
+
+.camera-rail-controls {
+  right: 445px;
+}
+
+.tool-mode-group {
+  right: 642px;
+}
+
+.camera-rail-controls strong,
+.camera-rail-controls button,
+.tool-mode-group button {
+  min-width: 34px !important;
+  width: auto !important;
+  min-height: 30px !important;
+  height: 30px !important;
+  margin: 0 !important;
+  padding: 0 8px !important;
+  color: #d9e2e7 !important;
+  border: 1px solid #485660 !important;
+  border-radius: 2px !important;
+  background: linear-gradient(#28323a, #11181d) !important;
+  font: .7rem var(--body) !important;
+}
+
+.camera-rail-controls strong {
+  display: grid;
+  place-items: center;
+  color: #c8dbe6 !important;
+  font-family: var(--number) !important;
+}
+
+.tool-mode-group button.is-active {
+  border-color: #88bad4 !important;
+  box-shadow: inset 0 -2px #6cbde8 !important;
+}
+
+.tool-mode-group .tool-icon { display: none; }
+
+/* M1/M1.2 duplicate mobile DM controls do not belong in the desktop shell. */
+.dm-mobile-initiative-slot,
+.dm-mobile-map-tools,
+.player-mobile-initiative-slot {
+  display: none !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Battlefield                                                                 */
+/* -------------------------------------------------------------------------- */
+
+.battlefield {
+  grid-area: stage;
+  min-width: 0;
+  min-height: 0;
+  padding: 8px 8px 6px !important;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 40%, rgba(53, 92, 116, .09), transparent 55%),
+    #05090c !important;
+}
+
+.battlefield-frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  padding: 11px !important;
+  overflow: visible;
+  border: 3px solid #6f808b !important;
+  border-radius: 2px !important;
+  background: #070b0e !important;
+  box-shadow:
+    inset 0 0 0 2px #05080a,
+    inset 0 0 0 5px rgba(193, 216, 229, .12),
+    inset 0 0 25px rgba(79, 153, 196, .07),
+    0 10px 30px rgba(0,0,0,.65) !important;
+}
+
+.battlefield-frame::before {
+  content: '' !important;
+  position: absolute !important;
+  z-index: 70 !important;
+  left: -4px !important;
+  right: -4px !important;
+  top: -7px !important;
+  height: 27px !important;
+  pointer-events: none;
+  border: 0 !important;
+  background:
+    url('/assets/ui/frozen-necropolis/ice-top-strip.png') center top / 100% 24px no-repeat !important;
+  opacity: .72;
+}
+
+.battlefield-frame::after {
+  content: '' !important;
+  position: absolute !important;
+  z-index: 70 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: -3px !important;
+  height: 17px !important;
+  pointer-events: none;
+  border: 0 !important;
+  background:
+    linear-gradient(180deg, transparent, rgba(157, 193, 213, .1)),
+    repeating-linear-gradient(90deg, #42515b 0 30px, #27323a 30px 32px, #6e7d86 32px 34px) !important;
+  opacity: .75;
+}
+
+.pixi-map-host {
+  border: 1px solid #11191e !important;
+  border-radius: 0 !important;
+  background: #020304 !important;
+  box-shadow:
+    inset 0 0 80px rgba(0,0,0,.7),
+    0 0 0 1px rgba(166, 194, 210, .08) !important;
+}
+
+.pixi-empty-map,
+.pixi-empty-map strong {
+  color: #b5c2ca !important;
+}
+
+.scene-title { display: none !important; }
+
+/* -------------------------------------------------------------------------- */
+/* Right rail: initiative over inspector, matching reference                   */
+/* -------------------------------------------------------------------------- */
+
+.inspector {
+  grid-area: inspector;
+  position: relative;
+  z-index: 28;
+  min-width: 0;
+  min-height: 0;
+  display: grid !important;
+  grid-template-rows: 46% 0 minmax(0, 54%) !important;
+  overflow: hidden;
+  border: 0 !important;
+  border-left: 3px solid #657681 !important;
+  background: #0c1115 !important;
+  box-shadow: -10px 0 24px rgba(0,0,0,.42) !important;
+}
+
+.inspector::after {
+  content: '';
+  position: absolute;
+  z-index: 30;
+  right: 0;
+  top: 28%;
+  bottom: 0;
+  width: 112px;
+  pointer-events: none;
+  background: url('/assets/ui/frozen-necropolis/ornament-necromancer-right-clean.png') right bottom / 112px auto no-repeat;
+}
+
+.initiative-order-slot-right {
+  position: relative;
+  z-index: 3;
+  min-width: 0;
+  min-height: 0;
+  margin-right: 88px;
+  overflow: auto !important;
+  border: 0 !important;
+  border-bottom: 2px solid #687985 !important;
+  background:
+    linear-gradient(180deg, #1a2228, #0a0f13 70%) !important;
+  scrollbar-width: thin;
+  scrollbar-color: #61737f #0b1115;
+}
+
+.initiative-order-slot-right::after {
+  content: '';
+  position: absolute;
+  z-index: 20;
+  inset: 0;
+  pointer-events: none;
+  background: url('/assets/ui/frozen-necropolis/initiative-frame-reference.png') 0 0 / 100% 100% no-repeat;
+  opacity: .62;
+}
+
+.initiative-order-slot-right .initiative-panel {
+  position: relative;
+  z-index: 4;
+  width: 100%;
+  min-height: 100%;
+  padding: 8px !important;
+  color: #e9eef1 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.initiative-order-slot-right .initiative-panel-heading,
+.initiative-order-slot-right .initiative-console-header {
+  position: sticky;
+  z-index: 12;
+  top: 0;
+  margin: -8px -8px 6px !important;
+  padding: 10px 14px !important;
+  color: #f0f3f4 !important;
+  border-bottom: 1px solid #576773 !important;
+  background: linear-gradient(180deg, #27323a, #12191e) !important;
+}
+
+.initiative-order-slot-right .initiative-panel-heading h2,
+.initiative-order-slot-right .initiative-panel-heading strong,
+.initiative-order-slot-right .initiative-console-header h2,
+.initiative-order-slot-right .initiative-console-header strong {
+  color: #f0f2f3 !important;
+}
+
+.initiative-order-slot-right .initiative-row,
+.initiative-order-slot-right .initiative-participant-row,
+.initiative-order-slot-right .initiative-selection-group,
+.initiative-order-slot-right .initiative-console-group,
+.initiative-order-slot-right .initiative-player-roll-card,
+.initiative-order-slot-right .initiative-player-wait-card,
+.initiative-order-slot-right .initiative-roster-warning {
+  color: #e5e9eb !important;
+  border-color: #414e57 !important;
+  background: linear-gradient(180deg, #252d33, #141a1f) !important;
+  box-shadow: none !important;
+}
+
+.initiative-order-slot-right .initiative-row.is-current,
+.initiative-order-slot-right .initiative-participant-row.is-ready {
+  border-color: #b45e62 !important;
+  background: linear-gradient(90deg, #6b2c30, #342126 82%) !important;
+}
+
+.initiative-order-slot-right button,
+.initiative-order-slot-right input,
+.initiative-order-slot-right select {
+  color: #e8edf0 !important;
+  border-color: #53626c !important;
+  background: #151d22 !important;
+}
+
+.initiative-order-slot-right button:hover {
+  border-color: #8fa8b7 !important;
+  background: #22303a !important;
+}
+
+/* The old 9-button inspector tab matrix is functionally replaced by the left
+   toolbar + header actions. Hiding it is necessary to match the reference. */
+.inspector-tabs { display: none !important; }
+
+.inspector-body {
+  position: relative;
+  z-index: 4;
+  min-width: 0;
+  min-height: 0;
+  margin-right: 88px;
+  overflow: auto !important;
+  padding: 14px 16px 20px !important;
+  color: #171b1e !important;
+  background:
+    linear-gradient(rgba(217,214,205,.96), rgba(199,198,191,.98)),
+    #d3d0c7 !important;
+  scrollbar-width: thin;
+  scrollbar-color: #7a8083 #c9c7bf;
+}
+
+.inspector-body::after {
+  content: '';
+  position: fixed;
+  pointer-events: none;
+}
+
+.inspector-body > section {
+  color: #181c1f !important;
+}
+
+.inspector-body .panel-heading {
+  margin: -14px -16px 12px !important;
+  padding: 10px 14px !important;
+  border: 0 !important;
+  border-bottom: 1px solid #7f8588 !important;
+  background: linear-gradient(180deg, #e0ddd4, #c7c5bd) !important;
+}
+
+.inspector-body .panel-heading > span {
+  color: #59636a !important;
+  font-size: .66rem !important;
+}
+
+.inspector-body .panel-heading h2 {
+  margin-top: 3px !important;
+  color: #171c20 !important;
+  font-size: 1.35rem !important;
+}
+
+/* Kill brown inheritance from the legacy stylesheet inside the inspector. */
+.inspector-body article,
+.inspector-body .party-card,
+.inspector-body .health-panel,
+.inspector-body .grid-editor,
+.inspector-body .map-card,
+.inspector-body .map-role-card,
+.inspector-body .world-map-upload-block,
+.inspector-body .session-card,
+.inspector-body .rules-library-hero,
+.inspector-body .rules-library-results,
+.inspector-body .rules-library-detail,
+.inspector-body .monster-card,
+.inspector-body .actor-card,
+.inspector-body .token-card {
+  color: #1a1e20 !important;
+  border-color: #8d8d87 !important;
+  background: linear-gradient(180deg, #e2dfd5, #c9c7bf) !important;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.22) !important;
+}
+
+.inspector-body strong,
+.inspector-body h1,
+.inspector-body h2,
+.inspector-body h3,
+.inspector-body h4,
+.inspector-body label,
+.inspector-body dt,
+.inspector-body dd,
+.inspector-body p {
+  color: #1a1e20;
+}
+
+.inspector-body small,
+.inspector-body em,
+.inspector-body .empty-note {
+  color: #586167 !important;
+}
+
+.inspector-body button,
+.inspector-body input,
+.inspector-body select,
+.inspector-body textarea {
+  color: #171b1e !important;
+  border-color: #868b8e !important;
+  background: #ece9df !important;
+  box-shadow: none !important;
+}
+
+.inspector-body button:hover,
+.inspector-body button.is-active,
+.inspector-body .primary-button {
+  color: #0d1418 !important;
+  border-color: #5d7685 !important;
+  background: linear-gradient(#dce9ef, #afc6d2) !important;
+}
+
+.inspector-body .danger-button {
+  color: #4c161a !important;
+  border-color: #98686b !important;
+  background: #e3c9ca !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Bottom dock — Rolls / Chat / Quick Bar / World Map                         */
+/* -------------------------------------------------------------------------- */
+
+.bottom-dock.frozen-reference-dock {
+  grid-area: dock;
+  position: relative;
+  z-index: 40;
+  min-width: 0;
+  min-height: 0;
+  display: grid !important;
+  grid-template-columns: 24% 23% 28% minmax(260px, 25%);
+  align-items: stretch;
+  gap: 4px !important;
+  padding: 4px 6px 8px !important;
+  overflow: visible;
+  border: 0 !important;
+  border-top: 3px solid #62747f !important;
+  background:
+    linear-gradient(180deg, #11181d, #070b0e 65%, #05080a) !important;
+  box-shadow: 0 -10px 25px rgba(0,0,0,.45) !important;
+}
+
+.bottom-dock.frozen-reference-dock::after {
+  content: 'DIFFERENT TABLES.  SAME LEGENDARY TALES.';
+  position: absolute;
+  z-index: 8;
+  left: 31%;
+  right: 28%;
+  bottom: 1px;
+  height: 18px;
+  display: grid;
+  place-items: center;
+  color: #8e9ba3;
+  background: rgba(6,10,13,.92);
+  font: .56rem var(--label);
+  letter-spacing: .21em;
+  pointer-events: none;
+}
+
+.reference-rolls-panel,
+.reference-chat-panel,
+.reference-quickbar-panel,
+.reference-world-panel {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  border: 2px solid #596872;
+  border-radius: 3px;
+  background: #151c21;
+  box-shadow:
+    inset 0 0 0 1px rgba(215,229,237,.06),
+    inset 0 0 20px rgba(0,0,0,.32);
+}
+
+.reference-rolls-panel {
+  background:
+    url('/assets/ui/frozen-necropolis/bottom-left-reference.png') center / 100% 100% no-repeat,
+    #171d21;
+}
+
+.reference-rolls-hitbox {
+  position: absolute;
+  z-index: 5;
+  inset: 0;
+  min-width: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  cursor: pointer;
+}
+
+.reference-rolls-hitbox:hover {
+  box-shadow: inset 0 0 0 2px rgba(132, 206, 245, .6) !important;
+}
+
+.reference-roll-result {
+  position: absolute;
+  z-index: 7;
+  right: 12px;
+  bottom: 12px;
+  min-width: 60px;
+  display: grid;
+  place-items: center;
+  padding: 5px 8px;
+  color: #e7f5fd;
+  border: 1px solid #7ca6bc;
+  border-radius: 3px;
+  background: rgba(6, 12, 16, .88);
+  box-shadow: 0 3px 10px rgba(0,0,0,.45);
+  pointer-events: none;
+}
+
+.reference-roll-result small { color: #98b6c6 !important; font: .58rem var(--label); }
+.reference-roll-result strong { font: 1.25rem var(--number); }
+
+.reference-chat-panel,
+.reference-quickbar-panel,
+.reference-world-panel {
+  padding: 40px 10px 10px;
+  background:
+    linear-gradient(180deg, #2c3439 0 40px, #d5d1c7 40px 100%) !important;
+}
+
+.reference-chat-panel::before {
+  content: '';
+  position: absolute;
+  z-index: 10;
+  inset: 0;
+  pointer-events: none;
+  background: url('/assets/ui/frozen-necropolis/chat-frame-reference.png') 0 0 / 100% 100% no-repeat;
+  opacity: .78;
+}
+
+.reference-chat-panel > header,
+.reference-quickbar-panel > header {
+  position: absolute;
+  z-index: 12;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 0 13px;
+  color: #eff2f4;
+  pointer-events: none;
+}
+
+.reference-chat-panel > header strong,
+.reference-quickbar-panel > header strong {
+  font: .95rem var(--body);
+}
+
+.reference-chat-feed {
+  position: relative;
+  z-index: 4;
+  height: calc(100% - 38px);
+  overflow: hidden;
+  color: #1a1d1f;
+}
+
+.reference-chat-feed p {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px;
+  margin: 0 0 4px;
+  color: #202326;
+  font-size: .72rem;
+  line-height: 1.2;
+}
+
+.reference-chat-feed p b { color: #21272b; }
+.reference-chat-feed p span {
+  overflow: hidden;
+  color: #41484d;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.reference-chat-input {
+  position: absolute;
+  z-index: 14;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  height: 31px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 9px;
+  color: #7d858a;
+  border: 1px solid #8a8c88;
+  background: #e4e1d8;
+  font-size: .7rem;
+}
+
+.reference-chat-input b { color: #45555e; }
+
+.reference-quickbar-panel {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.reference-quick-actions,
+.reference-quick-empty {
+  position: relative;
+  z-index: 4;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0,1fr));
+  gap: 6px;
+}
+
+.reference-quick-actions { margin-top: 8px; }
+.reference-quick-empty { margin-top: 9px; }
+
+.reference-quick-actions .quick-slot {
+  min-width: 0 !important;
+  width: 100% !important;
+  height: 54px !important;
+  padding: 0 !important;
+  color: #f5f7f8 !important;
+  border: 1px solid #555e63 !important;
+  border-radius: 3px !important;
+  background: linear-gradient(#20272c, #0e1317) !important;
+  font-size: 1.55rem !important;
+  text-shadow: 0 0 12px currentColor;
+  cursor: pointer;
+}
+
+.reference-quick-actions .quick-slot:hover {
+  border-color: #a6bac6 !important;
+  transform: translateY(-1px);
+}
+
+.reference-quick-actions .is-fire { color: #ff9c49 !important; }
+.reference-quick-actions .is-shield { color: #d9e0e4 !important; }
+.reference-quick-actions .is-heal { color: #8ee16f !important; }
+.reference-quick-actions .is-move { color: #e5e9eb !important; }
+.reference-quick-actions .is-arcane { color: #bd78f5 !important; }
+
+.reference-quick-empty span {
+  height: 45px;
+  display: grid;
+  place-items: center;
+  color: #8c8e8d;
+  border: 1px solid #8d8d87;
+  border-radius: 3px;
+  background: #a7a6a0;
+  font: .75rem var(--number);
+}
+
+.reference-world-panel {
+  padding: 8px !important;
+  background:
+    linear-gradient(180deg, #242d33 0 38px, #d1cec4 38px 100%) !important;
+}
+
+.reference-world-panel::before {
+  content: 'WORLD MAP';
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  padding: 0 13px;
+  color: #eef1f2;
+  border-bottom: 1px solid #5b6972;
+  font: .75rem var(--label);
+  letter-spacing: .08em;
+}
+
+.reference-world-panel .world-map-launcher {
+  position: absolute;
+  z-index: 4;
+  left: 9px;
+  right: 9px;
+  top: 47px;
+  bottom: 9px;
+  width: auto !important;
+  height: auto !important;
+  min-width: 0 !important;
+  display: grid !important;
+  grid-template-columns: minmax(92px, 34%) minmax(0,1fr) 28px !important;
+  align-items: center;
+  gap: 9px;
+  padding: 7px !important;
+  color: #1a1d20 !important;
+  border: 1px solid #8c8e89 !important;
+  border-radius: 2px !important;
+  background: #dedbd1 !important;
+  box-shadow: none !important;
+}
+
+.reference-world-panel .world-map-launcher > img,
+.reference-world-panel .world-map-launcher-empty {
+  width: 100% !important;
+  height: 100% !important;
+  max-height: 128px;
+  object-fit: cover;
+  border: 1px solid #767d80 !important;
+  background: #0b1114;
+}
+
+.reference-world-panel .world-map-launcher-copy small {
+  color: #65727a !important;
+  font: .6rem var(--label) !important;
+}
+
+.reference-world-panel .world-map-launcher-copy strong {
+  color: #161b1e !important;
+  font: .88rem var(--body) !important;
+}
+
+.reference-world-panel .world-map-launcher-copy em {
+  color: #596167 !important;
+  font-size: .64rem !important;
+}
+
+.reference-world-panel .world-map-launcher-expand {
+  color: #4d5a61 !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Overlays / Character / Spell / Dice surfaces share the same theme           */
+/* -------------------------------------------------------------------------- */
+
+.player-sheet-panel,
+.dm-spellbook-stage,
+.player-spellbook-stage,
+.dice-tray,
+.map-action-target-bar,
+.player-character-hud,
+.player-spell-hud,
+.player-attack-hud,
+.reaction-window-panel,
+.ready-action-panel,
+.core-utility-actions-panel {
+  color: #e9eef1 !important;
+  border-color: #687985 !important;
+  background:
+    linear-gradient(180deg, rgba(31,41,48,.98), rgba(9,14,18,.99)) !important;
+  box-shadow:
+    inset 0 0 0 2px rgba(196,215,226,.08),
+    0 20px 60px rgba(0,0,0,.65) !important;
+}
+
+.player-sheet-panel::before,
+.dm-spellbook-stage::before,
+.player-spellbook-stage::before,
+.dice-tray::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border: 2px solid rgba(154, 183, 200, .24);
+  box-shadow: inset 0 0 26px rgba(87, 174, 224, .05);
+}
+
+.table-shell button,
+.table-shell input,
+.table-shell select,
+.table-shell textarea {
+  font-family: var(--body);
+}
+
+.table-shell button:focus-visible,
+.table-shell input:focus-visible,
+.table-shell select:focus-visible,
+.table-shell textarea:focus-visible {
+  outline: 2px solid rgba(120, 195, 237, .65);
+  outline-offset: 1px;
+}
+
+.toast {
+  color: #e7edf0 !important;
+  border-color: #647783 !important;
+  background: rgba(12, 18, 22, .97) !important;
+}
+
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0,0,0,0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Responsive fallbacks                                                        */
+/* -------------------------------------------------------------------------- */
+
+@media (max-width: 1450px) and (min-width: 1181px) {
+  .dm-shell {
+    grid-template-columns: 112px minmax(0,1fr) 380px !important;
+  }
+
+  .table-header {
+    grid-template-columns: 310px minmax(220px,1fr) 150px minmax(230px,.9fr) 160px;
+  }
+
+  .frozen-brand-block { padding-left: 92px; }
+  .frozen-brand-block img { width: 215px; }
+  .frozen-reference-motto span,
+  .frozen-reference-motto b { font-size: .86rem; }
+  .camera-rail-controls { right: 394px; }
+  .tool-mode-group { right: 590px; }
+  .bottom-dock.frozen-reference-dock { grid-template-columns: 23% 23% 29% minmax(230px,25%); }
+}
+
+@media (max-width: 1180px) {
+  .table-shell {
+    overflow: auto;
+  }
+
+  .dm-shell,
+  .player-shell {
+    min-height: 100dvh;
+    height: auto;
+    display: grid !important;
+    grid-template:
+      'header' 76px
+      'stage' minmax(58dvh, 640px)
+      'dock' auto
+      / 1fr !important;
+  }
+
+  .table-header {
+    grid-template-columns: 230px minmax(180px, 1fr) 150px;
+    min-height: 76px;
+  }
+
+  .frozen-brand-block { padding-left: 74px; }
+  .frozen-brand-block img { width: 150px; height: 60px; }
+  .frozen-reference-motto,
+  .frozen-header-tools { display: none; }
+  .frozen-table-identity { padding-right: 12px; }
+  .tool-rail,
+  .inspector { display: none !important; }
+  .camera-rail-controls,
+  .tool-mode-group { display: none !important; }
+  .battlefield { padding: 6px !important; }
+  .bottom-dock.frozen-reference-dock {
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    min-height: 420px;
+  }
+  .bottom-dock.frozen-reference-dock::after { display: none; }
+}
+
+@media (max-width: 700px) {
+  .table-header {
+    grid-template-columns: 160px minmax(0,1fr);
+  }
+  .frozen-brand-block { padding-left: 58px; }
+  .frozen-brand-block img { width: 100px; }
+  .frozen-table-identity { display: none; }
+  .bottom-dock.frozen-reference-dock {
+    grid-template-columns: 1fr;
+  }
+}

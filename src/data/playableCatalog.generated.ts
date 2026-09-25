@@ -1,0 +1,4407 @@
+export type PlayableRulesVersion = '2014' | '2024'
+
+export type PlayableMechanicsStatus =
+  | 'runtime-core'
+  | 'basic-runtime'
+  | 'legacy-selection'
+  | 'selection-source-linked'
+
+export interface PlayableCatalogOption {
+  id: string
+  kind: 'class' | 'subclass' | 'species' | 'background'
+  name: string
+  displayLabel: string
+  rulesVersion: PlayableRulesVersion
+  sourceKey: string
+  sourceTitle: string
+  sourceYear: number
+  sourceShort: string
+  evidenceTerms: string[]
+  mechanicsStatus: PlayableMechanicsStatus
+}
+
+export interface PlayableSubclassOption extends PlayableCatalogOption {
+  kind: 'subclass'
+  className: string
+}
+
+export const PLAYABLE_CLASSES: PlayableCatalogOption[] = [
+  {
+    "id": "phb2014:class:barbarian",
+    "kind": "class",
+    "name": "Barbarian",
+    "displayLabel": "Barbarian · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Barbarian"
+    ],
+    "mechanicsStatus": "legacy-selection"
+  },
+  {
+    "id": "phb2014:class:bard",
+    "kind": "class",
+    "name": "Bard",
+    "displayLabel": "Bard · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Bard"
+    ],
+    "mechanicsStatus": "legacy-selection"
+  },
+  {
+    "id": "phb2014:class:cleric",
+    "kind": "class",
+    "name": "Cleric",
+    "displayLabel": "Cleric · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Cleric"
+    ],
+    "mechanicsStatus": "legacy-selection"
+  },
+  {
+    "id": "phb2014:class:druid",
+    "kind": "class",
+    "name": "Druid",
+    "displayLabel": "Druid · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Druid"
+    ],
+    "mechanicsStatus": "legacy-selection"
+  },
+  {
+    "id": "phb2014:class:fighter",
+    "kind": "class",
+    "name": "Fighter",
+    "displayLabel": "Fighter · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Fighter"
+    ],
+    "mechanicsStatus": "legacy-selection"
+  },
+  {
+    "id": "phb2014:class:monk",
+    "kind": "class",
+    "name": "Monk",
+    "displayLabel": "Monk · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Monk"
+    ],
+    "mechanicsStatus": "legacy-selection"
+  },
+  {
+    "id": "phb2014:class:paladin",
+    "kind": "class",
+    "name": "Paladin",
+    "displayLabel": "Paladin · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Paladin"
+    ],
+    "mechanicsStatus": "legacy-selection"
+  },
+  {
+    "id": "phb2014:class:ranger",
+    "kind": "class",
+    "name": "Ranger",
+    "displayLabel": "Ranger · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Ranger"
+    ],
+    "mechanicsStatus": "legacy-selection"
+  },
+  {
+    "id": "phb2014:class:rogue",
+    "kind": "class",
+    "name": "Rogue",
+    "displayLabel": "Rogue · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Rogue"
+    ],
+    "mechanicsStatus": "legacy-selection"
+  },
+  {
+    "id": "phb2014:class:sorcerer",
+    "kind": "class",
+    "name": "Sorcerer",
+    "displayLabel": "Sorcerer · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Sorcerer"
+    ],
+    "mechanicsStatus": "legacy-selection"
+  },
+  {
+    "id": "phb2014:class:warlock",
+    "kind": "class",
+    "name": "Warlock",
+    "displayLabel": "Warlock · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Warlock"
+    ],
+    "mechanicsStatus": "legacy-selection"
+  },
+  {
+    "id": "phb2014:class:wizard",
+    "kind": "class",
+    "name": "Wizard",
+    "displayLabel": "Wizard · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Wizard"
+    ],
+    "mechanicsStatus": "legacy-selection"
+  },
+  {
+    "id": "tce:class:artificer",
+    "kind": "class",
+    "name": "Artificer",
+    "displayLabel": "Artificer · 2014 · TCoE",
+    "rulesVersion": "2014",
+    "sourceKey": "TCE",
+    "sourceTitle": "Tasha's Cauldron of Everything",
+    "sourceYear": 2020,
+    "sourceShort": "TCoE",
+    "evidenceTerms": [
+      "ARTIFICER"
+    ],
+    "mechanicsStatus": "basic-runtime"
+  },
+  {
+    "id": "phb2024:class:barbarian",
+    "kind": "class",
+    "name": "Barbarian",
+    "displayLabel": "Barbarian · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Barbarian"
+    ],
+    "mechanicsStatus": "runtime-core"
+  },
+  {
+    "id": "phb2024:class:bard",
+    "kind": "class",
+    "name": "Bard",
+    "displayLabel": "Bard · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Bard"
+    ],
+    "mechanicsStatus": "runtime-core"
+  },
+  {
+    "id": "phb2024:class:cleric",
+    "kind": "class",
+    "name": "Cleric",
+    "displayLabel": "Cleric · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Cleric"
+    ],
+    "mechanicsStatus": "runtime-core"
+  },
+  {
+    "id": "phb2024:class:druid",
+    "kind": "class",
+    "name": "Druid",
+    "displayLabel": "Druid · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Druid"
+    ],
+    "mechanicsStatus": "runtime-core"
+  },
+  {
+    "id": "phb2024:class:fighter",
+    "kind": "class",
+    "name": "Fighter",
+    "displayLabel": "Fighter · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Fighter"
+    ],
+    "mechanicsStatus": "runtime-core"
+  },
+  {
+    "id": "phb2024:class:monk",
+    "kind": "class",
+    "name": "Monk",
+    "displayLabel": "Monk · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Monk"
+    ],
+    "mechanicsStatus": "runtime-core"
+  },
+  {
+    "id": "phb2024:class:paladin",
+    "kind": "class",
+    "name": "Paladin",
+    "displayLabel": "Paladin · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Paladin"
+    ],
+    "mechanicsStatus": "runtime-core"
+  },
+  {
+    "id": "phb2024:class:ranger",
+    "kind": "class",
+    "name": "Ranger",
+    "displayLabel": "Ranger · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Ranger"
+    ],
+    "mechanicsStatus": "runtime-core"
+  },
+  {
+    "id": "phb2024:class:rogue",
+    "kind": "class",
+    "name": "Rogue",
+    "displayLabel": "Rogue · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Rogue"
+    ],
+    "mechanicsStatus": "runtime-core"
+  },
+  {
+    "id": "phb2024:class:sorcerer",
+    "kind": "class",
+    "name": "Sorcerer",
+    "displayLabel": "Sorcerer · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Sorcerer"
+    ],
+    "mechanicsStatus": "runtime-core"
+  },
+  {
+    "id": "phb2024:class:warlock",
+    "kind": "class",
+    "name": "Warlock",
+    "displayLabel": "Warlock · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Warlock"
+    ],
+    "mechanicsStatus": "runtime-core"
+  },
+  {
+    "id": "phb2024:class:wizard",
+    "kind": "class",
+    "name": "Wizard",
+    "displayLabel": "Wizard · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Wizard"
+    ],
+    "mechanicsStatus": "runtime-core"
+  }
+]
+
+export const PLAYABLE_SUBCLASSES: PlayableSubclassOption[] = [
+  {
+    "id": "phb2014:subclass:barbarian:path-of-the-berserker",
+    "kind": "subclass",
+    "name": "Path of the Berserker",
+    "className": "Barbarian",
+    "displayLabel": "Path of the Berserker · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Path of the Berserker"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:subclass:barbarian:path-of-the-totem-warrior",
+    "kind": "subclass",
+    "name": "Path of the Totem Warrior",
+    "className": "Barbarian",
+    "displayLabel": "Path of the Totem Warrior · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Path of the Totem Warrior"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:subclass:bard:college-of-lore",
+    "kind": "subclass",
+    "name": "College of Lore",
+    "className": "Bard",
+    "displayLabel": "College of Lore · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "College of Lore"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:subclass:bard:college-of-valor",
+    "kind": "subclass",
+    "name": "College of Valor",
+    "className": "Bard",
+    "displayLabel": "College of Valor · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "College of Valor"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:subclass:cleric:knowledge-domain",
+    "kind": "subclass",
+    "name": "Knowledge Domain",
+    "className": "Cleric",
+    "displayLabel": "Knowledge Domain · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Knowledge Domain"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:subclass:cleric:life-domain",
+    "kind": "subclass",
+    "name": "Life Domain",
+    "className": "Cleric",
+    "displayLabel": "Life Domain · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Life Domain"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:subclass:cleric:light-domain",
+    "kind": "subclass",
+    "name": "Light Domain",
+    "className": "Cleric",
+    "displayLabel": "Light Domain · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Light Domain"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:subclass:cleric:nature-domain",
+    "kind": "subclass",
+    "name": "Nature Domain",
+    "className": "Cleric",
+    "displayLabel": "Nature Domain · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Nature Domain"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:subclass:cleric:tempest-domain",
+    "kind": "subclass",
+    "name": "Tempest Domain",
+    "className": "Cleric",
+    "displayLabel": "Tempest Domain · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Tempest Domain"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:subclass:cleric:trickery-domain",
+    "kind": "subclass",
+    "name": "Trickery Domain",
+    "className": "Cleric",
+    "displayLabel": "Trickery Domain · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Trickery Domain"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:subclass:cleric:war-domain",
+    "kind": "subclass",
+    "name": "War Domain",
+    "className": "Cleric",
+    "displayLabel": "War Domain · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "War Domain"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:subclass:druid:circle-of-the-land",
+    "kind": "subclass",
+    "name": "Circle of the Land",
+    "className": "Druid",
+    "displayLabel": "Circle of the Land · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Circle of the Land"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:subclass:druid:circle-of-the-moon",
+    "kind": "subclass",
+    "name": "Circle of the Moon",
+    "className": "Druid",
+    "displayLabel": "Circle of the Moon · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Circle of the Moon"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:subclass:fighter:champion",
+    "kind": "subclass",
+    "name": "Champion",
+    "className": "Fighter",
+    "displayLabel": "Champion · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Champion"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:subclass:fighter:battle-master",
+    "kind": "subclass",
+    "name": "Battle Master",
+    "className": "Fighter",
+    "displayLabel": "Battle Master · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Battle Master"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:subclass:fighter:eldritch-knight",
+    "kind": "subclass",
+    "name": "Eldritch Knight",
+    "className": "Fighter",
+    "displayLabel": "Eldritch Knight · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Eldritch Knight"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:subclass:monk:way-of-the-open-hand",
+    "kind": "subclass",
+    "name": "Way of the Open Hand",
+    "className": "Monk",
+    "displayLabel": "Way of the Open Hand · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Way of the Open Hand"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:subclass:monk:way-of-shadow",
+    "kind": "subclass",
+    "name": "Way of Shadow",
+    "className": "Monk",
+    "displayLabel": "Way of Shadow · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Way of Shadow"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:subclass:monk:way-of-the-four-elements",
+    "kind": "subclass",
+    "name": "Way of the Four Elements",
+    "className": "Monk",
+    "displayLabel": "Way of the Four Elements · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Way of the Four Elements"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:subclass:paladin:oath-of-devotion",
+    "kind": "subclass",
+    "name": "Oath of Devotion",
+    "className": "Paladin",
+    "displayLabel": "Oath of Devotion · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Oath of Devotion"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:subclass:paladin:oath-of-the-ancients",
+    "kind": "subclass",
+    "name": "Oath of the Ancients",
+    "className": "Paladin",
+    "displayLabel": "Oath of the Ancients · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Oath of the Ancients"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:subclass:paladin:oath-of-vengeance",
+    "kind": "subclass",
+    "name": "Oath of Vengeance",
+    "className": "Paladin",
+    "displayLabel": "Oath of Vengeance · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Oath of Vengeance"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:subclass:ranger:hunter",
+    "kind": "subclass",
+    "name": "Hunter",
+    "className": "Ranger",
+    "displayLabel": "Hunter · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Hunter"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:subclass:ranger:beast-master",
+    "kind": "subclass",
+    "name": "Beast Master",
+    "className": "Ranger",
+    "displayLabel": "Beast Master · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Beast Master"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:subclass:rogue:thief",
+    "kind": "subclass",
+    "name": "Thief",
+    "className": "Rogue",
+    "displayLabel": "Thief · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Thief"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:subclass:rogue:assassin",
+    "kind": "subclass",
+    "name": "Assassin",
+    "className": "Rogue",
+    "displayLabel": "Assassin · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Assassin"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:subclass:rogue:arcane-trickster",
+    "kind": "subclass",
+    "name": "Arcane Trickster",
+    "className": "Rogue",
+    "displayLabel": "Arcane Trickster · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Arcane Trickster"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:subclass:sorcerer:draconic-bloodline",
+    "kind": "subclass",
+    "name": "Draconic Bloodline",
+    "className": "Sorcerer",
+    "displayLabel": "Draconic Bloodline · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Draconic Bloodline"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:subclass:sorcerer:wild-magic",
+    "kind": "subclass",
+    "name": "Wild Magic",
+    "className": "Sorcerer",
+    "displayLabel": "Wild Magic · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Wild Magic"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:subclass:warlock:the-archfey",
+    "kind": "subclass",
+    "name": "The Archfey",
+    "className": "Warlock",
+    "displayLabel": "The Archfey · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "The Archfey"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:subclass:warlock:the-fiend",
+    "kind": "subclass",
+    "name": "The Fiend",
+    "className": "Warlock",
+    "displayLabel": "The Fiend · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "The Fiend"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:subclass:warlock:the-great-old-one",
+    "kind": "subclass",
+    "name": "The Great Old One",
+    "className": "Warlock",
+    "displayLabel": "The Great Old One · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "The Great Old One"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:subclass:wizard:school-of-abjuration",
+    "kind": "subclass",
+    "name": "School of Abjuration",
+    "className": "Wizard",
+    "displayLabel": "School of Abjuration · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "School of Abjuration"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:subclass:wizard:school-of-conjuration",
+    "kind": "subclass",
+    "name": "School of Conjuration",
+    "className": "Wizard",
+    "displayLabel": "School of Conjuration · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "School of Conjuration"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:subclass:wizard:school-of-divination",
+    "kind": "subclass",
+    "name": "School of Divination",
+    "className": "Wizard",
+    "displayLabel": "School of Divination · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "School of Divination"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:subclass:wizard:school-of-enchantment",
+    "kind": "subclass",
+    "name": "School of Enchantment",
+    "className": "Wizard",
+    "displayLabel": "School of Enchantment · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "School of Enchantment"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:subclass:wizard:school-of-evocation",
+    "kind": "subclass",
+    "name": "School of Evocation",
+    "className": "Wizard",
+    "displayLabel": "School of Evocation · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "School of Evocation"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:subclass:wizard:school-of-illusion",
+    "kind": "subclass",
+    "name": "School of Illusion",
+    "className": "Wizard",
+    "displayLabel": "School of Illusion · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "School of Illusion"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:subclass:wizard:school-of-necromancy",
+    "kind": "subclass",
+    "name": "School of Necromancy",
+    "className": "Wizard",
+    "displayLabel": "School of Necromancy · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "School of Necromancy"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:subclass:wizard:school-of-transmutation",
+    "kind": "subclass",
+    "name": "School of Transmutation",
+    "className": "Wizard",
+    "displayLabel": "School of Transmutation · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "School of Transmutation"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "dmg2014:subclass:cleric:death-domain",
+    "kind": "subclass",
+    "name": "Death Domain",
+    "className": "Cleric",
+    "displayLabel": "Death Domain · 2014 · DMG",
+    "rulesVersion": "2014",
+    "sourceKey": "DMG2014",
+    "sourceTitle": "Dungeon Master's Guide",
+    "sourceYear": 2014,
+    "sourceShort": "DMG",
+    "evidenceTerms": [
+      "Death Domain"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "dmg2014:subclass:paladin:oathbreaker",
+    "kind": "subclass",
+    "name": "Oathbreaker",
+    "className": "Paladin",
+    "displayLabel": "Oathbreaker · 2014 · DMG",
+    "rulesVersion": "2014",
+    "sourceKey": "DMG2014",
+    "sourceTitle": "Dungeon Master's Guide",
+    "sourceYear": 2014,
+    "sourceShort": "DMG",
+    "evidenceTerms": [
+      "Oathbreaker"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "xge:subclass:barbarian:path-of-the-ancestral-guardian",
+    "kind": "subclass",
+    "name": "Path of the Ancestral Guardian",
+    "className": "Barbarian",
+    "displayLabel": "Path of the Ancestral Guardian · 2014 · XGtE",
+    "rulesVersion": "2014",
+    "sourceKey": "XGE",
+    "sourceTitle": "Xanathar's Guide to Everything",
+    "sourceYear": 2017,
+    "sourceShort": "XGtE",
+    "evidenceTerms": [
+      "Path of the Ancestral Guardian"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "xge:subclass:barbarian:path-of-the-storm-herald",
+    "kind": "subclass",
+    "name": "Path of the Storm Herald",
+    "className": "Barbarian",
+    "displayLabel": "Path of the Storm Herald · 2014 · XGtE",
+    "rulesVersion": "2014",
+    "sourceKey": "XGE",
+    "sourceTitle": "Xanathar's Guide to Everything",
+    "sourceYear": 2017,
+    "sourceShort": "XGtE",
+    "evidenceTerms": [
+      "Path of the Storm Herald"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "xge:subclass:barbarian:path-of-the-zealot",
+    "kind": "subclass",
+    "name": "Path of the Zealot",
+    "className": "Barbarian",
+    "displayLabel": "Path of the Zealot · 2014 · XGtE",
+    "rulesVersion": "2014",
+    "sourceKey": "XGE",
+    "sourceTitle": "Xanathar's Guide to Everything",
+    "sourceYear": 2017,
+    "sourceShort": "XGtE",
+    "evidenceTerms": [
+      "Path of the Zealot"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "xge:subclass:bard:college-of-glamour",
+    "kind": "subclass",
+    "name": "College of Glamour",
+    "className": "Bard",
+    "displayLabel": "College of Glamour · 2014 · XGtE",
+    "rulesVersion": "2014",
+    "sourceKey": "XGE",
+    "sourceTitle": "Xanathar's Guide to Everything",
+    "sourceYear": 2017,
+    "sourceShort": "XGtE",
+    "evidenceTerms": [
+      "College of Glamour"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "xge:subclass:bard:college-of-swords",
+    "kind": "subclass",
+    "name": "College of Swords",
+    "className": "Bard",
+    "displayLabel": "College of Swords · 2014 · XGtE",
+    "rulesVersion": "2014",
+    "sourceKey": "XGE",
+    "sourceTitle": "Xanathar's Guide to Everything",
+    "sourceYear": 2017,
+    "sourceShort": "XGtE",
+    "evidenceTerms": [
+      "College of Swords"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "xge:subclass:bard:college-of-whispers",
+    "kind": "subclass",
+    "name": "College of Whispers",
+    "className": "Bard",
+    "displayLabel": "College of Whispers · 2014 · XGtE",
+    "rulesVersion": "2014",
+    "sourceKey": "XGE",
+    "sourceTitle": "Xanathar's Guide to Everything",
+    "sourceYear": 2017,
+    "sourceShort": "XGtE",
+    "evidenceTerms": [
+      "College of Whispers"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "xge:subclass:cleric:forge-domain",
+    "kind": "subclass",
+    "name": "Forge Domain",
+    "className": "Cleric",
+    "displayLabel": "Forge Domain · 2014 · XGtE",
+    "rulesVersion": "2014",
+    "sourceKey": "XGE",
+    "sourceTitle": "Xanathar's Guide to Everything",
+    "sourceYear": 2017,
+    "sourceShort": "XGtE",
+    "evidenceTerms": [
+      "Forge Domain"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "xge:subclass:cleric:grave-domain",
+    "kind": "subclass",
+    "name": "Grave Domain",
+    "className": "Cleric",
+    "displayLabel": "Grave Domain · 2014 · XGtE",
+    "rulesVersion": "2014",
+    "sourceKey": "XGE",
+    "sourceTitle": "Xanathar's Guide to Everything",
+    "sourceYear": 2017,
+    "sourceShort": "XGtE",
+    "evidenceTerms": [
+      "Grave Domain"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "xge:subclass:druid:circle-of-dreams",
+    "kind": "subclass",
+    "name": "Circle of Dreams",
+    "className": "Druid",
+    "displayLabel": "Circle of Dreams · 2014 · XGtE",
+    "rulesVersion": "2014",
+    "sourceKey": "XGE",
+    "sourceTitle": "Xanathar's Guide to Everything",
+    "sourceYear": 2017,
+    "sourceShort": "XGtE",
+    "evidenceTerms": [
+      "Circle of Dreams"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "xge:subclass:druid:circle-of-the-shepherd",
+    "kind": "subclass",
+    "name": "Circle of the Shepherd",
+    "className": "Druid",
+    "displayLabel": "Circle of the Shepherd · 2014 · XGtE",
+    "rulesVersion": "2014",
+    "sourceKey": "XGE",
+    "sourceTitle": "Xanathar's Guide to Everything",
+    "sourceYear": 2017,
+    "sourceShort": "XGtE",
+    "evidenceTerms": [
+      "Circle of the Shepherd"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "xge:subclass:fighter:arcane-archer",
+    "kind": "subclass",
+    "name": "Arcane Archer",
+    "className": "Fighter",
+    "displayLabel": "Arcane Archer · 2014 · XGtE",
+    "rulesVersion": "2014",
+    "sourceKey": "XGE",
+    "sourceTitle": "Xanathar's Guide to Everything",
+    "sourceYear": 2017,
+    "sourceShort": "XGtE",
+    "evidenceTerms": [
+      "Arcane Archer"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "xge:subclass:fighter:cavalier",
+    "kind": "subclass",
+    "name": "Cavalier",
+    "className": "Fighter",
+    "displayLabel": "Cavalier · 2014 · XGtE",
+    "rulesVersion": "2014",
+    "sourceKey": "XGE",
+    "sourceTitle": "Xanathar's Guide to Everything",
+    "sourceYear": 2017,
+    "sourceShort": "XGtE",
+    "evidenceTerms": [
+      "Cavalier"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "xge:subclass:fighter:samurai",
+    "kind": "subclass",
+    "name": "Samurai",
+    "className": "Fighter",
+    "displayLabel": "Samurai · 2014 · XGtE",
+    "rulesVersion": "2014",
+    "sourceKey": "XGE",
+    "sourceTitle": "Xanathar's Guide to Everything",
+    "sourceYear": 2017,
+    "sourceShort": "XGtE",
+    "evidenceTerms": [
+      "Samurai"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "xge:subclass:monk:way-of-the-drunken-master",
+    "kind": "subclass",
+    "name": "Way of the Drunken Master",
+    "className": "Monk",
+    "displayLabel": "Way of the Drunken Master · 2014 · XGtE",
+    "rulesVersion": "2014",
+    "sourceKey": "XGE",
+    "sourceTitle": "Xanathar's Guide to Everything",
+    "sourceYear": 2017,
+    "sourceShort": "XGtE",
+    "evidenceTerms": [
+      "Way of the Drunken Master"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "xge:subclass:monk:way-of-the-kensei",
+    "kind": "subclass",
+    "name": "Way of the Kensei",
+    "className": "Monk",
+    "displayLabel": "Way of the Kensei · 2014 · XGtE",
+    "rulesVersion": "2014",
+    "sourceKey": "XGE",
+    "sourceTitle": "Xanathar's Guide to Everything",
+    "sourceYear": 2017,
+    "sourceShort": "XGtE",
+    "evidenceTerms": [
+      "Way of the Kensei"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "xge:subclass:monk:way-of-the-sun-soul",
+    "kind": "subclass",
+    "name": "Way of the Sun Soul",
+    "className": "Monk",
+    "displayLabel": "Way of the Sun Soul · 2014 · XGtE",
+    "rulesVersion": "2014",
+    "sourceKey": "XGE",
+    "sourceTitle": "Xanathar's Guide to Everything",
+    "sourceYear": 2017,
+    "sourceShort": "XGtE",
+    "evidenceTerms": [
+      "Way of the Sun Soul"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "xge:subclass:paladin:oath-of-conquest",
+    "kind": "subclass",
+    "name": "Oath of Conquest",
+    "className": "Paladin",
+    "displayLabel": "Oath of Conquest · 2014 · XGtE",
+    "rulesVersion": "2014",
+    "sourceKey": "XGE",
+    "sourceTitle": "Xanathar's Guide to Everything",
+    "sourceYear": 2017,
+    "sourceShort": "XGtE",
+    "evidenceTerms": [
+      "Oath of Conquest"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "xge:subclass:paladin:oath-of-redemption",
+    "kind": "subclass",
+    "name": "Oath of Redemption",
+    "className": "Paladin",
+    "displayLabel": "Oath of Redemption · 2014 · XGtE",
+    "rulesVersion": "2014",
+    "sourceKey": "XGE",
+    "sourceTitle": "Xanathar's Guide to Everything",
+    "sourceYear": 2017,
+    "sourceShort": "XGtE",
+    "evidenceTerms": [
+      "Oath of Redemption"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "xge:subclass:ranger:gloom-stalker",
+    "kind": "subclass",
+    "name": "Gloom Stalker",
+    "className": "Ranger",
+    "displayLabel": "Gloom Stalker · 2014 · XGtE",
+    "rulesVersion": "2014",
+    "sourceKey": "XGE",
+    "sourceTitle": "Xanathar's Guide to Everything",
+    "sourceYear": 2017,
+    "sourceShort": "XGtE",
+    "evidenceTerms": [
+      "Gloom Stalker"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "xge:subclass:ranger:horizon-walker",
+    "kind": "subclass",
+    "name": "Horizon Walker",
+    "className": "Ranger",
+    "displayLabel": "Horizon Walker · 2014 · XGtE",
+    "rulesVersion": "2014",
+    "sourceKey": "XGE",
+    "sourceTitle": "Xanathar's Guide to Everything",
+    "sourceYear": 2017,
+    "sourceShort": "XGtE",
+    "evidenceTerms": [
+      "Horizon Walker"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "xge:subclass:ranger:monster-slayer",
+    "kind": "subclass",
+    "name": "Monster Slayer",
+    "className": "Ranger",
+    "displayLabel": "Monster Slayer · 2014 · XGtE",
+    "rulesVersion": "2014",
+    "sourceKey": "XGE",
+    "sourceTitle": "Xanathar's Guide to Everything",
+    "sourceYear": 2017,
+    "sourceShort": "XGtE",
+    "evidenceTerms": [
+      "Monster Slayer"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "xge:subclass:rogue:inquisitive",
+    "kind": "subclass",
+    "name": "Inquisitive",
+    "className": "Rogue",
+    "displayLabel": "Inquisitive · 2014 · XGtE",
+    "rulesVersion": "2014",
+    "sourceKey": "XGE",
+    "sourceTitle": "Xanathar's Guide to Everything",
+    "sourceYear": 2017,
+    "sourceShort": "XGtE",
+    "evidenceTerms": [
+      "Inquisitive"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "xge:subclass:rogue:mastermind",
+    "kind": "subclass",
+    "name": "Mastermind",
+    "className": "Rogue",
+    "displayLabel": "Mastermind · 2014 · XGtE",
+    "rulesVersion": "2014",
+    "sourceKey": "XGE",
+    "sourceTitle": "Xanathar's Guide to Everything",
+    "sourceYear": 2017,
+    "sourceShort": "XGtE",
+    "evidenceTerms": [
+      "Mastermind"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "xge:subclass:rogue:scout",
+    "kind": "subclass",
+    "name": "Scout",
+    "className": "Rogue",
+    "displayLabel": "Scout · 2014 · XGtE",
+    "rulesVersion": "2014",
+    "sourceKey": "XGE",
+    "sourceTitle": "Xanathar's Guide to Everything",
+    "sourceYear": 2017,
+    "sourceShort": "XGtE",
+    "evidenceTerms": [
+      "Scout"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "xge:subclass:rogue:swashbuckler",
+    "kind": "subclass",
+    "name": "Swashbuckler",
+    "className": "Rogue",
+    "displayLabel": "Swashbuckler · 2014 · XGtE",
+    "rulesVersion": "2014",
+    "sourceKey": "XGE",
+    "sourceTitle": "Xanathar's Guide to Everything",
+    "sourceYear": 2017,
+    "sourceShort": "XGtE",
+    "evidenceTerms": [
+      "Swashbuckler"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "xge:subclass:sorcerer:divine-soul",
+    "kind": "subclass",
+    "name": "Divine Soul",
+    "className": "Sorcerer",
+    "displayLabel": "Divine Soul · 2014 · XGtE",
+    "rulesVersion": "2014",
+    "sourceKey": "XGE",
+    "sourceTitle": "Xanathar's Guide to Everything",
+    "sourceYear": 2017,
+    "sourceShort": "XGtE",
+    "evidenceTerms": [
+      "Divine Soul"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "xge:subclass:sorcerer:shadow-magic",
+    "kind": "subclass",
+    "name": "Shadow Magic",
+    "className": "Sorcerer",
+    "displayLabel": "Shadow Magic · 2014 · XGtE",
+    "rulesVersion": "2014",
+    "sourceKey": "XGE",
+    "sourceTitle": "Xanathar's Guide to Everything",
+    "sourceYear": 2017,
+    "sourceShort": "XGtE",
+    "evidenceTerms": [
+      "Shadow Magic"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "xge:subclass:sorcerer:storm-sorcery",
+    "kind": "subclass",
+    "name": "Storm Sorcery",
+    "className": "Sorcerer",
+    "displayLabel": "Storm Sorcery · 2014 · XGtE",
+    "rulesVersion": "2014",
+    "sourceKey": "XGE",
+    "sourceTitle": "Xanathar's Guide to Everything",
+    "sourceYear": 2017,
+    "sourceShort": "XGtE",
+    "evidenceTerms": [
+      "Storm Sorcery"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "xge:subclass:warlock:the-celestial",
+    "kind": "subclass",
+    "name": "The Celestial",
+    "className": "Warlock",
+    "displayLabel": "The Celestial · 2014 · XGtE",
+    "rulesVersion": "2014",
+    "sourceKey": "XGE",
+    "sourceTitle": "Xanathar's Guide to Everything",
+    "sourceYear": 2017,
+    "sourceShort": "XGtE",
+    "evidenceTerms": [
+      "The Celestial"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "xge:subclass:warlock:the-hexblade",
+    "kind": "subclass",
+    "name": "The Hexblade",
+    "className": "Warlock",
+    "displayLabel": "The Hexblade · 2014 · XGtE",
+    "rulesVersion": "2014",
+    "sourceKey": "XGE",
+    "sourceTitle": "Xanathar's Guide to Everything",
+    "sourceYear": 2017,
+    "sourceShort": "XGtE",
+    "evidenceTerms": [
+      "The Hexblade"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "xge:subclass:wizard:war-magic",
+    "kind": "subclass",
+    "name": "War Magic",
+    "className": "Wizard",
+    "displayLabel": "War Magic · 2014 · XGtE",
+    "rulesVersion": "2014",
+    "sourceKey": "XGE",
+    "sourceTitle": "Xanathar's Guide to Everything",
+    "sourceYear": 2017,
+    "sourceShort": "XGtE",
+    "evidenceTerms": [
+      "War Magic"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "tce:subclass:artificer:alchemist",
+    "kind": "subclass",
+    "name": "Alchemist",
+    "className": "Artificer",
+    "displayLabel": "Alchemist · 2014 · TCoE",
+    "rulesVersion": "2014",
+    "sourceKey": "TCE",
+    "sourceTitle": "Tasha's Cauldron of Everything",
+    "sourceYear": 2020,
+    "sourceShort": "TCoE",
+    "evidenceTerms": [
+      "Alchemist"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "tce:subclass:artificer:armorer",
+    "kind": "subclass",
+    "name": "Armorer",
+    "className": "Artificer",
+    "displayLabel": "Armorer · 2014 · TCoE",
+    "rulesVersion": "2014",
+    "sourceKey": "TCE",
+    "sourceTitle": "Tasha's Cauldron of Everything",
+    "sourceYear": 2020,
+    "sourceShort": "TCoE",
+    "evidenceTerms": [
+      "Armorer"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "tce:subclass:artificer:artillerist",
+    "kind": "subclass",
+    "name": "Artillerist",
+    "className": "Artificer",
+    "displayLabel": "Artillerist · 2014 · TCoE",
+    "rulesVersion": "2014",
+    "sourceKey": "TCE",
+    "sourceTitle": "Tasha's Cauldron of Everything",
+    "sourceYear": 2020,
+    "sourceShort": "TCoE",
+    "evidenceTerms": [
+      "Artillerist"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "tce:subclass:artificer:battle-smith",
+    "kind": "subclass",
+    "name": "Battle Smith",
+    "className": "Artificer",
+    "displayLabel": "Battle Smith · 2014 · TCoE",
+    "rulesVersion": "2014",
+    "sourceKey": "TCE",
+    "sourceTitle": "Tasha's Cauldron of Everything",
+    "sourceYear": 2020,
+    "sourceShort": "TCoE",
+    "evidenceTerms": [
+      "Battle Smith"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "tce:subclass:barbarian:path-of-the-beast",
+    "kind": "subclass",
+    "name": "Path of the Beast",
+    "className": "Barbarian",
+    "displayLabel": "Path of the Beast · 2014 · TCoE",
+    "rulesVersion": "2014",
+    "sourceKey": "TCE",
+    "sourceTitle": "Tasha's Cauldron of Everything",
+    "sourceYear": 2020,
+    "sourceShort": "TCoE",
+    "evidenceTerms": [
+      "Path of the Beast"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "tce:subclass:barbarian:path-of-wild-magic",
+    "kind": "subclass",
+    "name": "Path of Wild Magic",
+    "className": "Barbarian",
+    "displayLabel": "Path of Wild Magic · 2014 · TCoE",
+    "rulesVersion": "2014",
+    "sourceKey": "TCE",
+    "sourceTitle": "Tasha's Cauldron of Everything",
+    "sourceYear": 2020,
+    "sourceShort": "TCoE",
+    "evidenceTerms": [
+      "Path of Wild Magic"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "tce:subclass:bard:college-of-creation",
+    "kind": "subclass",
+    "name": "College of Creation",
+    "className": "Bard",
+    "displayLabel": "College of Creation · 2014 · TCoE",
+    "rulesVersion": "2014",
+    "sourceKey": "TCE",
+    "sourceTitle": "Tasha's Cauldron of Everything",
+    "sourceYear": 2020,
+    "sourceShort": "TCoE",
+    "evidenceTerms": [
+      "College of Creation"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "tce:subclass:bard:college-of-eloquence",
+    "kind": "subclass",
+    "name": "College of Eloquence",
+    "className": "Bard",
+    "displayLabel": "College of Eloquence · 2014 · TCoE",
+    "rulesVersion": "2014",
+    "sourceKey": "TCE",
+    "sourceTitle": "Tasha's Cauldron of Everything",
+    "sourceYear": 2020,
+    "sourceShort": "TCoE",
+    "evidenceTerms": [
+      "College of Eloquence"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "tce:subclass:cleric:order-domain",
+    "kind": "subclass",
+    "name": "Order Domain",
+    "className": "Cleric",
+    "displayLabel": "Order Domain · 2014 · TCoE",
+    "rulesVersion": "2014",
+    "sourceKey": "TCE",
+    "sourceTitle": "Tasha's Cauldron of Everything",
+    "sourceYear": 2020,
+    "sourceShort": "TCoE",
+    "evidenceTerms": [
+      "Order Domain"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "tce:subclass:cleric:peace-domain",
+    "kind": "subclass",
+    "name": "Peace Domain",
+    "className": "Cleric",
+    "displayLabel": "Peace Domain · 2014 · TCoE",
+    "rulesVersion": "2014",
+    "sourceKey": "TCE",
+    "sourceTitle": "Tasha's Cauldron of Everything",
+    "sourceYear": 2020,
+    "sourceShort": "TCoE",
+    "evidenceTerms": [
+      "Peace Domain"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "tce:subclass:cleric:twilight-domain",
+    "kind": "subclass",
+    "name": "Twilight Domain",
+    "className": "Cleric",
+    "displayLabel": "Twilight Domain · 2014 · TCoE",
+    "rulesVersion": "2014",
+    "sourceKey": "TCE",
+    "sourceTitle": "Tasha's Cauldron of Everything",
+    "sourceYear": 2020,
+    "sourceShort": "TCoE",
+    "evidenceTerms": [
+      "Twilight Domain"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "tce:subclass:druid:circle-of-spores",
+    "kind": "subclass",
+    "name": "Circle of Spores",
+    "className": "Druid",
+    "displayLabel": "Circle of Spores · 2014 · TCoE",
+    "rulesVersion": "2014",
+    "sourceKey": "TCE",
+    "sourceTitle": "Tasha's Cauldron of Everything",
+    "sourceYear": 2020,
+    "sourceShort": "TCoE",
+    "evidenceTerms": [
+      "Circle of Spores"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "tce:subclass:druid:circle-of-stars",
+    "kind": "subclass",
+    "name": "Circle of Stars",
+    "className": "Druid",
+    "displayLabel": "Circle of Stars · 2014 · TCoE",
+    "rulesVersion": "2014",
+    "sourceKey": "TCE",
+    "sourceTitle": "Tasha's Cauldron of Everything",
+    "sourceYear": 2020,
+    "sourceShort": "TCoE",
+    "evidenceTerms": [
+      "Circle of Stars"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "tce:subclass:druid:circle-of-wildfire",
+    "kind": "subclass",
+    "name": "Circle of Wildfire",
+    "className": "Druid",
+    "displayLabel": "Circle of Wildfire · 2014 · TCoE",
+    "rulesVersion": "2014",
+    "sourceKey": "TCE",
+    "sourceTitle": "Tasha's Cauldron of Everything",
+    "sourceYear": 2020,
+    "sourceShort": "TCoE",
+    "evidenceTerms": [
+      "Circle of Wildfire"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "tce:subclass:fighter:psi-warrior",
+    "kind": "subclass",
+    "name": "Psi Warrior",
+    "className": "Fighter",
+    "displayLabel": "Psi Warrior · 2014 · TCoE",
+    "rulesVersion": "2014",
+    "sourceKey": "TCE",
+    "sourceTitle": "Tasha's Cauldron of Everything",
+    "sourceYear": 2020,
+    "sourceShort": "TCoE",
+    "evidenceTerms": [
+      "Psi Warrior"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "tce:subclass:fighter:rune-knight",
+    "kind": "subclass",
+    "name": "Rune Knight",
+    "className": "Fighter",
+    "displayLabel": "Rune Knight · 2014 · TCoE",
+    "rulesVersion": "2014",
+    "sourceKey": "TCE",
+    "sourceTitle": "Tasha's Cauldron of Everything",
+    "sourceYear": 2020,
+    "sourceShort": "TCoE",
+    "evidenceTerms": [
+      "Rune Knight"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "tce:subclass:monk:way-of-mercy",
+    "kind": "subclass",
+    "name": "Way of Mercy",
+    "className": "Monk",
+    "displayLabel": "Way of Mercy · 2014 · TCoE",
+    "rulesVersion": "2014",
+    "sourceKey": "TCE",
+    "sourceTitle": "Tasha's Cauldron of Everything",
+    "sourceYear": 2020,
+    "sourceShort": "TCoE",
+    "evidenceTerms": [
+      "Way of Mercy"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "tce:subclass:monk:way-of-the-astral-self",
+    "kind": "subclass",
+    "name": "Way of the Astral Self",
+    "className": "Monk",
+    "displayLabel": "Way of the Astral Self · 2014 · TCoE",
+    "rulesVersion": "2014",
+    "sourceKey": "TCE",
+    "sourceTitle": "Tasha's Cauldron of Everything",
+    "sourceYear": 2020,
+    "sourceShort": "TCoE",
+    "evidenceTerms": [
+      "Way of the Astral Self"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "tce:subclass:paladin:oath-of-glory",
+    "kind": "subclass",
+    "name": "Oath of Glory",
+    "className": "Paladin",
+    "displayLabel": "Oath of Glory · 2014 · TCoE",
+    "rulesVersion": "2014",
+    "sourceKey": "TCE",
+    "sourceTitle": "Tasha's Cauldron of Everything",
+    "sourceYear": 2020,
+    "sourceShort": "TCoE",
+    "evidenceTerms": [
+      "Oath of Glory"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "tce:subclass:paladin:oath-of-the-watchers",
+    "kind": "subclass",
+    "name": "Oath of the Watchers",
+    "className": "Paladin",
+    "displayLabel": "Oath of the Watchers · 2014 · TCoE",
+    "rulesVersion": "2014",
+    "sourceKey": "TCE",
+    "sourceTitle": "Tasha's Cauldron of Everything",
+    "sourceYear": 2020,
+    "sourceShort": "TCoE",
+    "evidenceTerms": [
+      "Oath of the Watchers"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "tce:subclass:ranger:fey-wanderer",
+    "kind": "subclass",
+    "name": "Fey Wanderer",
+    "className": "Ranger",
+    "displayLabel": "Fey Wanderer · 2014 · TCoE",
+    "rulesVersion": "2014",
+    "sourceKey": "TCE",
+    "sourceTitle": "Tasha's Cauldron of Everything",
+    "sourceYear": 2020,
+    "sourceShort": "TCoE",
+    "evidenceTerms": [
+      "Fey Wanderer"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "tce:subclass:ranger:swarmkeeper",
+    "kind": "subclass",
+    "name": "Swarmkeeper",
+    "className": "Ranger",
+    "displayLabel": "Swarmkeeper · 2014 · TCoE",
+    "rulesVersion": "2014",
+    "sourceKey": "TCE",
+    "sourceTitle": "Tasha's Cauldron of Everything",
+    "sourceYear": 2020,
+    "sourceShort": "TCoE",
+    "evidenceTerms": [
+      "Swarmkeeper"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "tce:subclass:rogue:phantom",
+    "kind": "subclass",
+    "name": "Phantom",
+    "className": "Rogue",
+    "displayLabel": "Phantom · 2014 · TCoE",
+    "rulesVersion": "2014",
+    "sourceKey": "TCE",
+    "sourceTitle": "Tasha's Cauldron of Everything",
+    "sourceYear": 2020,
+    "sourceShort": "TCoE",
+    "evidenceTerms": [
+      "Phantom"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "tce:subclass:rogue:soulknife",
+    "kind": "subclass",
+    "name": "Soulknife",
+    "className": "Rogue",
+    "displayLabel": "Soulknife · 2014 · TCoE",
+    "rulesVersion": "2014",
+    "sourceKey": "TCE",
+    "sourceTitle": "Tasha's Cauldron of Everything",
+    "sourceYear": 2020,
+    "sourceShort": "TCoE",
+    "evidenceTerms": [
+      "Soulknife"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "tce:subclass:sorcerer:aberrant-mind",
+    "kind": "subclass",
+    "name": "Aberrant Mind",
+    "className": "Sorcerer",
+    "displayLabel": "Aberrant Mind · 2014 · TCoE",
+    "rulesVersion": "2014",
+    "sourceKey": "TCE",
+    "sourceTitle": "Tasha's Cauldron of Everything",
+    "sourceYear": 2020,
+    "sourceShort": "TCoE",
+    "evidenceTerms": [
+      "Aberrant Mind"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "tce:subclass:sorcerer:clockwork-soul",
+    "kind": "subclass",
+    "name": "Clockwork Soul",
+    "className": "Sorcerer",
+    "displayLabel": "Clockwork Soul · 2014 · TCoE",
+    "rulesVersion": "2014",
+    "sourceKey": "TCE",
+    "sourceTitle": "Tasha's Cauldron of Everything",
+    "sourceYear": 2020,
+    "sourceShort": "TCoE",
+    "evidenceTerms": [
+      "Clockwork Soul"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "tce:subclass:warlock:the-fathomless",
+    "kind": "subclass",
+    "name": "The Fathomless",
+    "className": "Warlock",
+    "displayLabel": "The Fathomless · 2014 · TCoE",
+    "rulesVersion": "2014",
+    "sourceKey": "TCE",
+    "sourceTitle": "Tasha's Cauldron of Everything",
+    "sourceYear": 2020,
+    "sourceShort": "TCoE",
+    "evidenceTerms": [
+      "The Fathomless"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "tce:subclass:warlock:the-genie",
+    "kind": "subclass",
+    "name": "The Genie",
+    "className": "Warlock",
+    "displayLabel": "The Genie · 2014 · TCoE",
+    "rulesVersion": "2014",
+    "sourceKey": "TCE",
+    "sourceTitle": "Tasha's Cauldron of Everything",
+    "sourceYear": 2020,
+    "sourceShort": "TCoE",
+    "evidenceTerms": [
+      "The Genie"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "tce:subclass:wizard:bladesinging",
+    "kind": "subclass",
+    "name": "Bladesinging",
+    "className": "Wizard",
+    "displayLabel": "Bladesinging · 2014 · TCoE",
+    "rulesVersion": "2014",
+    "sourceKey": "TCE",
+    "sourceTitle": "Tasha's Cauldron of Everything",
+    "sourceYear": 2020,
+    "sourceShort": "TCoE",
+    "evidenceTerms": [
+      "Bladesinging"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "tce:subclass:wizard:order-of-scribes",
+    "kind": "subclass",
+    "name": "Order of Scribes",
+    "className": "Wizard",
+    "displayLabel": "Order of Scribes · 2014 · TCoE",
+    "rulesVersion": "2014",
+    "sourceKey": "TCE",
+    "sourceTitle": "Tasha's Cauldron of Everything",
+    "sourceYear": 2020,
+    "sourceShort": "TCoE",
+    "evidenceTerms": [
+      "Order of Scribes"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "ftd:subclass:monk:way-of-the-ascendant-dragon",
+    "kind": "subclass",
+    "name": "Way of the Ascendant Dragon",
+    "className": "Monk",
+    "displayLabel": "Way of the Ascendant Dragon · 2014 · FToD",
+    "rulesVersion": "2014",
+    "sourceKey": "FTD",
+    "sourceTitle": "Fizban's Treasury of Dragons",
+    "sourceYear": 2021,
+    "sourceShort": "FToD",
+    "evidenceTerms": [
+      "Way of the Ascendant Dragon"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "ftd:subclass:ranger:drakewarden",
+    "kind": "subclass",
+    "name": "Drakewarden",
+    "className": "Ranger",
+    "displayLabel": "Drakewarden · 2014 · FToD",
+    "rulesVersion": "2014",
+    "sourceKey": "FTD",
+    "sourceTitle": "Fizban's Treasury of Dragons",
+    "sourceYear": 2021,
+    "sourceShort": "FToD",
+    "evidenceTerms": [
+      "Drakewarden"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "bgg:subclass:barbarian:path-of-the-giant",
+    "kind": "subclass",
+    "name": "Path of the Giant",
+    "className": "Barbarian",
+    "displayLabel": "Path of the Giant · 2014 · BPGotG",
+    "rulesVersion": "2014",
+    "sourceKey": "BGG",
+    "sourceTitle": "Bigby Presents: Glory of the Giants",
+    "sourceYear": 2023,
+    "sourceShort": "BPGotG",
+    "evidenceTerms": [
+      "Path of the Giant"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:barbarian:path-of-the-berserker",
+    "kind": "subclass",
+    "name": "Path of the Berserker",
+    "className": "Barbarian",
+    "displayLabel": "Path of the Berserker · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Path of the Berserker"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:barbarian:path-of-the-wild-heart",
+    "kind": "subclass",
+    "name": "Path of the Wild Heart",
+    "className": "Barbarian",
+    "displayLabel": "Path of the Wild Heart · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Path of the Wild Heart"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:barbarian:path-of-the-world-tree",
+    "kind": "subclass",
+    "name": "Path of the World Tree",
+    "className": "Barbarian",
+    "displayLabel": "Path of the World Tree · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Path of the World Tree"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:barbarian:path-of-the-zealot",
+    "kind": "subclass",
+    "name": "Path of the Zealot",
+    "className": "Barbarian",
+    "displayLabel": "Path of the Zealot · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Path of the Zealot"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:bard:college-of-dance",
+    "kind": "subclass",
+    "name": "College of Dance",
+    "className": "Bard",
+    "displayLabel": "College of Dance · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "College of Dance"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:bard:college-of-glamour",
+    "kind": "subclass",
+    "name": "College of Glamour",
+    "className": "Bard",
+    "displayLabel": "College of Glamour · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "College of Glamour"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:bard:college-of-lore",
+    "kind": "subclass",
+    "name": "College of Lore",
+    "className": "Bard",
+    "displayLabel": "College of Lore · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "College of Lore"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:bard:college-of-valor",
+    "kind": "subclass",
+    "name": "College of Valor",
+    "className": "Bard",
+    "displayLabel": "College of Valor · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "College of Valor"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:cleric:life-domain",
+    "kind": "subclass",
+    "name": "Life Domain",
+    "className": "Cleric",
+    "displayLabel": "Life Domain · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Life Domain"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:cleric:light-domain",
+    "kind": "subclass",
+    "name": "Light Domain",
+    "className": "Cleric",
+    "displayLabel": "Light Domain · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Light Domain"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:cleric:trickery-domain",
+    "kind": "subclass",
+    "name": "Trickery Domain",
+    "className": "Cleric",
+    "displayLabel": "Trickery Domain · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Trickery Domain"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:cleric:war-domain",
+    "kind": "subclass",
+    "name": "War Domain",
+    "className": "Cleric",
+    "displayLabel": "War Domain · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "War Domain"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:druid:circle-of-the-land",
+    "kind": "subclass",
+    "name": "Circle of the Land",
+    "className": "Druid",
+    "displayLabel": "Circle of the Land · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Circle of the Land"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:druid:circle-of-the-moon",
+    "kind": "subclass",
+    "name": "Circle of the Moon",
+    "className": "Druid",
+    "displayLabel": "Circle of the Moon · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Circle of the Moon"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:druid:circle-of-the-sea",
+    "kind": "subclass",
+    "name": "Circle of the Sea",
+    "className": "Druid",
+    "displayLabel": "Circle of the Sea · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Circle of the Sea"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:druid:circle-of-the-stars",
+    "kind": "subclass",
+    "name": "Circle of the Stars",
+    "className": "Druid",
+    "displayLabel": "Circle of the Stars · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Circle of the Stars"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:fighter:battle-master",
+    "kind": "subclass",
+    "name": "Battle Master",
+    "className": "Fighter",
+    "displayLabel": "Battle Master · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Battle Master"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:fighter:champion",
+    "kind": "subclass",
+    "name": "Champion",
+    "className": "Fighter",
+    "displayLabel": "Champion · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Champion"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:fighter:eldritch-knight",
+    "kind": "subclass",
+    "name": "Eldritch Knight",
+    "className": "Fighter",
+    "displayLabel": "Eldritch Knight · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Eldritch Knight"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:fighter:psi-warrior",
+    "kind": "subclass",
+    "name": "Psi Warrior",
+    "className": "Fighter",
+    "displayLabel": "Psi Warrior · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Psi Warrior"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:monk:warrior-of-mercy",
+    "kind": "subclass",
+    "name": "Warrior of Mercy",
+    "className": "Monk",
+    "displayLabel": "Warrior of Mercy · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Warrior of Mercy"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:monk:warrior-of-shadow",
+    "kind": "subclass",
+    "name": "Warrior of Shadow",
+    "className": "Monk",
+    "displayLabel": "Warrior of Shadow · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Warrior of Shadow"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:monk:warrior-of-the-elements",
+    "kind": "subclass",
+    "name": "Warrior of the Elements",
+    "className": "Monk",
+    "displayLabel": "Warrior of the Elements · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Warrior of the Elements"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:monk:warrior-of-the-open-hand",
+    "kind": "subclass",
+    "name": "Warrior of the Open Hand",
+    "className": "Monk",
+    "displayLabel": "Warrior of the Open Hand · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Warrior of the Open Hand"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:paladin:oath-of-devotion",
+    "kind": "subclass",
+    "name": "Oath of Devotion",
+    "className": "Paladin",
+    "displayLabel": "Oath of Devotion · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Oath of Devotion"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:paladin:oath-of-glory",
+    "kind": "subclass",
+    "name": "Oath of Glory",
+    "className": "Paladin",
+    "displayLabel": "Oath of Glory · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Oath of Glory"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:paladin:oath-of-the-ancients",
+    "kind": "subclass",
+    "name": "Oath of the Ancients",
+    "className": "Paladin",
+    "displayLabel": "Oath of the Ancients · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Oath of the Ancients"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:paladin:oath-of-vengeance",
+    "kind": "subclass",
+    "name": "Oath of Vengeance",
+    "className": "Paladin",
+    "displayLabel": "Oath of Vengeance · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Oath of Vengeance"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:ranger:beast-master",
+    "kind": "subclass",
+    "name": "Beast Master",
+    "className": "Ranger",
+    "displayLabel": "Beast Master · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Beast Master"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:ranger:fey-wanderer",
+    "kind": "subclass",
+    "name": "Fey Wanderer",
+    "className": "Ranger",
+    "displayLabel": "Fey Wanderer · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Fey Wanderer"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:ranger:gloom-stalker",
+    "kind": "subclass",
+    "name": "Gloom Stalker",
+    "className": "Ranger",
+    "displayLabel": "Gloom Stalker · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Gloom Stalker"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:ranger:hunter",
+    "kind": "subclass",
+    "name": "Hunter",
+    "className": "Ranger",
+    "displayLabel": "Hunter · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Hunter"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:rogue:arcane-trickster",
+    "kind": "subclass",
+    "name": "Arcane Trickster",
+    "className": "Rogue",
+    "displayLabel": "Arcane Trickster · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Arcane Trickster"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:rogue:assassin",
+    "kind": "subclass",
+    "name": "Assassin",
+    "className": "Rogue",
+    "displayLabel": "Assassin · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Assassin"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:rogue:soulknife",
+    "kind": "subclass",
+    "name": "Soulknife",
+    "className": "Rogue",
+    "displayLabel": "Soulknife · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Soulknife"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:rogue:thief",
+    "kind": "subclass",
+    "name": "Thief",
+    "className": "Rogue",
+    "displayLabel": "Thief · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Thief"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:sorcerer:aberrant-sorcery",
+    "kind": "subclass",
+    "name": "Aberrant Sorcery",
+    "className": "Sorcerer",
+    "displayLabel": "Aberrant Sorcery · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Aberrant Sorcery"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:sorcerer:clockwork-sorcery",
+    "kind": "subclass",
+    "name": "Clockwork Sorcery",
+    "className": "Sorcerer",
+    "displayLabel": "Clockwork Sorcery · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Clockwork Sorcery"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:sorcerer:draconic-sorcery",
+    "kind": "subclass",
+    "name": "Draconic Sorcery",
+    "className": "Sorcerer",
+    "displayLabel": "Draconic Sorcery · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Draconic Sorcery"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:sorcerer:wild-magic-sorcery",
+    "kind": "subclass",
+    "name": "Wild Magic Sorcery",
+    "className": "Sorcerer",
+    "displayLabel": "Wild Magic Sorcery · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Wild Magic Sorcery"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:warlock:archfey-patron",
+    "kind": "subclass",
+    "name": "Archfey Patron",
+    "className": "Warlock",
+    "displayLabel": "Archfey Patron · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Archfey Patron"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:warlock:celestial-patron",
+    "kind": "subclass",
+    "name": "Celestial Patron",
+    "className": "Warlock",
+    "displayLabel": "Celestial Patron · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Celestial Patron"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:warlock:fiend-patron",
+    "kind": "subclass",
+    "name": "Fiend Patron",
+    "className": "Warlock",
+    "displayLabel": "Fiend Patron · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Fiend Patron"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:warlock:great-old-one-patron",
+    "kind": "subclass",
+    "name": "Great Old One Patron",
+    "className": "Warlock",
+    "displayLabel": "Great Old One Patron · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Great Old One Patron"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:wizard:abjurer",
+    "kind": "subclass",
+    "name": "Abjurer",
+    "className": "Wizard",
+    "displayLabel": "Abjurer · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Abjurer"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:wizard:diviner",
+    "kind": "subclass",
+    "name": "Diviner",
+    "className": "Wizard",
+    "displayLabel": "Diviner · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Diviner"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:wizard:evoker",
+    "kind": "subclass",
+    "name": "Evoker",
+    "className": "Wizard",
+    "displayLabel": "Evoker · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Evoker"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:subclass:wizard:illusionist",
+    "kind": "subclass",
+    "name": "Illusionist",
+    "className": "Wizard",
+    "displayLabel": "Illusionist · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Illusionist"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  }
+]
+
+export const PLAYABLE_SPECIES: PlayableCatalogOption[] = [
+  {
+    "id": "phb2014:species:hill-dwarf",
+    "kind": "species",
+    "name": "Hill Dwarf",
+    "displayLabel": "Hill Dwarf · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Hill Dwarf"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:species:mountain-dwarf",
+    "kind": "species",
+    "name": "Mountain Dwarf",
+    "displayLabel": "Mountain Dwarf · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Mountain Dwarf"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:species:high-elf",
+    "kind": "species",
+    "name": "High Elf",
+    "displayLabel": "High Elf · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "High Elf"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:species:wood-elf",
+    "kind": "species",
+    "name": "Wood Elf",
+    "displayLabel": "Wood Elf · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Wood Elf"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:species:drow",
+    "kind": "species",
+    "name": "Drow",
+    "displayLabel": "Drow · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Drow"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:species:lightfoot-halfling",
+    "kind": "species",
+    "name": "Lightfoot Halfling",
+    "displayLabel": "Lightfoot Halfling · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Lightfoot"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:species:stout-halfling",
+    "kind": "species",
+    "name": "Stout Halfling",
+    "displayLabel": "Stout Halfling · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Stout"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:species:human",
+    "kind": "species",
+    "name": "Human",
+    "displayLabel": "Human · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "HUMAN TRAITS"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:species:variant-human",
+    "kind": "species",
+    "name": "Variant Human",
+    "displayLabel": "Variant Human · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "VARIANT HU MAN TRAITS"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:species:dragonborn",
+    "kind": "species",
+    "name": "Dragonborn",
+    "displayLabel": "Dragonborn · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "DRAGONBORN TRAITS"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:species:forest-gnome",
+    "kind": "species",
+    "name": "Forest Gnome",
+    "displayLabel": "Forest Gnome · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Forest Gnome"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:species:rock-gnome",
+    "kind": "species",
+    "name": "Rock Gnome",
+    "displayLabel": "Rock Gnome · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Rock Gnome"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:species:half-elf",
+    "kind": "species",
+    "name": "Half-Elf",
+    "displayLabel": "Half-Elf · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Half-Elf"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:species:half-orc",
+    "kind": "species",
+    "name": "Half-Orc",
+    "displayLabel": "Half-Orc · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Half-Orc"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:species:tiefling",
+    "kind": "species",
+    "name": "Tiefling",
+    "displayLabel": "Tiefling · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "TIEFLING TRAITS"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "vgm:species:protector-aasimar",
+    "kind": "species",
+    "name": "Protector Aasimar",
+    "displayLabel": "Protector Aasimar · 2014 · VGtM",
+    "rulesVersion": "2014",
+    "sourceKey": "VGM",
+    "sourceTitle": "Volo's Guide to Monsters",
+    "sourceYear": 2016,
+    "sourceShort": "VGtM",
+    "evidenceTerms": [
+      "Protector Aasimar"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "vgm:species:scourge-aasimar",
+    "kind": "species",
+    "name": "Scourge Aasimar",
+    "displayLabel": "Scourge Aasimar · 2014 · VGtM",
+    "rulesVersion": "2014",
+    "sourceKey": "VGM",
+    "sourceTitle": "Volo's Guide to Monsters",
+    "sourceYear": 2016,
+    "sourceShort": "VGtM",
+    "evidenceTerms": [
+      "Scourge Aasimar"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "vgm:species:fallen-aasimar",
+    "kind": "species",
+    "name": "Fallen Aasimar",
+    "displayLabel": "Fallen Aasimar · 2014 · VGtM",
+    "rulesVersion": "2014",
+    "sourceKey": "VGM",
+    "sourceTitle": "Volo's Guide to Monsters",
+    "sourceYear": 2016,
+    "sourceShort": "VGtM",
+    "evidenceTerms": [
+      "Fallen Aasimar"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "vgm:species:bugbear",
+    "kind": "species",
+    "name": "Bugbear",
+    "displayLabel": "Bugbear · 2014 · VGtM",
+    "rulesVersion": "2014",
+    "sourceKey": "VGM",
+    "sourceTitle": "Volo's Guide to Monsters",
+    "sourceYear": 2016,
+    "sourceShort": "VGtM",
+    "evidenceTerms": [
+      "BUGBEAR TRAITS"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "vgm:species:firbolg",
+    "kind": "species",
+    "name": "Firbolg",
+    "displayLabel": "Firbolg · 2014 · VGtM",
+    "rulesVersion": "2014",
+    "sourceKey": "VGM",
+    "sourceTitle": "Volo's Guide to Monsters",
+    "sourceYear": 2016,
+    "sourceShort": "VGtM",
+    "evidenceTerms": [
+      "FIRBOLG TRAITS"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "vgm:species:goblin",
+    "kind": "species",
+    "name": "Goblin",
+    "displayLabel": "Goblin · 2014 · VGtM",
+    "rulesVersion": "2014",
+    "sourceKey": "VGM",
+    "sourceTitle": "Volo's Guide to Monsters",
+    "sourceYear": 2016,
+    "sourceShort": "VGtM",
+    "evidenceTerms": [
+      "GOBLIN TRAITS"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "vgm:species:goliath",
+    "kind": "species",
+    "name": "Goliath",
+    "displayLabel": "Goliath · 2014 · VGtM",
+    "rulesVersion": "2014",
+    "sourceKey": "VGM",
+    "sourceTitle": "Volo's Guide to Monsters",
+    "sourceYear": 2016,
+    "sourceShort": "VGtM",
+    "evidenceTerms": [
+      "GOLIATH TRAITS"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "vgm:species:hobgoblin",
+    "kind": "species",
+    "name": "Hobgoblin",
+    "displayLabel": "Hobgoblin · 2014 · VGtM",
+    "rulesVersion": "2014",
+    "sourceKey": "VGM",
+    "sourceTitle": "Volo's Guide to Monsters",
+    "sourceYear": 2016,
+    "sourceShort": "VGtM",
+    "evidenceTerms": [
+      "HOBGOBLIN TRAITS"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "vgm:species:kenku",
+    "kind": "species",
+    "name": "Kenku",
+    "displayLabel": "Kenku · 2014 · VGtM",
+    "rulesVersion": "2014",
+    "sourceKey": "VGM",
+    "sourceTitle": "Volo's Guide to Monsters",
+    "sourceYear": 2016,
+    "sourceShort": "VGtM",
+    "evidenceTerms": [
+      "KENKU"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "vgm:species:kobold",
+    "kind": "species",
+    "name": "Kobold",
+    "displayLabel": "Kobold · 2014 · VGtM",
+    "rulesVersion": "2014",
+    "sourceKey": "VGM",
+    "sourceTitle": "Volo's Guide to Monsters",
+    "sourceYear": 2016,
+    "sourceShort": "VGtM",
+    "evidenceTerms": [
+      "KOBOLD TRAITS"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "vgm:species:lizardfolk",
+    "kind": "species",
+    "name": "Lizardfolk",
+    "displayLabel": "Lizardfolk · 2014 · VGtM",
+    "rulesVersion": "2014",
+    "sourceKey": "VGM",
+    "sourceTitle": "Volo's Guide to Monsters",
+    "sourceYear": 2016,
+    "sourceShort": "VGtM",
+    "evidenceTerms": [
+      "LIZARDFOLK"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "vgm:species:orc",
+    "kind": "species",
+    "name": "Orc",
+    "displayLabel": "Orc · 2014 · VGtM",
+    "rulesVersion": "2014",
+    "sourceKey": "VGM",
+    "sourceTitle": "Volo's Guide to Monsters",
+    "sourceYear": 2016,
+    "sourceShort": "VGtM",
+    "evidenceTerms": [
+      "ORO TRAITS"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "vgm:species:tabaxi",
+    "kind": "species",
+    "name": "Tabaxi",
+    "displayLabel": "Tabaxi · 2014 · VGtM",
+    "rulesVersion": "2014",
+    "sourceKey": "VGM",
+    "sourceTitle": "Volo's Guide to Monsters",
+    "sourceYear": 2016,
+    "sourceShort": "VGtM",
+    "evidenceTerms": [
+      "TABAXI"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "vgm:species:triton",
+    "kind": "species",
+    "name": "Triton",
+    "displayLabel": "Triton · 2014 · VGtM",
+    "rulesVersion": "2014",
+    "sourceKey": "VGM",
+    "sourceTitle": "Volo's Guide to Monsters",
+    "sourceYear": 2016,
+    "sourceShort": "VGtM",
+    "evidenceTerms": [
+      "TRITON TRAITS"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "vgm:species:yuan-ti-pureblood",
+    "kind": "species",
+    "name": "Yuan-ti Pureblood",
+    "displayLabel": "Yuan-ti Pureblood · 2014 · VGtM",
+    "rulesVersion": "2014",
+    "sourceKey": "VGM",
+    "sourceTitle": "Volo's Guide to Monsters",
+    "sourceYear": 2016,
+    "sourceShort": "VGtM",
+    "evidenceTerms": [
+      "YUAN-TI PUREBLOOD TRAITS"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "mtf:species:duergar",
+    "kind": "species",
+    "name": "Duergar",
+    "displayLabel": "Duergar · 2014 · MToF",
+    "rulesVersion": "2014",
+    "sourceKey": "MTF",
+    "sourceTitle": "Mordenkainen's Tome of Foes",
+    "sourceYear": 2018,
+    "sourceShort": "MToF",
+    "evidenceTerms": [
+      "DUERGAR"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "mtf:species:eladrin",
+    "kind": "species",
+    "name": "Eladrin",
+    "displayLabel": "Eladrin · 2014 · MToF",
+    "rulesVersion": "2014",
+    "sourceKey": "MTF",
+    "sourceTitle": "Mordenkainen's Tome of Foes",
+    "sourceYear": 2018,
+    "sourceShort": "MToF",
+    "evidenceTerms": [
+      "ELF SUBRACES",
+      "ELADRIN"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "mtf:species:sea-elf",
+    "kind": "species",
+    "name": "Sea Elf",
+    "displayLabel": "Sea Elf · 2014 · MToF",
+    "rulesVersion": "2014",
+    "sourceKey": "MTF",
+    "sourceTitle": "Mordenkainen's Tome of Foes",
+    "sourceYear": 2018,
+    "sourceShort": "MToF",
+    "evidenceTerms": [
+      "ELF SUBRACES",
+      "SEA ELF"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "mtf:species:shadar-kai",
+    "kind": "species",
+    "name": "Shadar-kai",
+    "displayLabel": "Shadar-kai · 2014 · MToF",
+    "rulesVersion": "2014",
+    "sourceKey": "MTF",
+    "sourceTitle": "Mordenkainen's Tome of Foes",
+    "sourceYear": 2018,
+    "sourceShort": "MToF",
+    "evidenceTerms": [
+      "ELF SUBRACES",
+      "SHADAR-KAI"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "mtf:species:deep-gnome",
+    "kind": "species",
+    "name": "Deep Gnome",
+    "displayLabel": "Deep Gnome · 2014 · MToF",
+    "rulesVersion": "2014",
+    "sourceKey": "MTF",
+    "sourceTitle": "Mordenkainen's Tome of Foes",
+    "sourceYear": 2018,
+    "sourceShort": "MToF",
+    "evidenceTerms": [
+      "DEEP GNOME CHARACTERS"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "mtf:species:githyanki",
+    "kind": "species",
+    "name": "Githyanki",
+    "displayLabel": "Githyanki · 2014 · MToF",
+    "rulesVersion": "2014",
+    "sourceKey": "MTF",
+    "sourceTitle": "Mordenkainen's Tome of Foes",
+    "sourceYear": 2018,
+    "sourceShort": "MToF",
+    "evidenceTerms": [
+      "GITH TABLES",
+      "GITHYANKI"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "mtf:species:githzerai",
+    "kind": "species",
+    "name": "Githzerai",
+    "displayLabel": "Githzerai · 2014 · MToF",
+    "rulesVersion": "2014",
+    "sourceKey": "MTF",
+    "sourceTitle": "Mordenkainen's Tome of Foes",
+    "sourceYear": 2018,
+    "sourceShort": "MToF",
+    "evidenceTerms": [
+      "GITH TABLES",
+      "GITHZERAI"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "mtf:species:tiefling-asmodeus",
+    "kind": "species",
+    "name": "Tiefling — Asmodeus",
+    "displayLabel": "Tiefling — Asmodeus · 2014 · MToF",
+    "rulesVersion": "2014",
+    "sourceKey": "MTF",
+    "sourceTitle": "Mordenkainen's Tome of Foes",
+    "sourceYear": 2018,
+    "sourceShort": "MToF",
+    "evidenceTerms": [
+      "TIE FLING SUBRACES",
+      "ASMODEUS"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "mtf:species:tiefling-baalzebul",
+    "kind": "species",
+    "name": "Tiefling — Baalzebul",
+    "displayLabel": "Tiefling — Baalzebul · 2014 · MToF",
+    "rulesVersion": "2014",
+    "sourceKey": "MTF",
+    "sourceTitle": "Mordenkainen's Tome of Foes",
+    "sourceYear": 2018,
+    "sourceShort": "MToF",
+    "evidenceTerms": [
+      "TIE FLING SUBRACES",
+      "BAALZEBUL"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "mtf:species:tiefling-dispater",
+    "kind": "species",
+    "name": "Tiefling — Dispater",
+    "displayLabel": "Tiefling — Dispater · 2014 · MToF",
+    "rulesVersion": "2014",
+    "sourceKey": "MTF",
+    "sourceTitle": "Mordenkainen's Tome of Foes",
+    "sourceYear": 2018,
+    "sourceShort": "MToF",
+    "evidenceTerms": [
+      "TIE FLING SUBRACES",
+      "DISPATER"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "mtf:species:tiefling-fierna",
+    "kind": "species",
+    "name": "Tiefling — Fierna",
+    "displayLabel": "Tiefling — Fierna · 2014 · MToF",
+    "rulesVersion": "2014",
+    "sourceKey": "MTF",
+    "sourceTitle": "Mordenkainen's Tome of Foes",
+    "sourceYear": 2018,
+    "sourceShort": "MToF",
+    "evidenceTerms": [
+      "TIE FLING SUBRACES",
+      "FIERNA"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "mtf:species:tiefling-glasya",
+    "kind": "species",
+    "name": "Tiefling — Glasya",
+    "displayLabel": "Tiefling — Glasya · 2014 · MToF",
+    "rulesVersion": "2014",
+    "sourceKey": "MTF",
+    "sourceTitle": "Mordenkainen's Tome of Foes",
+    "sourceYear": 2018,
+    "sourceShort": "MToF",
+    "evidenceTerms": [
+      "TIE FLING SUBRACES",
+      "GLASYA"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "mtf:species:tiefling-levistus",
+    "kind": "species",
+    "name": "Tiefling — Levistus",
+    "displayLabel": "Tiefling — Levistus · 2014 · MToF",
+    "rulesVersion": "2014",
+    "sourceKey": "MTF",
+    "sourceTitle": "Mordenkainen's Tome of Foes",
+    "sourceYear": 2018,
+    "sourceShort": "MToF",
+    "evidenceTerms": [
+      "TIE FLING SUBRACES",
+      "LEVISTUS"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "mtf:species:tiefling-mammon",
+    "kind": "species",
+    "name": "Tiefling — Mammon",
+    "displayLabel": "Tiefling — Mammon · 2014 · MToF",
+    "rulesVersion": "2014",
+    "sourceKey": "MTF",
+    "sourceTitle": "Mordenkainen's Tome of Foes",
+    "sourceYear": 2018,
+    "sourceShort": "MToF",
+    "evidenceTerms": [
+      "TIE FLING SUBRACES",
+      "MAMMON"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "mtf:species:tiefling-mephistopheles",
+    "kind": "species",
+    "name": "Tiefling — Mephistopheles",
+    "displayLabel": "Tiefling — Mephistopheles · 2014 · MToF",
+    "rulesVersion": "2014",
+    "sourceKey": "MTF",
+    "sourceTitle": "Mordenkainen's Tome of Foes",
+    "sourceYear": 2018,
+    "sourceShort": "MToF",
+    "evidenceTerms": [
+      "TIE FLING SUBRACES",
+      "MEPHISTOPHELES"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "mtf:species:tiefling-zariel",
+    "kind": "species",
+    "name": "Tiefling — Zariel",
+    "displayLabel": "Tiefling — Zariel · 2014 · MToF",
+    "rulesVersion": "2014",
+    "sourceKey": "MTF",
+    "sourceTitle": "Mordenkainen's Tome of Foes",
+    "sourceYear": 2018,
+    "sourceShort": "MToF",
+    "evidenceTerms": [
+      "TIE FLING SUBRACES",
+      "ZAR IEL"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "tce:species:custom-lineage",
+    "kind": "species",
+    "name": "Custom Lineage",
+    "displayLabel": "Custom Lineage · 2014 · TCoE",
+    "rulesVersion": "2014",
+    "sourceKey": "TCE",
+    "sourceTitle": "Tasha's Cauldron of Everything",
+    "sourceYear": 2020,
+    "sourceShort": "TCoE",
+    "evidenceTerms": [
+      "CUSTOM LIN EAC E"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "ftd:species:chromatic-dragonborn",
+    "kind": "species",
+    "name": "Chromatic Dragonborn",
+    "displayLabel": "Chromatic Dragonborn · 2014 · FToD",
+    "rulesVersion": "2014",
+    "sourceKey": "FTD",
+    "sourceTitle": "Fizban's Treasury of Dragons",
+    "sourceYear": 2021,
+    "sourceShort": "FToD",
+    "evidenceTerms": [
+      "Chromatic Dragonborn"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "ftd:species:gem-dragonborn",
+    "kind": "species",
+    "name": "Gem Dragonborn",
+    "displayLabel": "Gem Dragonborn · 2014 · FToD",
+    "rulesVersion": "2014",
+    "sourceKey": "FTD",
+    "sourceTitle": "Fizban's Treasury of Dragons",
+    "sourceYear": 2021,
+    "sourceShort": "FToD",
+    "evidenceTerms": [
+      "Gem Dragonborn"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "ftd:species:metallic-dragonborn",
+    "kind": "species",
+    "name": "Metallic Dragonborn",
+    "displayLabel": "Metallic Dragonborn · 2014 · FToD",
+    "rulesVersion": "2014",
+    "sourceKey": "FTD",
+    "sourceTitle": "Fizban's Treasury of Dragons",
+    "sourceYear": 2021,
+    "sourceShort": "FToD",
+    "evidenceTerms": [
+      "Metallic Dragonborn"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:species:aasimar",
+    "kind": "species",
+    "name": "Aasimar",
+    "displayLabel": "Aasimar · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Aasimar"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:species:dragonborn",
+    "kind": "species",
+    "name": "Dragonborn",
+    "displayLabel": "Dragonborn · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Dragonborn"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:species:dwarf",
+    "kind": "species",
+    "name": "Dwarf",
+    "displayLabel": "Dwarf · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Dwarf"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:species:elf",
+    "kind": "species",
+    "name": "Elf",
+    "displayLabel": "Elf · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Elf"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:species:gnome",
+    "kind": "species",
+    "name": "Gnome",
+    "displayLabel": "Gnome · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Gnome"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:species:goliath",
+    "kind": "species",
+    "name": "Goliath",
+    "displayLabel": "Goliath · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Goliath"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:species:halfling",
+    "kind": "species",
+    "name": "Halfling",
+    "displayLabel": "Halfling · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Halfling"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:species:human",
+    "kind": "species",
+    "name": "Human",
+    "displayLabel": "Human · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Human"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:species:orc",
+    "kind": "species",
+    "name": "Orc",
+    "displayLabel": "Orc · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Orc"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:species:tiefling",
+    "kind": "species",
+    "name": "Tiefling",
+    "displayLabel": "Tiefling · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Tiefling"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  }
+]
+
+export const PLAYABLE_BACKGROUNDS: PlayableCatalogOption[] = [
+  {
+    "id": "phb2014:background:acolyte",
+    "kind": "background",
+    "name": "Acolyte",
+    "displayLabel": "Acolyte · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "ACOLYTE"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:background:charlatan",
+    "kind": "background",
+    "name": "Charlatan",
+    "displayLabel": "Charlatan · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "CHARLATAN"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:background:criminal",
+    "kind": "background",
+    "name": "Criminal",
+    "displayLabel": "Criminal · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "CRIMINAL"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:background:spy",
+    "kind": "background",
+    "name": "Spy",
+    "displayLabel": "Spy · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "VARIANT CRIM IN AL : SPY"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:background:entertainer",
+    "kind": "background",
+    "name": "Entertainer",
+    "displayLabel": "Entertainer · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "ENTERTAINER"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:background:gladiator",
+    "kind": "background",
+    "name": "Gladiator",
+    "displayLabel": "Gladiator · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "VARIANT ENT ERTAINER: GLADIATOR"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:background:folk-hero",
+    "kind": "background",
+    "name": "Folk Hero",
+    "displayLabel": "Folk Hero · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "FOLK HERO"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:background:guild-artisan",
+    "kind": "background",
+    "name": "Guild Artisan",
+    "displayLabel": "Guild Artisan · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "GUILD ARTISAN"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:background:guild-merchant",
+    "kind": "background",
+    "name": "Guild Merchant",
+    "displayLabel": "Guild Merchant · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "GUILD MERCHANT"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:background:hermit",
+    "kind": "background",
+    "name": "Hermit",
+    "displayLabel": "Hermit · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "HERMIT"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:background:noble",
+    "kind": "background",
+    "name": "Noble",
+    "displayLabel": "Noble · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "NOBLE"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:background:knight",
+    "kind": "background",
+    "name": "Knight",
+    "displayLabel": "Knight · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "KNIGHT"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:background:outlander",
+    "kind": "background",
+    "name": "Outlander",
+    "displayLabel": "Outlander · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "OUTLANDER"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:background:sage",
+    "kind": "background",
+    "name": "Sage",
+    "displayLabel": "Sage · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "SAGE"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:background:sailor",
+    "kind": "background",
+    "name": "Sailor",
+    "displayLabel": "Sailor · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "SAILOR"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:background:pirate",
+    "kind": "background",
+    "name": "Pirate",
+    "displayLabel": "Pirate · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "PIRATE"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:background:soldier",
+    "kind": "background",
+    "name": "Soldier",
+    "displayLabel": "Soldier · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "SOLDIER"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2014:background:urchin",
+    "kind": "background",
+    "name": "Urchin",
+    "displayLabel": "Urchin · 2014 · PHB",
+    "rulesVersion": "2014",
+    "sourceKey": "PHB2014",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2014,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "URCHIN"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "bgg:background:giant-foundling",
+    "kind": "background",
+    "name": "Giant Foundling",
+    "displayLabel": "Giant Foundling · 2014 · BPGotG",
+    "rulesVersion": "2014",
+    "sourceKey": "BGG",
+    "sourceTitle": "Bigby Presents: Glory of the Giants",
+    "sourceYear": 2023,
+    "sourceShort": "BPGotG",
+    "evidenceTerms": [
+      "GIANT FOUNDLING"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "bgg:background:rune-carver",
+    "kind": "background",
+    "name": "Rune Carver",
+    "displayLabel": "Rune Carver · 2014 · BPGotG",
+    "rulesVersion": "2014",
+    "sourceKey": "BGG",
+    "sourceTitle": "Bigby Presents: Glory of the Giants",
+    "sourceYear": 2023,
+    "sourceShort": "BPGotG",
+    "evidenceTerms": [
+      "RUNE CARVER"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "bmt:background:rewarded",
+    "kind": "background",
+    "name": "Rewarded",
+    "displayLabel": "Rewarded · 2014 · TBoMT",
+    "rulesVersion": "2014",
+    "sourceKey": "BMT",
+    "sourceTitle": "The Book of Many Things",
+    "sourceYear": 2023,
+    "sourceShort": "TBoMT",
+    "evidenceTerms": [
+      "REWARDED BACKGROUND"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "bmt:background:ruined",
+    "kind": "background",
+    "name": "Ruined",
+    "displayLabel": "Ruined · 2014 · TBoMT",
+    "rulesVersion": "2014",
+    "sourceKey": "BMT",
+    "sourceTitle": "The Book of Many Things",
+    "sourceYear": 2023,
+    "sourceShort": "TBoMT",
+    "evidenceTerms": [
+      "RUINED"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:background:acolyte",
+    "kind": "background",
+    "name": "Acolyte",
+    "displayLabel": "Acolyte · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Acolyte"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:background:artisan",
+    "kind": "background",
+    "name": "Artisan",
+    "displayLabel": "Artisan · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Artisan"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:background:charlatan",
+    "kind": "background",
+    "name": "Charlatan",
+    "displayLabel": "Charlatan · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Charlatan"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:background:criminal",
+    "kind": "background",
+    "name": "Criminal",
+    "displayLabel": "Criminal · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Criminal"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:background:entertainer",
+    "kind": "background",
+    "name": "Entertainer",
+    "displayLabel": "Entertainer · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Entertainer"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:background:farmer",
+    "kind": "background",
+    "name": "Farmer",
+    "displayLabel": "Farmer · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Farmer"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:background:guard",
+    "kind": "background",
+    "name": "Guard",
+    "displayLabel": "Guard · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Guard"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:background:guide",
+    "kind": "background",
+    "name": "Guide",
+    "displayLabel": "Guide · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Guide"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:background:hermit",
+    "kind": "background",
+    "name": "Hermit",
+    "displayLabel": "Hermit · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Hermit"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:background:merchant",
+    "kind": "background",
+    "name": "Merchant",
+    "displayLabel": "Merchant · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Merchant"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:background:noble",
+    "kind": "background",
+    "name": "Noble",
+    "displayLabel": "Noble · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Noble"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:background:sage",
+    "kind": "background",
+    "name": "Sage",
+    "displayLabel": "Sage · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Sage"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:background:sailor",
+    "kind": "background",
+    "name": "Sailor",
+    "displayLabel": "Sailor · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Sailor"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:background:scribe",
+    "kind": "background",
+    "name": "Scribe",
+    "displayLabel": "Scribe · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Scribe"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:background:soldier",
+    "kind": "background",
+    "name": "Soldier",
+    "displayLabel": "Soldier · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Soldier"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  },
+  {
+    "id": "phb2024:background:wayfarer",
+    "kind": "background",
+    "name": "Wayfarer",
+    "displayLabel": "Wayfarer · 2024 · PHB",
+    "rulesVersion": "2024",
+    "sourceKey": "PHB2024",
+    "sourceTitle": "Player's Handbook",
+    "sourceYear": 2024,
+    "sourceShort": "PHB",
+    "evidenceTerms": [
+      "Wayfarer"
+    ],
+    "mechanicsStatus": "selection-source-linked"
+  }
+]
+
+export const PLAYABLE_CATALOG_COUNTS = {
+  classes: 25,
+  subclasses: 154,
+  species: 60,
+  backgrounds: 38,
+} as const
+
+export function playableOptionById(
+  options: readonly PlayableCatalogOption[],
+  id: string,
+): PlayableCatalogOption | null {
+  return options.find((option) => option.id === id) ?? null
+}
+
+export function preferredPlayableOptionId(
+  options: readonly PlayableCatalogOption[],
+  currentId: string,
+  currentName: string,
+  preferredRulesVersion: PlayableRulesVersion = '2024',
+): string {
+  if (currentId && options.some((option) => option.id === currentId)) return currentId
+  const sameName = options.filter((option) => option.name.toLocaleLowerCase() === currentName.trim().toLocaleLowerCase())
+  return (
+    sameName.find((option) => option.rulesVersion === preferredRulesVersion)?.id ??
+    sameName[0]?.id ??
+    ''
+  )
+}
+
+export function playableSubclassesForClass(
+  className: string,
+  rulesVersion: string,
+): PlayableSubclassOption[] {
+  const classKey = className.trim().toLocaleLowerCase()
+  return PLAYABLE_SUBCLASSES
+    .filter((option) =>
+      option.className.trim().toLocaleLowerCase() === classKey &&
+      option.rulesVersion === rulesVersion,
+    )
+    .sort((left, right) =>
+      left.name.localeCompare(right.name) ||
+      left.sourceYear - right.sourceYear ||
+      left.sourceTitle.localeCompare(right.sourceTitle),
+    )
+}

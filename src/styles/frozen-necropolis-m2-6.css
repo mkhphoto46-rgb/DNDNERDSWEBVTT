@@ -1,0 +1,1318 @@
+/*
+ * M2.6 — Cascade Reset + Responsive Frozen Shell
+ * Source reviewed from the user's exact current local files.
+ *
+ * IMPORTANT
+ * - This file is the only M2 override imported after frozen-necropolis.css.
+ * - M2.2/M2.3/M2.4/M2.5 remain on disk for history, but are NOT imported.
+ * - No dice/combat/socket/rules/persistence logic changes.
+ * - Desktop and mobile share the same art direction but DO NOT share the same geometry.
+ */
+
+:root {
+  --m26-ice-line: #657c89;
+  --m26-ice-hi: #b7dbea;
+  --m26-deep: #03080b;
+  --m26-panel: #0c151b;
+  --m26-panel-2: #17242c;
+  --m26-paper: #d9dddc;
+  --m26-paper-2: #c7cdcc;
+  --m26-ink: #182126;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  margin: 0;
+  overflow: hidden !important;
+  background: #020507 !important;
+}
+
+.table-shell {
+  width: 100vw !important;
+  height: 100dvh !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  max-width: none !important;
+  max-height: none !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  color: #eef5f8 !important;
+  background:
+    radial-gradient(circle at 50% 12%, rgba(80, 148, 186, .10), transparent 34%),
+    linear-gradient(180deg, #101920, #04090c 54%, #020507) !important;
+}
+
+.table-shell::after {
+  display: none !important;
+}
+
+/* ==========================================================================
+   DESKTOP — reference-driven layout
+   ========================================================================== */
+
+@media (min-width: 1181px) {
+  .table-shell.dm-shell {
+    display: grid !important;
+    grid-template:
+      'header header header' 90px
+      'tools stage inspector' minmax(0, 1fr)
+      'tools dock dock' 240px
+      / 120px minmax(0, 1fr) 390px !important;
+  }
+
+  .table-shell.player-shell,
+  .table-shell.player-shell.player-shell-with-sheet,
+  .table-shell.player-shell.player-spellbook-open {
+    display: grid !important;
+    grid-template:
+      'header header' 90px
+      'tools stage' minmax(0, 1fr)
+      'tools dock' 240px
+      / 120px minmax(0, 1fr) !important;
+  }
+
+  .table-shell.player-shell.player-shell-with-sheet {
+    grid-template-areas:
+      'header header'
+      'tools sheet'
+      'tools dock' !important;
+  }
+
+  .table-shell.player-shell.player-spellbook-open {
+    grid-template-areas:
+      'header header'
+      'tools stage'
+      'tools dock' !important;
+  }
+
+  .dm-mobile-initiative-slot,
+  .dm-mobile-map-tools,
+  .player-mobile-initiative-slot {
+    display: none !important;
+  }
+
+  /* HEADER */
+  .table-shell > .table-header {
+    grid-area: header !important;
+    height: 90px !important;
+    min-height: 90px !important;
+    display: grid !important;
+    grid-template-columns: 420px 330px 200px minmax(270px, 1fr) 190px !important;
+    align-items: stretch !important;
+    gap: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    border: 0 !important;
+    border-bottom: 3px solid #687d89 !important;
+    background:
+      radial-gradient(circle at 18% -35%, rgba(119, 158, 181, .17), transparent 30%),
+      linear-gradient(180deg, #27323a 0%, #121b21 55%, #070d11 100%) !important;
+    box-shadow:
+      inset 0 -1px 0 rgba(226, 240, 247, .16),
+      0 9px 24px rgba(0,0,0,.68) !important;
+  }
+
+  .table-shell > .table-header::before {
+    display: block !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 92px !important;
+    height: 90px !important;
+    background:
+      url('/assets/ui/frozen-necropolis/ornament-skull-top-left.png')
+      left top / 92px auto no-repeat !important;
+    opacity: 1 !important;
+  }
+
+  .table-shell > .table-header::after {
+    display: block !important;
+    right: 0 !important;
+    top: 0 !important;
+    width: 82px !important;
+    height: 90px !important;
+    background:
+      url('/assets/ui/frozen-necropolis/ornament-banner-right.png')
+      right top / auto 142px no-repeat !important;
+    opacity: .93 !important;
+  }
+
+  .frozen-brand-block {
+    min-width: 0 !important;
+    padding: 0 8px 0 82px !important;
+    align-items: center !important;
+    overflow: hidden !important;
+  }
+
+  .frozen-brand-block img {
+    width: 326px !important;
+    max-width: 326px !important;
+    height: 84px !important;
+    object-fit: contain !important;
+    object-position: left center !important;
+  }
+
+  .frozen-scene-selector {
+    align-self: center !important;
+    justify-self: start !important;
+    width: 312px !important;
+    max-width: 312px !important;
+    height: 52px !important;
+    margin: 0 0 0 5px !important;
+    padding: 5px 10px !important;
+    grid-template-columns: 36px minmax(0, 1fr) 22px !important;
+    border: 2px solid #4c575e !important;
+    border-radius: 2px !important;
+    background:
+      linear-gradient(180deg, #d9dbd7 0%, #c7c9c5 58%, #abb0af 100%) !important;
+    box-shadow:
+      inset 0 0 0 1px rgba(255,255,255,.45),
+      inset 0 -8px 16px rgba(59,72,80,.11),
+      0 4px 10px rgba(0,0,0,.45) !important;
+  }
+
+  .frozen-scene-copy small {
+    color: #516068 !important;
+    font-size: .61rem !important;
+    letter-spacing: .15em !important;
+  }
+
+  .frozen-scene-copy strong {
+    color: #172026 !important;
+    font-size: .98rem !important;
+    font-weight: 500 !important;
+  }
+
+  .frozen-reference-motto {
+    width: 100% !important;
+    padding: 0 12px !important;
+    overflow: hidden !important;
+    transform: rotate(-4deg) !important;
+    color: #d0d6d9 !important;
+    text-align: center !important;
+    text-shadow: 0 2px 3px #000 !important;
+  }
+
+  .frozen-reference-motto span,
+  .frozen-reference-motto b {
+    display: block !important;
+    white-space: nowrap !important;
+    font-family: Georgia, serif !important;
+    font-style: italic !important;
+    font-size: .98rem !important;
+    font-weight: 400 !important;
+    line-height: 1.02 !important;
+  }
+
+  .frozen-header-tools {
+    min-width: 0 !important;
+    justify-content: flex-end !important;
+    gap: 4px !important;
+    padding: 0 12px !important;
+    overflow: hidden !important;
+  }
+
+  .frozen-header-tools > button:not(.frozen-search-button) {
+    flex: 0 0 38px !important;
+    width: 38px !important;
+    height: 38px !important;
+    color: #d5dde1 !important;
+    border-color: transparent !important;
+    background: transparent !important;
+  }
+
+  .frozen-search-button {
+    flex: 0 0 158px !important;
+    min-width: 158px !important;
+    max-width: 158px !important;
+    height: 40px !important;
+    margin-left: 7px !important;
+    color: #9baab3 !important;
+    border: 1px solid #4f616c !important;
+    background: #091015 !important;
+  }
+
+  .frozen-table-identity {
+    min-width: 0 !important;
+    padding: 0 68px 0 12px !important;
+    align-content: center !important;
+    overflow: hidden !important;
+  }
+
+  .frozen-table-identity small,
+  .frozen-table-identity strong,
+  .frozen-join-code {
+    max-width: 112px !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+  }
+
+  /* LEFT RAIL — exact approved icon artwork */
+  .table-shell > .tool-rail {
+    grid-area: tools !important;
+    position: relative !important;
+    width: 120px !important;
+    min-width: 120px !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    border: 0 !important;
+    border-right: 3px solid #657985 !important;
+    background: linear-gradient(90deg, #0b1217, #172129 72%, #0a1014) !important;
+    box-shadow: 8px 0 20px rgba(0,0,0,.42) !important;
+  }
+
+  .table-shell > .tool-rail::before {
+    content: '' !important;
+    display: block !important;
+    position: absolute !important;
+    z-index: 1 !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 120px !important;
+    height: 515px !important;
+    pointer-events: none !important;
+    background:
+      url('/assets/ui/frozen-necropolis/left-tools-reference.png')
+      left top / 120px 515px no-repeat !important;
+    opacity: 1 !important;
+  }
+
+  .table-shell > .tool-rail::after {
+    content: '' !important;
+    display: block !important;
+    position: absolute !important;
+    z-index: 1 !important;
+    left: 0 !important;
+    bottom: 0 !important;
+    width: 120px !important;
+    height: min(311px, 34vh) !important;
+    pointer-events: none !important;
+    background:
+      url('/assets/ui/frozen-necropolis/ornament-hooded-left-clean.png')
+      left bottom / 120px auto no-repeat !important;
+    opacity: .96 !important;
+  }
+
+  .frozen-primary-tools {
+    position: relative !important;
+    z-index: 4 !important;
+    width: 120px !important;
+    height: 515px !important;
+    padding: 0 !important;
+    display: grid !important;
+    grid-template-rows: repeat(5, 103px) !important;
+    gap: 0 !important;
+  }
+
+  .frozen-primary-tools button {
+    position: relative !important;
+    display: block !important;
+    width: 120px !important;
+    height: 103px !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    color: transparent !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .frozen-primary-tools button > span,
+  .frozen-primary-tools button > b {
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
+  .frozen-primary-tools button:hover::after,
+  .frozen-primary-tools button.is-active::after {
+    content: '' !important;
+    display: block !important;
+    position: absolute !important;
+    inset: 7px 9px !important;
+    pointer-events: none !important;
+    border: 2px solid rgba(145,207,238,.82) !important;
+    border-radius: 4px !important;
+    background: rgba(105,184,224,.035) !important;
+    box-shadow:
+      0 0 11px rgba(82,180,230,.32),
+      inset 0 0 13px rgba(92,187,234,.08) !important;
+  }
+
+  .camera-rail-controls,
+  .tool-mode-group {
+    display: none !important;
+  }
+
+  /* BATTLEFIELD */
+  .table-shell > .battlefield {
+    grid-area: stage !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    padding: 7px 8px 7px !important;
+    overflow: hidden !important;
+    background: #03070a !important;
+  }
+
+  .table-shell .battlefield-frame {
+    position: relative !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    padding: 9px !important;
+    overflow: hidden !important;
+    border: 3px solid #687d89 !important;
+    background: #05090c !important;
+    box-shadow:
+      inset 0 0 0 2px #020507,
+      inset 0 0 0 5px rgba(212,235,246,.07),
+      0 12px 28px rgba(0,0,0,.65) !important;
+  }
+
+  .table-shell .battlefield-frame::before {
+    content: '' !important;
+    display: block !important;
+    position: absolute !important;
+    z-index: 70 !important;
+    top: -5px !important;
+    left: -3px !important;
+    right: -3px !important;
+    height: 18px !important;
+    pointer-events: none !important;
+    border: 0 !important;
+    background:
+      url('/assets/ui/frozen-necropolis/frozen-divider-clean.png')
+      center top / 100% 18px no-repeat !important;
+    opacity: .88 !important;
+  }
+
+  .pixi-map-host,
+  .pixi-map-host canvas {
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+  }
+
+  .pixi-map-host {
+    overflow: hidden !important;
+    background: #000 !important;
+  }
+
+  .pixi-map-host canvas {
+    display: block !important;
+  }
+
+  /* DM RIGHT RAIL */
+  .table-shell.dm-shell > .inspector {
+    grid-area: inspector !important;
+    position: relative !important;
+    width: 390px !important;
+    min-width: 390px !important;
+    min-height: 0 !important;
+    display: grid !important;
+    grid-template-rows: minmax(270px, 48%) 0 minmax(0, 52%) !important;
+    overflow: hidden !important;
+    border-left: 3px solid #667b87 !important;
+    background: #080e12 !important;
+    box-shadow: -8px 0 22px rgba(0,0,0,.42) !important;
+  }
+
+  .table-shell.dm-shell > .inspector::after {
+    display: block !important;
+    top: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 86px !important;
+    height: 100% !important;
+    background:
+      url('/assets/ui/frozen-necropolis/ornament-necromancer-right-clean.png')
+      right bottom / 86px auto no-repeat !important;
+    opacity: .92 !important;
+  }
+
+  .initiative-order-slot-right {
+    margin-right: 78px !important;
+    padding: 0 !important;
+    overflow: auto !important;
+    border-bottom: 2px solid #657b87 !important;
+    background: linear-gradient(180deg, #172229, #0a1014 78%) !important;
+  }
+
+  .initiative-order-slot-right::after {
+    display: none !important;
+  }
+
+  .initiative-order-slot-right .initiative-panel {
+    padding: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+  }
+
+  .initiative-order-slot-right .initiative-panel-heading,
+  .initiative-order-slot-right .initiative-console-header {
+    position: sticky !important;
+    z-index: 12 !important;
+    top: 0 !important;
+    margin: 0 !important;
+    min-height: 48px !important;
+    padding: 10px 12px !important;
+    color: #172026 !important;
+    border-bottom: 1px solid #727d82 !important;
+    background: linear-gradient(180deg, #dde0de, #c6cbca) !important;
+  }
+
+  .initiative-order-slot-right .initiative-panel-heading *,
+  .initiative-order-slot-right .initiative-console-header * {
+    color: #172026 !important;
+  }
+
+  .inspector-tabs {
+    display: none !important;
+  }
+
+  .inspector-body {
+    margin-right: 78px !important;
+    padding: 0 12px 14px !important;
+    overflow: auto !important;
+    color: var(--m26-ink) !important;
+    background: linear-gradient(180deg, #d9dcda, #c8cdcc) !important;
+  }
+
+  .inspector-body > section,
+  .inspector-body article,
+  .inspector-body div,
+  .inspector-body label,
+  .inspector-body p,
+  .inspector-body strong,
+  .inspector-body h1,
+  .inspector-body h2,
+  .inspector-body h3,
+  .inspector-body h4,
+  .inspector-body dt,
+  .inspector-body dd {
+    color: #182126 !important;
+  }
+
+  .inspector-body small,
+  .inspector-body em,
+  .inspector-body .empty-note {
+    color: #5b6970 !important;
+  }
+
+  .inspector-body .panel-heading {
+    position: sticky !important;
+    z-index: 10 !important;
+    top: 0 !important;
+    margin: 0 -12px 10px !important;
+    padding: 9px 12px !important;
+    border-bottom: 1px solid #7b8589 !important;
+    background: linear-gradient(180deg, #e2e2dd, #c9ccca) !important;
+  }
+
+  .inspector-body article,
+  .inspector-body .party-card,
+  .inspector-body .party-xp-award,
+  .inspector-body .party-member,
+  .inspector-body .health-panel,
+  .inspector-body .grid-editor,
+  .inspector-body .map-card,
+  .inspector-body .map-role-card,
+  .inspector-body .world-map-upload-block,
+  .inspector-body .session-card,
+  .inspector-body .rules-library-hero,
+  .inspector-body .rules-library-results,
+  .inspector-body .rules-library-detail,
+  .inspector-body .monster-card,
+  .inspector-body .actor-card,
+  .inspector-body .token-card {
+    color: #182126 !important;
+    border-color: #8c969a !important;
+    background: rgba(232,234,232,.90) !important;
+    box-shadow: none !important;
+  }
+
+  .inspector-body button,
+  .inspector-body input,
+  .inspector-body select,
+  .inspector-body textarea {
+    color: #172026 !important;
+    border-color: #78868d !important;
+    background: #eef0ee !important;
+  }
+
+  /* BOTTOM DOCK */
+  .table-shell > .bottom-dock.frozen-reference-dock {
+    grid-area: dock !important;
+    height: 240px !important;
+    min-height: 240px !important;
+    min-width: 0 !important;
+    display: grid !important;
+    grid-template-columns: 24% 23% 28% minmax(0, 25%) !important;
+    align-items: stretch !important;
+    gap: 4px !important;
+    padding: 5px 6px 8px !important;
+    overflow: hidden !important;
+    border-top: 3px solid #667b87 !important;
+    background: linear-gradient(180deg, #111a20, #05090c) !important;
+  }
+
+  .reference-rolls-panel,
+  .reference-chat-panel,
+  .reference-quickbar-panel,
+  .reference-world-panel {
+    min-width: 0 !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+    border: 2px solid #617786 !important;
+    box-shadow:
+      inset 0 0 0 1px rgba(224,239,247,.07),
+      inset 0 0 20px rgba(0,0,0,.22) !important;
+  }
+
+  .reference-rolls-panel {
+    border: 0 !important;
+    background:
+      url('/assets/ui/frozen-necropolis/bottom-left-reference.png')
+      center / 100% 100% no-repeat !important;
+    box-shadow: none !important;
+  }
+
+  .reference-chat-panel {
+    background: linear-gradient(180deg, #26343d 0 40px, #d7dbdc 40px 100%) !important;
+  }
+
+  .reference-chat-feed p,
+  .reference-chat-feed b,
+  .reference-chat-feed span {
+    color: #1d2428 !important;
+  }
+
+  .reference-quickbar-panel {
+    background: linear-gradient(180deg, #26343d 0 40px, #cbd3d6 40px 100%) !important;
+  }
+
+  .reference-world-panel {
+    background: linear-gradient(180deg, #26343d 0 38px, #cbd3d6 38px 100%) !important;
+  }
+
+  /* PLAYER SHEET / SPELLBOOK */
+  .table-shell.player-shell.player-shell-with-sheet > .player-sheet-panel {
+    grid-area: sheet !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    padding: 12px 18px 18px !important;
+    overflow: auto !important;
+    border: 0 !important;
+    background:
+      radial-gradient(circle at 50% 0%, rgba(80,156,199,.08), transparent 38%),
+      linear-gradient(180deg, #101b22, #050a0e 76%) !important;
+  }
+
+  .table-shell .player-sheet-panel .character-sheet,
+  .table-shell .player-sheet-panel .character-sheet-empty {
+    width: min(100%, 1320px) !important;
+    max-width: 1320px !important;
+    margin: 0 auto !important;
+  }
+
+  .table-shell .dm-spellbook-stage,
+  .table-shell .player-spellbook-stage {
+    grid-area: stage !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    overflow: auto !important;
+    background: linear-gradient(180deg, #091016, #04080c) !important;
+  }
+}
+
+/* Desktop pressure: keep reference layout intact, just shave widths. */
+@media (min-width: 1181px) and (max-width: 1500px) {
+  .table-shell.dm-shell {
+    grid-template-columns: 112px minmax(0, 1fr) 360px !important;
+  }
+
+  .table-shell.player-shell,
+  .table-shell.player-shell.player-shell-with-sheet,
+  .table-shell.player-shell.player-spellbook-open {
+    grid-template-columns: 112px minmax(0, 1fr) !important;
+  }
+
+  .table-shell > .table-header {
+    grid-template-columns: 350px 300px 160px minmax(230px, 1fr) 170px !important;
+  }
+
+  .frozen-brand-block {
+    padding-left: 74px !important;
+  }
+
+  .frozen-brand-block img {
+    width: 268px !important;
+    max-width: 268px !important;
+  }
+
+  .table-shell > .tool-rail,
+  .frozen-primary-tools,
+  .frozen-primary-tools button {
+    width: 112px !important;
+    min-width: 112px !important;
+  }
+
+  .table-shell > .tool-rail::before {
+    width: 112px !important;
+    background-size: 112px 515px !important;
+  }
+
+  .table-shell > .tool-rail::after {
+    width: 112px !important;
+    background-size: 112px auto !important;
+  }
+
+  .table-shell.dm-shell > .inspector {
+    width: 360px !important;
+    min-width: 360px !important;
+  }
+}
+
+/* ==========================================================================
+   TABLET / MOBILE — separate geometry, same frozen theme
+   ========================================================================== */
+
+@media (max-width: 1180px) {
+  html,
+  body,
+  #root {
+    overflow: hidden !important;
+  }
+
+  .table-shell,
+  .table-shell.dm-shell,
+  .table-shell.player-shell,
+  .table-shell.player-shell.player-shell-with-sheet,
+  .table-shell.player-shell.player-spellbook-open {
+    width: 100vw !important;
+    height: 100dvh !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    max-width: none !important;
+    max-height: none !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .table-shell.dm-shell {
+    display: grid !important;
+    grid-template:
+      'header' 64px
+      'mobiletools' 48px
+      'initiative' auto
+      'stage' minmax(0, 1fr)
+      'dock' 96px
+      / minmax(0, 1fr) !important;
+  }
+
+  .table-shell.player-shell,
+  .table-shell.player-shell.player-spellbook-open {
+    display: grid !important;
+    grid-template:
+      'header' 64px
+      'initiative' auto
+      'stage' minmax(0, 1fr)
+      'dock' 96px
+      / minmax(0, 1fr) !important;
+  }
+
+  .table-shell.player-shell.player-shell-with-sheet {
+    display: grid !important;
+    grid-template:
+      'header' 64px
+      'initiative' auto
+      'sheet' minmax(0, 1fr)
+      'dock' 96px
+      / minmax(0, 1fr) !important;
+  }
+
+  .table-shell > .tool-rail,
+  .table-shell > .inspector {
+    display: none !important;
+  }
+
+  /* MOBILE HEADER */
+  .table-shell > .table-header {
+    grid-area: header !important;
+    height: 64px !important;
+    min-height: 64px !important;
+    display: grid !important;
+    grid-template-columns: 118px minmax(0, 1fr) 106px !important;
+    align-items: center !important;
+    gap: 5px !important;
+    padding: 0 7px 0 0 !important;
+    overflow: hidden !important;
+    border-bottom: 2px solid #637986 !important;
+    background: linear-gradient(180deg, #253039, #0c141a) !important;
+  }
+
+  .table-shell > .table-header::before {
+    width: 42px !important;
+    height: 64px !important;
+    background-size: 42px auto !important;
+  }
+
+  .table-shell > .table-header::after {
+    display: none !important;
+  }
+
+  .frozen-brand-block {
+    min-width: 0 !important;
+    height: 64px !important;
+    padding: 0 3px 0 36px !important;
+    overflow: hidden !important;
+  }
+
+  .frozen-brand-block img {
+    width: 82px !important;
+    max-width: 82px !important;
+    height: 58px !important;
+    object-fit: contain !important;
+  }
+
+  .frozen-scene-selector {
+    width: 100% !important;
+    max-width: none !important;
+    height: 42px !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 3px 7px !important;
+    grid-template-columns: 22px minmax(0, 1fr) 14px !important;
+    gap: 4px !important;
+    border: 1px solid #627682 !important;
+    background: linear-gradient(180deg, #d8dddc, #b8c0c1) !important;
+  }
+
+  .frozen-scene-icon {
+    font-size: .9rem !important;
+  }
+
+  .frozen-scene-copy small {
+    font-size: .48rem !important;
+    letter-spacing: .10em !important;
+  }
+
+  .frozen-scene-copy strong {
+    font-size: .76rem !important;
+  }
+
+  .frozen-scene-chevron {
+    font-size: .8rem !important;
+  }
+
+  .frozen-reference-motto,
+  .frozen-header-tools {
+    display: none !important;
+  }
+
+  .frozen-table-identity {
+    min-width: 0 !important;
+    max-width: 106px !important;
+    padding: 0 !important;
+    align-content: center !important;
+    justify-items: start !important;
+    overflow: hidden !important;
+  }
+
+  .frozen-table-identity small {
+    display: none !important;
+  }
+
+  .frozen-table-identity strong,
+  .frozen-join-code {
+    max-width: 100px !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+    font-size: .72rem !important;
+  }
+
+  .frozen-leave-table {
+    height: 22px !important;
+    min-height: 22px !important;
+    padding: 0 6px !important;
+    margin-top: 2px !important;
+    font-size: .65rem !important;
+  }
+
+  /* MOBILE COMBAT / MAP TOOLS */
+  .dm-mobile-map-tools {
+    grid-area: mobiletools !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    min-width: 0 !important;
+    min-height: 48px !important;
+    padding: 5px 6px !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    border-bottom: 1px solid #506774 !important;
+    background: linear-gradient(180deg, #132129, #081116) !important;
+    scrollbar-width: none !important;
+  }
+
+  .dm-mobile-map-tools::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .dm-mobile-map-tools strong,
+  .dm-mobile-map-tools button {
+    flex: 0 0 auto !important;
+    min-width: 42px !important;
+    height: 36px !important;
+    margin: 0 !important;
+    padding: 0 8px !important;
+    color: #e9f4f8 !important;
+    border: 1px solid #567283 !important;
+    border-radius: 3px !important;
+    background: linear-gradient(180deg, #29404c, #10212a) !important;
+  }
+
+  .dm-mobile-map-tools button.is-active {
+    border-color: #92d1ef !important;
+    box-shadow: inset 0 -2px #6dc6ef !important;
+  }
+
+  .dm-mobile-initiative-slot {
+    grid-area: initiative !important;
+    display: block !important;
+    min-width: 0 !important;
+    max-height: 28dvh !important;
+    overflow: auto !important;
+    padding: 5px 6px !important;
+    border-bottom: 1px solid #526b79 !important;
+    background: linear-gradient(180deg, #111e26, #071015) !important;
+  }
+
+  .player-mobile-initiative-slot {
+    grid-area: initiative !important;
+    display: block !important;
+    min-width: 0 !important;
+    max-height: 26dvh !important;
+    overflow: auto !important;
+    padding: 5px 6px !important;
+    border-bottom: 1px solid #526b79 !important;
+    background: linear-gradient(180deg, #111e26, #071015) !important;
+  }
+
+  .dm-mobile-initiative-slot .initiative-panel,
+  .player-mobile-initiative-slot .initiative-panel {
+    width: 100% !important;
+    max-height: none !important;
+    color: #eaf4f8 !important;
+    border-color: #536d7c !important;
+    background: #0a151b !important;
+  }
+
+  /* MOBILE MAP / SHEET / SPELLBOOK */
+  .table-shell > .battlefield {
+    grid-area: stage !important;
+    display: block !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    padding: 4px !important;
+    overflow: hidden !important;
+    background: #020507 !important;
+  }
+
+  .table-shell .battlefield-frame {
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    padding: 4px !important;
+    overflow: hidden !important;
+    border: 2px solid #617985 !important;
+    border-radius: 0 !important;
+    background: #020507 !important;
+  }
+
+  .battlefield-frame::before,
+  .battlefield-frame::after {
+    display: none !important;
+  }
+
+  .pixi-map-host,
+  .pixi-map-host canvas {
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+  }
+
+  .table-shell.player-shell.player-shell-with-sheet > .battlefield {
+    display: none !important;
+  }
+
+  .table-shell.player-shell.player-shell-with-sheet > .player-sheet-panel {
+    grid-area: sheet !important;
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    padding: 8px !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    border: 0 !important;
+    background: linear-gradient(180deg, #101b22, #050a0e) !important;
+  }
+
+  .table-shell .player-sheet-panel .character-sheet,
+  .table-shell .player-sheet-panel .character-sheet-empty {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 10px !important;
+  }
+
+  .table-shell .dm-spellbook-stage,
+  .table-shell .player-spellbook-stage {
+    grid-area: stage !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    overflow: auto !important;
+    padding: 5px !important;
+    background: linear-gradient(180deg, #091016, #04080c) !important;
+  }
+
+  /* MOBILE BOTTOM DOCK — compact, no desktop panel compression */
+  .table-shell > .bottom-dock.frozen-reference-dock {
+    grid-area: dock !important;
+    height: 96px !important;
+    min-height: 96px !important;
+    min-width: 0 !important;
+    display: grid !important;
+    grid-template-columns: 18% 23% 39% 20% !important;
+    align-items: stretch !important;
+    gap: 3px !important;
+    padding: 4px !important;
+    overflow: hidden !important;
+    border-top: 2px solid #617985 !important;
+    background: linear-gradient(180deg, #101a21, #05090c) !important;
+  }
+
+  .bottom-dock.frozen-reference-dock::after {
+    display: none !important;
+  }
+
+  .reference-rolls-panel,
+  .reference-chat-panel,
+  .reference-quickbar-panel,
+  .reference-world-panel {
+    min-width: 0 !important;
+    min-height: 0 !important;
+    height: 100% !important;
+    overflow: hidden !important;
+    border: 1px solid #526c7a !important;
+    border-radius: 2px !important;
+  }
+
+  .reference-rolls-panel {
+    background: linear-gradient(180deg, #28363f, #0d151a) !important;
+  }
+
+  .reference-rolls-panel::after {
+    content: 'ROLLS';
+    position: absolute;
+    inset: auto 0 8px;
+    z-index: 1;
+    color: #d8e5eb;
+    text-align: center;
+    font: .62rem var(--label);
+    letter-spacing: .08em;
+    pointer-events: none;
+  }
+
+  .reference-rolls-hitbox {
+    z-index: 4 !important;
+  }
+
+  .reference-roll-result {
+    z-index: 5 !important;
+    inset: 8px 8px auto auto !important;
+  }
+
+  .reference-chat-panel {
+    background: linear-gradient(180deg, #273740 0 28px, #d5dbdc 28px 100%) !important;
+  }
+
+  .reference-chat-panel > header {
+    min-height: 28px !important;
+    padding: 4px 6px !important;
+  }
+
+  .reference-chat-feed {
+    padding: 4px 6px !important;
+    overflow: hidden !important;
+  }
+
+  .reference-chat-feed p {
+    margin: 0 !important;
+    font-size: .62rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .reference-chat-feed p:not(:first-child) {
+    display: none !important;
+  }
+
+  .reference-chat-input {
+    display: none !important;
+  }
+
+  .reference-quickbar-panel {
+    background: linear-gradient(180deg, #273740 0 28px, #cbd4d7 28px 100%) !important;
+  }
+
+  .reference-quickbar-panel > header {
+    min-height: 28px !important;
+    padding: 4px 6px !important;
+  }
+
+  .reference-quick-actions {
+    display: grid !important;
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+    gap: 3px !important;
+    padding: 5px !important;
+  }
+
+  .reference-quick-actions .quick-slot {
+    min-width: 0 !important;
+    min-height: 38px !important;
+    padding: 0 !important;
+    font-size: 1rem !important;
+  }
+
+  .reference-quick-empty {
+    display: none !important;
+  }
+
+  .reference-world-panel {
+    background: linear-gradient(180deg, #273740 0 28px, #cbd4d7 28px 100%) !important;
+  }
+
+  .reference-world-panel .world-map-launcher {
+    width: 100% !important;
+    min-width: 0 !important;
+    height: 100% !important;
+    grid-template-columns: 42px minmax(0, 1fr) 18px !important;
+    gap: 4px !important;
+    padding: 4px !important;
+    border: 0 !important;
+    background: transparent !important;
+  }
+
+  .reference-world-panel .world-map-launcher > img,
+  .reference-world-panel .world-map-launcher-empty {
+    width: 42px !important;
+    height: 42px !important;
+  }
+
+  .reference-world-panel .world-map-launcher-copy small {
+    font-size: .48rem !important;
+  }
+
+  .reference-world-panel .world-map-launcher-copy strong,
+  .reference-world-panel .world-map-launcher-copy em {
+    font-size: .58rem !important;
+  }
+
+  /* MOBILE CHARACTER/SPELL CONTENT */
+  .table-shell .character-sheet,
+  .table-shell .character-sheet-empty,
+  .table-shell .dm-spellbook-panel,
+  .table-shell .player-spellbook-panel,
+  .table-shell .dm-spellbook-layout,
+  .table-shell .player-spellbook-layout,
+  .table-shell .dm-spellbook-browser,
+  .table-shell .player-spellbook-list,
+  .table-shell .player-spellbook-detail,
+  .table-shell .dm-spellbook-detail {
+    color: #edf5f8 !important;
+    border-color: #56707d !important;
+    background: #091116 !important;
+  }
+
+  .table-shell .character-sheet input,
+  .table-shell .character-sheet select,
+  .table-shell .character-sheet textarea,
+  .table-shell .dm-spellbook-panel input,
+  .table-shell .dm-spellbook-panel select,
+  .table-shell .player-spellbook-panel input,
+  .table-shell .player-spellbook-panel select,
+  .table-shell .player-spellbook-panel textarea {
+    color: #eef6f9 !important;
+    border-color: #607681 !important;
+    background: #060d12 !important;
+  }
+
+  .table-shell .character-sheet button,
+  .table-shell .dm-spellbook-panel button,
+  .table-shell .player-spellbook-panel button {
+    color: #edf8fc !important;
+    border-color: #6c9fb8 !important;
+    background: linear-gradient(180deg, #294958, #142c37) !important;
+  }
+}
+
+/* Phone: prioritize the map and live quick actions. */
+@media (max-width: 760px) {
+  .table-shell.dm-shell {
+    grid-template:
+      'header' 58px
+      'mobiletools' 46px
+      'initiative' auto
+      'stage' minmax(0, 1fr)
+      'dock' 78px
+      / minmax(0, 1fr) !important;
+  }
+
+  .table-shell.player-shell,
+  .table-shell.player-shell.player-spellbook-open {
+    grid-template:
+      'header' 58px
+      'initiative' auto
+      'stage' minmax(0, 1fr)
+      'dock' 78px
+      / minmax(0, 1fr) !important;
+  }
+
+  .table-shell.player-shell.player-shell-with-sheet {
+    grid-template:
+      'header' 58px
+      'initiative' auto
+      'sheet' minmax(0, 1fr)
+      'dock' 78px
+      / minmax(0, 1fr) !important;
+  }
+
+  .table-shell > .table-header {
+    height: 58px !important;
+    min-height: 58px !important;
+    grid-template-columns: 94px minmax(0, 1fr) 78px !important;
+  }
+
+  .table-shell > .table-header::before {
+    width: 34px !important;
+    height: 58px !important;
+    background-size: 34px auto !important;
+  }
+
+  .frozen-brand-block {
+    height: 58px !important;
+    padding-left: 29px !important;
+  }
+
+  .frozen-brand-block img {
+    width: 65px !important;
+    max-width: 65px !important;
+    height: 52px !important;
+  }
+
+  .frozen-scene-selector {
+    height: 38px !important;
+    grid-template-columns: 18px minmax(0, 1fr) 12px !important;
+    padding-inline: 5px !important;
+  }
+
+  .frozen-scene-copy small {
+    display: none !important;
+  }
+
+  .frozen-scene-copy strong {
+    font-size: .7rem !important;
+  }
+
+  .frozen-table-identity {
+    max-width: 78px !important;
+  }
+
+  .frozen-table-identity strong,
+  .frozen-join-code {
+    max-width: 76px !important;
+    font-size: .62rem !important;
+  }
+
+  .dm-mobile-initiative-slot,
+  .player-mobile-initiative-slot {
+    max-height: 22dvh !important;
+  }
+
+  .table-shell > .bottom-dock.frozen-reference-dock {
+    height: 78px !important;
+    min-height: 78px !important;
+    grid-template-columns: 70px minmax(0, 1fr) 72px !important;
+    gap: 3px !important;
+  }
+
+  .reference-chat-panel {
+    display: none !important;
+  }
+
+  .reference-quickbar-panel > header {
+    display: none !important;
+  }
+
+  .reference-quick-actions {
+    height: 100% !important;
+    align-items: center !important;
+    padding: 4px !important;
+  }
+
+  .reference-quick-actions .quick-slot {
+    min-height: 54px !important;
+    height: 54px !important;
+    font-size: 1.08rem !important;
+  }
+
+  .reference-world-panel .world-map-launcher {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    place-items: center !important;
+  }
+
+  .reference-world-panel .world-map-launcher > img,
+  .reference-world-panel .world-map-launcher-empty {
+    width: 52px !important;
+    height: 52px !important;
+  }
+
+  .reference-world-panel .world-map-launcher-copy,
+  .reference-world-panel .world-map-launcher-expand {
+    display: none !important;
+  }
+
+  .table-shell .player-sheet-panel .character-identity-grid,
+  .table-shell .dm-spellbook-facts,
+  .table-shell .player-spellbook-facts {
+    grid-template-columns: 1fr !important;
+  }
+
+  .table-shell .player-sheet-panel .character-combat-strip,
+  .table-shell .player-sheet-panel .ability-score-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}

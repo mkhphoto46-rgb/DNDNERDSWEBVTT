@@ -1,0 +1,517 @@
+/*
+ * M2.4 — Shell refinement / reference convergence.
+ *
+ * Purpose:
+ * - tighten the desktop shell to the approved Frozen Necropolis reference
+ * - stop the layout from collapsing into broken/cropped states
+ * - restore the icy palette in player sheet / spellbook views
+ * - bring the bottom dock much closer to the reference artwork
+ *
+ * Scope:
+ * visual/layout only. No combat, socket, dice, token, or rules logic changes.
+ */
+
+html,
+body,
+#root {
+  min-width: 1672px;
+  min-height: 941px;
+  overflow: auto;
+  background: #04080b;
+}
+
+.table-shell {
+  width: max(100vw, 1672px) !important;
+  min-width: 1672px !important;
+  min-height: 941px !important;
+  height: max(100dvh, 941px) !important;
+  overflow: hidden !important;
+}
+
+@media (min-width: 1181px) {
+  .table-shell.dm-shell {
+    grid-template:
+      'header header header' 92px
+      'tools stage inspector' minmax(0, 1fr)
+      'tools dock dock' 252px
+      / 118px minmax(0, 1fr) 392px !important;
+  }
+
+  .table-shell.player-shell,
+  .table-shell.player-shell.player-shell-with-sheet,
+  .table-shell.player-shell.player-spellbook-open {
+    grid-template:
+      'header header' 92px
+      'tools stage' minmax(0, 1fr)
+      'tools dock' 252px
+      / 118px minmax(0, 1fr) !important;
+  }
+}
+
+.table-shell::before {
+  z-index: 880 !important;
+}
+
+.table-shell::after {
+  display: none !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Header */
+/* -------------------------------------------------------------------------- */
+
+.table-shell > .table-header {
+  height: 92px !important;
+  min-height: 92px !important;
+  grid-template-columns: 406px 318px 208px minmax(0, 1fr) 250px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  border-bottom: 3px solid #667a86 !important;
+  background:
+    radial-gradient(circle at 18% -45%, rgba(122, 170, 195, .15), transparent 34%),
+    linear-gradient(180deg, #273038 0%, #121a20 56%, #070d11 100%) !important;
+  box-shadow:
+    inset 0 -1px 0 rgba(233, 242, 248, .15),
+    0 9px 24px rgba(0, 0, 0, .64) !important;
+}
+
+.table-shell > .table-header::before {
+  width: 98px !important;
+  height: 92px !important;
+  background-size: 98px auto !important;
+}
+
+.table-shell > .table-header::after {
+  width: 82px !important;
+  height: 92px !important;
+  background-size: auto 140px !important;
+  opacity: .94 !important;
+}
+
+.frozen-brand-block {
+  padding: 0 8px 0 78px !important;
+}
+
+.frozen-brand-block img {
+  width: 342px !important;
+  max-width: 342px !important;
+  height: 84px !important;
+}
+
+.frozen-scene-selector {
+  align-self: center !important;
+  justify-self: start !important;
+  width: 312px !important;
+  max-width: 312px !important;
+  height: 50px !important;
+  margin: 0 8px 0 6px !important;
+  border: 2px solid #50585e !important;
+  box-shadow:
+    inset 0 0 0 2px rgba(255,255,255,.19),
+    0 4px 10px rgba(0,0,0,.44) !important;
+}
+
+.frozen-reference-motto {
+  align-self: center !important;
+  justify-self: center !important;
+  margin: 0 !important;
+  font-size: 1.04rem !important;
+  letter-spacing: .01em !important;
+}
+
+.frozen-header-tools {
+  align-self: center !important;
+  justify-self: end !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  padding-right: 14px !important;
+}
+
+.frozen-header-tools > button:not(.frozen-search-button) {
+  width: 22px !important;
+  min-width: 22px !important;
+  height: 22px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #e8edef !important;
+  font-size: 1rem !important;
+}
+
+.frozen-search-button {
+  width: 164px !important;
+  min-width: 164px !important;
+  height: 40px !important;
+  border: 1px solid #475763 !important;
+  background: rgba(7, 13, 18, .92) !important;
+}
+
+.frozen-table-identity {
+  z-index: 6 !important;
+  align-self: center !important;
+  justify-self: end !important;
+  min-width: 0 !important;
+  padding: 0 80px 0 0 !important;
+  gap: 2px !important;
+  text-align: left !important;
+}
+
+.frozen-table-identity small {
+  font-size: .72rem !important;
+}
+
+.frozen-table-identity strong {
+  font-size: 1rem !important;
+}
+
+.frozen-join-code {
+  font-size: .88rem !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Left rail */
+/* -------------------------------------------------------------------------- */
+
+.table-shell > .tool-rail {
+  width: 118px !important;
+  min-width: 118px !important;
+  border-right: 3px solid #657985 !important;
+}
+
+.table-shell > .tool-rail::before,
+.table-shell > .tool-rail::after {
+  left: -1px !important;
+}
+
+.frozen-primary-tools {
+  width: 118px !important;
+}
+
+.frozen-primary-tools button {
+  width: 118px !important;
+}
+
+.frozen-primary-tools button:hover::after,
+.frozen-primary-tools button.is-active::after {
+  inset: 7px 10px !important;
+}
+
+/* Keep desktop shell clean. These controls are still available in logic, but
+   visually they were harming the reference match. */
+@media (min-width: 1181px) {
+  .camera-rail-controls,
+  .tool-mode-group,
+  .dm-mobile-map-tools,
+  .dm-mobile-initiative-slot,
+  .player-mobile-initiative-slot {
+    display: none !important;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Battlefield / map */
+/* -------------------------------------------------------------------------- */
+
+.table-shell > .battlefield {
+  min-width: 0 !important;
+  min-height: 0 !important;
+  padding: 8px 10px 8px 8px !important;
+  overflow: hidden !important;
+}
+
+.table-shell .battlefield-frame {
+  height: 100% !important;
+  min-height: 0 !important;
+  padding: 9px !important;
+}
+
+.pixi-map-host {
+  display: flex !important;
+  align-items: stretch !important;
+  justify-content: stretch !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.pixi-map-host canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Right rail */
+/* -------------------------------------------------------------------------- */
+
+.table-shell.dm-shell > .inspector {
+  width: 392px !important;
+  min-width: 392px !important;
+  grid-template-rows: minmax(0, 300px) 0 minmax(0, 1fr) !important;
+}
+
+.table-shell.dm-shell > .inspector::after {
+  width: 84px !important;
+}
+
+.initiative-order-slot-right {
+  margin-right: 76px !important;
+}
+
+.initiative-order-slot-right .initiative-panel-heading,
+.initiative-order-slot-right .initiative-console-header {
+  min-height: 54px !important;
+  padding: 10px 12px !important;
+}
+
+.initiative-order-slot-right .initiative-row,
+.initiative-order-slot-right .initiative-participant-row,
+.initiative-order-slot-right .initiative-selection-group,
+.initiative-order-slot-right .initiative-console-group,
+.initiative-order-slot-right .initiative-player-roll-card,
+.initiative-order-slot-right .initiative-player-wait-card,
+.initiative-order-slot-right .initiative-roster-warning {
+  margin: 0 8px 4px !important;
+}
+
+.inspector-tabs {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  margin-right: 76px !important;
+  border-bottom: 1px solid #8a9598 !important;
+  background: linear-gradient(180deg, #d8dcda, #c8cdcb) !important;
+}
+
+.inspector-tabs button {
+  min-height: 34px !important;
+  font-size: .82rem !important;
+  color: #1c252b !important;
+  border-right: 1px solid #8c9597 !important;
+  background: transparent !important;
+}
+
+.inspector-tabs button.is-active {
+  background: linear-gradient(180deg, #eef3f5, #dce1e1) !important;
+}
+
+.inspector-body {
+  margin-right: 76px !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Bottom dock */
+/* -------------------------------------------------------------------------- */
+
+.table-shell > .bottom-dock.frozen-reference-dock {
+  height: 252px !important;
+  min-height: 252px !important;
+  grid-template-columns: 365px 335px minmax(0, 1fr) 360px !important;
+  justify-content: stretch !important;
+  gap: 4px !important;
+  padding: 5px 6px 8px !important;
+}
+
+.reference-rolls-panel {
+  position: relative !important;
+  overflow: hidden !important;
+  border: 0 !important;
+  background: url('/assets/ui/frozen-necropolis/bottom-left-reference.png') left top / 100% 100% no-repeat !important;
+  box-shadow: none !important;
+}
+
+.reference-rolls-panel > * {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+.reference-rolls-hitbox {
+  inset: 0 !important;
+}
+
+.reference-roll-result {
+  top: 12px !important;
+  right: 12px !important;
+  color: #12181d !important;
+}
+
+.reference-chat-panel {
+  position: relative !important;
+  overflow: hidden !important;
+  border: 0 !important;
+  background: url('/assets/ui/frozen-necropolis/bottom-chat-reference.png') left top / 100% 100% no-repeat !important;
+  box-shadow: none !important;
+}
+
+.reference-chat-panel > * {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+.reference-chat-panel > header {
+  opacity: 0 !important;
+}
+
+.reference-chat-feed {
+  margin: 42px 12px 8px 20px !important;
+  padding: 0 !important;
+  max-height: 124px !important;
+  background: transparent !important;
+  border: 0 !important;
+}
+
+.reference-chat-feed p {
+  margin: 0 0 7px !important;
+  color: #1d2428 !important;
+  background: transparent !important;
+}
+
+.reference-chat-feed b,
+.reference-chat-feed span {
+  color: #1b2227 !important;
+}
+
+.reference-chat-input {
+  position: absolute !important;
+  left: 18px !important;
+  right: 18px !important;
+  bottom: 14px !important;
+  min-height: 38px !important;
+  opacity: 0 !important;
+}
+
+.reference-quickbar-panel,
+.reference-world-panel {
+  border: 2px solid #617786 !important;
+}
+
+.reference-quickbar-panel > header,
+.reference-world-panel > header,
+.reference-quickbar-panel .world-map-launcher-label {
+  background: linear-gradient(180deg, #2a3a43, #202d34) !important;
+}
+
+.reference-quick-actions .quick-slot,
+.reference-quick-empty span {
+  min-height: 48px !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Player sheet / spellbook — remove remaining brown and lock icy palette */
+/* -------------------------------------------------------------------------- */
+
+.table-shell.player-shell.player-shell-with-sheet > .player-sheet-panel,
+.table-shell .dm-spellbook-stage,
+.table-shell .player-spellbook-stage {
+  background: linear-gradient(180deg, #091016, #04080c) !important;
+}
+
+.table-shell .character-sheet,
+.table-shell .character-sheet-empty,
+.table-shell .dm-spellbook-panel,
+.table-shell .player-spellbook-panel,
+.table-shell .dm-spellbook-layout,
+.table-shell .player-spellbook-layout,
+.table-shell .dm-spellbook-browser,
+.table-shell .player-spellbook-list,
+.table-shell .player-spellbook-detail,
+.table-shell .dm-spellbook-detail {
+  color: #edf4f7 !important;
+  border-color: #5f7480 !important;
+  background:
+    radial-gradient(circle at 50% -10%, rgba(113, 169, 200, .07), transparent 26%),
+    linear-gradient(180deg, #0c1419, #04080b) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(205, 230, 241, .06),
+    0 12px 26px rgba(0,0,0,.45) !important;
+}
+
+.table-shell .character-sheet-header,
+.table-shell .dm-spellbook-header,
+.table-shell .player-spellbook-header,
+.table-shell .player-spellbook-toolbar,
+.table-shell .dm-spell-title-row {
+  color: #f1f7fa !important;
+  border-bottom: 1px solid #627784 !important;
+  background: linear-gradient(180deg, #223038, #111a20) !important;
+}
+
+.table-shell .panel-heading,
+.table-shell .character-progression-card,
+.table-shell .character-background-card,
+.table-shell .character-defense-card,
+.table-shell .ability-score-card,
+.table-shell .character-feature-card,
+.table-shell .character-notes,
+.table-shell .character-rule-detail,
+.table-shell .character-attack-editor,
+.table-shell .dm-spellbook-facts > div,
+.table-shell .player-spellbook-facts > div,
+.table-shell .dm-spellbook-list button,
+.table-shell .player-spellbook-list button,
+.table-shell .dm-spell-description,
+.table-shell .player-spellbook-description {
+  color: #ecf4f7 !important;
+  border-color: #526b78 !important;
+  background: rgba(11, 19, 24, .82) !important;
+}
+
+.table-shell .character-sheet input,
+.table-shell .character-sheet select,
+.table-shell .character-sheet textarea,
+.table-shell .dm-spellbook-panel input,
+.table-shell .dm-spellbook-panel select,
+.table-shell .player-spellbook-panel input,
+.table-shell .player-spellbook-panel select,
+.table-shell .player-spellbook-panel textarea {
+  color: #edf4f7 !important;
+  border-color: #5f7480 !important;
+  background: #091116 !important;
+}
+
+.table-shell .character-sheet small,
+.table-shell .character-sheet em,
+.table-shell .character-sheet .empty-note,
+.table-shell .dm-spellbook-panel small,
+.table-shell .player-spellbook-panel small {
+  color: #9fb4bf !important;
+}
+
+.table-shell .character-sheet .primary-button,
+.table-shell .character-sheet .secondary-button,
+.table-shell .dm-spellbook-panel button,
+.table-shell .player-spellbook-panel button,
+.table-shell .spell-cast-button,
+.table-shell .dm-spell-sfx-button {
+  color: #eff8fc !important;
+  border-color: #7cb9d6 !important;
+  background: linear-gradient(180deg, #325364, #162f3c) !important;
+}
+
+.table-shell .character-sheet .primary-button:hover,
+.table-shell .character-sheet .secondary-button:hover,
+.table-shell .dm-spellbook-panel button:hover,
+.table-shell .player-spellbook-panel button:hover,
+.table-shell .spell-cast-button:hover,
+.table-shell .dm-spell-sfx-button:hover {
+  background: linear-gradient(180deg, #40677b, #214455) !important;
+}
+
+.table-shell .character-spell-tags span,
+.table-shell .dm-spellbook-tags span,
+.table-shell .character-feature-entry.is-granted,
+.table-shell .character-spell-prepared {
+  color: #f2fbff !important;
+  border-color: #5c92ae !important;
+  background: rgba(46, 88, 111, .72) !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Keep desktop exact. Do not collapse the shell underneath the reference size. */
+/* -------------------------------------------------------------------------- */
+
+@media (max-width: 1671px) {
+  .table-shell {
+    width: 1672px !important;
+  }
+}
