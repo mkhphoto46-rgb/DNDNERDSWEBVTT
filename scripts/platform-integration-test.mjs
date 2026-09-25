@@ -482,8 +482,6 @@ try {
         ...actor.characterSheet,
         className: 'Wizard',
         experiencePoints: 999999,
-        knownSpellIds: ['fireball'],
-        preparedSpellIds: ['fireball'],
         notes: 'survives-server-restart',
       },
     },

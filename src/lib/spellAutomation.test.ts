@@ -17,6 +17,7 @@ test('Bless target count scales with upcast level and uses an Action', () => {
       rangeFeet: 30,
       relation: 'any',
       radiusFeet: null,
+      areaShape: null,
       label: 'Choose up to 3 creatures within 30 ft',
     },
   )
@@ -41,6 +42,7 @@ test('Mass Cure Wounds exposes point-area targeting foundation', () => {
   assert.equal(rule.radiusFeet, 30)
   assert.equal(rule.maxTargets, 6)
   assert.equal(rule.rangeFeet, 60)
+  assert.equal(rule.areaShape, 'sphere')
 })
 
 

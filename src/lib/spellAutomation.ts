@@ -1,4 +1,4 @@
-import { DAMAGE_TYPES, type ActorAbility } from '../types/actor'
+import { DAMAGE_TYPES, type ActorAbility, type DamageType } from '../types/actor'
 import { SRD_SPELLS, type SrdSpellRecord } from '../data/srdSpells.generated'
 
 export type ActionCost = 'action' | 'bonus-action' | 'reaction' | 'long-cast' | 'none'
@@ -21,7 +21,7 @@ const NUMBER_WORDS: Record<string, number> = {
   six: 6, seven: 7, eight: 8, nine: 9, ten: 10,
 }
 const ABILITIES = new Set<ActorAbility>(['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'])
-const DAMAGE_TYPE_SET = new Set<string>(DAMAGE_TYPES)
+const DAMAGE_TYPE_SET = new Set<DamageType>(DAMAGE_TYPES)
 
 function rangeFeetFromText(value: string): number | null {
   const text = value.trim().toLowerCase()
@@ -61,12 +61,23 @@ export function spellSaveAbility(spell: Pick<SrdSpellRecord, 'saveAbility' | 'de
   return ABILITIES.has(ability) ? ability : null
 }
 
-export function spellDamageType(spell: Pick<SrdSpellRecord, 'damageType' | 'description'>): string | null {
+export function spellDamageType(
+  spell: Pick<SrdSpellRecord, 'damageType' | 'description'>,
+): DamageType | null {
   const direct = spell.damageType.trim().toLowerCase()
-  if (DAMAGE_TYPE_SET.has(direct)) return direct
-  const match = spell.description.match(/\b(?:\d+d\d+|damage)\s+(acid|bludgeoning|cold|fire|force|lightning|necrotic|piercing|poison|psychic|radiant|slashing|thunder)\s+damage\b/i)
+  if (DAMAGE_TYPE_SET.has(direct as DamageType)) {
+    return direct as DamageType
+  }
+
+  const match =
+    spell.description.match(/\b(?:\d+d\d+|damage)\s+(acid|bludgeoning|cold|fire|force|lightning|necrotic|piercing|poison|psychic|radiant|slashing|thunder)\s+damage\b/i)
     ?? spell.description.match(/\b(acid|bludgeoning|cold|fire|force|lightning|necrotic|piercing|poison|psychic|radiant|slashing|thunder) damage\b/i)
-  return match && DAMAGE_TYPE_SET.has(match[1].toLowerCase()) ? match[1].toLowerCase() : null
+
+  const matchedType = match?.[1]?.toLowerCase()
+
+  return matchedType && DAMAGE_TYPE_SET.has(matchedType as DamageType)
+    ? matchedType as DamageType
+    : null
 }
 
 export function spellDamageFormula(
@@ -176,7 +187,7 @@ export function spellTargetRule(
   const pointAreaText = /point you can see within range|point within range/i.test(description)
   if (area && pointAreaText) {
     return {
-      mode: 'point-area', minTargets: 0, maxTargets: 999, rangeFeet,
+      mode: 'point-area', minTargets: 0, maxTargets: explicitCount ?? 999, rangeFeet,
       relation: 'any', radiusFeet: area.size, areaShape: area.shape,
       label: `${area.size}-ft ${area.shape} area${explicitCount ? ` · up to ${explicitCount} chosen creatures` : ''}`,
     }
@@ -192,14 +203,18 @@ export function spellTargetRule(
   }
 
   if (area) {
-    return { mode: 'point-area', minTargets: 0, maxTargets: 999, rangeFeet, relation: 'any', radiusFeet: area.size, areaShape: area.shape, label: `${area.size}-ft ${area.shape} area` }
+    return { mode: 'point-area', minTargets: 0, maxTargets: explicitCount ?? 999, rangeFeet, relation: 'any', radiusFeet: area.size, areaShape: area.shape, label: `${area.size}-ft ${area.shape} area` }
   }
 
   return { mode: 'none', minTargets: 0, maxTargets: 0, rangeFeet, relation: 'any', radiusFeet: null, areaShape: null, label: 'No map target required' }
 }
 
+const AUTOMATED_SPELL_RULE_IDS = new Set([
+  'bless',
+])
+
 export function spellHasAutomatedRule(spellId: string): boolean {
-  return SRD_SPELLS.some((spell) => spell.id === spellId)
+  return AUTOMATED_SPELL_RULE_IDS.has(spellId)
 }
 
 export function spellRuleLabel(spellId: string): string {
